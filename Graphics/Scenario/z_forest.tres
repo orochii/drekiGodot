@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cwgpwhrxk2our"]
+
+[ext_resource type="Texture2D" uid="uid://dto2uasi4t1mv" path="res://Graphics/Texture/z_forest5.png" id="1_bocce"]
+
+[resource]
+shading_mode = 0
+albedo_texture = ExtResource("1_bocce")
+texture_filter = 0

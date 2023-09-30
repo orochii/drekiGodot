@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SpritesheetCollection" load_steps=8 format=3 uid="uid://bjkldq6cqbd0"]
+
+[ext_resource type="Script" path="res://Core/Data/SpritesheetCollection.gd" id="1_0hq6p"]
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/hikari_charset.png" id="1_gnm82"]
+[ext_resource type="Texture2D" uid="uid://pekmdwl2rjpu" path="res://Graphics/hikari_charset_diag.png" id="2_72vt7"]
+[ext_resource type="Texture2D" uid="uid://cr4tl5rsiv4vw" path="res://Graphics/hikari_charset_blink.png" id="3_q1wv4"]
+[ext_resource type="Texture2D" uid="uid://bbwdypg8u3wir" path="res://Graphics/hikari_charset_blink_diag.png" id="4_347bu"]
+[ext_resource type="Script" path="res://Core/Data/Spritesheet.gd" id="5_52o3i"]
+
+[sub_resource type="Resource" id="Resource_4lfkq"]
+script = ExtResource("5_52o3i")
+name = &"base"
+base = ExtResource("1_gnm82")
+baseDiag = ExtResource("2_72vt7")
+blink = ExtResource("3_q1wv4")
+blinkDiag = ExtResource("4_347bu")
+blinkRate = Vector2(2.1, 0.15)
+fps = 8
+totalFrames = 4
+
+[resource]
+script = ExtResource("1_0hq6p")
+collection = Array[ExtResource("5_52o3i")]([SubResource("Resource_4lfkq")])

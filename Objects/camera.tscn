@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh3e8psdme8d3"]
+
+[ext_resource type="Script" path="res://Core/CameraControl.gd" id="1_wbsge"]
+
+[node name="Camera" type="Node3D" node_paths=PackedStringArray("camera")]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 0, 0)
+script = ExtResource("1_wbsge")
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+projection = 1
+current = true
+size = 16.875

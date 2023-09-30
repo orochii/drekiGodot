@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cnku7xpjj4bmw"]
+
+[ext_resource type="Texture2D" uid="uid://dto2uasi4t1mv" path="res://Graphics/Texture/z_forest5.png" id="1_3e61j"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_3e61j")
+texture_filter = 0
