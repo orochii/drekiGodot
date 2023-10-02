@@ -6,10 +6,10 @@ func _ready():
 
 func execute():
 	Global.Ev.add(self)
-	await run()
+	await _run()
 	Global.Ev.remove(self)
 
-func run():
+func _run():
 	await Global.UI.Message.showText("hello world!")
 	await Global.Ev.wait(2)
 	await Global.UI.Message.showText("second text?")
