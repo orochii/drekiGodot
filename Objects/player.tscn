@@ -1,56 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpxohgu0qmlrt"]
+[gd_scene load_steps=8 format=3 uid="uid://dpxohgu0qmlrt"]
 
 [ext_resource type="Script" path="res://Core/Characters/Player.gd" id="1_hti21"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/hikari_charset.png" id="2_7l7dk"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_2qdqi"]
 [ext_resource type="Resource" uid="uid://bjkldq6cqbd0" path="res://Data/Spritesheets/hikari.tres" id="4_esfvh"]
+[ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="5_artf2"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rrjyx"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcc0b"]
-shading_mode = 0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ohjgv"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70kpe"]
-shading_mode = 0
-albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mrjy5"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ybgd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w1xeb"]
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-wall_min_slide_angle = 0.785398
-floor_max_angle = 0.872665
+floor_max_angle = 1.0472
+floor_snap_length = 0.3
 script = ExtResource("1_hti21")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_rrjyx")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
-material_override = SubResource("StandardMaterial3D_wcc0b")
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("CapsuleMesh_ohjgv")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
-visible = false
-material_override = SubResource("StandardMaterial3D_70kpe")
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("BoxMesh_mrjy5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_6ybgd")
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.52)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_w1xeb")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." node_paths=PackedStringArray("shadow", "raycast")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 pixel_size = 0.0625
 billboard = 1
 texture_filter = 0
@@ -59,6 +36,19 @@ region_enabled = true
 region_rect = Rect2(0, 0, 24, 32)
 script = ExtResource("3_2qdqi")
 spritesheet = ExtResource("4_esfvh")
+shadow = NodePath("../Shadow")
+raycast = NodePath("../RayCast3D")
+
+[node name="Shadow" type="Sprite3D" parent="."]
+offset = Vector2(0, -4)
+pixel_size = 0.0625
+axis = 1
+billboard = 2
+texture_filter = 0
+texture = ExtResource("5_artf2")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -10, 0)
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

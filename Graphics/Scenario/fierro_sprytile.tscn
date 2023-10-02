@@ -44,6 +44,7 @@ material_override = ExtResource("2_oq3ea")
 shape = SubResource("ConcavePolygonShape3D_kw88o")
 
 [node name="Stairs1" parent="." index="1"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -3)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs1" index="0"]
@@ -52,6 +53,7 @@ material_override = ExtResource("2_oq3ea")
 shape = SubResource("ConcavePolygonShape3D_b5mju")
 
 [node name="Stairs2" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, -27, 3, -6)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs2" index="0"]
@@ -60,6 +62,7 @@ material_override = ExtResource("2_oq3ea")
 shape = SubResource("ConcavePolygonShape3D_f4g0d")
 
 [node name="Stairs3" parent="." index="3"]
+transform = Transform3D(-4.37114e-08, 0, 2, 0, 1, 0, -1, 0, -8.74228e-08, -33, 0, 26)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs3" index="0"]
@@ -85,6 +88,7 @@ material_override = ExtResource("3_qfu7e")
 visible = false
 
 [node name="SmallBridge" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, -42.1, 4, -10)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SmallBridge" index="0"]

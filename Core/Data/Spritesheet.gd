@@ -31,7 +31,7 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
 	var step : float = 90.0 if !hasDiag else 45.0
-	var angle : float = target.global_rotation_degrees.y #+ (step/2)
+	var angle : float = target.global_rotation_degrees.y + 180 #+ (step/2)
 	var cam = target.get_viewport().get_camera_3d()
 	if (cam != null): angle -= cam.global_rotation_degrees.y
 	if angle >= 360: angle -= 360

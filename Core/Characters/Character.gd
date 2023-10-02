@@ -10,8 +10,7 @@ var target_velocity = Vector3.ZERO
 func setMove(direction : Vector3):
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
-		look_at(position + direction, Vector3.UP)
-		
+		look_at(position - direction, Vector3.UP)
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
 
