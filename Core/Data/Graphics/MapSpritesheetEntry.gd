@@ -1,32 +1,11 @@
-extends Resource
-class_name Spritesheet
+extends SpritesheetEntry
+class_name MapSpritesheetEntry
 
-@export var name : StringName
 @export var base : Texture2D
 @export var baseDiag : Texture2D
 @export var blink : Texture2D
 @export var blinkDiag : Texture2D
-
-@export var blinkRate : Vector2
-@export var fps : int
 @export var totalFrames : int = 4
-
-func getFrame(target : Sprite3D, frame : int, blinkState : bool):
-	var r = _resolveDir(target)
-	var hasDiag = r[&"hasDiag"]
-	var dir = r[&"dir"]
-	
-	var rr = _resolveRow(hasDiag, dir, blinkState)
-	var texture = rr[&"texture"]
-	var row = rr[&"row"]
-	var col = frame
-	
-	var cellW = texture.get_width() / totalFrames
-	var cellH = texture.get_height() / 4
-	#Apply changes
-	target.texture = texture
-	target.region_rect.position = Vector2(col * cellW, row * cellH)
-	target.region_rect.size = Vector2(cellW, cellH)
 
 func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
@@ -93,3 +72,24 @@ func _resolveBlink(baseT : Texture2D, blinkT : Texture2D, state : bool) -> Textu
 		return baseT if blinkT==null else blinkT
 	else:
 		return baseT
+
+func getFrame(target : Sprite3D, frame : int, blinkState : bool):
+	var r = _resolveDir(target)
+	var hasDiag = r[&"hasDiag"]
+	var dir = r[&"dir"]
+	
+	var rr = _resolveRow(hasDiag, dir, blinkState)
+	var texture = rr[&"texture"]
+	var row = rr[&"row"]
+	var col = frame
+	
+	var cellW = texture.get_width() / totalFrames
+	var cellH = texture.get_height() / 4
+	#Apply changes
+	target.texture = texture
+	target.region_rect.position = Vector2(col * cellW, row * cellH)
+	target.region_rect.size = Vector2(cellW, cellH)
+	target.position.y = (cellH * 0.5) * target.pixel_size
+
+func getTotalFrames():
+	return totalFrames

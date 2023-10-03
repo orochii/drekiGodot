@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://cixhalk5oglba"]
+
+[ext_resource type="Script" path="res://Core/Data/Skill.gd" id="1_1jh0a"]
+
+[resource]
+script = ExtResource("1_1jh0a")
+name = ""
+description = ""
+targetKind = 0
+targetScope = 0
+repeats = 0
+cost = 0
+mpCostPercent = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseAction.gd")]([])

@@ -23,4 +23,4 @@ enum ECostType { AmountMP, PercentMP }
 @export var canUse : EUsePermit
 
 @export_category("Effect")
-# idk if list of effects or what
+@export var actionSequence : Array[BaseEffect]

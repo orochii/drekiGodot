@@ -9,8 +9,8 @@ const MAX_LEVEL : int = 255
 @export var description : String
 @export var gender : Gender
 @export var faceGraphic : Texture2D
-@export var mapSprite : SpritesheetCollection
-#@export var battleSprite : 
+@export var mapSprite : Spritesheet
+@export var battleSprite : Spritesheet
 
 @export_category("Stats")
 @export var startLevel : float
@@ -26,9 +26,8 @@ const MAX_LEVEL : int = 255
 # equippable categories (?)
 
 @export_category("Learnings")
-# skill tree data, including starting stuff
-# (skillId, apReq, requirements)
+@export var learnings : Array[SkillLearning]
 
 @export_category("Element/States")
-# element weakness
+@export var elementAfinity : Array[ElementAffinity]
 # status weakness

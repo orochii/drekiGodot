@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=8 format=3 uid="uid://om54ei8hopuh"]
+
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari_charset.png" id="1_kdgwt"]
+[ext_resource type="Texture2D" uid="uid://pekmdwl2rjpu" path="res://Graphics/Character/hikari_charset_diag.png" id="2_w3x3j"]
+[ext_resource type="Texture2D" uid="uid://cr4tl5rsiv4vw" path="res://Graphics/Character/hikari_charset_blink.png" id="3_26lbl"]
+[ext_resource type="Texture2D" uid="uid://bbwdypg8u3wir" path="res://Graphics/Character/hikari_charset_blink_diag.png" id="4_2s25b"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="5_h53qo"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="6_l16xs"]
+
+[sub_resource type="Resource" id="Resource_ijpkp"]
+script = ExtResource("5_h53qo")
+base = ExtResource("1_kdgwt")
+baseDiag = ExtResource("2_w3x3j")
+blink = ExtResource("3_26lbl")
+blinkDiag = ExtResource("4_2s25b")
+totalFrames = 4
+name = &"base"
+fps = 8
+
+[resource]
+script = ExtResource("6_l16xs")
+collection = Array[ExtResource("5_h53qo")]([SubResource("Resource_ijpkp")])

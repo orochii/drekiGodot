@@ -26,10 +26,19 @@ func getJump():
 	if !canMove(): return false
 	return Input.is_action_just_pressed("action_extra")
 
+func getDash():
+	if !canMove(): return false
+	return Input.is_action_pressed("action_cancel")
+
 func canMove():
 	if Global.Ev.isBusy(): return false
 	if Global.UI.Message.busy(): return false
 	return true
+
+func getSpeedMult():
+	if getDash():
+		return speedMult + .7
+	return speedMult
 
 func _on_area_3d_area_entered(area: Area3D):
 	print("AREA enters: " + area.name)

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=5 format=3 uid="uid://cxf1elli7a71n"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="1_qlmdr"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_u0p85"]
+[ext_resource type="Texture2D" uid="uid://dvybyaykp5jh5" path="res://Graphics/Battler/hikari_battler.png" id="2_eddo4"]
+
+[sub_resource type="Resource" id="Resource_rvl44"]
+script = ExtResource("1_u0p85")
+frames = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)])
+name = &"base"
+fps = 8
+
+[resource]
+script = ExtResource("1_qlmdr")
+texture = ExtResource("2_eddo4")
+cellW = 64
+cellH = 64
+collection = Array[ExtResource("1_u0p85")]([SubResource("Resource_rvl44")])

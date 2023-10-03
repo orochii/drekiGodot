@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbwdypg8u3wir"
-path="res://.godot/imported/hikari_charset_blink_diag.png-f8d17a8a6b0304a6ab457339cea3e2af.ctex"
+uid="uid://pekmdwl2rjpu"
+path="res://.godot/imported/hikari_charset_diag.png-af01643f50669890bb7ae5aff1366ca7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/hikari_charset_blink_diag.png"
-dest_files=["res://.godot/imported/hikari_charset_blink_diag.png-f8d17a8a6b0304a6ab457339cea3e2af.ctex"]
+source_file="res://Graphics/Character/hikari_charset_diag.png"
+dest_files=["res://.godot/imported/hikari_charset_diag.png-af01643f50669890bb7ae5aff1366ca7.ctex"]
 
 [params]
 
