@@ -3,7 +3,7 @@ One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
 - AudioManager
-	Volume support
+	--Volume support
 	BGM/BGS
 		Multipurpose tracks, with crossfade/fadein/fadeout and loop points support.
 			N BGM tracks
