@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://bdtixu1gjo24t"]
+[gd_scene load_steps=19 format=3 uid="uid://bdtixu1gjo24t"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_2u3d2"]
-[ext_resource type="Script" path="res://Core/GameUI.gd" id="2_fa2jw"]
+[ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_ydshd"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="2_pi76r"]
-[ext_resource type="Script" path="res://Core/GameMessage.gd" id="3_krhyk"]
+[ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_v61t4"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="4_hhalh"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="5_h4yx8"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="5_u40lg"]
@@ -14,7 +14,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
 atlas = ExtResource("2_pi76r")
-region = Rect2(88, 40, 8, 8)
+region = Rect2(88, 32, 8, 8)
 
 [sub_resource type="Animation" id="Animation_mug7x"]
 length = 0.001
@@ -77,14 +77,6 @@ _data = {
 "standby": SubResource("Animation_n2qvv")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06x0s"]
-shading_mode = 0
-albedo_color = Color(0.427451, 0.427451, 0.427451, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_83fxl"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3x6tl"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhi4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0g6k"]
@@ -102,7 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_fa2jw")
+script = ExtResource("1_ydshd")
 Message = NodePath("MessageBox")
 
 [node name="MessageBox" type="NinePatchRect" parent="GameUI" node_paths=PackedStringArray("text")]
@@ -122,7 +114,7 @@ texture = ExtResource("2_pi76r")
 region_rect = Rect2(0, 0, 64, 64)
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
-script = ExtResource("3_krhyk")
+script = ExtResource("3_v61t4")
 text = NodePath("RichTextLabel")
 
 [node name="Border" type="NinePatchRect" parent="GameUI/MessageBox"]
@@ -159,7 +151,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("4_hhalh")
 theme_override_font_sizes/normal_font_size = 8
-text = "Hello world this is text yayz."
+bbcode_enabled = true
+text = "Hello world this is text yayz.
+[color=red]asd[color=blue]qwe
+[color=white]zxczxc [img]res://Graphics/Icons/buttonsM30/A button.png[/img] asd"
 
 [node name="TextureRect" type="TextureRect" parent="GameUI/MessageBox"]
 layout_mode = 1
@@ -190,25 +185,13 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("5_h4yx8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.971, 0, 13.842)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.5, 0)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = SubResource("StandardMaterial3D_06x0s")
-cast_shadow = 0
-gi_mode = 0
-mesh = SubResource("BoxMesh_83fxl")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_3x6tl")
+fall_acceleration = null
 
 [node name="Event" type="CharacterBody3D" parent="." node_paths=PackedStringArray("event")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.81146)
 script = ExtResource("6_gu8e8")
 event = NodePath("Node")
+fall_acceleration = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Event"]
 shape = SubResource("CapsuleShape3D_xhi4c")

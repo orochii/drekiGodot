@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pekmdwl2rjpu"
-path="res://.godot/imported/hikari_charset_diag.png-af01643f50669890bb7ae5aff1366ca7.ctex"
+uid="uid://2hxq0bwcjnbp"
+path="res://.godot/imported/hikari_charset_run.png-5d61b8d37ea7e26a5062655f40301c70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Character/hikari_charset_diag.png"
-dest_files=["res://.godot/imported/hikari_charset_diag.png-af01643f50669890bb7ae5aff1366ca7.ctex"]
+source_file="res://Graphics/Character/hikari/hikari_charset_run.png"
+dest_files=["res://.godot/imported/hikari_charset_run.png-5d61b8d37ea7e26a5062655f40301c70.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

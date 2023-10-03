@@ -4,6 +4,8 @@ class_name Actor
 enum Gender { MALE, FEMALE, NONE }
 const MAX_LEVEL : int = 255
 
+@export var id : StringName
+
 @export_category("Display")
 @export var name : String
 @export var description : String
@@ -24,10 +26,11 @@ const MAX_LEVEL : int = 255
 @export_category("Equipment")
 # starting equipment
 # equippable categories (?)
+@export var equippableFlags : Array[Global.EquipKind]
 
 @export_category("Learnings")
 @export var learnings : Array[SkillLearning]
 
 @export_category("Element/States")
 @export var elementAfinity : Array[ElementAffinity]
-# status weakness
+@export var statusAfinity : Array[StatusAffinity]

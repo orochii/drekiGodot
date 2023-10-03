@@ -7,6 +7,8 @@ enum ETargetState { ALIVE, DEAD, ANY }
 enum EUsePermit { BATTLE, MAP, ANYWHERE }
 enum ECostType { AmountMP, PercentMP }
 
+@export var id : StringName
+
 @export_category("Display")
 @export var name : String
 @export var description : String

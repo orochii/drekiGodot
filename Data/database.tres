@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Database" load_steps=6 format=3 uid="uid://ylmo0lr3g7vk"]
+
+[ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
+[ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="1_ee2j7"]
+[ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
+[ext_resource type="Resource" uid="uid://84msihrapm3r" path="res://Data/Items/Sword.tres" id="3_m2hwt"]
+[ext_resource type="Resource" uid="uid://cixhalk5oglba" path="res://Data/Skills/Attack.tres" id="4_egji7"]
+
+[resource]
+script = ExtResource("1_37k5x")
+actors = Array[Resource("res://Core/Data/Actor.gd")]([ExtResource("1_ee2j7")])
+items = Array[Resource("res://Core/Data/BaseItem.gd")]([ExtResource("3_m2hwt")])
+skills = Array[Resource("res://Core/Data/Skill.gd")]([ExtResource("4_egji7")])
+iconLibrary = ExtResource("1_emmqo")

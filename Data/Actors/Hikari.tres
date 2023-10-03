@@ -1,24 +1,14 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=7 format=3 uid="uid://bs77brxfkt5yg"]
+[gd_resource type="Resource" script_class="Actor" load_steps=4 format=3 uid="uid://bs77brxfkt5yg"]
 
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="1_fphf6"]
-[ext_resource type="Script" path="res://Core/Data/ElementAffinity.gd" id="1_nymbf"]
 [ext_resource type="Script" path="res://Core/Data/Actor.gd" id="1_oyatu"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="3_lw1w4"]
 
-[sub_resource type="Resource" id="Resource_yf4r2"]
-script = ExtResource("1_nymbf")
-element = 6
-value = 3
-
-[sub_resource type="Resource" id="Resource_oeaj5"]
-script = ExtResource("1_nymbf")
-element = 5
-value = 1
-
 [resource]
 script = ExtResource("1_oyatu")
+id = &"hikari"
 name = "Hikari"
-description = ""
+description = "This is a test."
 gender = 1
 mapSprite = ExtResource("3_lw1w4")
 battleSprite = ExtResource("1_fphf6")
@@ -29,5 +19,7 @@ str = Vector2i(33, 52)
 vit = Vector2i(39, 62)
 mag = Vector2i(13, 191)
 agi = Vector2i(13, 92)
+equippableFlags = Array[int]([0])
 learnings = Array[Resource("res://Core/Data/SkillLearning.gd")]([])
-elementEffectiveness = Array[ExtResource("1_nymbf")]([SubResource("Resource_yf4r2"), SubResource("Resource_oeaj5")])
+elementAfinity = Array[Resource("res://Core/Data/ElementAffinity.gd")]([])
+statusAfinity = Array[Resource("res://Core/Data/StatusAffinity.gd")]([])

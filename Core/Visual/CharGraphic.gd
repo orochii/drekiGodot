@@ -2,6 +2,7 @@ extends Sprite3D
 class_name CharGraphic
 
 @export var spritesheet : Spritesheet
+@export var state : StringName = &"base"
 @export var shadow : Sprite3D
 @export var raycast : RayCast3D
 @export var blinkRate = Vector2(2.5, 0.2)
@@ -26,7 +27,7 @@ func _process(delta):
 
 func updateFrame(delta):
 	if spritesheet != null:
-		var s = spritesheet.getSheet(&"base")
+		var s = spritesheet.getSheet(state)
 		if s != null:
 			updateFrameCounter(delta, s.fps, s.getTotalFrames())
 			s.getFrame(self, floori(frameCounter), blinkState)

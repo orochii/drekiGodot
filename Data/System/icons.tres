@@ -1,0 +1,122 @@
+[gd_resource type="Resource" script_class="IconLibrary" load_steps=41 format=3 uid="uid://ct23pva1ttabn"]
+
+[ext_resource type="Texture2D" uid="uid://dquqf3garsx6k" path="res://Graphics/Icons/buttonsM30/D pad up.png" id="1_adtwi"]
+[ext_resource type="Script" path="res://Core/Data/IconLibrary.gd" id="1_y6rw4"]
+[ext_resource type="Script" path="res://Core/Data/IconLibraryEntry.gd" id="2_vfq2t"]
+[ext_resource type="Texture2D" uid="uid://cas7kirxg4nft" path="res://Graphics/Icons/buttonsM30/D pad down.png" id="3_msimx"]
+[ext_resource type="Texture2D" uid="uid://30t38fo76myl" path="res://Graphics/Icons/buttonsM30/D pad left.png" id="4_t3b80"]
+[ext_resource type="Texture2D" uid="uid://bnw42w8k1018t" path="res://Graphics/Icons/buttonsM30/D pad right.png" id="5_tnt3o"]
+[ext_resource type="Texture2D" uid="uid://c825288p1w6j3" path="res://Graphics/Icons/buttonsM30/A button.png" id="6_a2fti"]
+[ext_resource type="Texture2D" uid="uid://ev178b4q0ydy" path="res://Graphics/Icons/buttonsM30/B button.png" id="7_sgfb8"]
+[ext_resource type="Texture2D" uid="uid://dyvgjg0uh4bq1" path="res://Graphics/Icons/buttonsM30/X button.png" id="8_3ai3x"]
+[ext_resource type="Texture2D" uid="uid://b7q7qlphja776" path="res://Graphics/Icons/buttonsM30/Y button.png" id="9_61cxx"]
+[ext_resource type="Texture2D" uid="uid://bu4ab7v0cgvf6" path="res://Graphics/Icons/buttonsM30/Back.png" id="10_b6t8q"]
+[ext_resource type="Texture2D" uid="uid://16t4av77qf8n" path="res://Graphics/Icons/buttonsM30/Start.png" id="11_ykoxy"]
+[ext_resource type="Texture2D" uid="uid://dr0j4qtja30qv" path="res://Graphics/Icons/buttonsM30/Left shoulder.png" id="12_6tcxt"]
+[ext_resource type="Texture2D" uid="uid://xfamq0dfkkja" path="res://Graphics/Icons/buttonsM30/Right shoulder.png" id="13_pyp7u"]
+[ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="14_vm5s3"]
+[ext_resource type="Texture2D" uid="uid://be5s5iurg8w4b" path="res://Graphics/Icons/buttonsM30/Right trigger.png" id="15_6qvr1"]
+[ext_resource type="Texture2D" uid="uid://rv6blkjwhsdm" path="res://Graphics/Icons/buttonsM30/Left thumb.png" id="16_em03p"]
+[ext_resource type="Texture2D" uid="uid://bfvp4cwsk0io3" path="res://Graphics/Icons/buttonsM30/Right thumb.png" id="17_uqv5x"]
+[ext_resource type="Texture2D" uid="uid://b1irjyfe2b135" path="res://Graphics/Icons/buttonsM30/D pad.png" id="18_3hvwb"]
+[ext_resource type="Texture2D" uid="uid://pq5qh7j02uo6" path="res://Graphics/Icons/buttonsM30/L thumb X.png" id="19_jck33"]
+[ext_resource type="Texture2D" uid="uid://c85e2vsv3q06m" path="res://Graphics/Icons/buttonsM30/L thumb Y.png" id="20_bvtvn"]
+
+[sub_resource type="Resource" id="Resource_ucsih"]
+script = ExtResource("2_vfq2t")
+name = &"D-Pad Up"
+icons = Array[Texture2D]([ExtResource("1_adtwi")])
+
+[sub_resource type="Resource" id="Resource_4qnyn"]
+script = ExtResource("2_vfq2t")
+name = &"D-Pad Down"
+icons = Array[Texture2D]([ExtResource("3_msimx")])
+
+[sub_resource type="Resource" id="Resource_jby16"]
+script = ExtResource("2_vfq2t")
+name = &"D-Pad Left"
+icons = Array[Texture2D]([ExtResource("4_t3b80")])
+
+[sub_resource type="Resource" id="Resource_42imh"]
+script = ExtResource("2_vfq2t")
+name = &"D-Pad Right"
+icons = Array[Texture2D]([ExtResource("5_tnt3o")])
+
+[sub_resource type="Resource" id="Resource_0pweh"]
+script = ExtResource("2_vfq2t")
+name = &"Bottom Action"
+icons = Array[Texture2D]([ExtResource("6_a2fti")])
+
+[sub_resource type="Resource" id="Resource_473cu"]
+script = ExtResource("2_vfq2t")
+name = &"Right Action"
+icons = Array[Texture2D]([ExtResource("7_sgfb8")])
+
+[sub_resource type="Resource" id="Resource_avvo1"]
+script = ExtResource("2_vfq2t")
+name = &"Left Action"
+icons = Array[Texture2D]([ExtResource("8_3ai3x")])
+
+[sub_resource type="Resource" id="Resource_af1tv"]
+script = ExtResource("2_vfq2t")
+name = &"Top Action"
+icons = Array[Texture2D]([ExtResource("9_61cxx")])
+
+[sub_resource type="Resource" id="Resource_f36km"]
+script = ExtResource("2_vfq2t")
+name = &"Back"
+icons = Array[Texture2D]([ExtResource("10_b6t8q")])
+
+[sub_resource type="Resource" id="Resource_2558b"]
+script = ExtResource("2_vfq2t")
+name = &"Start"
+icons = Array[Texture2D]([ExtResource("11_ykoxy")])
+
+[sub_resource type="Resource" id="Resource_eu8hf"]
+script = ExtResource("2_vfq2t")
+name = &"Left Shoulder"
+icons = Array[Texture2D]([ExtResource("12_6tcxt")])
+
+[sub_resource type="Resource" id="Resource_vre1e"]
+script = ExtResource("2_vfq2t")
+name = &"Right Shoulder"
+icons = Array[Texture2D]([ExtResource("13_pyp7u")])
+
+[sub_resource type="Resource" id="Resource_miuol"]
+script = ExtResource("2_vfq2t")
+name = &"Left Trigger"
+icons = Array[Texture2D]([ExtResource("14_vm5s3")])
+
+[sub_resource type="Resource" id="Resource_j80ep"]
+script = ExtResource("2_vfq2t")
+name = &"Right Trigger"
+icons = Array[Texture2D]([ExtResource("15_6qvr1")])
+
+[sub_resource type="Resource" id="Resource_b4dk3"]
+script = ExtResource("2_vfq2t")
+name = &"Left Stick"
+icons = Array[Texture2D]([ExtResource("16_em03p")])
+
+[sub_resource type="Resource" id="Resource_70nya"]
+script = ExtResource("2_vfq2t")
+name = &"Right Stick"
+icons = Array[Texture2D]([ExtResource("17_uqv5x")])
+
+[sub_resource type="Resource" id="Resource_hgok0"]
+script = ExtResource("2_vfq2t")
+name = &"DPad"
+icons = Array[Texture2D]([ExtResource("18_3hvwb")])
+
+[sub_resource type="Resource" id="Resource_1cfjc"]
+script = ExtResource("2_vfq2t")
+name = &"Left Stick X-Axis"
+icons = Array[Texture2D]([ExtResource("19_jck33")])
+
+[sub_resource type="Resource" id="Resource_q5v12"]
+script = ExtResource("2_vfq2t")
+name = &"Left Stick Y-Axis"
+icons = Array[Texture2D]([ExtResource("20_bvtvn")])
+
+[resource]
+script = ExtResource("1_y6rw4")
+collection = Array[ExtResource("2_vfq2t")]([SubResource("Resource_ucsih"), SubResource("Resource_4qnyn"), SubResource("Resource_jby16"), SubResource("Resource_42imh"), SubResource("Resource_0pweh"), SubResource("Resource_473cu"), SubResource("Resource_avvo1"), SubResource("Resource_af1tv"), SubResource("Resource_f36km"), SubResource("Resource_2558b"), SubResource("Resource_eu8hf"), SubResource("Resource_vre1e"), SubResource("Resource_miuol"), SubResource("Resource_j80ep"), SubResource("Resource_b4dk3"), SubResource("Resource_70nya"), SubResource("Resource_hgok0"), SubResource("Resource_1cfjc"), SubResource("Resource_q5v12")])

@@ -4,8 +4,9 @@
 
 [resource]
 script = ExtResource("1_1jh0a")
-name = ""
-description = ""
+id = &"attack"
+name = "Attack"
+description = "Basic attack"
 targetKind = 0
 targetScope = 0
 repeats = 0
