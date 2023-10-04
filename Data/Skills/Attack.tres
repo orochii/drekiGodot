@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://cixhalk5oglba"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=2 format=3 uid="uid://cixhalk5oglba"]
 
-[ext_resource type="Script" path="res://Core/Data/Skill.gd" id="1_1jh0a"]
+[ext_resource type="Script" path="res://Core/Data/UseableSkill.gd" id="1_1jh0a"]
 
 [resource]
 script = ExtResource("1_1jh0a")
-id = &"attack"
-name = "Attack"
-description = "Basic attack"
-targetKind = 0
+flags = Array[int]([0, 4])
+targetKind = 3
 targetScope = 0
+targetState = 0
 repeats = 0
+costType = 0
 cost = 0
-mpCostPercent = 0
+charges = 0
+cooldown = 0
 canUse = 0
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseAction.gd")]([])

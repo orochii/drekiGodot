@@ -3,6 +3,7 @@ class_name Database
 
 @export_category("System")
 @export var iconLibrary : IconLibrary
+@export var equipSlots : Array[Global.EquipSlot]
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

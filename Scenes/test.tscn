@@ -185,13 +185,11 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("5_h4yx8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.971, 0, 13.842)
-fall_acceleration = null
 
 [node name="Event" type="CharacterBody3D" parent="." node_paths=PackedStringArray("event")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.81146)
 script = ExtResource("6_gu8e8")
 event = NodePath("Node")
-fall_acceleration = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Event"]
 shape = SubResource("CapsuleShape3D_xhi4c")

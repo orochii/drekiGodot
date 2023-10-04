@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Status" load_steps=2 format=3 uid="uid://chmqm1mimdu3m"]
+
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="1_54gpo"]
+
+[resource]
+script = ExtResource("1_54gpo")
+name = "Death"
+description = ""
+displayRating = 0
+flags = 6
+restriction = 0
+eotActivation = 0
+eotInterval = 0
+statEffects = Array[Resource("res://Core/Data/StatEffect.gd")]([])
+elementAffinityChange = Array[Resource("res://Core/Data/ElementAffinity.gd")]([])
+statusRemove = Array[ExtResource("1_54gpo")]([])
+releaseAtBattleEnd = false
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

@@ -1,5 +1,5 @@
 extends Resource
-class_name BaseItem
+class_name BaseSkill
 
 @export_category("Display")
 @export var name : String

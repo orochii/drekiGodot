@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_fhmfw")
-flags = Array[int]([16])
+slot = 0
+flags = Array[int]([0])
 id = &"sword"
-name = ""
-description = ""
+name = "Sword"
+description = "A short sword made out of common iron."
