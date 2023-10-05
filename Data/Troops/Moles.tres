@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=6 format=3 uid="uid://rcingx5nsidx"]
+
+[ext_resource type="Resource" uid="uid://cn4v6tsk48ile" path="res://Data/Enemies/Mole.tres" id="1_380wp"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="1_tiwjl"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_ra544"]
+
+[sub_resource type="Resource" id="Resource_qu4nc"]
+script = ExtResource("2_ra544")
+enemy = ExtResource("1_380wp")
+position = Vector3(-2, 0, 1)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_ha733"]
+script = ExtResource("2_ra544")
+enemy = ExtResource("1_380wp")
+position = Vector3(-2.5, 0, -1)
+flags = 0
+
+[resource]
+script = ExtResource("1_tiwjl")
+entries = Array[ExtResource("2_ra544")]([SubResource("Resource_qu4nc"), SubResource("Resource_ha733")])

@@ -10,7 +10,8 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 		target.texture = bParent.texture
 		target.region_rect.position = Vector2(f.x * bParent.cellW, f.y * bParent.cellH)
 		target.region_rect.size = Vector2(bParent.cellW, bParent.cellH)
-		target.position.y = (bParent.cellH * 0.5) * target.pixel_size
+		#target.position.y = (bParent.cellH * 0.5) * target.pixel_size
+		target.offset.y = (bParent.cellH * 0.5)
 	pass
 
 func getTotalFrames():

@@ -29,9 +29,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_w1xeb")
 
 [node name="Graphic" type="Sprite3D" parent="." node_paths=PackedStringArray("shadow", "raycast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+offset = Vector2(0, 16)
 pixel_size = 0.0625
-billboard = 1
+billboard = 2
+alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_mdew4")
 region_enabled = true
@@ -42,7 +43,6 @@ shadow = NodePath("../Shadow")
 raycast = NodePath("../RayCast3D")
 
 [node name="Shadow" type="Sprite3D" parent="."]
-offset = Vector2(0, -4)
 pixel_size = 0.0625
 axis = 1
 billboard = 2

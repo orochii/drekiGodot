@@ -18,7 +18,7 @@ func _ready():
 func _process(delta):
 	var dts = delta * speed
 	updateFrame(dts)
-	updateBlink(dts)
+	updateBlink(delta)
 	if raycast.is_colliding():
 		var pos = raycast.get_collision_point()
 		shadow.global_position.y = pos.y
@@ -26,6 +26,7 @@ func _process(delta):
 		shadow.scale = Vector3.ONE * size
 
 func updateFrame(delta):
+	updateAngleDeform()
 	if spritesheet != null:
 		var s = spritesheet.getSheet(state)
 		if s != null:
@@ -33,6 +34,16 @@ func updateFrame(delta):
 			s.getFrame(self, floori(frameCounter), blinkState)
 	else:
 		texture = null
+
+func updateAngleDeform():
+	var cam = get_viewport().get_camera_3d()
+	if (cam != null):
+		var r = cam.global_rotation.x
+		var c = abs(cos(r))
+		if (c < 0.01): c = 0.01
+		self.scale.y = 1 / c
+	else:
+		self.scale.y = 1
 
 func updateFrameCounter(delta, fps : int, totalFrames : int):
 	if speed == 0:
