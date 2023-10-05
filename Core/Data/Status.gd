@@ -14,12 +14,10 @@ class_name Status
 @export_category("Effects over Time")
 @export var eotActivation : int # TURN,MILLISECONDS
 @export var eotInterval : int
-# effects list: DoT and what else? (hp,mp)
+@export var eotSequence : Array[BaseEffect]
 
 @export_category("Constant Effects")
-# Might change towards just having a full list of effects, akin to VXA's features
-@export var statEffects : Array[StatEffect]
-@export var elementAffinityChange : Array[ElementAffinity]
+@export var features : Array[BaseFeature]
 @export var statusRemove : Array[Status]
 
 @export_category("Release Conditions")

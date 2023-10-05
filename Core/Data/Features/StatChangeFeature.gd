@@ -1,5 +1,5 @@
-extends Resource
-class_name StatEffect
+extends BaseFeature
+class_name StatChangeFeature
 
 enum Kind { AMOUNT, PERC }
 

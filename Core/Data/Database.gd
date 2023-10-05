@@ -2,8 +2,10 @@ extends Resource
 class_name Database
 
 @export_category("System")
-@export var iconLibrary : IconLibrary
+@export var startingParty : Array[Actor]
+@export var startingScene : PackedScene
 @export var equipSlots : Array[Global.EquipSlot]
+@export var iconLibrary : IconLibrary
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

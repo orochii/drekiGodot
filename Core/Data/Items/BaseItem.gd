@@ -1,7 +1,11 @@
 extends Resource
 class_name BaseItem
 
-@export_category("Display")
+@export_group("Display")
 @export var name : String
 @export var description : String
 @export var icon : Texture2D
+
+@export_group("Bartering")
+@export var price : int
+@export var canSell : bool

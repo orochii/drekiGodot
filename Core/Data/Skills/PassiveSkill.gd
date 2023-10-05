@@ -1,7 +1,7 @@
 extends BaseSkill
 class_name PassiveSkill
 
-@export var statEffects : Array[StatEffect]
+@export var features : Array[BaseFeature]
 
 # conditional effects
 # - All time

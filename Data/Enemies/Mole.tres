@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://cn4v6tsk48ile"]
+
+[ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
+
+[resource]
+script = ExtResource("1_i0uq7")
+name = "Mole"
+type = "Mammal"
+description = "Moles will conquer the earth!"
+gender = 2
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+level = 1
+mhp = Vector2i(0, 0)
+mmp = Vector2i(0, 0)
+str = Vector2i(0, 0)
+vit = Vector2i(0, 0)
+mag = Vector2i(0, 0)
+agi = Vector2i(0, 0)
+actions = Array[Resource("res://Core/Data/Enemies/EnemyScript.gd")]([])
+rewardExp = 0
+rewardGold = 0
+rewardItems = Array[Resource("res://Core/Data/Items/BaseItem.gd")]([])

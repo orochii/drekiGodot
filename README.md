@@ -2,6 +2,25 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Finish with basic database structures (DONE)
+	- Spritesheets: DONE
+	- BasicEffect: DONE
+		- ApplyBasicDamage- DONE
+	- Battlers: DONE
+		- ElementAffinity- DONE
+		- StatusAffinity- DONE
+	- Actors: DONE
+		- SkillLearnings- DONE
+	- Skills: uses BasicEffect- DONE
+	- Items: uses BasicEffect- DONE
+		- Equip- DONE
+	- Enemies: DONE
+		EnemyAction- DONE
+	- Troops: DONE
+	- Status: uses BasicEffect- DONE
+	- System: DONE
+		- Starting party- DONE
+		- Starting map/position- DONE
 - AudioManager
 	- Volume support
 	- BGM/BGS
@@ -14,26 +33,6 @@ One attempt at making RPG on Godot just how I like it :)
 			- Arbitrary map-specific tracks, support looping and playing on demand.
 			- Register as map-specific tracks for fadein/fadeout on map change.
 			- Let them manage volume/etc for modulating volume on proximity, etc.
-- Finish with basic database structures
-	- Spritesheets: DONE
-	- BasicEffect: DONE?
-		- ApplyBasicDamage
-	- Battlers:
-		- ElementAffinity- DONE
-		- StatusAffinity
-	- Actors: DONE
-		- SkillLearnings
-	- Skills: uses BasicEffect
-	- Items: uses BasicEffect
-		- Weapons
-		- Armors
-	- Enemies: 
-		EnemyAction
-	- Troops:
-	- Status: uses BasicEffect
-	- System:
-		- Starting party
-		- Starting map/position
 - Translation stuff
 	- Investigate what tools Godot has built-in for this, or popular approaches.
 - Basic UI (party menu)

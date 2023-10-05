@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="IconLibrary" load_steps=41 format=3 uid="uid://ct23pva1ttabn"]
 
 [ext_resource type="Texture2D" uid="uid://dquqf3garsx6k" path="res://Graphics/Icons/buttonsM30/D pad up.png" id="1_adtwi"]
-[ext_resource type="Script" path="res://Core/Data/IconLibrary.gd" id="1_y6rw4"]
-[ext_resource type="Script" path="res://Core/Data/IconLibraryEntry.gd" id="2_vfq2t"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/IconLibrary.gd" id="1_y6rw4"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/IconLibraryEntry.gd" id="2_vfq2t"]
 [ext_resource type="Texture2D" uid="uid://cas7kirxg4nft" path="res://Graphics/Icons/buttonsM30/D pad down.png" id="3_msimx"]
 [ext_resource type="Texture2D" uid="uid://30t38fo76myl" path="res://Graphics/Icons/buttonsM30/D pad left.png" id="4_t3b80"]
 [ext_resource type="Texture2D" uid="uid://bnw42w8k1018t" path="res://Graphics/Icons/buttonsM30/D pad right.png" id="5_tnt3o"]

@@ -1,9 +1,13 @@
-[gd_resource type="Resource" script_class="Database" load_steps=3 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=5 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
+[ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
+[ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 
 [resource]
 script = ExtResource("1_37k5x")
-iconLibrary = ExtResource("1_emmqo")
+startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf")])
+startingScene = ExtResource("4_d28sx")
 equipSlots = Array[int]([0, 0, 1, 2, 3, 3])
+iconLibrary = ExtResource("1_emmqo")

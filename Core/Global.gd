@@ -19,6 +19,10 @@ enum Element {
 }
 enum Rank { A, B, C, D, E, F }
 enum Stat { HP, MP, Str, Vit, Int, Agi, HitRate, Eva }
+enum ETargetKind { NONE, ALLY, ENEMY, ANY, USER }
+enum ETargetScope { ONE, ALL, RANDOM }
+enum ETargetState { ALIVE, DEAD, ANY }
+enum EUsePermit { BATTLE, MAP, ANYWHERE }
 
 var UI : GameUI
 var Ev : Interpreter

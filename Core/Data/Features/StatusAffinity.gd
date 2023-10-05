@@ -1,5 +1,5 @@
-extends Resource
-class_name StatusAffinity
+extends BaseFeature
+class_name StatusAffinityFeature
 
 const RANK_EFFECT = [100, 80, 60, 40, 20, 0]
 
