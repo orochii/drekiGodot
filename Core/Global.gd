@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 enum Gender { MALE, FEMALE, NONE }
 enum Month { 
@@ -27,7 +27,10 @@ enum EUsePermit { BATTLE, MAP, ANYWHERE }
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
+var Audio : AudioManager
 
 func _init():
 	Db = load("res://Data/database.tres")
 	Ev = Interpreter.new()
+	Audio = AudioManager.new()
+	self.add_child(Audio)

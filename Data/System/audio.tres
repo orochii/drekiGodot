@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=5 format=3 uid="uid://c0ykl7muh1eoh"]
+
+[ext_resource type="Script" path="res://Core/Audio/AudioData.gd" id="1_djncj"]
+[ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_c0kmo"]
+[ext_resource type="AudioStream" uid="uid://d0hh0pvx7wnem" path="res://Audio/SFX/select.ogg" id="2_j75sv"]
+
+[sub_resource type="Resource" id="Resource_p62hq"]
+script = ExtResource("2_c0kmo")
+name = &"select"
+stream = ExtResource("2_j75sv")
+volume = 0.8
+pitch = 1.0
+
+[resource]
+script = ExtResource("1_djncj")
+loops = Array[Resource("res://Core/Audio/LoopData.gd")]([])
+systemSFX = Array[ExtResource("2_c0kmo")]([SubResource("Resource_p62hq")])

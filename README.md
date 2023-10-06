@@ -21,19 +21,19 @@ One attempt at making RPG on Godot just how I like it :)
 	- System: DONE
 		- Starting party- DONE
 		- Starting map/position- DONE
-- AudioManager
-	- Volume support
-	- BGM/BGS
-		- Multipurpose tracks, with crossfade/fadein/fadeout and loop points support.
-			- N BGM tracks
-			- N Ambient tracks (weather)
-	- SFX
-		- System SE preload.
-		- SoundEvent object (interfaces with AudioManager for volume/etc).
-			- Arbitrary map-specific tracks, support looping and playing on demand.
-			- Register as map-specific tracks for fadein/fadeout on map change.
-			- Let them manage volume/etc for modulating volume on proximity, etc.
-- Translation stuff
-	- Investigate what tools Godot has built-in for this, or popular approaches.
+- AudioManager (DONE)
+	- Volume support: DONE
+	- BGM/BGS: DONE
+		- Multipurpose tracks, with crossfade/fadein/fadeout and loop points support.- DONE
+			- N BGM tracks- DONE
+			- N Ambient tracks (weather)- DONE
+	- SFX: DONE
+		- System SE preload.- DONE
+		- SoundEvent object (interfaces with AudioManager for volume/etc). -Not necessary
+			- Arbitrary map-specific tracks, support looping and playing on demand. -Doneso, for AudioStreamPlayer tho.
+			- Register as map-specific tracks for fadein/fadeout on map change. -Eh.
+			- Let them manage volume/etc for modulating volume on proximity, etc. -There's an AudioStreamPlayer2D and 3D already, you dingus.
+- Translation stuff (DONE)
+	- Set up CSV for translations: DONE
 - Basic UI (party menu)
 - Battle system
