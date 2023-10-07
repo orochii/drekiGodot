@@ -2,6 +2,13 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Game State
+	- Save/Load
+- Map transitions
+- Basic UI (party menu)
+- Battle system
+
+# DONE List
 - Finish with basic database structures (DONE)
 	- Spritesheets: DONE
 	- BasicEffect: DONE
@@ -36,8 +43,3 @@ One attempt at making RPG on Godot just how I like it :)
 - Translation stuff (DONE)
 	- Set up CSV for translations: DONE
 - Message box resize/reposition around objects and so on: DONE
-- Game State
-	- Save/Load
-- Map transitions
-- Basic UI (party menu)
-- Battle system
