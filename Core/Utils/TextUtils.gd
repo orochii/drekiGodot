@@ -18,3 +18,5 @@ static func parseText(t : String):
 		var actor : Actor = Global.Db.getActor(r.get_string(1))
 		var name = actor.description
 		t = t.replace(pattern, name)
+		
+	return t

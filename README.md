@@ -35,5 +35,6 @@ One attempt at making RPG on Godot just how I like it :)
 			- Let them manage volume/etc for modulating volume on proximity, etc. -There's an AudioStreamPlayer2D and 3D already, you dingus.
 - Translation stuff (DONE)
 	- Set up CSV for translations: DONE
+- Message box resize/reposition around objects and so on: DONE
 - Basic UI (party menu)
 - Battle system

@@ -1,30 +1,48 @@
 extends NinePatchRect
 class_name GameMessage
 
-@export var text : RichTextLabel
+const CLAMP_MARGIN = 16
+const POS_MARGIN = 32
+
+@export var messageText : RichTextLabel
+@export var speakerText : RichTextLabel
 @export var messageSpeed : float = 20.0
+@export var textMarginTop : float = 4
+@export var textMarginBottom : float = 8
+@export var textMarginLeft : float = 4
+@export var textMarginRight : float = 4
+@export var tailSprite : Sprite2D
+
+var textBoxPosition = 8
 
 signal onMessageReady()
 signal onMessageEnd()
 
+var targetPosition : Node3D
 var visibleChars : float = 0
 var totalChars : int = 0
 
 func _ready():
 	visible = false
 
-func showText(message:String):
+func showText(targetNode:Node3D, textPos:int, speaker:String, message:String):
 	await onMessageReady
-	text.visible_characters = 0
+	targetPosition = targetNode
+	textBoxPosition = textPos
+	messageText.visible_characters = 0
 	visibleChars = 0
-	totalChars = text.get_total_character_count()
-	text.text = message
+	speakerText.text = TextUtils.parseText(speaker)
+	messageText.text = TextUtils.parseText(message)
+	totalChars = messageText.get_total_character_count()
+	resizeWindow()
+	refreshPosition()
 	visible = true
 	await onMessageEnd
 
 func _process(delta):
 	if visible:
-		text.visible_characters = roundi(visibleChars)
+		refreshPosition()
+		messageText.visible_characters = roundi(visibleChars)
 		visibleChars += delta * messageSpeed
 		if visibleChars > totalChars:
 			visibleChars = totalChars
@@ -32,6 +50,7 @@ func _process(delta):
 			if visibleChars == totalChars:
 				visible = false
 				onMessageEnd.emit()
+				Global.Audio.playSFX("decision")
 			else:
 				visibleChars = totalChars
 	else:
@@ -39,3 +58,143 @@ func _process(delta):
 
 func busy():
 	return visible
+
+func resizeWindow():
+	messageText.update_minimum_size()
+	speakerText.update_minimum_size()
+	var minSize = messageText.get_minimum_size()
+	var spkMinSize = speakerText.get_minimum_size()
+	if (minSize.x < spkMinSize.x): minSize.x = spkMinSize.x
+	if (minSize.y < spkMinSize.y): minSize.y = spkMinSize.y
+	messageText.position = Vector2(textMarginLeft, textMarginTop)
+	self.size = (minSize + messageText.position + Vector2(textMarginRight,textMarginBottom))
+
+func refreshPosition():
+	if targetPosition != null:
+		repositionAroundRefNode()
+	else:
+		repositionAroundScreen()
+
+func repositionAroundRefNode():
+	var screenSize = Global.UI.screenSize()
+	var pos = Global.UI.posToScreen(targetPosition.global_position)
+	var boxSize = self.size
+	var horzDir = getHorzDir(textBoxPosition)
+	var vertDir = getVertDir(textBoxPosition)
+	
+	var posMargin = 4
+	var nodeW = 12
+	var nodeH = 32
+	
+	if pos.x < boxSize.x:
+		horzDir = 1
+	elif pos.x >= screenSize.x - boxSize.x:
+		horzDir = -1
+	
+	if pos.y < boxSize.y:
+		vertDir = 1
+	elif pos.y >= screenSize.y - boxSize.y:
+		vertDir = -1
+	
+	var targetPos = pos
+	var dir = 8
+	match vertDir:
+		-1:
+			targetPos += Vector2(-boxSize.x/2, -boxSize.y - nodeH - posMargin)
+			dir = 8
+		1:
+			targetPos += Vector2(-boxSize.x/2, posMargin)
+			dir = 2
+		_:
+			match horzDir:
+				-1:
+					targetPos += Vector2(-boxSize.x - nodeW - posMargin, -boxSize.y/2 - nodeH/2)
+					dir = 4
+				_:
+					targetPos += Vector2(posMargin + nodeW, -boxSize.y/2 - nodeH/2)
+					dir = 6
+	targetPos.x = clampf(targetPos.x, CLAMP_MARGIN, screenSize.x - CLAMP_MARGIN - boxSize.x)
+	targetPos.y = clampf(targetPos.y, CLAMP_MARGIN, screenSize.y - CLAMP_MARGIN - boxSize.y)
+	placeTail(dir,pos,targetPos,boxSize,nodeH)
+	self.global_position = targetPos
+
+func repositionAroundScreen():
+	tailSprite.visible = false
+	var screenSize = Global.UI.screenSize()
+	var boxSize = self.size
+	match textBoxPosition:
+		1:	# BOTTOM_LEFT
+			self.global_position = Vector2(POS_MARGIN, screenSize.y - boxSize.y - POS_MARGIN)
+		2:	# BOTTOM
+			self.global_position = Vector2((screenSize.x - boxSize.x) / 2, screenSize.y - boxSize.y - POS_MARGIN)
+		3:	# BOTTOM RIGHT
+			self.global_position = Vector2(screenSize.x - boxSize.x - POS_MARGIN, screenSize.y - boxSize.y - POS_MARGIN)
+		4:	# LEFT
+			self.global_position = Vector2(POS_MARGIN, (screenSize.y - boxSize.y) / 2)
+		6:	# RIGHT
+			self.global_position = Vector2(screenSize.x - boxSize.x - POS_MARGIN, (screenSize.y - boxSize.y) / 2)
+		7:	# TOP LEFT
+			self.global_position = Vector2(POS_MARGIN, POS_MARGIN)
+		8:	# TOP
+			self.global_position = Vector2((screenSize.x - boxSize.x) / 2, POS_MARGIN)
+		9:	# TOP RIGHT
+			self.global_position = Vector2(screenSize.x - boxSize.x - POS_MARGIN, POS_MARGIN)
+		_:	# CENTER
+			self.global_position = (screenSize - boxSize) / 2
+
+func getHorzDir(d) -> int:
+	match d:
+		1,4,7:
+			return -1
+		3,6,9:
+			return 1
+		_:
+			return 0
+
+func getVertDir(d) -> int:
+	match d:
+		1,2,3:
+			return 1
+		7,8,9:
+			return -1
+		_:
+			return 0
+
+func placeTail(dir,pos,targetPos,boxSize,nodeH):
+	match dir:
+		2: # DOWN, put tail up
+			var min = targetPos.x + 4
+			var max = targetPos.x + boxSize.x - 4
+			var tx = clamp(pos.x, min, max)
+			var ty = targetPos.y - 3 #DONE
+			tailSprite.global_position = Vector2(tx,ty)
+			tailSprite.rotation_degrees = 0
+			tailSprite.flip_h = false
+			tailSprite.flip_v = true
+		4: # LEFT, put tail right
+			var tx = targetPos.x + boxSize.x + 3 #DONE
+			var min = targetPos.y + 4
+			var max = targetPos.y + boxSize.y - 4
+			var ty = clamp(pos.y - nodeH/2, min, max)
+			tailSprite.global_position = Vector2(tx,ty)
+			tailSprite.rotation_degrees = 90
+			tailSprite.flip_h = false
+			tailSprite.flip_v = true
+		6: # RIGHT, put tail left
+			var tx = targetPos.x - 3 #DONE
+			var min = targetPos.y + 4
+			var max = targetPos.y + boxSize.y - 4
+			var ty = clamp(pos.y - nodeH/2, min, max)
+			tailSprite.global_position = Vector2(tx,ty)
+			tailSprite.rotation_degrees = 90
+			tailSprite.flip_h = false
+			tailSprite.flip_v = false
+		8: # UP, put tail down
+			var min = targetPos.x + 4
+			var max = targetPos.x + boxSize.x - 4
+			var tx = clamp(pos.x, min, max)
+			var ty = targetPos.y + boxSize.y + 3 #DONE
+			tailSprite.global_position = Vector2(tx,ty)
+			tailSprite.rotation_degrees = 0
+			tailSprite.flip_h = false
+			tailSprite.flip_v = false

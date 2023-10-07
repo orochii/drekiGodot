@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_p62hq"]
 script = ExtResource("2_c0kmo")
-name = &"select"
+name = &"decision"
 stream = ExtResource("2_j75sv")
 volume = 0.8
 pitch = 1.0

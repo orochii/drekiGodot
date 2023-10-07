@@ -1,20 +1,23 @@
-[gd_scene load_steps=19 format=3 uid="uid://bdtixu1gjo24t"]
+[gd_scene load_steps=22 format=3 uid="uid://bdtixu1gjo24t"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_2u3d2"]
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_ydshd"]
+[ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_la24y"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="2_pi76r"]
 [ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_v61t4"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="4_hhalh"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="5_h4yx8"]
+[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/pixmall.ttf" id="5_nejdq"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="5_u40lg"]
 [ext_resource type="Script" path="res://Core/Characters/NPC.gd" id="6_gu8e8"]
+[ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="7_0p4hi"]
 [ext_resource type="Script" path="res://Core/Interpreter/BaseEvent.gd" id="7_5y26e"]
 [ext_resource type="Texture2D" uid="uid://c2kdx2hp5yuyl" path="res://Graphics/testTile.png" id="8_32wid"]
 [ext_resource type="PackedScene" uid="uid://cvelam0kqbe8x" path="res://Graphics/Scenario/fierro_sprytile.tscn" id="11_m5s0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
 atlas = ExtResource("2_pi76r")
-region = Rect2(88, 32, 8, 8)
+region = Rect2(80, 32, 8, 8)
 
 [sub_resource type="Animation" id="Animation_mug7x"]
 length = 0.001
@@ -48,7 +51,7 @@ resource_name = "standby"
 length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("TextureRect:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -97,28 +100,24 @@ grow_vertical = 2
 script = ExtResource("1_ydshd")
 Message = NodePath("MessageBox")
 
-[node name="MessageBox" type="NinePatchRect" parent="GameUI" node_paths=PackedStringArray("text")]
-custom_minimum_size = Vector2(320, 64)
+[node name="MessageBox" type="NinePatchRect" parent="GameUI" node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
+texture_filter = 1
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 128.0
-offset_top = 128.304
-offset_right = -128.0
-offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("2_pi76r")
+offset_left = 21.0
+offset_top = 20.0
+offset_right = 353.0
+offset_bottom = 52.0
+texture = ExtResource("2_la24y")
 region_rect = Rect2(0, 0, 64, 64)
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 script = ExtResource("3_v61t4")
-text = NodePath("RichTextLabel")
+messageText = NodePath("MessageText")
+speakerText = NodePath("SpeakerText")
+messageSpeed = 40.0
+tailSprite = NodePath("Tail")
 
 [node name="Border" type="NinePatchRect" parent="GameUI/MessageBox"]
-custom_minimum_size = Vector2(160, 32)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -129,7 +128,7 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_pi76r")
+texture = ExtResource("2_la24y")
 region_rect = Rect2(64, 0, 32, 32)
 patch_margin_left = 8
 patch_margin_top = 8
@@ -138,23 +137,41 @@ patch_margin_bottom = 8
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameUI/MessageBox"]
+[node name="Tail" type="Sprite2D" parent="GameUI/MessageBox"]
+position = Vector2(4, -3)
+texture = ExtResource("7_0p4hi")
+flip_v = true
+
+[node name="SpeakerText" type="RichTextLabel" parent="GameUI/MessageBox"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 14.0
+offset_bottom = 6.0
+theme_override_fonts/normal_font = ExtResource("5_nejdq")
+theme_override_font_sizes/normal_font_size = 8
+text = "*asd*dsa"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+visible_characters_behavior = 1
+
+[node name="MessageText" type="RichTextLabel" parent="GameUI/MessageBox"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 204.0
+offset_bottom = 44.0
 theme_override_fonts/normal_font = ExtResource("4_hhalh")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "Hello world this is text yayz.
 [color=red]asd[color=blue]qwe
-[color=white]zxczxc [img]res://Graphics/Icons/buttonsM30/A button.png[/img] asd"
+[color=white]zxczxc [img]res://Graphics/Icons/buttonsM30/A button.png[/img] asdaaaaaaaaaaaaaaaaaaaaaa"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+visible_characters_behavior = 1
 
 [node name="TextureRect" type="TextureRect" parent="GameUI/MessageBox"]
 layout_mode = 1

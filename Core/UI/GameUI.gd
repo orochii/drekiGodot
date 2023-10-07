@@ -9,3 +9,6 @@ func _init():
 func posToScreen(pos : Vector3) -> Vector2:
 	var cam = get_viewport().get_camera_3d()
 	return cam.unproject_position(pos)
+
+func screenSize() -> Vector2:
+	return get_viewport().get_visible_rect().size
