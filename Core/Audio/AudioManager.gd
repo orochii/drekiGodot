@@ -42,7 +42,6 @@ func spawnNewSystemSFX(sfx : SystemAudioEntry) -> AudioStreamPlayer:
 	var s = AudioStreamPlayer.new()
 	s.stream = sfx.stream
 	s.volume_db = _percToDb(sfx.volume)
-	print (s.volume_db)
 	s.pitch_scale = sfx.pitch
 	s.max_polyphony = 4
 	s.bus = "SFX"

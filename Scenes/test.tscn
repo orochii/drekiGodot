@@ -1,200 +1,44 @@
-[gd_scene load_steps=22 format=3 uid="uid://bdtixu1gjo24t"]
+[gd_scene load_steps=21 format=3 uid="uid://bdtixu1gjo24t"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_2u3d2"]
-[ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_ydshd"]
-[ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_la24y"]
-[ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="2_pi76r"]
-[ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_v61t4"]
-[ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="4_hhalh"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_w01y2"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="5_h4yx8"]
-[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/pixmall.ttf" id="5_nejdq"]
-[ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="5_u40lg"]
 [ext_resource type="Script" path="res://Core/Characters/NPC.gd" id="6_gu8e8"]
-[ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="7_0p4hi"]
-[ext_resource type="Script" path="res://Core/Interpreter/BaseEvent.gd" id="7_5y26e"]
 [ext_resource type="Texture2D" uid="uid://c2kdx2hp5yuyl" path="res://Graphics/testTile.png" id="8_32wid"]
 [ext_resource type="PackedScene" uid="uid://cvelam0kqbe8x" path="res://Graphics/Scenario/fierro_sprytile.tscn" id="11_m5s0b"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
-atlas = ExtResource("2_pi76r")
-region = Rect2(80, 32, 8, 8)
-
-[sub_resource type="Animation" id="Animation_mug7x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("AtlasTexture_bslo1")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(88, 32, 8, 8)]
-}
-
-[sub_resource type="Animation" id="Animation_n2qvv"]
-resource_name = "standby"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("TextureRect:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(80, 32, 8, 8), Rect2(88, 32, 8, 8), Rect2(80, 40, 8, 8), Rect2(88, 40, 8, 8)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mpore"]
-_data = {
-"RESET": SubResource("Animation_mug7x"),
-"standby": SubResource("Animation_n2qvv")
-}
+[ext_resource type="Texture2D" uid="uid://nw172vnuqqc4" path="res://Graphics/Character/_NPCS/aldo.png" id="12_xmsaj"]
+[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="13_cqbkp"]
+[ext_resource type="Resource" uid="uid://b4khiuusc0nv6" path="res://Data/Spritesheets/aldo_map.tres" id="14_cfv3i"]
+[ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="15_6wm6r"]
+[ext_resource type="Script" path="res://Events/Test1.gd" id="16_fq8u1"]
+[ext_resource type="Script" path="res://Events/Test2.gd" id="17_pfaao"]
+[ext_resource type="Script" path="res://Core/Interpreter/SwitchPageCondition.gd" id="17_vfssd"]
+[ext_resource type="Texture2D" uid="uid://cydht6rchygld" path="res://Graphics/Character/_NPCS/fuu.png" id="18_034c0"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="19_h0n44"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="20_yk21h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xhi4c"]
+radius = 0.49
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k0g6k"]
-shading_mode = 0
-albedo_color = Color(0.258824, 0.478431, 1, 1)
+[sub_resource type="Resource" id="Resource_hfcp5"]
+script = ExtResource("19_h0n44")
+base = ExtResource("18_034c0")
+totalFrames = 4
+name = &"base"
+fps = 8
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_1ukpw"]
+[sub_resource type="Resource" id="Resource_7xjio"]
+script = ExtResource("20_yk21h")
+collection = Array[ExtResource("19_h0n44")]([SubResource("Resource_hfcp5")])
+
+[sub_resource type="Resource" id="Resource_jytsm"]
+script = ExtResource("17_vfssd")
+switchId = 0
+value = true
 
 [node name="Node3D" type="Node3D"]
 
-[node name="GameUI" type="Control" parent="." node_paths=PackedStringArray("Message")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_ydshd")
-Message = NodePath("MessageBox")
-
-[node name="MessageBox" type="NinePatchRect" parent="GameUI" node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
-texture_filter = 1
-layout_mode = 1
-offset_left = 21.0
-offset_top = 20.0
-offset_right = 353.0
-offset_bottom = 52.0
-texture = ExtResource("2_la24y")
-region_rect = Rect2(0, 0, 64, 64)
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-script = ExtResource("3_v61t4")
-messageText = NodePath("MessageText")
-speakerText = NodePath("SpeakerText")
-messageSpeed = 40.0
-tailSprite = NodePath("Tail")
-
-[node name="Border" type="NinePatchRect" parent="GameUI/MessageBox"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_la24y")
-region_rect = Rect2(64, 0, 32, 32)
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Tail" type="Sprite2D" parent="GameUI/MessageBox"]
-position = Vector2(4, -3)
-texture = ExtResource("7_0p4hi")
-flip_v = true
-
-[node name="SpeakerText" type="RichTextLabel" parent="GameUI/MessageBox"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = -4.0
-offset_right = 14.0
-offset_bottom = 6.0
-theme_override_fonts/normal_font = ExtResource("5_nejdq")
-theme_override_font_sizes/normal_font_size = 8
-text = "*asd*dsa"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-visible_characters_behavior = 1
-
-[node name="MessageText" type="RichTextLabel" parent="GameUI/MessageBox"]
-layout_mode = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 204.0
-offset_bottom = 44.0
-theme_override_fonts/normal_font = ExtResource("4_hhalh")
-theme_override_font_sizes/normal_font_size = 8
-bbcode_enabled = true
-text = "Hello world this is text yayz.
-[color=red]asd[color=blue]qwe
-[color=white]zxczxc [img]res://Graphics/Icons/buttonsM30/A button.png[/img] asdaaaaaaaaaaaaaaaaaaaaaa"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-visible_characters_behavior = 1
-
-[node name="TextureRect" type="TextureRect" parent="GameUI/MessageBox"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = SubResource("AtlasTexture_bslo1")
-stretch_mode = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GameUI/MessageBox"]
-autoplay = "standby"
-reset_on_save = false
-libraries = {
-"": SubResource("AnimationLibrary_mpore")
-}
-script = ExtResource("5_u40lg")
+[node name="GameUI" parent="." instance=ExtResource("1_w01y2")]
 
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_2u3d2")]
 transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)
@@ -203,20 +47,51 @@ target = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("5_h4yx8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.971, 0, 13.842)
 
-[node name="Event" type="CharacterBody3D" parent="." node_paths=PackedStringArray("event")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.81146)
+[node name="Event" type="CharacterBody3D" parent="." node_paths=PackedStringArray("pages", "graphic", "collider")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.811)
 script = ExtResource("6_gu8e8")
-event = NodePath("Node")
+pages = [NodePath("Node"), NodePath("Node2")]
+graphic = NodePath("Graphic")
+collider = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Event"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_xhi4c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Event"]
-material_override = SubResource("StandardMaterial3D_k0g6k")
-mesh = SubResource("CapsuleMesh_1ukpw")
+[node name="Graphic" type="Sprite3D" parent="Event" node_paths=PackedStringArray("shadow", "raycast")]
+offset = Vector2(0, 16)
+pixel_size = 0.0625
+billboard = 2
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("12_xmsaj")
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 32)
+script = ExtResource("13_cqbkp")
+spritesheet = ExtResource("14_cfv3i")
+shadow = NodePath("../Shadow")
+raycast = NodePath("../RayCast3D")
 
-[node name="Node" type="Node" parent="Event"]
-script = ExtResource("7_5y26e")
+[node name="Shadow" type="Sprite3D" parent="Event"]
+pixel_size = 0.0625
+axis = 1
+billboard = 2
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("15_6wm6r")
+
+[node name="RayCast3D" type="RayCast3D" parent="Event"]
+target_position = Vector3(0, -10, 0)
+
+[node name="Node" type="Node3D" parent="Event"]
+script = ExtResource("16_fq8u1")
+graphic = ExtResource("14_cfv3i")
+
+[node name="Node2" type="Node3D" parent="Event"]
+script = ExtResource("17_pfaao")
+graphic = SubResource("Resource_7xjio")
+collision = false
+conditions = Array[Resource("res://Core/Interpreter/EventPageCondition.gd")]([SubResource("Resource_jytsm")])
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.707107, -0.707107, -3.09086e-08, 0, -4.37114e-08, 1, -0.707107, -0.707107, -3.09086e-08, -1.61952, 0, 0)

@@ -39,6 +39,8 @@ size = Vector3(1, 1, 0.5)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Scenario" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scenario/StaticBody3D2" index="0"]
 shape = SubResource("ConcavePolygonShape3D_kw88o")
@@ -48,6 +50,8 @@ transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0, -3)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs1" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs1/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_b5mju")
@@ -57,6 +61,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, -27, 3, -6)
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs2" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs2/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_f4g0d")
@@ -66,6 +72,8 @@ transform = Transform3D(-4.37114e-08, 0, 2, 0, 1, 0, -1, 0, -8.74228e-08, -33, 0
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs3" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs3/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_iosiw")
@@ -74,6 +82,8 @@ shape = SubResource("ConcavePolygonShape3D_iosiw")
 material_override = ExtResource("3_qfu7e")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tree" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tree/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_m2vwv")
@@ -109,6 +119,8 @@ shape = SubResource("BoxShape3D_wtu74")
 material_override = ExtResource("2_oq3ea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ElevatorBase" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorBase/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_432qa")
@@ -117,6 +129,8 @@ shape = SubResource("ConcavePolygonShape3D_432qa")
 material_override = ExtResource("3_qfu7e")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Sign Post" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sign Post/StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -126,6 +140,8 @@ shape = SubResource("BoxShape3D_3w4xc")
 material_override = ExtResource("3_qfu7e")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Bush" index="0"]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bush/StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

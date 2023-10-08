@@ -28,7 +28,7 @@ func getHorz():
 
 func canMove():
 	if Global.Ev.isBusy(): return false
-	if Global.UI.Message.busy(): return false
+	if Global.UI.busy(): return false
 	return true
 
 func rotateTowards(newRotation : Vector3):

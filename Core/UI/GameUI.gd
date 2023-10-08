@@ -4,7 +4,13 @@ class_name GameUI
 @export var Message : GameMessage
 
 func _init():
+	print("Asdasd")
 	Global.UI = self
+
+func busy():
+	if Global.Scene.transferring: return true
+	if (Message.busy()): return true
+	return false
 
 func posToScreen(pos : Vector3) -> Vector2:
 	var cam = get_viewport().get_camera_3d()

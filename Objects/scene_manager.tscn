@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3bt0yfvvxmdj"]
+
+[ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
+
+[sub_resource type="Gradient" id="Gradient_k0mpe"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ol4p7"]
+gradient = SubResource("Gradient_k0mpe")
+
+[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qvwbx")
+cover = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ol4p7")

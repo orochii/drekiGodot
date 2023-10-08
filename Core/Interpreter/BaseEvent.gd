@@ -1,18 +1,31 @@
-extends Node
+extends Node3D
 class_name BaseEvent
 
-func _ready():
-	pass
+enum EActivation { INTERACT, PLAYER_TOUCH, EVENT_TOUCH, AUTOSTART, PARALLEL }
+
+@export_group("Visuals")
+@export var graphic : Spritesheet
+@export var collision: bool = true
+@export_group("Behavior")
+@export var activation : EActivation
+@export var loop : bool
+@export var conditions : Array[EventPageCondition]
+
+var looping : bool = false
+
+func check() -> bool:
+	for c in conditions:
+		if c.check()==false: return false
+	return true
 
 func execute():
-	Global.Ev.add(self)
+	if activation != EActivation.PARALLEL: Global.Ev.add(self)
+	looping = loop
 	await _run()
+	while looping:
+		await _run()
+	await Global.Ev.wait(0.1)
 	Global.Ev.remove(self)
 
 func _run():
-	var p = get_node("/root/Node3D/Player")
-	await Global.UI.Message.showText(p, 2, "Longest speaker name everrrrrr", "hello world!")
-	#await Global.Ev.wait(0.5)
-	await Global.UI.Message.showText(p, 8, "", "second text? make it very loooooong for testing :O")
-	await Global.UI.Message.showText(p, 4, "", "now left")
-	await Global.UI.Message.showText(p, 6, "", "and now right")
+	pass

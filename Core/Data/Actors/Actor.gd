@@ -35,3 +35,6 @@ const MAX_LEVEL : int = 255
 @export var vit : Vector2i
 @export var mag : Vector2i
 @export var agi : Vector2i
+
+func getId() -> StringName:
+	return StringName(self.resource_path.split("/")[-1].replace(".tres", ""))
