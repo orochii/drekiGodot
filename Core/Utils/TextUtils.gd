@@ -7,7 +7,7 @@ static func parseText(t : String):
 	var results = regex.search_all(t)
 	for r in results:
 		var pattern = r.get_string(0)
-		var actionName = Global.Db.iconLibrary.getActionIcon(r.get_string(1), 0)
+		var actionName = Global.Db.iconLibrary.getActionIconName(r.get_string(1))
 		var name = "[img]" + actionName + "[/img]"
 		t = t.replace(pattern, name)
 	

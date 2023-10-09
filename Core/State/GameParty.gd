@@ -1,7 +1,7 @@
 extends Object
 class_name GameParty
 
-var members : Array[StringName]
+var members : Array
 var inventory : Array[GameInventoryEntry]
 var gold : int
 

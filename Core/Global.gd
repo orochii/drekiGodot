@@ -29,19 +29,25 @@ enum EUsePermit { BATTLE, MAP, ANYWHERE }
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
+var Config : ConfigManager
 var Audio : AudioManager
 var State : GameState
 var Scene : SceneManager
+var Inputs : InputManager
 var scene = preload("res://Objects/scene_manager.tscn")
 
 func _init():
 	DirAccess.make_dir_absolute(savePath())
+	Config = ConfigManager.new()
 	Scene = scene.instantiate()
 	add_child(Scene)
 	Db = load("res://Data/database.tres")
 	Ev = Interpreter.new()
 	Audio = AudioManager.new()
 	self.add_child(Audio)
+	# TODO: Input interface
+	Inputs = InputManager.new()
+	add_child(Inputs)
 
 func _ready():
 	State = GameState.new()
@@ -80,4 +86,5 @@ func loadGame(name:String):
 	Scene.transfer(State.lastSceneName)
 
 func getSceneRoot():
+	if Scene.currentScene != null: return Scene.currentScene
 	return UI.get_parent()

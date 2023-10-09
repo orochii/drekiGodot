@@ -12,8 +12,8 @@ var actors : Array[GameActor] = []
 # party stuff: members, inventory
 var party : GameParty
 # switches/variables
-var switches : Array[bool] = []
-var variables : Array[int] = []
+var switches : Array = []
+var variables : Array = []
 # map state
 var _characters = null
 var lastSceneName : String = ""
@@ -91,8 +91,8 @@ func _deserialize(savedata : Dictionary):
 	for key in savedata:
 		match key:
 			"actors":
-				var _inv = _deserializeActors(savedata[key])
-				set(key, _inv)
+				var ary = _deserializeActors(savedata[key])
+				set(key, ary)
 			"party":
 				var p = GameParty.new()
 				p._deserialize(savedata[key])
@@ -113,8 +113,11 @@ func _deserializeActors(data : Array):
 func _deserializeCharacters():
 	if (_characters == null): return
 	var scene : Node3D = Global.getSceneRoot()
+	print(Global.State.getSwitch(0))
 	for n in scene.get_children():
 		if n is Character:
+			if n is NPC:
+				n.refreshPage()
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
 				var e = _characters[path]

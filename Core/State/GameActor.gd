@@ -2,7 +2,7 @@ extends GameBattler
 class_name GameActor
 
 var exp : int
-var equips : Array[StringName]
+var equips : Array
 
 func _init(_id:StringName):
 	id = _id

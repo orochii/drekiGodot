@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="IconLibrary" load_steps=41 format=3 uid="uid://ct23pva1ttabn"]
+[gd_resource type="Resource" script_class="IconLibrary" load_steps=244 format=3 uid="uid://ct23pva1ttabn"]
 
 [ext_resource type="Texture2D" uid="uid://dquqf3garsx6k" path="res://Graphics/Icons/buttonsM30/D pad up.png" id="1_adtwi"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/IconLibrary.gd" id="1_y6rw4"]
@@ -7,20 +7,126 @@
 [ext_resource type="Texture2D" uid="uid://30t38fo76myl" path="res://Graphics/Icons/buttonsM30/D pad left.png" id="4_t3b80"]
 [ext_resource type="Texture2D" uid="uid://bnw42w8k1018t" path="res://Graphics/Icons/buttonsM30/D pad right.png" id="5_tnt3o"]
 [ext_resource type="Texture2D" uid="uid://c825288p1w6j3" path="res://Graphics/Icons/buttonsM30/A button.png" id="6_a2fti"]
+[ext_resource type="Texture2D" uid="uid://oknwfk2e1jkf" path="res://Graphics/Icons/buttons/A button.png" id="7_oe1m4"]
 [ext_resource type="Texture2D" uid="uid://ev178b4q0ydy" path="res://Graphics/Icons/buttonsM30/B button.png" id="7_sgfb8"]
 [ext_resource type="Texture2D" uid="uid://dyvgjg0uh4bq1" path="res://Graphics/Icons/buttonsM30/X button.png" id="8_3ai3x"]
 [ext_resource type="Texture2D" uid="uid://b7q7qlphja776" path="res://Graphics/Icons/buttonsM30/Y button.png" id="9_61cxx"]
+[ext_resource type="Texture2D" uid="uid://conjicpydotc" path="res://Graphics/Icons/buttons/B button.png" id="9_t63ec"]
 [ext_resource type="Texture2D" uid="uid://bu4ab7v0cgvf6" path="res://Graphics/Icons/buttonsM30/Back.png" id="10_b6t8q"]
+[ext_resource type="Texture2D" uid="uid://bemlvsb7hq81b" path="res://Graphics/Icons/buttons/X button.png" id="11_i5cu7"]
 [ext_resource type="Texture2D" uid="uid://16t4av77qf8n" path="res://Graphics/Icons/buttonsM30/Start.png" id="11_ykoxy"]
 [ext_resource type="Texture2D" uid="uid://dr0j4qtja30qv" path="res://Graphics/Icons/buttonsM30/Left shoulder.png" id="12_6tcxt"]
+[ext_resource type="Texture2D" uid="uid://bch2vtcynibgg" path="res://Graphics/Icons/buttons/Y button.png" id="13_hhoph"]
 [ext_resource type="Texture2D" uid="uid://xfamq0dfkkja" path="res://Graphics/Icons/buttonsM30/Right shoulder.png" id="13_pyp7u"]
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="14_vm5s3"]
 [ext_resource type="Texture2D" uid="uid://be5s5iurg8w4b" path="res://Graphics/Icons/buttonsM30/Right trigger.png" id="15_6qvr1"]
+[ext_resource type="Texture2D" uid="uid://b5to4m8jxmmkj" path="res://Graphics/Icons/buttons/Back.png" id="15_wlyi0"]
 [ext_resource type="Texture2D" uid="uid://rv6blkjwhsdm" path="res://Graphics/Icons/buttonsM30/Left thumb.png" id="16_em03p"]
+[ext_resource type="Texture2D" uid="uid://don60fag8j7i0" path="res://Graphics/Icons/buttons/Start.png" id="17_su1yn"]
 [ext_resource type="Texture2D" uid="uid://bfvp4cwsk0io3" path="res://Graphics/Icons/buttonsM30/Right thumb.png" id="17_uqv5x"]
 [ext_resource type="Texture2D" uid="uid://b1irjyfe2b135" path="res://Graphics/Icons/buttonsM30/D pad.png" id="18_3hvwb"]
 [ext_resource type="Texture2D" uid="uid://pq5qh7j02uo6" path="res://Graphics/Icons/buttonsM30/L thumb X.png" id="19_jck33"]
+[ext_resource type="Texture2D" uid="uid://cg8jef7pdtw8n" path="res://Graphics/Icons/buttons/Left shoulder.png" id="19_jqljr"]
 [ext_resource type="Texture2D" uid="uid://c85e2vsv3q06m" path="res://Graphics/Icons/buttonsM30/L thumb Y.png" id="20_bvtvn"]
+[ext_resource type="Texture2D" uid="uid://cyuvxlt4evl6f" path="res://Graphics/Icons/buttons/Right shoulder.png" id="21_gah2o"]
+[ext_resource type="Texture2D" uid="uid://b3opqlxxj2obu" path="res://Graphics/Icons/buttons/Left trigger.png" id="23_wxl0r"]
+[ext_resource type="Texture2D" uid="uid://cbvb5m4q68qwu" path="res://Graphics/Icons/buttons/Right trigger.png" id="25_cljk0"]
+[ext_resource type="Texture2D" uid="uid://dnmo7yyqw53qf" path="res://Graphics/Icons/keys/Z.png" id="31_n5dwf"]
+[ext_resource type="Texture2D" uid="uid://bdwjuf5gho21f" path="res://Graphics/Icons/keys/X.png" id="32_73wri"]
+[ext_resource type="Texture2D" uid="uid://c0ogyx41we3r5" path="res://Graphics/Icons/keys/C.png" id="33_s4mjj"]
+[ext_resource type="Texture2D" uid="uid://cu70fs8u0qhmv" path="res://Graphics/Icons/keys/V.png" id="34_kb007"]
+[ext_resource type="Texture2D" uid="uid://caqmg55c7lpm5" path="res://Graphics/Icons/keys/B.png" id="35_er1md"]
+[ext_resource type="Texture2D" uid="uid://dtf8ufygkosk3" path="res://Graphics/Icons/keys/N.png" id="36_01wo6"]
+[ext_resource type="Texture2D" uid="uid://chhw2it5rcmuo" path="res://Graphics/Icons/keys/M.png" id="37_jgoxx"]
+[ext_resource type="Texture2D" uid="uid://4lwpqfps32y0" path="res://Graphics/Icons/keys/A.png" id="38_s2040"]
+[ext_resource type="Texture2D" uid="uid://dwtnwrcjr36y" path="res://Graphics/Icons/keys/S.png" id="39_dqa6e"]
+[ext_resource type="Texture2D" uid="uid://cyek2supc6mqg" path="res://Graphics/Icons/keys/D.png" id="40_hyo3u"]
+[ext_resource type="Texture2D" uid="uid://b1qpskl0xksl5" path="res://Graphics/Icons/keys/F.png" id="41_0jg3g"]
+[ext_resource type="Texture2D" uid="uid://cnoudhljepn8c" path="res://Graphics/Icons/keys/G.png" id="42_dqaj0"]
+[ext_resource type="Texture2D" uid="uid://d3725henrjprb" path="res://Graphics/Icons/keys/H.png" id="43_qykhe"]
+[ext_resource type="Texture2D" uid="uid://ckyctl0dvnqp8" path="res://Graphics/Icons/keys/J.png" id="44_hppu0"]
+[ext_resource type="Texture2D" uid="uid://cjxsel75c83pd" path="res://Graphics/Icons/keys/K.png" id="45_ehqn2"]
+[ext_resource type="Texture2D" uid="uid://d3c2okf4mpr3c" path="res://Graphics/Icons/keys/L.png" id="46_1v24n"]
+[ext_resource type="Texture2D" uid="uid://cqsl5aqyr76gl" path="res://Graphics/Icons/keys/Q.png" id="47_2bof7"]
+[ext_resource type="Texture2D" uid="uid://db4e6apcbgsio" path="res://Graphics/Icons/keys/W.png" id="48_ebnvh"]
+[ext_resource type="Texture2D" uid="uid://kbbpjm42jg14" path="res://Graphics/Icons/keys/E.png" id="49_2lh4x"]
+[ext_resource type="Texture2D" uid="uid://fds40gpicbwt" path="res://Graphics/Icons/keys/R.png" id="50_fr0qj"]
+[ext_resource type="Texture2D" uid="uid://dq4kjl46ksqmq" path="res://Graphics/Icons/keys/T.png" id="51_xigtu"]
+[ext_resource type="Texture2D" uid="uid://dsoamtgxvu8l1" path="res://Graphics/Icons/keys/Y.png" id="52_0dyip"]
+[ext_resource type="Texture2D" uid="uid://hxpr2x1r2k05" path="res://Graphics/Icons/keys/U.png" id="53_xbrld"]
+[ext_resource type="Texture2D" uid="uid://dx6sl7uc1svcm" path="res://Graphics/Icons/keys/I.png" id="54_8e6sh"]
+[ext_resource type="Texture2D" uid="uid://c0cf05s6f0rg5" path="res://Graphics/Icons/keys/O.png" id="55_0sj8f"]
+[ext_resource type="Texture2D" uid="uid://dvh6a483oh03w" path="res://Graphics/Icons/keys/P.png" id="56_3agms"]
+[ext_resource type="Texture2D" uid="uid://6mlopsqu4563" path="res://Graphics/Icons/keys/1.png" id="57_3dw7i"]
+[ext_resource type="Texture2D" uid="uid://3g3ut0o3oamk" path="res://Graphics/Icons/keys/2.png" id="58_intre"]
+[ext_resource type="Texture2D" uid="uid://bmvb0sfjd5tsb" path="res://Graphics/Icons/keys/3.png" id="59_e4fim"]
+[ext_resource type="Texture2D" uid="uid://bh330fsmea0mb" path="res://Graphics/Icons/keys/4.png" id="60_jjohx"]
+[ext_resource type="Texture2D" uid="uid://cn0vcb3j8e0w3" path="res://Graphics/Icons/keys/5.png" id="61_ljqcn"]
+[ext_resource type="Texture2D" uid="uid://4lveduq711lk" path="res://Graphics/Icons/keys/6.png" id="62_7b0ck"]
+[ext_resource type="Texture2D" uid="uid://bqybef414d71v" path="res://Graphics/Icons/keys/7.png" id="63_s5g17"]
+[ext_resource type="Texture2D" uid="uid://chupk86lkg61n" path="res://Graphics/Icons/keys/8.png" id="64_56ekr"]
+[ext_resource type="Texture2D" uid="uid://dino6pmn535jo" path="res://Graphics/Icons/keys/9.png" id="65_gn3va"]
+[ext_resource type="Texture2D" uid="uid://c24jypmq6du2" path="res://Graphics/Icons/keys/0.png" id="66_w30ri"]
+[ext_resource type="Texture2D" uid="uid://bkd7egjftrd0s" path="res://Graphics/Icons/keys/Ctrl.png" id="67_kv3b8"]
+[ext_resource type="Texture2D" uid="uid://cq73hfxd4f384" path="res://Graphics/Icons/keys/Alt.png" id="68_57n16"]
+[ext_resource type="Texture2D" uid="uid://b2tpb1uavrubc" path="res://Graphics/Icons/keys/R Alt.png" id="69_dq52v"]
+[ext_resource type="Texture2D" uid="uid://dc4kfswgh1m7y" path="res://Graphics/Icons/keys/L Windows.png" id="70_kjeo3"]
+[ext_resource type="Texture2D" uid="uid://cqn0jabhbvgh" path="res://Graphics/Icons/keys/Left Arrow.png" id="71_0k331"]
+[ext_resource type="Texture2D" uid="uid://by0rkrcvq3r8g" path="res://Graphics/Icons/keys/Down Arrow.png" id="72_ndjkt"]
+[ext_resource type="Texture2D" uid="uid://cxoqlxmhln208" path="res://Graphics/Icons/keys/Right Arrow.png" id="73_6jqfq"]
+[ext_resource type="Texture2D" uid="uid://banc1r1mcq7qe" path="res://Graphics/Icons/keys/L Shift.png" id="74_vn040"]
+[ext_resource type="Texture2D" uid="uid://cauutytfcau00" path="res://Graphics/Icons/keys/Comma.png" id="75_6rtbw"]
+[ext_resource type="Texture2D" uid="uid://vjn7navya6ta" path="res://Graphics/Icons/keys/Period.png" id="76_lp2qn"]
+[ext_resource type="Texture2D" uid="uid://db160d20dut50" path="res://Graphics/Icons/keys/Slash.png" id="77_6wjhv"]
+[ext_resource type="Texture2D" uid="uid://d0fur4nacpcif" path="res://Graphics/Icons/keys/Up Arrow.png" id="78_7hwt4"]
+[ext_resource type="Texture2D" uid="uid://dl4smm7khijd4" path="res://Graphics/Icons/keys/Num 0.png" id="79_2a083"]
+[ext_resource type="Texture2D" uid="uid://bee7v5yiq65wv" path="res://Graphics/Icons/keys/Num 1.png" id="80_3c8hm"]
+[ext_resource type="Texture2D" uid="uid://d2lyy2csbw8cs" path="res://Graphics/Icons/keys/Num 2.png" id="81_om18x"]
+[ext_resource type="Texture2D" uid="uid://b8idco75kf44v" path="res://Graphics/Icons/keys/Num 3.png" id="82_ukh3i"]
+[ext_resource type="Texture2D" uid="uid://pt7e5kbkbujy" path="res://Graphics/Icons/keys/Num 4.png" id="83_yov2h"]
+[ext_resource type="Texture2D" uid="uid://be4elkmcjvj6c" path="res://Graphics/Icons/keys/Num 5.png" id="84_1l58v"]
+[ext_resource type="Texture2D" uid="uid://draip23tkchaa" path="res://Graphics/Icons/keys/Num 6.png" id="85_sfw31"]
+[ext_resource type="Texture2D" uid="uid://ni8i2r8iedgc" path="res://Graphics/Icons/keys/Add.png" id="86_es30t"]
+[ext_resource type="Texture2D" uid="uid://m7tmsmtrnqt3" path="res://Graphics/Icons/keys/Decimal.png" id="87_qlq0l"]
+[ext_resource type="Texture2D" uid="uid://klco3l5tf4vh" path="res://Graphics/Icons/keys/Num Enter.png" id="88_66vfm"]
+[ext_resource type="Texture2D" uid="uid://c7ql3rcumcf8y" path="res://Graphics/Icons/keys/Num 7.png" id="89_vdguf"]
+[ext_resource type="Texture2D" uid="uid://hnxwvc8d0skp" path="res://Graphics/Icons/keys/Num 8.png" id="90_kjv5k"]
+[ext_resource type="Texture2D" uid="uid://dlh8ioahrvc17" path="res://Graphics/Icons/keys/Num 9.png" id="91_ttbsx"]
+[ext_resource type="Texture2D" uid="uid://bty8drcr1gdm2" path="res://Graphics/Icons/keys/Divide.png" id="92_s0jt1"]
+[ext_resource type="Texture2D" uid="uid://bpec1s1ysx0v2" path="res://Graphics/Icons/keys/Multiply.png" id="93_khkap"]
+[ext_resource type="Texture2D" uid="uid://inur1e3q7kv3" path="res://Graphics/Icons/keys/Subtract.png" id="94_3sv8e"]
+[ext_resource type="Texture2D" uid="uid://c1g74ut7qu50t" path="res://Graphics/Icons/keys/Num Lock.png" id="95_s4acr"]
+[ext_resource type="Texture2D" uid="uid://dx5qv57tcmjrn" path="res://Graphics/Icons/keys/Caps Lock.png" id="96_1cu1k"]
+[ext_resource type="Texture2D" uid="uid://bhnkkyly0u2g" path="res://Graphics/Icons/keys/Enter.png" id="97_n0bgy"]
+[ext_resource type="Texture2D" uid="uid://u2opya2fyqqp" path="res://Graphics/Icons/keys/Tab.png" id="98_s5k8q"]
+[ext_resource type="Texture2D" uid="uid://b2coa2h3fcjsc" path="res://Graphics/Icons/keys/Colon.png" id="99_islto"]
+[ext_resource type="Texture2D" uid="uid://bht52okm5vmvh" path="res://Graphics/Icons/keys/Tilde.png" id="100_tkcsc"]
+[ext_resource type="Texture2D" uid="uid://cbuyiqua55s6c" path="res://Graphics/Icons/keys/OpenParenthesis.png" id="101_jb66a"]
+[ext_resource type="Texture2D" uid="uid://uxabjxc0u4ik" path="res://Graphics/Icons/keys/ClosingParenthesis.png" id="102_q2sap"]
+[ext_resource type="Texture2D" uid="uid://fny21756rxys" path="res://Graphics/Icons/keys/Backslash.png" id="103_wa3si"]
+[ext_resource type="Texture2D" uid="uid://ccwvnpfobg4fi" path="res://Graphics/Icons/keys/Delete.png" id="104_4oj2p"]
+[ext_resource type="Texture2D" uid="uid://bv7a61k1lssqq" path="res://Graphics/Icons/keys/End.png" id="105_y5d65"]
+[ext_resource type="Texture2D" uid="uid://b7hrvqvsutiwe" path="res://Graphics/Icons/keys/PgDn.png" id="106_q5nbx"]
+[ext_resource type="Texture2D" uid="uid://buvvx4jc2mxrf" path="res://Graphics/Icons/keys/Quote.png" id="107_530gf"]
+[ext_resource type="Texture2D" uid="uid://cfhe76o7ra31y" path="res://Graphics/Icons/keys/Separator.png" id="108_pg2vg"]
+[ext_resource type="Texture2D" uid="uid://dbctk4ci56uk5" path="res://Graphics/Icons/keys/PlusEq.png" id="109_w3pb3"]
+[ext_resource type="Texture2D" uid="uid://datrbb0hjwv1i" path="res://Graphics/Icons/keys/Backspace.png" id="110_yb7u0"]
+[ext_resource type="Texture2D" uid="uid://bswodbdgepk5i" path="res://Graphics/Icons/keys/Insert.png" id="111_ud6tb"]
+[ext_resource type="Texture2D" uid="uid://dpgbuidm4f37q" path="res://Graphics/Icons/keys/Home.png" id="112_i10ky"]
+[ext_resource type="Texture2D" uid="uid://dx7vf3l6csf8d" path="res://Graphics/Icons/keys/PgUp.png" id="113_cojqe"]
+[ext_resource type="Texture2D" uid="uid://blema6xmg2w6d" path="res://Graphics/Icons/keys/Esc.png" id="114_v2ca6"]
+[ext_resource type="Texture2D" uid="uid://duvvueqcsyv0o" path="res://Graphics/Icons/keys/F1.png" id="115_j7au8"]
+[ext_resource type="Texture2D" uid="uid://5kstlhb6fgp7" path="res://Graphics/Icons/keys/F2.png" id="116_iktyv"]
+[ext_resource type="Texture2D" uid="uid://dok0w7hqp7qvf" path="res://Graphics/Icons/keys/F3.png" id="117_5272a"]
+[ext_resource type="Texture2D" uid="uid://pd15xrqthclq" path="res://Graphics/Icons/keys/F4.png" id="118_ts5uf"]
+[ext_resource type="Texture2D" uid="uid://c1d880u0nb0ft" path="res://Graphics/Icons/keys/F5.png" id="119_5jmeb"]
+[ext_resource type="Texture2D" uid="uid://da1nsr125w8sy" path="res://Graphics/Icons/keys/F6.png" id="120_qbgpw"]
+[ext_resource type="Texture2D" uid="uid://6bve81tev11v" path="res://Graphics/Icons/keys/F7.png" id="121_qb8lf"]
+[ext_resource type="Texture2D" uid="uid://ctsj5gak0fxnf" path="res://Graphics/Icons/keys/F8.png" id="122_io7hu"]
+[ext_resource type="Texture2D" uid="uid://8r18mhsm7t56" path="res://Graphics/Icons/keys/F9.png" id="123_5mrpd"]
+[ext_resource type="Texture2D" uid="uid://clh8ljdvl7qjn" path="res://Graphics/Icons/keys/F10.png" id="124_rjpds"]
+[ext_resource type="Texture2D" uid="uid://bh600p2a1uexd" path="res://Graphics/Icons/keys/F11.png" id="125_7oswn"]
+[ext_resource type="Texture2D" uid="uid://cxfib0lj61fvv" path="res://Graphics/Icons/keys/F12.png" id="126_c0xrp"]
 
 [sub_resource type="Resource" id="Resource_ucsih"]
 script = ExtResource("2_vfq2t")
@@ -45,52 +151,52 @@ icons = Array[Texture2D]([ExtResource("5_tnt3o")])
 [sub_resource type="Resource" id="Resource_0pweh"]
 script = ExtResource("2_vfq2t")
 name = &"Bottom Action"
-icons = Array[Texture2D]([ExtResource("6_a2fti")])
+icons = Array[Texture2D]([ExtResource("6_a2fti"), ExtResource("7_oe1m4")])
 
 [sub_resource type="Resource" id="Resource_473cu"]
 script = ExtResource("2_vfq2t")
 name = &"Right Action"
-icons = Array[Texture2D]([ExtResource("7_sgfb8")])
+icons = Array[Texture2D]([ExtResource("7_sgfb8"), ExtResource("9_t63ec")])
 
 [sub_resource type="Resource" id="Resource_avvo1"]
 script = ExtResource("2_vfq2t")
 name = &"Left Action"
-icons = Array[Texture2D]([ExtResource("8_3ai3x")])
+icons = Array[Texture2D]([ExtResource("8_3ai3x"), ExtResource("11_i5cu7")])
 
 [sub_resource type="Resource" id="Resource_af1tv"]
 script = ExtResource("2_vfq2t")
 name = &"Top Action"
-icons = Array[Texture2D]([ExtResource("9_61cxx")])
+icons = Array[Texture2D]([ExtResource("9_61cxx"), ExtResource("13_hhoph")])
 
 [sub_resource type="Resource" id="Resource_f36km"]
 script = ExtResource("2_vfq2t")
 name = &"Back"
-icons = Array[Texture2D]([ExtResource("10_b6t8q")])
+icons = Array[Texture2D]([ExtResource("10_b6t8q"), ExtResource("15_wlyi0")])
 
 [sub_resource type="Resource" id="Resource_2558b"]
 script = ExtResource("2_vfq2t")
 name = &"Start"
-icons = Array[Texture2D]([ExtResource("11_ykoxy")])
+icons = Array[Texture2D]([ExtResource("11_ykoxy"), ExtResource("17_su1yn")])
 
 [sub_resource type="Resource" id="Resource_eu8hf"]
 script = ExtResource("2_vfq2t")
 name = &"Left Shoulder"
-icons = Array[Texture2D]([ExtResource("12_6tcxt")])
+icons = Array[Texture2D]([ExtResource("12_6tcxt"), ExtResource("19_jqljr")])
 
 [sub_resource type="Resource" id="Resource_vre1e"]
 script = ExtResource("2_vfq2t")
 name = &"Right Shoulder"
-icons = Array[Texture2D]([ExtResource("13_pyp7u")])
+icons = Array[Texture2D]([ExtResource("13_pyp7u"), ExtResource("21_gah2o")])
 
 [sub_resource type="Resource" id="Resource_miuol"]
 script = ExtResource("2_vfq2t")
-name = &"Left Trigger"
-icons = Array[Texture2D]([ExtResource("14_vm5s3")])
+name = &"Joystick 2 X-Axis"
+icons = Array[Texture2D]([ExtResource("14_vm5s3"), ExtResource("23_wxl0r")])
 
 [sub_resource type="Resource" id="Resource_j80ep"]
 script = ExtResource("2_vfq2t")
-name = &"Right Trigger"
-icons = Array[Texture2D]([ExtResource("15_6qvr1")])
+name = &"Joystick 2 Y-Axis"
+icons = Array[Texture2D]([ExtResource("15_6qvr1"), ExtResource("25_cljk0")])
 
 [sub_resource type="Resource" id="Resource_b4dk3"]
 script = ExtResource("2_vfq2t")
@@ -117,6 +223,493 @@ script = ExtResource("2_vfq2t")
 name = &"Left Stick Y-Axis"
 icons = Array[Texture2D]([ExtResource("20_bvtvn")])
 
+[sub_resource type="Resource" id="Resource_4yvcs"]
+script = ExtResource("2_vfq2t")
+name = &"Z (Physical)"
+icons = Array[Texture2D]([ExtResource("31_n5dwf")])
+
+[sub_resource type="Resource" id="Resource_31w1m"]
+script = ExtResource("2_vfq2t")
+name = &"X (Physical)"
+icons = Array[Texture2D]([ExtResource("32_73wri")])
+
+[sub_resource type="Resource" id="Resource_jcqh2"]
+script = ExtResource("2_vfq2t")
+name = &"C (Physical)"
+icons = Array[Texture2D]([ExtResource("33_s4mjj")])
+
+[sub_resource type="Resource" id="Resource_nn2dy"]
+script = ExtResource("2_vfq2t")
+name = &"V (Physical)"
+icons = Array[Texture2D]([ExtResource("34_kb007")])
+
+[sub_resource type="Resource" id="Resource_7x102"]
+script = ExtResource("2_vfq2t")
+name = &"B (Physical)"
+icons = Array[Texture2D]([ExtResource("35_er1md")])
+
+[sub_resource type="Resource" id="Resource_pnbbc"]
+script = ExtResource("2_vfq2t")
+name = &"N (Physical)"
+icons = Array[Texture2D]([ExtResource("36_01wo6")])
+
+[sub_resource type="Resource" id="Resource_xmyfr"]
+script = ExtResource("2_vfq2t")
+name = &"M (Physical)"
+icons = Array[Texture2D]([ExtResource("37_jgoxx")])
+
+[sub_resource type="Resource" id="Resource_ni7yn"]
+script = ExtResource("2_vfq2t")
+name = &"A (Physical)"
+icons = Array[Texture2D]([ExtResource("38_s2040")])
+
+[sub_resource type="Resource" id="Resource_t5pum"]
+script = ExtResource("2_vfq2t")
+name = &"S (Physical)"
+icons = Array[Texture2D]([ExtResource("39_dqa6e")])
+
+[sub_resource type="Resource" id="Resource_peoq2"]
+script = ExtResource("2_vfq2t")
+name = &"D (Physical)"
+icons = Array[Texture2D]([ExtResource("40_hyo3u")])
+
+[sub_resource type="Resource" id="Resource_854at"]
+script = ExtResource("2_vfq2t")
+name = &"F (Physical)"
+icons = Array[Texture2D]([ExtResource("41_0jg3g")])
+
+[sub_resource type="Resource" id="Resource_8me0r"]
+script = ExtResource("2_vfq2t")
+name = &"G (Physical)"
+icons = Array[Texture2D]([ExtResource("42_dqaj0")])
+
+[sub_resource type="Resource" id="Resource_td2ct"]
+script = ExtResource("2_vfq2t")
+name = &"H (Physical)"
+icons = Array[Texture2D]([ExtResource("43_qykhe")])
+
+[sub_resource type="Resource" id="Resource_aor8i"]
+script = ExtResource("2_vfq2t")
+name = &"J (Physical)"
+icons = Array[Texture2D]([ExtResource("44_hppu0")])
+
+[sub_resource type="Resource" id="Resource_x4dox"]
+script = ExtResource("2_vfq2t")
+name = &"K (Physical)"
+icons = Array[Texture2D]([ExtResource("45_ehqn2")])
+
+[sub_resource type="Resource" id="Resource_1kp27"]
+script = ExtResource("2_vfq2t")
+name = &"L (Physical)"
+icons = Array[Texture2D]([ExtResource("46_1v24n")])
+
+[sub_resource type="Resource" id="Resource_cryqm"]
+script = ExtResource("2_vfq2t")
+name = &"Q (Physical)"
+icons = Array[Texture2D]([ExtResource("47_2bof7")])
+
+[sub_resource type="Resource" id="Resource_ckk6s"]
+script = ExtResource("2_vfq2t")
+name = &"W (Physical)"
+icons = Array[Texture2D]([ExtResource("48_ebnvh")])
+
+[sub_resource type="Resource" id="Resource_3py52"]
+script = ExtResource("2_vfq2t")
+name = &"E (Physical)"
+icons = Array[Texture2D]([ExtResource("49_2lh4x")])
+
+[sub_resource type="Resource" id="Resource_co54p"]
+script = ExtResource("2_vfq2t")
+name = &"R (Physical)"
+icons = Array[Texture2D]([ExtResource("50_fr0qj")])
+
+[sub_resource type="Resource" id="Resource_e3xhm"]
+script = ExtResource("2_vfq2t")
+name = &"T (Physical)"
+icons = Array[Texture2D]([ExtResource("51_xigtu")])
+
+[sub_resource type="Resource" id="Resource_4tymh"]
+script = ExtResource("2_vfq2t")
+name = &"Y (Physical)"
+icons = Array[Texture2D]([ExtResource("52_0dyip")])
+
+[sub_resource type="Resource" id="Resource_8dbjp"]
+script = ExtResource("2_vfq2t")
+name = &"U (Physical)"
+icons = Array[Texture2D]([ExtResource("53_xbrld")])
+
+[sub_resource type="Resource" id="Resource_bt3ld"]
+script = ExtResource("2_vfq2t")
+name = &"I (Physical)"
+icons = Array[Texture2D]([ExtResource("54_8e6sh")])
+
+[sub_resource type="Resource" id="Resource_yrf0m"]
+script = ExtResource("2_vfq2t")
+name = &"O (Physical)"
+icons = Array[Texture2D]([ExtResource("55_0sj8f")])
+
+[sub_resource type="Resource" id="Resource_hfci6"]
+script = ExtResource("2_vfq2t")
+name = &"P (Physical)"
+icons = Array[Texture2D]([ExtResource("56_3agms")])
+
+[sub_resource type="Resource" id="Resource_hc5rh"]
+script = ExtResource("2_vfq2t")
+name = &"1 (Physical)"
+icons = Array[Texture2D]([ExtResource("57_3dw7i")])
+
+[sub_resource type="Resource" id="Resource_wnjfk"]
+script = ExtResource("2_vfq2t")
+name = &"2 (Physical)"
+icons = Array[Texture2D]([ExtResource("58_intre")])
+
+[sub_resource type="Resource" id="Resource_gwyrw"]
+script = ExtResource("2_vfq2t")
+name = &"3 (Physical)"
+icons = Array[Texture2D]([ExtResource("59_e4fim")])
+
+[sub_resource type="Resource" id="Resource_d5or6"]
+script = ExtResource("2_vfq2t")
+name = &"4 (Physical)"
+icons = Array[Texture2D]([ExtResource("60_jjohx")])
+
+[sub_resource type="Resource" id="Resource_t0v3q"]
+script = ExtResource("2_vfq2t")
+name = &"5 (Physical)"
+icons = Array[Texture2D]([ExtResource("61_ljqcn")])
+
+[sub_resource type="Resource" id="Resource_raxmm"]
+script = ExtResource("2_vfq2t")
+name = &"6 (Physical)"
+icons = Array[Texture2D]([ExtResource("62_7b0ck")])
+
+[sub_resource type="Resource" id="Resource_1uqip"]
+script = ExtResource("2_vfq2t")
+name = &"7 (Physical)"
+icons = Array[Texture2D]([ExtResource("63_s5g17")])
+
+[sub_resource type="Resource" id="Resource_xpljn"]
+script = ExtResource("2_vfq2t")
+name = &"8 (Physical)"
+icons = Array[Texture2D]([ExtResource("64_56ekr")])
+
+[sub_resource type="Resource" id="Resource_fhmsy"]
+script = ExtResource("2_vfq2t")
+name = &"9 (Physical)"
+icons = Array[Texture2D]([ExtResource("65_gn3va")])
+
+[sub_resource type="Resource" id="Resource_2sqbe"]
+script = ExtResource("2_vfq2t")
+name = &"0 (Physical)"
+icons = Array[Texture2D]([ExtResource("66_w30ri")])
+
+[sub_resource type="Resource" id="Resource_1vhw4"]
+script = ExtResource("2_vfq2t")
+name = &"Ctrl (Physical)"
+icons = Array[Texture2D]([ExtResource("67_kv3b8")])
+
+[sub_resource type="Resource" id="Resource_chuos"]
+script = ExtResource("2_vfq2t")
+name = &"Alt (Physical)"
+icons = Array[Texture2D]([ExtResource("68_57n16")])
+
+[sub_resource type="Resource" id="Resource_mqoul"]
+script = ExtResource("2_vfq2t")
+name = &"Ctrl+Alt (Physical)"
+icons = Array[Texture2D]([ExtResource("69_dq52v")])
+
+[sub_resource type="Resource" id="Resource_i0jmd"]
+script = ExtResource("2_vfq2t")
+name = &"Space (Physical)"
+icons = Array[Texture2D]([])
+
+[sub_resource type="Resource" id="Resource_f0eqh"]
+script = ExtResource("2_vfq2t")
+name = &"Menu (Physical)"
+icons = Array[Texture2D]([ExtResource("70_kjeo3")])
+
+[sub_resource type="Resource" id="Resource_lwxsg"]
+script = ExtResource("2_vfq2t")
+name = &"Left (Physical)"
+icons = Array[Texture2D]([ExtResource("71_0k331")])
+
+[sub_resource type="Resource" id="Resource_54f8w"]
+script = ExtResource("2_vfq2t")
+name = &"Down (Physical)"
+icons = Array[Texture2D]([ExtResource("72_ndjkt")])
+
+[sub_resource type="Resource" id="Resource_qpta6"]
+script = ExtResource("2_vfq2t")
+name = &"Right (Physical)"
+icons = Array[Texture2D]([ExtResource("73_6jqfq")])
+
+[sub_resource type="Resource" id="Resource_ya0gc"]
+script = ExtResource("2_vfq2t")
+name = &"Shift (Physical)"
+icons = Array[Texture2D]([ExtResource("74_vn040")])
+
+[sub_resource type="Resource" id="Resource_rvbma"]
+script = ExtResource("2_vfq2t")
+name = &"Comma (Physical)"
+icons = Array[Texture2D]([ExtResource("75_6rtbw")])
+
+[sub_resource type="Resource" id="Resource_ebxm4"]
+script = ExtResource("2_vfq2t")
+name = &"Period (Physical)"
+icons = Array[Texture2D]([ExtResource("76_lp2qn")])
+
+[sub_resource type="Resource" id="Resource_rbxvc"]
+script = ExtResource("2_vfq2t")
+name = &"Slash (Physical)"
+icons = Array[Texture2D]([ExtResource("77_6wjhv")])
+
+[sub_resource type="Resource" id="Resource_tpyoe"]
+script = ExtResource("2_vfq2t")
+name = &"Up (Physical)"
+icons = Array[Texture2D]([ExtResource("78_7hwt4")])
+
+[sub_resource type="Resource" id="Resource_re250"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 0 (Physical)"
+icons = Array[Texture2D]([ExtResource("79_2a083")])
+
+[sub_resource type="Resource" id="Resource_q7kkt"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 1 (Physical)"
+icons = Array[Texture2D]([ExtResource("80_3c8hm")])
+
+[sub_resource type="Resource" id="Resource_pmyw1"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 2 (Physical)"
+icons = Array[Texture2D]([ExtResource("81_om18x")])
+
+[sub_resource type="Resource" id="Resource_mfpy6"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 3 (Physical)"
+icons = Array[Texture2D]([ExtResource("82_ukh3i")])
+
+[sub_resource type="Resource" id="Resource_asw1x"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 4 (Physical)"
+icons = Array[Texture2D]([ExtResource("83_yov2h")])
+
+[sub_resource type="Resource" id="Resource_o75f0"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 5 (Physical)"
+icons = Array[Texture2D]([ExtResource("84_1l58v")])
+
+[sub_resource type="Resource" id="Resource_s1n8p"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 6 (Physical)"
+icons = Array[Texture2D]([ExtResource("85_sfw31")])
+
+[sub_resource type="Resource" id="Resource_2triv"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Add (Physical)"
+icons = Array[Texture2D]([ExtResource("86_es30t")])
+
+[sub_resource type="Resource" id="Resource_ieikg"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Period (Physical)"
+icons = Array[Texture2D]([ExtResource("87_qlq0l")])
+
+[sub_resource type="Resource" id="Resource_3j5pn"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Enter (Physical)"
+icons = Array[Texture2D]([ExtResource("88_66vfm")])
+
+[sub_resource type="Resource" id="Resource_u351y"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 7 (Physical)"
+icons = Array[Texture2D]([ExtResource("89_vdguf")])
+
+[sub_resource type="Resource" id="Resource_1ww6q"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 8 (Physical)"
+icons = Array[Texture2D]([ExtResource("90_kjv5k")])
+
+[sub_resource type="Resource" id="Resource_dpxtm"]
+script = ExtResource("2_vfq2t")
+name = &"Kp 9 (Physical)"
+icons = Array[Texture2D]([ExtResource("91_ttbsx")])
+
+[sub_resource type="Resource" id="Resource_c1yec"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Divide (Physical)"
+icons = Array[Texture2D]([ExtResource("92_s0jt1")])
+
+[sub_resource type="Resource" id="Resource_gp0nh"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Multiply (Physical)"
+icons = Array[Texture2D]([ExtResource("93_khkap")])
+
+[sub_resource type="Resource" id="Resource_fgf1q"]
+script = ExtResource("2_vfq2t")
+name = &"Kp Subtract (Physical)"
+icons = Array[Texture2D]([ExtResource("94_3sv8e")])
+
+[sub_resource type="Resource" id="Resource_e86ar"]
+script = ExtResource("2_vfq2t")
+name = &"NumLock (Physical)"
+icons = Array[Texture2D]([ExtResource("95_s4acr")])
+
+[sub_resource type="Resource" id="Resource_35cxs"]
+script = ExtResource("2_vfq2t")
+name = &"CapsLock (Physical)"
+icons = Array[Texture2D]([ExtResource("96_1cu1k")])
+
+[sub_resource type="Resource" id="Resource_g0ihm"]
+script = ExtResource("2_vfq2t")
+name = &"Enter (Physical)"
+icons = Array[Texture2D]([ExtResource("97_n0bgy")])
+
+[sub_resource type="Resource" id="Resource_13jkf"]
+script = ExtResource("2_vfq2t")
+name = &"Tab (Physical)"
+icons = Array[Texture2D]([ExtResource("98_s5k8q")])
+
+[sub_resource type="Resource" id="Resource_gnenp"]
+script = ExtResource("2_vfq2t")
+name = &"Semicolon (Physical)"
+icons = Array[Texture2D]([ExtResource("99_islto")])
+
+[sub_resource type="Resource" id="Resource_hqska"]
+script = ExtResource("2_vfq2t")
+name = &"Apostrophe (Physical)"
+icons = Array[Texture2D]([ExtResource("100_tkcsc")])
+
+[sub_resource type="Resource" id="Resource_qprdp"]
+script = ExtResource("2_vfq2t")
+name = &"BracketLeft (Physical)"
+icons = Array[Texture2D]([ExtResource("101_jb66a")])
+
+[sub_resource type="Resource" id="Resource_cn81g"]
+script = ExtResource("2_vfq2t")
+name = &"BracketRight (Physical)"
+icons = Array[Texture2D]([ExtResource("102_q2sap")])
+
+[sub_resource type="Resource" id="Resource_q0vnk"]
+script = ExtResource("2_vfq2t")
+name = &"BackSlash (Physical)"
+icons = Array[Texture2D]([ExtResource("103_wa3si")])
+
+[sub_resource type="Resource" id="Resource_ssc0i"]
+script = ExtResource("2_vfq2t")
+name = &"Delete (Physical)"
+icons = Array[Texture2D]([ExtResource("104_4oj2p")])
+
+[sub_resource type="Resource" id="Resource_sqfv8"]
+script = ExtResource("2_vfq2t")
+name = &"End (Physical)"
+icons = Array[Texture2D]([ExtResource("105_y5d65")])
+
+[sub_resource type="Resource" id="Resource_2ek6w"]
+script = ExtResource("2_vfq2t")
+name = &"PageDown (Physical)"
+icons = Array[Texture2D]([ExtResource("106_q5nbx")])
+
+[sub_resource type="Resource" id="Resource_4u1ie"]
+script = ExtResource("2_vfq2t")
+name = &"QuoteLeft (Physical)"
+icons = Array[Texture2D]([ExtResource("107_530gf")])
+
+[sub_resource type="Resource" id="Resource_fyiai"]
+script = ExtResource("2_vfq2t")
+name = &"Minus (Physical)"
+icons = Array[Texture2D]([ExtResource("108_pg2vg")])
+
+[sub_resource type="Resource" id="Resource_f0gy1"]
+script = ExtResource("2_vfq2t")
+name = &"Equal (Physical)"
+icons = Array[Texture2D]([ExtResource("109_w3pb3")])
+
+[sub_resource type="Resource" id="Resource_g1ul2"]
+script = ExtResource("2_vfq2t")
+name = &"Backspace (Physical)"
+icons = Array[Texture2D]([ExtResource("110_yb7u0")])
+
+[sub_resource type="Resource" id="Resource_wtu2a"]
+script = ExtResource("2_vfq2t")
+name = &"Insert (Physical)"
+icons = Array[Texture2D]([ExtResource("111_ud6tb")])
+
+[sub_resource type="Resource" id="Resource_k8ux3"]
+script = ExtResource("2_vfq2t")
+name = &"Home (Physical)"
+icons = Array[Texture2D]([ExtResource("112_i10ky")])
+
+[sub_resource type="Resource" id="Resource_sccps"]
+script = ExtResource("2_vfq2t")
+name = &"PageUp (Physical)"
+icons = Array[Texture2D]([ExtResource("113_cojqe")])
+
+[sub_resource type="Resource" id="Resource_fdyyf"]
+script = ExtResource("2_vfq2t")
+name = &"Escape (Physical)"
+icons = Array[Texture2D]([ExtResource("114_v2ca6")])
+
+[sub_resource type="Resource" id="Resource_n3wod"]
+script = ExtResource("2_vfq2t")
+name = &"F1 (Physical)"
+icons = Array[Texture2D]([ExtResource("115_j7au8")])
+
+[sub_resource type="Resource" id="Resource_agbgc"]
+script = ExtResource("2_vfq2t")
+name = &"F2 (Physical)"
+icons = Array[Texture2D]([ExtResource("116_iktyv")])
+
+[sub_resource type="Resource" id="Resource_asvqv"]
+script = ExtResource("2_vfq2t")
+name = &"F3 (Physical)"
+icons = Array[Texture2D]([ExtResource("117_5272a")])
+
+[sub_resource type="Resource" id="Resource_frrc4"]
+script = ExtResource("2_vfq2t")
+name = &"F4 (Physical)"
+icons = Array[Texture2D]([ExtResource("118_ts5uf")])
+
+[sub_resource type="Resource" id="Resource_nkubq"]
+script = ExtResource("2_vfq2t")
+name = &"F5 (Physical)"
+icons = Array[Texture2D]([ExtResource("119_5jmeb")])
+
+[sub_resource type="Resource" id="Resource_via86"]
+script = ExtResource("2_vfq2t")
+name = &"F6 (Physical)"
+icons = Array[Texture2D]([ExtResource("120_qbgpw")])
+
+[sub_resource type="Resource" id="Resource_j4saw"]
+script = ExtResource("2_vfq2t")
+name = &"F7 (Physical)"
+icons = Array[Texture2D]([ExtResource("121_qb8lf")])
+
+[sub_resource type="Resource" id="Resource_1j5tl"]
+script = ExtResource("2_vfq2t")
+name = &"F8 (Physical)"
+icons = Array[Texture2D]([ExtResource("122_io7hu")])
+
+[sub_resource type="Resource" id="Resource_doqo3"]
+script = ExtResource("2_vfq2t")
+name = &"F9 (Physical)"
+icons = Array[Texture2D]([ExtResource("123_5mrpd")])
+
+[sub_resource type="Resource" id="Resource_srpxe"]
+script = ExtResource("2_vfq2t")
+name = &"F10 (Physical)"
+icons = Array[Texture2D]([ExtResource("124_rjpds")])
+
+[sub_resource type="Resource" id="Resource_3016x"]
+script = ExtResource("2_vfq2t")
+name = &"F11 (Physical)"
+icons = Array[Texture2D]([ExtResource("125_7oswn")])
+
+[sub_resource type="Resource" id="Resource_iak37"]
+script = ExtResource("2_vfq2t")
+name = &"F12 (Physical)"
+icons = Array[Texture2D]([ExtResource("126_c0xrp")])
+
 [resource]
 script = ExtResource("1_y6rw4")
-collection = Array[ExtResource("2_vfq2t")]([SubResource("Resource_ucsih"), SubResource("Resource_4qnyn"), SubResource("Resource_jby16"), SubResource("Resource_42imh"), SubResource("Resource_0pweh"), SubResource("Resource_473cu"), SubResource("Resource_avvo1"), SubResource("Resource_af1tv"), SubResource("Resource_f36km"), SubResource("Resource_2558b"), SubResource("Resource_eu8hf"), SubResource("Resource_vre1e"), SubResource("Resource_miuol"), SubResource("Resource_j80ep"), SubResource("Resource_b4dk3"), SubResource("Resource_70nya"), SubResource("Resource_hgok0"), SubResource("Resource_1cfjc"), SubResource("Resource_q5v12")])
+iconCollection = Array[ExtResource("2_vfq2t")]([])
+keyCollection = Array[ExtResource("2_vfq2t")]([SubResource("Resource_4yvcs"), SubResource("Resource_31w1m"), SubResource("Resource_jcqh2"), SubResource("Resource_nn2dy"), SubResource("Resource_7x102"), SubResource("Resource_pnbbc"), SubResource("Resource_xmyfr"), SubResource("Resource_ni7yn"), SubResource("Resource_t5pum"), SubResource("Resource_peoq2"), SubResource("Resource_854at"), SubResource("Resource_8me0r"), SubResource("Resource_td2ct"), SubResource("Resource_aor8i"), SubResource("Resource_x4dox"), SubResource("Resource_1kp27"), SubResource("Resource_cryqm"), SubResource("Resource_ckk6s"), SubResource("Resource_3py52"), SubResource("Resource_co54p"), SubResource("Resource_e3xhm"), SubResource("Resource_4tymh"), SubResource("Resource_8dbjp"), SubResource("Resource_bt3ld"), SubResource("Resource_yrf0m"), SubResource("Resource_hfci6"), SubResource("Resource_hc5rh"), SubResource("Resource_wnjfk"), SubResource("Resource_gwyrw"), SubResource("Resource_d5or6"), SubResource("Resource_t0v3q"), SubResource("Resource_raxmm"), SubResource("Resource_1uqip"), SubResource("Resource_xpljn"), SubResource("Resource_fhmsy"), SubResource("Resource_2sqbe"), SubResource("Resource_1vhw4"), SubResource("Resource_chuos"), SubResource("Resource_mqoul"), SubResource("Resource_i0jmd"), SubResource("Resource_f0eqh"), SubResource("Resource_lwxsg"), SubResource("Resource_54f8w"), SubResource("Resource_qpta6"), SubResource("Resource_ya0gc"), SubResource("Resource_rvbma"), SubResource("Resource_ebxm4"), SubResource("Resource_rbxvc"), SubResource("Resource_tpyoe"), SubResource("Resource_re250"), SubResource("Resource_q7kkt"), SubResource("Resource_pmyw1"), SubResource("Resource_mfpy6"), SubResource("Resource_asw1x"), SubResource("Resource_o75f0"), SubResource("Resource_s1n8p"), SubResource("Resource_2triv"), SubResource("Resource_ieikg"), SubResource("Resource_3j5pn"), SubResource("Resource_u351y"), SubResource("Resource_1ww6q"), SubResource("Resource_dpxtm"), SubResource("Resource_c1yec"), SubResource("Resource_gp0nh"), SubResource("Resource_fgf1q"), SubResource("Resource_e86ar"), SubResource("Resource_35cxs"), SubResource("Resource_g0ihm"), SubResource("Resource_13jkf"), SubResource("Resource_gnenp"), SubResource("Resource_hqska"), SubResource("Resource_qprdp"), SubResource("Resource_cn81g"), SubResource("Resource_q0vnk"), SubResource("Resource_ssc0i"), SubResource("Resource_sqfv8"), SubResource("Resource_2ek6w"), SubResource("Resource_4u1ie"), SubResource("Resource_fyiai"), SubResource("Resource_f0gy1"), SubResource("Resource_g1ul2"), SubResource("Resource_wtu2a"), SubResource("Resource_k8ux3"), SubResource("Resource_sccps"), SubResource("Resource_fdyyf"), SubResource("Resource_n3wod"), SubResource("Resource_agbgc"), SubResource("Resource_asvqv"), SubResource("Resource_frrc4"), SubResource("Resource_nkubq"), SubResource("Resource_via86"), SubResource("Resource_j4saw"), SubResource("Resource_1j5tl"), SubResource("Resource_doqo3"), SubResource("Resource_srpxe"), SubResource("Resource_3016x"), SubResource("Resource_iak37")])
+joyCollection = Array[ExtResource("2_vfq2t")]([SubResource("Resource_ucsih"), SubResource("Resource_4qnyn"), SubResource("Resource_jby16"), SubResource("Resource_42imh"), SubResource("Resource_0pweh"), SubResource("Resource_473cu"), SubResource("Resource_avvo1"), SubResource("Resource_af1tv"), SubResource("Resource_f36km"), SubResource("Resource_2558b"), SubResource("Resource_eu8hf"), SubResource("Resource_vre1e"), SubResource("Resource_miuol"), SubResource("Resource_j80ep"), SubResource("Resource_b4dk3"), SubResource("Resource_70nya"), SubResource("Resource_hgok0"), SubResource("Resource_1cfjc"), SubResource("Resource_q5v12")])

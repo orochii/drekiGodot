@@ -57,6 +57,9 @@ func fadeIn(duration:float):
 	fadeTarget = 0
 	fadeDuration = duration
 func fadeOut(duration:float):
+	# var img = get_viewport().get_texture().get_image()
+	# var tex = ImageTexture.create_from_image(img)
+	# cover.texture = tex
 	fadeState = 0
 	fadeTarget = 1
 	fadeDuration = duration
