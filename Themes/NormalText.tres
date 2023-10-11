@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c265ubj8cuc1v"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://c265ubj8cuc1v"]
 
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="1_t2gev"]
+[ext_resource type="StyleBox" uid="uid://d2v3m8nwbfgyt" path="res://Themes/sb_grabber.tres" id="2_5l3wa"]
+[ext_resource type="StyleBox" uid="uid://cvh2gvjs75g0k" path="res://Themes/sb_scroll.tres" id="3_55uhc"]
 
 [resource]
 default_font = ExtResource("1_t2gev")
@@ -21,3 +23,8 @@ RichTextLabel/constants/shadow_offset_y = 1
 RichTextLabel/constants/shadow_outline_size = 0
 RichTextLabel/font_sizes/normal_font_size = 8
 RichTextLabel/fonts/normal_font = ExtResource("1_t2gev")
+VScrollBar/styles/grabber = ExtResource("2_5l3wa")
+VScrollBar/styles/grabber_highlight = ExtResource("2_5l3wa")
+VScrollBar/styles/grabber_pressed = ExtResource("2_5l3wa")
+VScrollBar/styles/scroll = ExtResource("3_55uhc")
+VScrollBar/styles/scroll_focus = ExtResource("3_55uhc")

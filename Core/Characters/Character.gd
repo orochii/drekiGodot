@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name Character
 
-const JUMP : float = 28
+const JUMP : float = 24
 const AVG_SPEED : float = 15
 const GRAVITY : float = 98*2
 

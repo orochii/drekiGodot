@@ -1,5 +1,7 @@
 extends NinePatchRect
 
+const FPS = 8
+
 var active : bool = false
 var frame : float = 0
 var blinkState : bool = false
@@ -15,9 +17,9 @@ func _process(delta):
 
 func updateFrame(delta):
 	if active:
-		frame = move_toward(frame, 2, delta * 4)
+		frame = move_toward(frame, 2, delta * FPS)
 	else:
-		frame = move_toward(frame, 0, delta * 4)
+		frame = move_toward(frame, 0, delta * FPS)
 
 func updateBlink(delta):
 	blinkTimer -= delta

@@ -10,7 +10,6 @@ rotationSpeed = 180.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
-projection = 1
 current = true
 fov = 20.0
 size = 16.875

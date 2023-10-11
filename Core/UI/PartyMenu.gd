@@ -8,9 +8,11 @@ func _ready():
 	visible = false
 
 func open(idx:int = 0):
+	Global.Scene.askPause(self)
+	Global.Scene.performTransition()
+	await get_tree().create_timer(0.05).timeout
 	setScreen(idx)
 	visible = true
-	Global.Scene.askPause(self)
 
 func close():
 	visible = false

@@ -11,10 +11,12 @@ class_name PartyMemberDisplay
 @export var mpLabel : Label
 # TODO: Status
 
+var index : int = 0
 var actor : GameActor = null
-var parentMenu : PartyMenu = null
+var parentMenu : PartyListSpawner = null
 
-func setActor(a : GameActor):
+func setActor(i:int, a : GameActor):
+	index = i
 	actor = a
 	refresh()
 
@@ -31,4 +33,9 @@ func refresh():
 		mpLabel.text = "%d/%d" % [actor.currMP, actor.getMaxMP()]
 
 func _on_pressed():
-	parentMenu.setScreen(1)
+	if(parentMenu==null):return
+	parentMenu.showSubmenu(index)
+	parentMenu.setFocus()
+
+func setActive(v:bool):
+	faceGraphic.active = v

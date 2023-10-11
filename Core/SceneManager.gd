@@ -3,8 +3,11 @@ class_name SceneManager
 
 const TRANSFER_FADE_LEN = 0.5
 signal onFadeEnd()
+signal onTransitionEnd()
 
 @export var cover : TextureRect
+@export var transition : TextureRect
+@export var transitionPlayer : AnimationPlayer
 
 var transferring = false
 var originalTexture : Texture
@@ -13,8 +16,10 @@ var fadeTarget = 0
 var fadeDuration = 1
 var currentScene : Node = null
 var pausingEntities = []
+var transitioning = false
 
 func _ready():
+	cover.visible = true
 	originalTexture = cover.texture
 
 func _process(delta):
@@ -74,3 +79,17 @@ func askUnpause(asker):
 		pausingEntities.erase(asker)
 	if pausingEntities.size() <= 0:
 		get_tree().paused = false
+
+func performTransition():
+	var img = get_viewport().get_texture().get_image()
+	var tex = ImageTexture.create_from_image(img)
+	transition.texture = tex
+	transitionPlayer.speed_scale = 4
+	transitionPlayer.play("execute")
+	transitioning = true
+	askPause(self)
+
+func _on_transition_player_animation_finished(anim_name):
+	transitioning = false
+	onTransitionEnd.emit()
+	askUnpause(self)

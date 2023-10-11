@@ -1,9 +1,40 @@
 extends Object
 class_name GameParty
 
+const MAX_ITEMS = 99
+
 var members : Array
 var inventory : Array[GameInventoryEntry]
 var gold : int
+
+func gainItem(id:StringName,n:int):
+	if(n<=0): return
+	for e in inventory:
+		if(e.id==id):
+			e.amount = mini(e.amount+n, MAX_ITEMS)
+			return
+	var e = GameInventoryEntry.new()
+	e.id = id
+	e.amount = n
+	inventory.append(e)
+
+func loseItem(id:StringName,n:int):
+	if(n<=0): return
+	var toRemove = null
+	for e in inventory:
+		if(e.id==id):
+			e.amount = e.amount+n
+			toRemove = e
+			break
+	if(toRemove != null):
+		if(toRemove.amount <= 0):
+			inventory.erase(toRemove)
+
+func itemCount(id:StringName):
+	for e in inventory:
+		if(e.id==id):
+			return e.amount
+	return 0
 
 func _init():
 	members = []

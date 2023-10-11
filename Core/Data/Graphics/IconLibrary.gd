@@ -37,7 +37,6 @@ func getActionIcon(action : StringName, kind : int = -2) -> Texture:
 	else:
 		var joyName = _getActionJoyName(action)
 		if (joyName == ""): return null
-		print (joyName)
 		return _getIconFromCollection(joyCollectionDict,joyName, kind)
 
 func getActionIconName(action : StringName, kind : int = -2) -> String:

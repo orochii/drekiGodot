@@ -5,6 +5,7 @@ var name : String
 var position : int = 0
 var exp : int
 var equips : Array
+var _expList : Array[int] = []
 
 func _init(_id:StringName):
 	id = _id
@@ -46,7 +47,6 @@ func calcBaseStat(base:int, mult:int, level:int) -> int:
 	var m : float = (lm + 10.0) / 10.0
 	return roundi(base * m)
 
-var _expList : Array[int] = []
 func makeExpList():
 	if _expList.size() != 0: return
 	_expList.resize(Actor.MAX_LEVEL)

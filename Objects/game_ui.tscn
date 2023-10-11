@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=35 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -21,9 +21,13 @@
 [ext_resource type="Script" path="res://Core/UI/PartyListSpawner.gd" id="13_k8txl"]
 [ext_resource type="PackedScene" uid="uid://bb3ep7t1sunr6" path="res://Objects/party_member.tscn" id="14_enkbo"]
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="16_bl4y0"]
+[ext_resource type="Texture2D" uid="uid://bd8d53aa0rurl" path="res://Graphics/System/partyMenu/back_inventory.png" id="17_4jujn"]
 [ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="17_i84k7"]
+[ext_resource type="Script" path="res://Core/UI/ItemSpawner.gd" id="17_uwbpf"]
 [ext_resource type="Script" path="res://Core/UI/InputLegends.gd" id="17_w1dpt"]
+[ext_resource type="PackedScene" uid="uid://rjd18xm8wgbx" path="res://Objects/item_entry.tscn" id="18_8bsst"]
 [ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="18_dtd4u"]
+[ext_resource type="Texture2D" uid="uid://cxefqesb3o84i" path="res://Graphics/System/partyMenu/cat_sel.png" id="18_uvw8m"]
 [ext_resource type="Texture2D" uid="uid://4lwpqfps32y0" path="res://Graphics/Icons/keys/A.png" id="19_85gig"]
 [ext_resource type="Texture2D" uid="uid://b0oc4ntkvyhy5" path="res://Graphics/Icons/keys/Space.png" id="20_q4gm6"]
 
@@ -233,7 +237,7 @@ patch_margin_left = 132
 patch_margin_right = 176
 script = ExtResource("11_l3uei")
 
-[node name="MainScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasksOnShow")]
+[node name="MainScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasks")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -247,13 +251,15 @@ extraText = "Data"
 showHelp = true
 closeOnBack = true
 firstSelected = NodePath("../LowerPanel/HBoxContainer/Inventory")
-tasksOnShow = [NodePath("SpawnParty")]
+tasks = [NodePath("SpawnParty")]
 
-[node name="SpawnParty" type="Node" parent="PartyMenu/MainScreen" node_paths=PackedStringArray("parentMenu", "container")]
+[node name="SpawnParty" type="Node" parent="PartyMenu/MainScreen" node_paths=PackedStringArray("parentMenu", "container", "memberSubmenu", "memberSubmenuButtons")]
 script = ExtResource("13_k8txl")
 parentMenu = NodePath("../..")
 partyMemberTemplate = ExtResource("14_enkbo")
 container = NodePath("../PartyStatsPanel")
+memberSubmenu = NodePath("../MemberSubmenu")
+memberSubmenuButtons = [NodePath("../MemberSubmenu/Container/Status"), NodePath("../MemberSubmenu/Container/Equip"), NodePath("../MemberSubmenu/Container/Actions")]
 
 [node name="PartyStatsPanel" type="Control" parent="PartyMenu/MainScreen"]
 layout_mode = 1
@@ -270,6 +276,125 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_jiw6w")
 offset = Vector2(-8, 64)
+
+[node name="MemberSubmenu" type="Control" parent="PartyMenu/MainScreen"]
+visible = false
+anchors_preset = 0
+offset_left = 93.0
+offset_top = -11.0
+offset_right = 189.0
+offset_bottom = 53.0
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/MainScreen/MemberSubmenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/MainScreen/MemberSubmenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="VBoxContainer" parent="PartyMenu/MainScreen/MemberSubmenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Status" type="Button" parent="PartyMenu/MainScreen/MemberSubmenu/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Actions")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Equip")
+focus_next = NodePath("../Equip")
+focus_previous = NodePath("../Actions")
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/MainScreen/MemberSubmenu/Container/Status"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Character"
+
+[node name="Equip" type="Button" parent="PartyMenu/MainScreen/MemberSubmenu/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Status")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Actions")
+focus_next = NodePath("../Actions")
+focus_previous = NodePath("../Status")
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/MainScreen/MemberSubmenu/Container/Equip"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Equip"
+
+[node name="Actions" type="Button" parent="PartyMenu/MainScreen/MemberSubmenu/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Equip")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Status")
+focus_next = NodePath("../Status")
+focus_previous = NodePath("../Equip")
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/MainScreen/MemberSubmenu/Container/Actions"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Action"
 
 [node name="CharacterStatusScreen" type="Control" parent="PartyMenu"]
 visible = false
@@ -313,8 +438,7 @@ rightText = "PC"
 extraText = "Status"
 showHelp = true
 
-[node name="InventoryScreen" type="Control" parent="PartyMenu"]
-visible = false
+[node name="InventoryScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -326,6 +450,53 @@ leftText = "Kind"
 rightText = "Kind"
 extraText = "Order"
 showHelp = true
+tasks = [NodePath("ItemSpawner")]
+
+[node name="ItemSpawner" type="Node" parent="PartyMenu/InventoryScreen" node_paths=PackedStringArray("container")]
+script = ExtResource("17_uwbpf")
+container = NodePath("../NinePatchRect/List/VBoxContainer")
+itemEntryTemplate = ExtResource("18_8bsst")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PartyMenu/InventoryScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_4jujn")
+
+[node name="Control" type="Control" parent="PartyMenu/InventoryScreen/NinePatchRect"]
+anchors_preset = 0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 256.0
+offset_bottom = 48.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PartyMenu/InventoryScreen/NinePatchRect/Control"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 16.0
+texture = ExtResource("18_uvw8m")
+
+[node name="List" type="ScrollContainer" parent="PartyMenu/InventoryScreen/NinePatchRect"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 256.0
+offset_bottom = 208.0
+theme = ExtResource("11_hotyh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyMenu/InventoryScreen/NinePatchRect/List"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="GroupScreen" type="Control" parent="PartyMenu"]
 visible = false
@@ -576,6 +747,18 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("11_eyxf8")
 
+[node name="Blocker" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+
+[connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Status" to="PartyMenu/MainScreen/SpawnParty" method="_on_status_pressed"]
+[connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Equip" to="PartyMenu/MainScreen/SpawnParty" method="_on_equip_pressed"]
+[connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Actions" to="PartyMenu/MainScreen/SpawnParty" method="_on_actions_pressed"]
 [connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Inventory" to="PartyMenu" method="_on_inventory_pressed"]
 [connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Group" to="PartyMenu" method="_on_group_pressed"]
 [connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/System" to="PartyMenu" method="_on_system_pressed"]

@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://rjd18xm8wgbx"]
+
+[ext_resource type="Script" path="res://Core/UI/ItemEntry.gd" id="1_ee7cf"]
+[ext_resource type="Texture2D" uid="uid://bpd52p214b1us" path="res://Graphics/Icons/items/item_0000.png" id="2_6snrh"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_ju34l"]
+
+[node name="ItemEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName", "itemNum")]
+custom_minimum_size = Vector2(192, 16)
+flat = true
+script = ExtResource("1_ee7cf")
+itemIcon = NodePath("Icon")
+itemName = NodePath("NameLabel")
+itemNum = NodePath("NumLabel")
+
+[node name="Icon" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 24.0
+offset_bottom = 16.0
+texture = ExtResource("2_6snrh")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_right = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ju34l")
+text = "Medicina de Chan"
+
+[node name="Sign" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -8.0
+offset_right = -24.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("3_ju34l")
+text = ":"
+
+[node name="NumLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -8.0
+offset_right = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("3_ju34l")
+text = "99"
+horizontal_alignment = 2

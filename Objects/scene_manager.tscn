@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3bt0yfvvxmdj"]
+[gd_scene load_steps=12 format=3 uid="uid://b3bt0yfvvxmdj"]
 
 [ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
+[ext_resource type="Shader" path="res://Core/Shaders/TextureFader.gdshader" id="2_bs647"]
+[ext_resource type="Texture2D" uid="uid://fvwpxyaylqgv" path="res://Graphics/Transitions/squares.png" id="3_u07fv"]
 
 [sub_resource type="Gradient" id="Gradient_k0mpe"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -8,8 +10,67 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ol4p7"]
 gradient = SubResource("Gradient_k0mpe")
 
-[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dhavl"]
+shader = ExtResource("2_bs647")
+shader_parameter/threshold = 1.0
+shader_parameter/fadeTexture = ExtResource("3_u07fv")
+
+[sub_resource type="Gradient" id="Gradient_lxry1"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8gymi"]
+gradient = SubResource("Gradient_lxry1")
+
+[sub_resource type="Animation" id="Animation_liscs"]
+resource_name = "execute"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transition:material:shader_parameter/threshold")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0q6v2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:material:shader_parameter/threshold")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i4l1k"]
+_data = {
+"RESET": SubResource("Animation_0q6v2"),
+"execute": SubResource("Animation_liscs")
+}
+
+[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover", "transition", "transitionPlayer")]
 process_mode = 3
+z_index = 1000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,9 +78,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qvwbx")
-cover = NodePath("TextureRect")
+cover = NodePath("Fader")
+transition = NodePath("Transition")
+transitionPlayer = NodePath("TransitionPlayer")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Fader" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,3 +91,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_ol4p7")
+
+[node name="Transition" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_dhavl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_8gymi")
+
+[node name="TransitionPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i4l1k")
+}
+
+[connection signal="animation_finished" from="TransitionPlayer" to="." method="_on_transition_player_animation_finished"]
