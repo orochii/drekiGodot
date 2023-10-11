@@ -15,7 +15,7 @@ var lastInputKind : int = -1
 
 func _ready():
 	lastInputKind = -1
-	deserializeBindings()
+	mirrorActionsToUIMappings()
 
 func _input(event):
 	if event is InputEventKey:
@@ -35,7 +35,7 @@ func mirrorActionsToUIMappings():
 		for ev in events:
 			InputMap.action_add_event(uiMap, ev)
 
-func serializeBindings():
+func serializeBindings() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var bindingData = {}
 	for action in actions:
@@ -69,8 +69,7 @@ func serializeBindings():
 			bindingData[action] = actionData
 	return bindingData
 
-func deserializeBindings():
-	var bindingData = Global.Config.data["bindings"]
+func deserializeBindings(bindingData : Dictionary):
 	for action in bindingData:
 		var events = bindingData[action]
 		InputMap.action_erase_events(action)

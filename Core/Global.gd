@@ -38,7 +38,6 @@ var scene = preload("res://Objects/scene_manager.tscn")
 
 func _init():
 	DirAccess.make_dir_absolute(savePath())
-	Config = ConfigManager.new()
 	Scene = scene.instantiate()
 	add_child(Scene)
 	Db = load("res://Data/database.tres")
@@ -50,6 +49,7 @@ func _init():
 	add_child(Inputs)
 
 func _ready():
+	Config = ConfigManager.new()
 	State = GameState.new()
 	State.initialize()
 

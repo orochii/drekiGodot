@@ -1,0 +1,177 @@
+[gd_scene load_steps=13 format=3 uid="uid://bb3ep7t1sunr6"]
+
+[ext_resource type="Texture2D" uid="uid://bxpmfv1sswyiy" path="res://Graphics/System/partyMenu/back_partystats_buttonTex.png" id="1_s0nhy"]
+[ext_resource type="Script" path="res://Core/UI/PartyMemberDisplay.gd" id="2_jl4d2"]
+[ext_resource type="Texture2D" uid="uid://ddrdcyg25kpx5" path="res://Graphics/System/position_icon.png" id="3_o32ef"]
+[ext_resource type="Texture2D" uid="uid://dlrtaypnag7vp" path="res://Graphics/Faces/1_faceAnimated.png" id="4_yfy6s"]
+[ext_resource type="Script" path="res://Core/UI/FaceAnimation.gd" id="5_4kinq"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="5_n350p"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="6_ta0ym"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4rjq"]
+atlas = ExtResource("1_s0nhy")
+region = Rect2(0, 0, 208, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f4vq"]
+atlas = ExtResource("1_s0nhy")
+region = Rect2(0, 64, 208, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c18fo"]
+atlas = ExtResource("1_s0nhy")
+region = Rect2(0, 64, 208, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3mee"]
+atlas = ExtResource("1_s0nhy")
+region = Rect2(0, 0, 208, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ss2mq"]
+atlas = ExtResource("1_s0nhy")
+region = Rect2(0, 64, 208, 64)
+
+[node name="PartyMember" type="TextureButton" node_paths=PackedStringArray("positionIcon", "faceGraphic", "nameLabel", "classLabel", "levelLabel", "nextLabel", "lpLabel", "mpLabel")]
+texture_normal = SubResource("AtlasTexture_o4rjq")
+texture_pressed = SubResource("AtlasTexture_6f4vq")
+texture_hover = SubResource("AtlasTexture_c18fo")
+texture_disabled = SubResource("AtlasTexture_x3mee")
+texture_focused = SubResource("AtlasTexture_ss2mq")
+script = ExtResource("2_jl4d2")
+positionIcon = NodePath("Container/PositionIcon")
+faceGraphic = NodePath("Container/FaceGraphic")
+nameLabel = NodePath("Container/NameLabel")
+classLabel = NodePath("Container/ClassLabel")
+levelLabel = NodePath("Container/LvNumber")
+nextLabel = NodePath("Container/NextNumber")
+lpLabel = NodePath("Container/LPNumber")
+mpLabel = NodePath("Container/MPNumber")
+
+[node name="Container" type="Control" parent="."]
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 8.0
+offset_right = 200.0
+offset_bottom = 64.0
+
+[node name="PositionIcon" type="NinePatchRect" parent="Container"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 16.0
+texture = ExtResource("3_o32ef")
+region_rect = Rect2(0, 0, 48, 16)
+
+[node name="FaceGraphic" type="NinePatchRect" parent="Container"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 48.0
+offset_bottom = 64.0
+texture = ExtResource("4_yfy6s")
+region_rect = Rect2(0, 0, 48, 48)
+script = ExtResource("5_4kinq")
+
+[node name="NameLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 48.0
+offset_right = 120.0
+offset_bottom = 16.0
+theme = ExtResource("5_n350p")
+text = "Hikari"
+vertical_alignment = 1
+
+[node name="ClassLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 192.0
+offset_bottom = 16.0
+theme = ExtResource("6_ta0ym")
+theme_override_colors/font_color = Color(0.74902, 0.87451, 0.996078, 1)
+text = "None"
+vertical_alignment = 1
+
+[node name="LvLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 16.0
+offset_right = 68.0
+offset_bottom = 32.0
+theme = ExtResource("5_n350p")
+theme_override_colors/font_color = Color(0.74902, 0.87451, 0.996078, 1)
+text = "Lv"
+vertical_alignment = 1
+
+[node name="LvNumber" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 104.0
+offset_bottom = 32.0
+theme = ExtResource("5_n350p")
+text = "1"
+vertical_alignment = 1
+
+[node name="NextLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 32.0
+offset_right = 116.0
+offset_bottom = 48.0
+theme = ExtResource("5_n350p")
+theme_override_colors/font_color = Color(0.74902, 0.87451, 0.996078, 1)
+text = "NEXT"
+vertical_alignment = 1
+
+[node name="NextNumber" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 64.0
+theme = ExtResource("5_n350p")
+text = "888888"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LPLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 32.0
+theme = ExtResource("5_n350p")
+theme_override_colors/font_color = Color(0.74902, 0.87451, 0.996078, 1)
+text = "LP"
+vertical_alignment = 1
+
+[node name="LPNumber" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 16.0
+offset_right = 192.0
+offset_bottom = 32.0
+theme = ExtResource("5_n350p")
+text = "88888/88888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MPLabel" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 32.0
+offset_right = 120.0
+offset_bottom = 48.0
+theme = ExtResource("5_n350p")
+theme_override_colors/font_color = Color(0.74902, 0.87451, 0.996078, 1)
+text = "MP"
+vertical_alignment = 1
+
+[node name="MPNumber" type="Label" parent="Container"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 32.0
+offset_right = 192.0
+offset_bottom = 48.0
+theme = ExtResource("5_n350p")
+text = "88888/88888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

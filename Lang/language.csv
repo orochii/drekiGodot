@@ -1,13 +1,9 @@
 ,en,es
 langName,English,Español
 langDesc,Select your language,Elige tu idioma
-127_Puno,Punch,Puño
-Desc_127_Puno,Basic attack.,Ataque básico.
-multilineTest,"Gave her life for her loved ones. Remembered
-as a loved mother.
-                                        Rei Ono'","Dio su vida por sus seres queridos. Recordada
-como una madre ejemplar.
-                                        Rei Ono'"
-parsingTest,"Now... press the \bb[action_extra] key
-in front of the wyvern. Trust me. \d[Hikari]","Ahora... presiona la tecla \bb[action_extra]
-al frente del wyvern. Confía en mí. \d[Hikari]"
+Inventory,Inventory,Inventario
+Group,Group,Grupo
+System,System,Sistema
+Data,Data,Datos
+Help,Help,Ayuda
+---,---,---

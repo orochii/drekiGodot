@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=31 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -11,14 +11,21 @@
 [ext_resource type="Texture2D" uid="uid://bnelmn054ans7" path="res://Graphics/System/partyMenu/back_menu1.png" id="9_jr1t3"]
 [ext_resource type="Script" path="res://Core/UI/PartyMenu.gd" id="9_pch2v"]
 [ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="9_wa60k"]
-[ext_resource type="Texture2D" uid="uid://bpoe4xqaguqbs" path="res://Graphics/System/partyMenu/back_partystats.png" id="10_o2hgj"]
 [ext_resource type="Texture2D" uid="uid://bjj3wopc5y3pk" path="res://Graphics/System/partyMenu/back_menu2.png" id="11_eyxf8"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="11_hotyh"]
+[ext_resource type="Script" path="res://Core/UI/MenuBackground.gd" id="11_l3uei"]
+[ext_resource type="Script" path="res://Core/UI/MenuScreen.gd" id="11_rqkob"]
 [ext_resource type="Texture2D" uid="uid://bw7lgk1ej13b3" path="res://Graphics/System/partyMenu/back_screenName.png" id="12_ajity"]
 [ext_resource type="Script" path="res://Core/UI/GoldDisplay.gd" id="12_axca8"]
+[ext_resource type="Script" path="res://Core/UI/SlantedContainer.gd" id="13_jiw6w"]
+[ext_resource type="Script" path="res://Core/UI/PartyListSpawner.gd" id="13_k8txl"]
+[ext_resource type="PackedScene" uid="uid://bb3ep7t1sunr6" path="res://Objects/party_member.tscn" id="14_enkbo"]
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="16_bl4y0"]
 [ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="17_i84k7"]
+[ext_resource type="Script" path="res://Core/UI/InputLegends.gd" id="17_w1dpt"]
 [ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="18_dtd4u"]
+[ext_resource type="Texture2D" uid="uid://4lwpqfps32y0" path="res://Graphics/Icons/keys/A.png" id="19_85gig"]
+[ext_resource type="Texture2D" uid="uid://b0oc4ntkvyhy5" path="res://Graphics/Icons/keys/Space.png" id="20_q4gm6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
 atlas = ExtResource("7_jt7fy")
@@ -85,7 +92,8 @@ _data = {
 "standby": SubResource("Animation_n2qvv")
 }
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("Message")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party")]
+process_mode = 3
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 3
 anchors_preset = 8
@@ -101,6 +109,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8xb7b")
 Message = NodePath("MessageBox")
+Party = NodePath("PartyMenu")
 
 [node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
 visible = false
@@ -199,7 +208,7 @@ libraries = {
 }
 script = ExtResource("8_c65gf")
 
-[node name="PartyMenu" type="Control" parent="."]
+[node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 15
@@ -208,8 +217,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_pch2v")
+screens = [NodePath("MainScreen"), NodePath("CharacterStatusScreen"), NodePath("CharacterEquipScreen"), NodePath("CharacterSkillsScreen"), NodePath("InventoryScreen"), NodePath("GroupScreen"), NodePath("SystemScreen")]
+legends = NodePath("InputLegends")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="PartyMenu"]
+[node name="Background" type="NinePatchRect" parent="PartyMenu"]
 modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 1
 anchors_preset = 15
@@ -220,16 +231,238 @@ grow_vertical = 2
 texture = ExtResource("9_wa60k")
 patch_margin_left = 132
 patch_margin_right = 176
+script = ExtResource("11_l3uei")
 
-[node name="MainScreen" type="Control" parent="PartyMenu"]
+[node name="MainScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasksOnShow")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("11_rqkob")
+leftText = "---"
+rightText = "---"
+extraText = "Data"
+showHelp = true
+closeOnBack = true
+firstSelected = NodePath("../LowerPanel/HBoxContainer/Inventory")
+tasksOnShow = [NodePath("SpawnParty")]
 
-[node name="LowerPanel" type="TextureRect" parent="PartyMenu/MainScreen"]
+[node name="SpawnParty" type="Node" parent="PartyMenu/MainScreen" node_paths=PackedStringArray("parentMenu", "container")]
+script = ExtResource("13_k8txl")
+parentMenu = NodePath("../..")
+partyMemberTemplate = ExtResource("14_enkbo")
+container = NodePath("../PartyStatsPanel")
+
+[node name="PartyStatsPanel" type="Control" parent="PartyMenu/MainScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -94.0
+offset_right = 104.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_jiw6w")
+offset = Vector2(-8, 64)
+
+[node name="CharacterStatusScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+leftText = "PC"
+rightText = "PC"
+extraText = "Equip"
+showHelp = true
+
+[node name="CharacterEquipScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+leftText = "PC"
+rightText = "PC"
+extraText = "Action"
+showHelp = true
+
+[node name="CharacterSkillsScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+leftText = "PC"
+rightText = "PC"
+extraText = "Status"
+showHelp = true
+
+[node name="InventoryScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+leftText = "Kind"
+rightText = "Kind"
+extraText = "Order"
+showHelp = true
+
+[node name="GroupScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+
+[node name="SystemScreen" type="Control" parent="PartyMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_rqkob")
+
+[node name="InputLegends" type="NinePatchRect" parent="PartyMenu" node_paths=PackedStringArray("leftTop", "rightTop", "extraObj", "extraAction", "helpObj")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_ajity")
+patch_margin_left = 80
+patch_margin_top = 52
+patch_margin_right = 80
+script = ExtResource("17_w1dpt")
+leftTop = NodePath("Left/LeftLabel")
+rightTop = NodePath("Right/RightLabel")
+extraObj = NodePath("Extra")
+extraAction = NodePath("Extra/ExtraLabel")
+helpObj = NodePath("Help")
+
+[node name="Left" type="Control" parent="PartyMenu/InputLegends"]
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/InputLegends/Left"]
+texture = ExtResource("16_bl4y0")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"cycle_left"
+
+[node name="LeftLabel" type="Label" parent="PartyMenu/InputLegends/Left"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 48.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "---"
+vertical_alignment = 1
+
+[node name="Right" type="Control" parent="PartyMenu/InputLegends"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 32.0
+offset_bottom = 48.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/InputLegends/Right"]
+position = Vector2(32, 0)
+texture = ExtResource("16_bl4y0")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"cycle_right"
+
+[node name="RightLabel" type="Label" parent="PartyMenu/InputLegends/Right"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "---"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Extra" type="Control" parent="PartyMenu/InputLegends"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 56.0
+offset_bottom = 72.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/InputLegends/Extra"]
+texture = ExtResource("19_85gig")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_extra"
+
+[node name="ExtraLabel" type="Label" parent="PartyMenu/InputLegends/Extra"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Data"
+vertical_alignment = 1
+
+[node name="Help" type="Control" parent="PartyMenu/InputLegends"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 76.0
+offset_bottom = 92.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/InputLegends/Help"]
+texture = ExtResource("20_q4gm6")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_select"
+
+[node name="HelpLabel" type="Label" parent="PartyMenu/InputLegends/Help"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Help"
+vertical_alignment = 1
+
+[node name="LowerPanel" type="TextureRect" parent="PartyMenu"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -243,7 +476,7 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("9_jr1t3")
 
-[node name="Gold" type="Label" parent="PartyMenu/MainScreen/LowerPanel"]
+[node name="Gold" type="Label" parent="PartyMenu/LowerPanel"]
 layout_mode = 0
 offset_left = 268.0
 offset_top = 15.0
@@ -255,7 +488,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("12_axca8")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/MainScreen/LowerPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/LowerPanel"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 8.0
@@ -263,14 +496,13 @@ offset_right = 256.0
 offset_bottom = 32.0
 theme_override_constants/separation = 0
 
-[node name="Inventory" type="Button" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer"]
-self_modulate = Color(1, 1, 0.964706, 0.25098)
+[node name="Inventory" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme = ExtResource("11_hotyh")
 flat = true
 
-[node name="Label" type="Label" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer/Inventory"]
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Inventory"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -283,14 +515,13 @@ theme = ExtResource("11_hotyh")
 text = "Inventory"
 vertical_alignment = 1
 
-[node name="Group" type="Button" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer"]
-self_modulate = Color(1, 1, 0.964706, 0.25098)
+[node name="Group" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme = ExtResource("11_hotyh")
 flat = true
 
-[node name="Label" type="Label" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer/Group"]
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Group"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -303,14 +534,13 @@ theme = ExtResource("11_hotyh")
 text = "Group"
 vertical_alignment = 1
 
-[node name="System" type="Button" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer"]
-self_modulate = Color(1, 1, 0.964706, 0.25098)
+[node name="System" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme = ExtResource("11_hotyh")
 flat = true
 
-[node name="Label" type="Label" parent="PartyMenu/MainScreen/LowerPanel/HBoxContainer/System"]
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/System"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -323,82 +553,7 @@ theme = ExtResource("11_hotyh")
 text = "System"
 vertical_alignment = 1
 
-[node name="PartyStatsPanel" type="TextureRect" parent="PartyMenu/MainScreen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -120.0
-offset_right = 160.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_o2hgj")
-stretch_mode = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="PartyMenu/MainScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("12_ajity")
-patch_margin_left = 80
-patch_margin_top = 52
-patch_margin_right = 80
-
-[node name="Control" type="Control" parent="PartyMenu/MainScreen/NinePatchRect"]
-anchors_preset = 0
-offset_top = 32.0
-offset_right = 48.0
-offset_bottom = 48.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/MainScreen/NinePatchRect/Control"]
-texture = ExtResource("16_bl4y0")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"cycle_left"
-
-[node name="Label" type="Label" parent="PartyMenu/MainScreen/NinePatchRect/Control"]
-layout_mode = 0
-offset_left = 16.0
-offset_right = 48.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "---"
-vertical_alignment = 1
-
-[node name="Control2" type="Control" parent="PartyMenu/MainScreen/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_top = 32.0
-offset_bottom = 48.0
-grow_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/MainScreen/NinePatchRect/Control2"]
-position = Vector2(32, 0)
-texture = ExtResource("16_bl4y0")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"cycle_right"
-
-[node name="Label" type="Label" parent="PartyMenu/MainScreen/NinePatchRect/Control2"]
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "---"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="CharacterScreen" type="Control" parent="PartyMenu"]
+[node name="DataScreen" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -407,67 +562,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StatusTab" type="Control" parent="PartyMenu/CharacterScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EquipTab" type="Control" parent="PartyMenu/CharacterScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ActionsTab" type="Control" parent="PartyMenu/CharacterScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="InventoryScreen" type="Control" parent="PartyMenu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GroupScreen" type="Control" parent="PartyMenu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SystemScreen" type="Control" parent="PartyMenu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DataScreen" type="Control" parent="PartyMenu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LowerPanel" type="TextureRect" parent="PartyMenu/DataScreen"]
+[node name="LowerPanel" type="TextureRect" parent="DataScreen"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -481,6 +576,6 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("11_eyxf8")
 
-[connection signal="pressed" from="PartyMenu/MainScreen/LowerPanel/HBoxContainer/Inventory" to="PartyMenu" method="_on_inventory_pressed"]
-[connection signal="pressed" from="PartyMenu/MainScreen/LowerPanel/HBoxContainer/Group" to="PartyMenu" method="_on_group_pressed"]
-[connection signal="pressed" from="PartyMenu/MainScreen/LowerPanel/HBoxContainer/System" to="PartyMenu" method="_on_system_pressed"]
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Inventory" to="PartyMenu" method="_on_inventory_pressed"]
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Group" to="PartyMenu" method="_on_group_pressed"]
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/System" to="PartyMenu" method="_on_system_pressed"]

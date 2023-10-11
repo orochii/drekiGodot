@@ -2,10 +2,20 @@ extends Control
 class_name GameUI
 
 @export var Message : GameMessage
+@export var Party : PartyMenu
+
+var currLang = "en"
 
 func _init():
-	print("Asdasd")
 	Global.UI = self
+
+func _process(delta):
+	if Input.is_action_just_pressed("action_select"):
+		if currLang == "en":
+			currLang = "es"
+		else:
+			currLang = "en"
+		TranslationServer.set_locale(currLang)
 
 func busy():
 	if Global.Scene.transferring: return true

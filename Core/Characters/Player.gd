@@ -17,10 +17,12 @@ func _process(delta):
 	if getJump(): jump()
 	if getInteract(): interact()
 	
-	if Input.is_action_just_pressed("action_select"):
-		Global.saveGame("test")
 	if Input.is_action_just_pressed("action_menu"):
-		Global.loadGame("test")
+		Global.UI.Party.open()
+	# if Input.is_action_just_pressed("action_select"):
+	# 	Global.saveGame("test")
+	# if Input.is_action_just_pressed("action_menu"):
+	# 	Global.loadGame("test")
 
 func getHorz():
 	if !canMove(): return 0

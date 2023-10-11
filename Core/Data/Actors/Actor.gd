@@ -8,6 +8,8 @@ const MAX_LEVEL : int = 255
 @export var jobName : String
 @export var description : String
 @export var faceGraphic : Texture2D
+@export var faceSmall : Texture2D
+@export var artwork : Texture2D
 @export var mapSprite : Spritesheet
 @export var battleSprite : Spritesheet
 
@@ -29,6 +31,7 @@ const MAX_LEVEL : int = 255
 
 @export_group("Stats")
 @export var startLevel : float
+@export var expGrowth : Vector2i = Vector2i(25,50)
 @export var mhp : Vector2i
 @export var mmp : Vector2i
 @export var str : Vector2i
