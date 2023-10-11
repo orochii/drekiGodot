@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UseableItem" load_steps=3 format=3 uid="uid://bt7col235pby3"]
+
+[ext_resource type="Texture2D" uid="uid://of6fawoxwj6d" path="res://Graphics/Icons/items/item_0001.png" id="1_w3huk"]
+[ext_resource type="Script" path="res://Core/Data/Items/UseableItem.gd" id="2_ql4sl"]
+
+[resource]
+script = ExtResource("2_ql4sl")
+targetKind = 0
+targetScope = 0
+targetState = 0
+spendOnUseChance = 0.0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Tonic"
+description = "Heals 30% of your maximum MP."
+icon = ExtResource("1_w3huk")
+category = 0
+price = 0
+canSell = false

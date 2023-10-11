@@ -9,4 +9,4 @@ func _run():
 	await Global.UI.Message.showText(p, 6, "", "and now right")
 	Global.State.setSwitch(0,true)
 	Global.State.party.gainItem("Drench", 3)
-	Global.State.party.gainItem("GreatDrench", 1)
+	Global.State.party.gainItem("Great Drench", 1)

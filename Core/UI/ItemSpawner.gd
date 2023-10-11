@@ -1,5 +1,6 @@
 extends Node
 
+@export var scroll : ScrollContainer
 @export var container : Container
 @export var itemEntryTemplate : PackedScene
 
@@ -9,6 +10,9 @@ var toFocus = null
 
 func _process(delta):
 	if get_parent().visible==false: return
+	var focused = get_viewport().gui_get_focus_owner()
+	if itemEntries.has(focused):
+		scroll.ensure_control_visible(focused)
 
 func showTask():
 	if itemEntries != null:

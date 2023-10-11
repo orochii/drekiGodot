@@ -452,8 +452,9 @@ extraText = "Order"
 showHelp = true
 tasks = [NodePath("ItemSpawner")]
 
-[node name="ItemSpawner" type="Node" parent="PartyMenu/InventoryScreen" node_paths=PackedStringArray("container")]
+[node name="ItemSpawner" type="Node" parent="PartyMenu/InventoryScreen" node_paths=PackedStringArray("scroll", "container")]
 script = ExtResource("17_uwbpf")
+scroll = NodePath("../NinePatchRect/List")
 container = NodePath("../NinePatchRect/List/VBoxContainer")
 itemEntryTemplate = ExtResource("18_8bsst")
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UseableItem" load_steps=3 format=3 uid="uid://baped7344522u"]
+
+[ext_resource type="Texture2D" uid="uid://of6fawoxwj6d" path="res://Graphics/Icons/items/item_0001.png" id="1_fyxaq"]
+[ext_resource type="Script" path="res://Core/Data/Items/UseableItem.gd" id="2_68a6u"]
+
+[resource]
+script = ExtResource("2_68a6u")
+targetKind = 0
+targetScope = 0
+targetState = 0
+spendOnUseChance = 0.0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Bandage"
+description = "Helps stop bleedings."
+icon = ExtResource("1_fyxaq")
+category = 0
+price = 0
+canSell = false
