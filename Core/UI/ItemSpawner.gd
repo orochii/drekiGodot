@@ -1,18 +1,41 @@
 extends Node
 
+@export var parentScreen : MenuScreen
 @export var scroll : ScrollContainer
 @export var container : Container
 @export var itemEntryTemplate : PackedScene
+@export var catSel : NinePatchRect
+@export var useScreen : ItemUseSubscreen
 
 var itemEntries : Array
 var filteredEntries : Array
 var toFocus = null
+var currCategory:Global.EItemCategory = Global.EItemCategory.MEDICINE
 
 func _process(delta):
-	if get_parent().visible==false: return
+	if parentScreen.visible==false: return
+	if parentScreen.active==false: return
+	# Scroll to focused control
 	var focused = get_viewport().gui_get_focus_owner()
 	if itemEntries.has(focused):
 		scroll.ensure_control_visible(focused)
+	# Category selector thing uh yes.
+	if moveLeft():
+		var newCat = currCategory
+		if currCategory != 0:
+			newCat -= 1
+		else:
+			newCat = Global.EItemCategory.UNIQUE
+		applyFilter(newCat)
+		setFocus()
+	elif moveRight():
+		var newCat = currCategory
+		if currCategory != Global.EItemCategory.UNIQUE:
+			newCat += 1
+		else:
+			newCat = Global.EItemCategory.MEDICINE
+		applyFilter(newCat)
+		setFocus()
 
 func showTask():
 	if itemEntries != null:
@@ -22,7 +45,7 @@ func showTask():
 	var items : Array = Global.State.party.inventory
 	for i in items:
 		var inst = itemEntryTemplate.instantiate()
-		inst.setup(i)
+		inst.setup(i,self)
 		container.add_child(inst)
 		itemEntries.append(inst)
 	applyFilter(Global.EItemCategory.MEDICINE)
@@ -35,25 +58,32 @@ func setFocus():
 		toFocus.grab_focus()
 		toFocus = null
 
-func applyFilter(kind:Global.EItemCategory):
+func applyFilter(newCategory:Global.EItemCategory):
+	currCategory = newCategory
+	repositionCatSel()
 	filteredEntries.clear()
 	for e in itemEntries:
-		if(e.getCategory()==kind):
+		if(e.getCategory()==currCategory):
 			e.visible = true
 			filteredEntries.append(e)
 		else:
 			e.visible = false
-	
-	for i in range(filteredEntries.size()):
-		var current:Button = filteredEntries[i]
-		current.focus_neighbor_left = current.get_path()
-		current.focus_neighbor_right = current.get_path()
-		var prev = filteredEntries[i-1]
-		var next = filteredEntries[i+1] if i+1<filteredEntries.size() else filteredEntries[0]
-		current.focus_neighbor_bottom = next.get_path()
-		current.focus_neighbor_top = prev.get_path()
-		current.focus_next = current.focus_neighbor_bottom
-		current.focus_previous = current.focus_neighbor_top
-	
+	# Set up neighboring configuration
+	UIUtils.setVNeighbors(filteredEntries)
+	# And then do the doodeedoo :)
 	var desiredIndex = min(0,filteredEntries.size()-1)
 	if(desiredIndex >= 0): toFocus = filteredEntries[desiredIndex]
+
+func repositionCatSel():
+	var pos = Vector2(currCategory * 32, 0)
+	catSel.position = pos
+
+func moveLeft():
+	if(Input.is_action_just_pressed("cycle_left")): return true
+	return Input.is_action_just_pressed("ui_left")
+func moveRight():
+	if(Input.is_action_just_pressed("cycle_right")): return true
+	return Input.is_action_just_pressed("ui_right")
+
+func showUse(item):
+	useScreen.setItem(item)

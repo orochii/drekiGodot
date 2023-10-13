@@ -63,3 +63,5 @@ grow_vertical = 2
 theme = ExtResource("3_ju34l")
 text = "99"
 horizontal_alignment = 2
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
