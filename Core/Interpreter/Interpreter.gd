@@ -14,6 +14,4 @@ func remove(ev : BaseEvent):
 		running.erase(ev)
 
 func wait(time : float):
-	print ("wait start")
 	await Global.UI.get_tree().create_timer(time).timeout
-	print ("ended Time")

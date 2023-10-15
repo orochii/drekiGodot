@@ -13,6 +13,7 @@ gradient = SubResource("Gradient_k0mpe")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dhavl"]
 shader = ExtResource("2_bs647")
 shader_parameter/threshold = 1.0
+shader_parameter/cutout = false
 shader_parameter/fadeTexture = ExtResource("3_u07fv")
 
 [sub_resource type="Gradient" id="Gradient_lxry1"]
@@ -57,7 +58,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.420448, 0.594604),
 "update": 0,
 "values": [1.0, 0.0]
 }

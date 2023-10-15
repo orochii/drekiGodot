@@ -2,13 +2,14 @@ extends NinePatchRect
 
 const FPS = 8
 
-var active : bool = false
+@export var active : bool = false
 var frame : float = 0
 var blinkState : bool = false
 var blinkTimer : float = 0.0
 
 func _ready():
 	blinkTimer = getBlinkOffTime()
+	if(active): frame=2
 
 func _process(delta):
 	updateFrame(delta)

@@ -4,7 +4,7 @@ class_name Database
 @export_category("System")
 @export var startingParty : Array[Actor]
 @export var startingScene : PackedScene
-@export var equipSlots : Array[Global.EquipSlot]
+@export var equipSlots : Array[SlotData]
 @export var iconLibrary : IconLibrary
 
 func getActor(id : StringName):

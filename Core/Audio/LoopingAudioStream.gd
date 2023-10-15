@@ -24,11 +24,11 @@ func _process(delta):
 		volume_db = audio._percToDb(fadeState)
 		if fadeState == fadeTarget: 
 			fadeDuration = 0
-			playing = fadeState==1
+			if(fadeState==0): playing = false
 
-func fadeIn(duration : float):
+func fadeIn(duration : float, targetVol:float = 1):
 	playing = true
-	fadeTarget = 1
+	fadeTarget = targetVol
 	fadeState = 0
 	fadeDuration = duration
 func fadeOut(duration : float):

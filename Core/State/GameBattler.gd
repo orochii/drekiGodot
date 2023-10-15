@@ -5,7 +5,7 @@ var id : StringName
 var level : int = 1
 var currHP : int
 var currMP : int
-var states : Array[StringName]
+var states : Array[StatusState]
 
 func getFeatures():
 	return []
@@ -22,6 +22,10 @@ func getMag():
 	return applyFeatureStatChange(getBaseMag(), Global.Stat.Mag)
 func getAgi():
 	return applyFeatureStatChange(getBaseAgi(), Global.Stat.Agi)
+func getPhyAbs():
+	return applyFeatureStatChange(0, Global.Stat.PhyAbs)
+func getMagAbs():
+	return applyFeatureStatChange(0, Global.Stat.MagAbs)
 
 func applyFeatureStatChange(base:int, stat : Global.Stat):
 	var perc = 100

@@ -23,6 +23,7 @@ func _ready():
 	originalTexture = cover.texture
 
 func _process(delta):
+	# Fade
 	if fadeDuration>0:
 		fadeState = move_toward(fadeState, fadeTarget, delta/fadeDuration)
 		cover.modulate.a = fadeState
@@ -32,6 +33,7 @@ func _process(delta):
 
 func transfer(newMap):
 	transferring = true
+	pausingEntities.clear()
 	askPause(self)
 	# Fade out
 	fadeOut(TRANSFER_FADE_LEN)
@@ -46,6 +48,7 @@ func transfer(newMap):
 		var i = newScene.instantiate()
 		get_tree().root.add_child(i)
 		currentScene = i
+		Global.State.lastSceneName = newMap
 	# Update characters
 	Global.State._deserializeCharacters()
 	askUnpause(self)
@@ -56,6 +59,19 @@ func transfer(newMap):
 	await onFadeEnd
 	askUnpause(self)
 	transferring = false
+
+func toTitle():
+	Global.Audio.fadeOutBGM(0.5)
+	pausingEntities.clear()
+	Global.Scene.transfer("res://Scenes/title.tscn")
+
+func quit():
+	get_viewport().gui_release_focus()
+	askPause(self)
+	fadeOut(1)
+	await onFadeEnd
+	get_tree().quit()
+	pass
 
 func fadeIn(duration:float):
 	fadeState = 1
@@ -81,12 +97,16 @@ func askUnpause(asker):
 		get_tree().paused = false
 
 func performTransition():
+	if(transitioning):return
+	transitioning = true
 	var img = get_viewport().get_texture().get_image()
 	var tex = ImageTexture.create_from_image(img)
 	transition.texture = tex
+	var s = transition.material as ShaderMaterial
+	s.set_shader_parameter("threshold", 1)
+	transition.visible = true
 	transitionPlayer.speed_scale = 4
 	transitionPlayer.play("execute")
-	transitioning = true
 	askPause(self)
 
 func _on_transition_player_animation_finished(anim_name):

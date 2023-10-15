@@ -1,13 +1,45 @@
-[gd_resource type="Resource" script_class="Database" load_steps=5 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=13 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
+[ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
+[ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
+
+[sub_resource type="Resource" id="Resource_64mun"]
+script = ExtResource("1_nydlf")
+name = "Left"
+kind = 0
+
+[sub_resource type="Resource" id="Resource_m1ilq"]
+script = ExtResource("1_nydlf")
+name = "Right"
+kind = 0
+
+[sub_resource type="Resource" id="Resource_nm1d8"]
+script = ExtResource("1_nydlf")
+name = "Head"
+kind = 1
+
+[sub_resource type="Resource" id="Resource_0l026"]
+script = ExtResource("1_nydlf")
+name = "Body"
+kind = 2
+
+[sub_resource type="Resource" id="Resource_15u35"]
+script = ExtResource("1_nydlf")
+name = "Other"
+kind = 3
+
+[sub_resource type="Resource" id="Resource_mpb48"]
+script = ExtResource("1_nydlf")
+name = "Other"
+kind = 3
 
 [resource]
 script = ExtResource("1_37k5x")
-startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf")])
+startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf"), ExtResource("4_ihar5")])
 startingScene = ExtResource("4_d28sx")
-equipSlots = Array[int]([0, 0, 1, 2, 3, 3])
+equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")

@@ -10,3 +10,5 @@ func _run():
 	Global.State.setSwitch(0,true)
 	Global.State.party.gainItem("Drench", 3)
 	Global.State.party.gainItem("Great Drench", 1)
+	Global.State.party.gainItem("Short Bow", 1)
+	Global.State.party.gainItem("Leather Gloves", 1)

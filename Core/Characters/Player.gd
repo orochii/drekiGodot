@@ -18,6 +18,7 @@ func _process(delta):
 	if getInteract(): interact()
 	
 	if canMove() && Input.is_action_just_pressed("action_menu"):
+		Global.cacheScreenshot()
 		Global.UI.Party.open()
 	# if Input.is_action_just_pressed("action_select"):
 	# 	Global.saveGame("test")

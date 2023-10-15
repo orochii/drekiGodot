@@ -34,6 +34,7 @@ func refresh():
 
 func _on_pressed():
 	if(parentMenu==null):return
+	Global.Audio.playSFX("decision")
 	parentMenu.showSubmenu(index)
 	parentMenu.setFocus()
 

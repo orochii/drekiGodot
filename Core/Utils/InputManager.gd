@@ -17,6 +17,10 @@ func _ready():
 	lastInputKind = -1
 	mirrorActionsToUIMappings()
 
+func _process(delta):
+	if Input.is_action_just_pressed("sys_snap"):
+		Global.saveScreenshot()
+
 func _input(event):
 	if event is InputEventKey:
 		lastInputKind = -1
@@ -40,6 +44,7 @@ func serializeBindings() -> Dictionary:
 	var bindingData = {}
 	for action in actions:
 		if action.begins_with("ui_"): continue
+		if action.begins_with("sys_"): continue
 		var events = InputMap.action_get_events(action)
 		for ev in events:
 			var actionData = []

@@ -1,0 +1,192 @@
+[gd_scene load_steps=11 format=3 uid="uid://boft533utr21y"]
+
+[ext_resource type="Script" path="res://Core/UI/FileMenu.gd" id="1_naewe"]
+[ext_resource type="PackedScene" uid="uid://cou580ktucklw" path="res://Objects/save_file.tscn" id="2_5u522"]
+[ext_resource type="Shader" path="res://Core/Shaders/InvertColor.gdshader" id="3_fhxyn"]
+[ext_resource type="Texture2D" uid="uid://6v57tdch0cl6" path="res://Graphics/System/save_back.png" id="4_nj5pu"]
+[ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="5_r0ay0"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="6_0xuob"]
+[ext_resource type="Texture2D" uid="uid://bouhdxa2lxcoh" path="res://Graphics/System/save_frame_selected.png" id="7_txhrk"]
+[ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="8_kfowc"]
+[ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="9_gttal"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gdel"]
+shader = ExtResource("3_fhxyn")
+
+[node name="FileMenu" type="Control" node_paths=PackedStringArray("screenshotBack", "container")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_naewe")
+screenshotBack = NodePath("ScreenshotBack")
+savefileTemplate = ExtResource("2_5u522")
+container = NodePath("SaveFileContainer/VBox")
+
+[node name="ScreenshotBack" type="NinePatchRect" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GradientOverlay" type="NinePatchRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_7gdel")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_nj5pu")
+
+[node name="Window" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+
+[node name="Back" type="NinePatchRect" parent="Window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_r0ay0")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="Window"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_r0ay0")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="Window"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Window/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_0xuob")
+text = "Select a slot where you want to save  the game."
+
+[node name="SaveFileContainer" type="Control" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="SaveFileContainer"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SaveFileContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_txhrk")
+patch_margin_left = 8
+patch_margin_top = 16
+patch_margin_right = 8
+patch_margin_bottom = 16
+
+[node name="ButtonLegends" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Load" type="Control" parent="ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="ButtonLegends/Load"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+
+[node name="LeftLabel" type="Label" parent="ButtonLegends/Load"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 48.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Load"
+vertical_alignment = 1
+
+[node name="Delete" type="Control" parent="ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="ButtonLegends/Delete"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_extra"
+
+[node name="LeftLabel" type="Label" parent="ButtonLegends/Delete"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 48.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Delete"
+vertical_alignment = 1

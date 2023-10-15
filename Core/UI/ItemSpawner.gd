@@ -21,6 +21,7 @@ func _process(delta):
 		scroll.ensure_control_visible(focused)
 	# Category selector thing uh yes.
 	if moveLeft():
+		Global.Audio.playSFX("cursor")
 		var newCat = currCategory
 		if currCategory != 0:
 			newCat -= 1
@@ -29,6 +30,7 @@ func _process(delta):
 		applyFilter(newCat)
 		setFocus()
 	elif moveRight():
+		Global.Audio.playSFX("cursor")
 		var newCat = currCategory
 		if currCategory != Global.EItemCategory.UNIQUE:
 			newCat += 1
@@ -37,7 +39,7 @@ func _process(delta):
 		applyFilter(newCat)
 		setFocus()
 
-func showTask():
+func showTask(payload):
 	if itemEntries != null:
 		for c in itemEntries:
 			c.queue_free()

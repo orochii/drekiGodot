@@ -23,7 +23,7 @@ enum Element {
 	HEALING
 }
 enum Rank { A, B, C, D, E, F }
-enum Stat { HP, MP, Str, Vit, Mag, Agi, HitRate, Eva }
+enum Stat { HP, MP, Str, Vit, Mag, Agi, HitRate, Eva, PhyAbs, MagAbs }
 enum ETargetKind { NONE, ALLY, ENEMY, ANY, USER }
 enum ETargetScope { ONE, ALL, RANDOM }
 enum ETargetState { ALIVE, DEAD, ANY }
@@ -41,6 +41,7 @@ var scene = preload("res://Objects/scene_manager.tscn")
 
 func _init():
 	DirAccess.make_dir_absolute(savePath())
+	DirAccess.make_dir_absolute(snapPath())
 	Scene = scene.instantiate()
 	add_child(Scene)
 	Db = load("res://Data/database.tres")
@@ -53,18 +54,27 @@ func _init():
 
 func _ready():
 	Config = ConfigManager.new()
+	newGame()
+
+func newGame():
 	State = GameState.new()
 	State.initialize()
 
 func savePath() -> String:
 	return "user://Slot/"
+func snapPath() -> String:
+	return "user://Snap/"
 func saveExt() -> String:
 	return ".sav"
 func saveFilename(name:String) -> String:
 	return savePath() + name + saveExt()
 
 func getSaveList():
-	return DirAccess.get_files_at(savePath())
+	var allFiles = DirAccess.get_files_at(savePath())
+	var filtered = []
+	for f in allFiles:
+		if f.ends_with(saveExt()): filtered.append(f)
+	return filtered
 
 func saveExist(name:String) -> bool:
 	var dir = DirAccess.open(savePath())
@@ -76,6 +86,7 @@ func saveGame(name:String):
 	var json = JSON.stringify(savedata)
 	savegame.store_pascal_string(json)
 	savegame.close()
+	saveGameScreenshot(name)
 
 func loadGame(name:String):
 	if !saveExist(name): return
@@ -88,6 +99,40 @@ func loadGame(name:String):
 	State._deserialize(savedata)
 	Scene.transfer(State.lastSceneName)
 
+func saveGameScreenshot(name:String):
+	if(lastScreenshot==null): return
+	var path = savePath() + name + ".png"
+	lastScreenshot.save_png(path)
+
+func loadGameScreenshot(name:String):
+	var path = savePath() + name + ".png"
+	var dir = DirAccess.open(savePath())
+	if dir.file_exists(path):
+		var img = Image.load_from_file(path)
+		return ImageTexture.create_from_image(img)
+	return null
+
+func readGame(name:String) -> Dictionary:
+	if !saveExist(name): return {}
+	var savegame = FileAccess.open_compressed(saveFilename(name),FileAccess.READ, COMPRESSION)
+	var json = savegame.get_pascal_string()
+	savegame.close()
+	var savedata = JSON.parse_string(json)
+	return savedata
+
 func getSceneRoot():
 	if Scene.currentScene != null: return Scene.currentScene
 	return UI.get_parent()
+
+func saveScreenshot():
+	var name = snapPath() + State.getScreenshotTimestamp() + ".png"
+	var img = get_viewport().get_texture().get_image()
+	img.save_png(name)
+	#var tex = ImageTexture.create_from_image(img)
+
+var lastScreenshot = null
+func cacheScreenshot():
+	if lastScreenshot == null:
+		lastScreenshot = get_viewport().get_texture().get_image()
+func freeScreenshot():
+	lastScreenshot = null

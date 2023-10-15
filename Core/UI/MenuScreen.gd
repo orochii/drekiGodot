@@ -8,21 +8,34 @@ class_name MenuScreen
 @export var closeOnBack : bool
 @export var firstSelected : Button
 @export var tasks : Array[Node]
+@export var payload : Array
 
 var active:bool = false
 
+func _ready():
+	if payload != null:
+		for i in range(payload.size()):
+			if(payload[i] is NodePath):
+				payload[i] = get_node(payload[i])
+
 func _process(delta):
+	if(Global.Scene.transitioning):return
 	if !visible || !active: return
 	if Input.is_action_just_pressed("action_cancel"):
-		get_parent()._on_return(closeOnBack)
+		Global.Audio.playSFX("cancel")
+		returnScreen()
 
-func showScreen(legends : InputLegends):
+func returnScreen():
+	get_parent()._on_return(closeOnBack,payload)
+
+func showScreen(legends : InputLegends, payload=null):
+	get_viewport().gui_release_focus()
 	active = false
 	if (legends != null):
 		legends.setTexts(leftText,rightText,extraText,showHelp)
 	active = true
 	for t in tasks:
-		t.showTask()
+		t.showTask(payload)
 	visible = true
 	
 	if(Global.Scene.transitioning):

@@ -17,6 +17,9 @@ var variables : Array = []
 # map state
 var _characters = null
 var lastSceneName : String = ""
+# system state
+var playTime:float = 0
+var stepsTaken:int = 0
 
 func initialize():
 	party = GameParty.new()
@@ -63,7 +66,12 @@ func _serialize():
 		"party" : party._serialize(),
 		"switches" : switches,
 		"variables" : variables,
-		"characters" : _serializeCharacters()
+		"characters" : _serializeCharacters(),
+		"lastSceneName" : lastSceneName,
+		#
+		"playTime" : playTime,
+		"stepsTaken" : stepsTaken,
+		"timestamp" : getSaveTimestamp()
 	}
 	return save_dict
 
@@ -92,18 +100,19 @@ func _deserialize(savedata : Dictionary):
 		match key:
 			"actors":
 				var ary = _deserializeActors(savedata[key])
-				set(key, ary)
+				actors = ary
 			"party":
 				var p = GameParty.new()
 				p._deserialize(savedata[key])
-				set(key, p)
+				party = p
 			"characters":
 				_characters = savedata[key]
 			_:
 				set(key, savedata[key])
+	print(party.inventory.size())
 
 func _deserializeActors(data : Array):
-	var ary = []
+	var ary:Array[GameActor] = []
 	for i in data:
 		var _e = GameActor.new("")
 		_e._deserialize(i)
@@ -113,7 +122,6 @@ func _deserializeActors(data : Array):
 func _deserializeCharacters():
 	if (_characters == null): return
 	var scene : Node3D = Global.getSceneRoot()
-	print(Global.State.getSwitch(0))
 	for n in scene.get_children():
 		if n is Character:
 			if n is NPC:
@@ -127,3 +135,28 @@ func _deserializeCharacters():
 				n.global_rotation = rot
 				n.target_velocity = Vector3.ZERO
 	_characters = null
+
+func getSaveTimestamp():
+	var time = Time.get_datetime_dict_from_system()
+	return "%d/%d/%d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
+
+var lastTime = null
+var count = 0
+
+func getScreenshotTimestamp():
+	var time = Time.get_datetime_dict_from_system()
+	var dup = false
+	if lastTime != null:
+		if lastTime.year==time.year:
+			if lastTime.month==time.month:
+				if lastTime.day==time.day:
+					if lastTime.hour==time.hour:
+						if lastTime.minute==time.minute:
+							if lastTime.second==time.second:
+								dup = true
+	if dup:
+		count += 1
+	else:
+		count = 0
+	lastTime = time
+	return "%d-%d-%d_%02d%02d%02d_%d" % [time.year, time.month, time.day, time.hour, time.minute, time.second, count]

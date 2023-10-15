@@ -3,6 +3,7 @@ class_name GameUI
 
 @export var Message : GameMessage
 @export var Party : PartyMenu
+@export var File : FileMenu
 
 var currLang = "en"
 

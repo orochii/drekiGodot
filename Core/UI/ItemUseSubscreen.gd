@@ -32,17 +32,24 @@ func refreshTargets():
 			var m = members[i]
 			var inst = partyTargetTemplate.instantiate()
 			container.add_child(inst)
-			inst.setup(m)
+			inst.setupUse(m)
 			targetList.append(inst)
 		UIUtils.setVNeighbors(targetList)
 		if targetList.size() != 0: targetList[0].grab_focus()
-	else:
+	elif itemEntry.data is EquipItem:
 		#TODO: Show if item is equippable.
-		pass
+		var members : Array = Global.State.party.members
+		for i in range(members.size()):
+			var m = members[i]
+			var inst = partyTargetTemplate.instantiate()
+			container.add_child(inst)
+			inst.setupEquip(m,itemEntry.data)
+			targetList.append(inst)
 
 func _process(delta):
 	if(!visible):return
 	if(Input.is_action_just_pressed("action_cancel")):
+		Global.Audio.playSFX("cancel")
 		visible = false
 		parentScreen.active = true
 		curr.grab_focus()

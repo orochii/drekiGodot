@@ -16,11 +16,34 @@ func _init(_id:StringName):
 	currHP = getMaxHP()
 	currMP = getMaxMP()
 	makeExpList()
+	# Resize array if needed
+	var _slotsData = Global.Db.equipSlots
+	if(equips.size() < _slotsData.size()):
+		equips.resize(_slotsData.size())
+	# Set starting equipment
+	for item in actor.startingEquipment:
+		for i in range(_slotsData.size()):
+			var s = _slotsData[i].kind
+			if item.slot==s && equips[i]==null && canEquip(item):
+				equips[i] = item.getId()
+				break
 
 func getFeatures():
 	var actor:Actor = getData()
 	var features = []
+	# Base features
 	features.append_array(actor.features)
+	# Equip features
+	for e in equips:
+		if(e != null):
+			var data = Global.Db.getItem(e)
+			if data is EquipItem:
+				var equip = data as EquipItem
+				features.append_array(equip.features)
+	# Status features
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		features.append_array(data.features)
 	return features
 
 func getBaseMaxHP():
@@ -70,6 +93,33 @@ func getNextLvlExp():
 func getRemainingNextLvlExp():
 	return getLevelExp(level+1)-getLevelExp(level)
 
+func equip(slotIdx:int, item:EquipItem):
+	# Resize array if needed
+	var _slotsData = Global.Db.equipSlots
+	if(equips.size() < _slotsData.size()):
+		equips.resize(_slotsData.size())
+	# remove current item at slot, send back to inventory
+	if(equips[slotIdx] != null):
+		var oldEquip = equips[slotIdx]
+		equips[slotIdx] = null
+		Global.State.party.gainItem(oldEquip,1)
+	# add new item into the slot
+	if(item != null):
+		# Can't equip
+		if(canEquip(item) == false): return false
+		# Wrong slot
+		if(item.slot != _slotsData[slotIdx].kind): return false
+		# Equip
+		var newEquip = item.getId()
+		equips[slotIdx] = newEquip
+		Global.State.party.loseItem(newEquip,1)
+func canEquip(equip:EquipItem)->bool:
+	var a:Actor = getData()
+	for flag in equip.flags:
+		if a.equippableFlags.has(flag)==false:
+			return false
+	return true
+
 func getData():
 	if id=="": return null
 	return Global.Db.getActor(id)
@@ -83,11 +133,27 @@ func _serialize():
 		"exp" : exp,
 		"currHP" : currHP,
 		"currMP" : currMP,
-		"states" : states,
+		"states" : _serializeStates(),
 		"equips" : equips
 	}
 	return savedata
 
+func _serializeStates():
+	var data = []
+	for s in states:
+		data.append(s._serialize())
+	return data
+
 func _deserialize(savedata : Dictionary):
 	for key in savedata:
-		set(key, savedata[key])
+		match key:
+			"equips":
+				equips = savedata[key]
+			_:
+				set(key, savedata[key])
+
+func _deserializeStates(data:Array):
+	for s in data:
+		var ss = StatusState.new()
+		ss._deserialize(s)
+		states.append(ss)

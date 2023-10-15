@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://l3o1lrgc6lob"]
+[gd_scene load_steps=5 format=3 uid="uid://l3o1lrgc6lob"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_f3bs7"]
 [ext_resource type="Script" path="res://Core/Title.gd" id="2_8inx2"]
+[ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="3_n8usv"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_o4r6j"]
 
 [node name="someScene" type="Node3D"]
 
-[node name="TitleGameUI" type="Control" parent="."]
+[node name="TitleGameUI" type="Control" parent="." node_paths=PackedStringArray("File")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +15,133 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f3bs7")
+File = NodePath("FileMenu")
 
-[node name="Node" type="Node" parent="TitleGameUI"]
+[node name="Node" type="Node" parent="TitleGameUI" node_paths=PackedStringArray("fileMenu", "buttons")]
 script = ExtResource("2_8inx2")
+fileMenu = NodePath("../FileMenu")
+buttons = [NodePath("VBoxContainer/Continue"), NodePath("VBoxContainer/New"), NodePath("VBoxContainer/Load"), NodePath("VBoxContainer/Config"), NodePath("VBoxContainer/Extras"), NodePath("VBoxContainer/Exit")]
+
+[node name="Sprite2D" type="Sprite2D" parent="TitleGameUI/Node"]
+position = Vector2(476, 235)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleGameUI/Node"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Continue" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "Continue"
+horizontal_alignment = 1
+
+[node name="New" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/New"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "New"
+horizontal_alignment = 1
+
+[node name="Load" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Load"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "Load"
+horizontal_alignment = 1
+
+[node name="Config" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Config"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "Config"
+horizontal_alignment = 1
+
+[node name="Extras" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Extras"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "Extras"
+horizontal_alignment = 1
+
+[node name="Exit" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Exit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_o4r6j")
+text = "Exit"
+horizontal_alignment = 1
+
+[node name="FileMenu" parent="TitleGameUI" instance=ExtResource("3_n8usv")]
+process_mode = 3
+z_index = 200
+layout_mode = 1
+
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/Continue" to="TitleGameUI/Node" method="_on_continue_pressed"]
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/New" to="TitleGameUI/Node" method="_on_new_pressed"]
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/Load" to="TitleGameUI/Node" method="_on_load_pressed"]
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/Config" to="TitleGameUI/Node" method="_on_config_pressed"]
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/Extras" to="TitleGameUI/Node" method="_on_extras_pressed"]
+[connection signal="pressed" from="TitleGameUI/Node/VBoxContainer/Exit" to="TitleGameUI/Node" method="_on_exit_pressed"]

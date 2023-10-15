@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://klf04bvcc7g8"]
+
+[ext_resource type="Script" path="res://Core/UI/EquipEntry.gd" id="1_hvl1h"]
+[ext_resource type="Texture2D" uid="uid://bbhv1a00n3166" path="res://Graphics/Icons/items/item_0342.png" id="2_qmwd1"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_x8bp4"]
+
+[node name="EquipEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName", "itemNum")]
+custom_minimum_size = Vector2(0, 16)
+flat = true
+script = ExtResource("1_hvl1h")
+itemIcon = NodePath("Icon")
+itemName = NodePath("NameLabel")
+itemNum = NodePath("NumLabel")
+
+[node name="Icon" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 20.0
+offset_bottom = 16.0
+texture = ExtResource("2_qmwd1")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 2.0
+theme = ExtResource("3_x8bp4")
+text = "Equip Entry :)"
+
+[node name="Sign" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = 2.0
+offset_right = -18.0
+offset_bottom = 2.0
+theme = ExtResource("3_x8bp4")
+text = ":"
+horizontal_alignment = 2
+
+[node name="NumLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = 2.0
+theme = ExtResource("3_x8bp4")
+text = "88"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

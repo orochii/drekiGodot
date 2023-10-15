@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://3ft3ynrhkjkr"]
+
+[ext_resource type="Texture2D" uid="uid://c0b3tqg6tqfvd" path="res://Graphics/Faces/5_pixart2.png" id="1_8y0px"]
+[ext_resource type="Script" path="res://Core/Data/Actors/Actor.gd" id="1_ga2pu"]
+[ext_resource type="Texture2D" uid="uid://bp3m1q5ntddsv" path="res://Graphics/Faces/5_faceAnimated.png" id="2_ycywp"]
+[ext_resource type="Texture2D" uid="uid://bsw72cnkiidcb" path="res://Graphics/Faces/5_face2.png" id="3_6l6n3"]
+[ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="4_21r2c"]
+
+[sub_resource type="Resource" id="Resource_bqd5t"]
+script = ExtResource("4_21r2c")
+element = 5
+value = 1
+
+[sub_resource type="Resource" id="Resource_uq8i1"]
+script = ExtResource("4_21r2c")
+element = 9
+value = 0
+
+[sub_resource type="Resource" id="Resource_cl1tm"]
+script = ExtResource("4_21r2c")
+element = 10
+value = 3
+
+[resource]
+script = ExtResource("1_ga2pu")
+name = "?????"
+jobName = "Red Wyvern"
+description = "A cute fluffy red wyvern. Not really a reptile, apparently."
+faceGraphic = ExtResource("2_ycywp")
+faceSmall = ExtResource("3_6l6n3")
+artwork = ExtResource("1_8y0px")
+gender = 0
+birthday = 10
+birthmonth = 5
+birthyear = 507
+startingEquipment = Array[Resource("res://Core/Data/Items/EquipItem.gd")]([])
+equippableFlags = Array[int]([3, 5, 8, 9, 12, 16])
+learningSlots = Array[Resource("res://Core/Data/Actors/SkillLearningSlot.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_bqd5t"), SubResource("Resource_uq8i1"), SubResource("Resource_cl1tm")])
+startLevel = 1.0
+expGrowth = Vector2i(25, 50)
+mhp = Vector2i(287, 95)
+mmp = Vector2i(51, 100)
+str = Vector2i(60, 60)
+vit = Vector2i(28, 52)
+mag = Vector2i(17, 200)
+agi = Vector2i(37, 50)

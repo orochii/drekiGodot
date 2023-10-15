@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpq4d0fhsmr6b"]
+
+[ext_resource type="Script" path="res://Core/UI/EquipLine.gd" id="1_054wu"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="2_4fnf4"]
+[ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="3_x0p21"]
+[ext_resource type="Texture2D" uid="uid://bckhgwt6iupkm" path="res://Graphics/Icons/items/item_0209.png" id="4_pvi1v"]
+
+[node name="EquipLine" type="Button" node_paths=PackedStringArray("slotName", "itemIcon", "itemName")]
+custom_minimum_size = Vector2(0, 16)
+flat = true
+script = ExtResource("1_054wu")
+slotName = NodePath("Slot")
+itemIcon = NodePath("NinePatchRect")
+itemName = NodePath("Label2")
+
+[node name="Slot" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 48.0
+theme = ExtResource("2_4fnf4")
+text = "Left"
+label_settings = ExtResource("3_x0p21")
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_right = 72.0
+offset_bottom = 16.0
+texture = ExtResource("4_pvi1v")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 76.0
+offset_right = -4.0
+theme = ExtResource("2_4fnf4")
+text = "Lantern"
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

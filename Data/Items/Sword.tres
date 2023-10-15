@@ -1,13 +1,20 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=3 format=3 uid="uid://84msihrapm3r"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://84msihrapm3r"]
 
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="1_fhmfw"]
 [ext_resource type="Texture2D" uid="uid://s3tjcwk1ymu2" path="res://Graphics/Icons/items/item_0184.png" id="1_hcein"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_n4pig"]
+
+[sub_resource type="Resource" id="Resource_r8vhm"]
+script = ExtResource("1_n4pig")
+stat = 2
+kind = 0
+amount = 5
 
 [resource]
 script = ExtResource("1_fhmfw")
 slot = 0
 flags = Array[int]([0])
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_r8vhm")])
 name = "Sword"
 description = "A short sword made out of common iron."
 icon = ExtResource("1_hcein")

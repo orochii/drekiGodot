@@ -42,4 +42,5 @@ func _refresh():
 
 func _on_pressed():
 	if(parentScreen != null):
+		Global.Audio.playSFX("decision")
 		parentScreen.showUse(self)

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://km1338hqvgmf"
+path="res://.godot/imported/Demise Inside the Fog.ogg-fafe733eaaaf8865a43faf6bf201a6f9.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Demise Inside the Fog.ogg"
+dest_files=["res://.godot/imported/Demise Inside the Fog.ogg-fafe733eaaaf8865a43faf6bf201a6f9.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

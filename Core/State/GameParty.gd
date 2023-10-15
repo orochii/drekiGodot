@@ -23,7 +23,7 @@ func loseItem(id:StringName,n:int):
 	var toRemove = null
 	for e in inventory:
 		if(e.id==id):
-			e.amount = e.amount+n
+			e.amount = e.amount-n
 			toRemove = e
 			break
 	if(toRemove != null):
@@ -63,12 +63,12 @@ func _deserialize(savedata : Dictionary):
 		match key:
 			"inventory":
 				var _inv = _deserializeInventory(savedata[key])
-				set(key, _inv)
+				inventory = _inv
 			_:
 				set(key, savedata[key])
 
 func _deserializeInventory(data : Array):
-	var _inv = []
+	var _inv:Array[GameInventoryEntry] = []
 	for i in data:
 		var _e = GameInventoryEntry.new()
 		_e._deserialize(i)

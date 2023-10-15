@@ -5,16 +5,19 @@
 [ext_resource type="Script" path="res://Core/UI/PartyTargetEntry.gd" id="2_vgv60"]
 [ext_resource type="Texture2D" uid="uid://ci5xpins1ibs6" path="res://Graphics/Icons/states/st_74.png" id="3_oisvo"]
 
-[node name="PartyTargetEntry" type="Button" node_paths=PackedStringArray("nameText", "lpText", "mpText", "status1", "status2")]
+[node name="PartyTargetEntry" type="Button" node_paths=PackedStringArray("canUse", "nameText", "lpText", "mpText", "status1", "status2", "canEquip", "equipLabel")]
 custom_minimum_size = Vector2(0, 16)
 theme = ExtResource("1_ugqnl")
 flat = true
 script = ExtResource("2_vgv60")
+canUse = NodePath("CanUse")
 nameText = NodePath("Name")
-lpText = NodePath("Control/LPNum")
-mpText = NodePath("Control/MPNum")
-status1 = NodePath("Control/State1")
-status2 = NodePath("Control/State2")
+lpText = NodePath("CanUse/LPNum")
+mpText = NodePath("CanUse/MPNum")
+status1 = NodePath("CanUse/State1")
+status2 = NodePath("CanUse/State2")
+canEquip = NodePath("CanEquip")
+equipLabel = NodePath("CanEquip/EquipPermitLabel")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 1
@@ -25,7 +28,7 @@ offset_bottom = 15.0
 theme = ExtResource("1_ugqnl")
 text = "WWWWWWWWWWW"
 
-[node name="Control" type="Control" parent="."]
+[node name="CanUse" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +38,7 @@ offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LP" type="Label" parent="Control"]
+[node name="LP" type="Label" parent="CanUse"]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 20.0
@@ -46,7 +49,7 @@ text = "LP"
 label_settings = ExtResource("2_1x444")
 horizontal_alignment = 2
 
-[node name="LPNum" type="Label" parent="Control"]
+[node name="LPNum" type="Label" parent="CanUse"]
 layout_mode = 0
 offset_left = 20.0
 offset_right = 52.0
@@ -55,7 +58,7 @@ theme = ExtResource("1_ugqnl")
 text = "88888"
 horizontal_alignment = 2
 
-[node name="MP" type="Label" parent="Control"]
+[node name="MP" type="Label" parent="CanUse"]
 layout_mode = 0
 offset_left = 52.0
 offset_right = 64.0
@@ -66,7 +69,7 @@ text = "MP"
 label_settings = ExtResource("2_1x444")
 horizontal_alignment = 2
 
-[node name="MPNum" type="Label" parent="Control"]
+[node name="MPNum" type="Label" parent="CanUse"]
 layout_mode = 0
 offset_left = 64.0
 offset_right = 96.0
@@ -75,16 +78,36 @@ theme = ExtResource("1_ugqnl")
 text = "88888"
 horizontal_alignment = 2
 
-[node name="State1" type="NinePatchRect" parent="Control"]
+[node name="State1" type="NinePatchRect" parent="CanUse"]
 layout_mode = 0
 offset_left = 96.0
 offset_right = 108.0
 offset_bottom = 12.0
 texture = ExtResource("3_oisvo")
 
-[node name="State2" type="NinePatchRect" parent="Control"]
+[node name="State2" type="NinePatchRect" parent="CanUse"]
 layout_mode = 0
 offset_left = 108.0
 offset_right = 120.0
 offset_bottom = 12.0
 texture = ExtResource("3_oisvo")
+
+[node name="CanEquip" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EquipPermitLabel" type="Label" parent="CanEquip"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 120.0
+offset_bottom = 16.0
+theme = ExtResource("1_ugqnl")
+text = "Can Equip"
+horizontal_alignment = 2
