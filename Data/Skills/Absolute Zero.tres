@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://cq4uwukusociq"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_luee6"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_44pmp"]
+[ext_resource type="Texture2D" uid="uid://f7ag08c5w8nk" path="res://Graphics/Icons/skills/AbsoluteZero.png" id="2_jgxb6"]
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("1_luee6")
+base = 50
+
+[resource]
+script = ExtResource("2_44pmp")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetScope = 0
+targetState = 0
+repeats = 1
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+name = "Absolute Zero"
+description = "Performs a double attack with wielded weapons."
+icon = ExtResource("2_jgxb6")

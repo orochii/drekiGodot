@@ -1,4 +1,4 @@
-extends Resource
+extends BaseSkill
 class_name UseableSkill
 
 enum ESkillFlags { PHYSICAL, MAGICAL, RANGED, CAN_REFLECT, CAN_GUARD }

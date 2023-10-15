@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=70 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -43,14 +43,26 @@
 [ext_resource type="Script" path="res://Core/UI/SystemScreen.gd" id="24_op1bb"]
 [ext_resource type="Script" path="res://Core/UI/CharacterEquipScreen.gd" id="24_va8dx"]
 [ext_resource type="Texture2D" uid="uid://dgvvxghgrw54p" path="res://Graphics/System/partyMenu/base_tech.png" id="25_mxt8l"]
+[ext_resource type="Script" path="res://Core/UI/CharacterStatChanges.gd" id="26_cwcnd"]
 [ext_resource type="LabelSettings" uid="uid://c0ecb0vgrx2xt" path="res://Themes/labelSetting_PlusColor.tres" id="26_rqmi2"]
 [ext_resource type="Script" path="res://Core/UI/CharacterActionsScreen.gd" id="26_s2kf0"]
 [ext_resource type="LabelSettings" uid="uid://dwnb73gg6db8h" path="res://Themes/labelSetting_MinusColor.tres" id="27_hchun"]
 [ext_resource type="Script" path="res://Core/UI/EquipList.gd" id="28_652dl"]
+[ext_resource type="Script" path="res://Core/UI/StatAddPair.gd" id="29_a64n3"]
 [ext_resource type="PackedScene" uid="uid://dpq4d0fhsmr6b" path="res://Objects/equip_line.tscn" id="29_cnuv8"]
 [ext_resource type="Script" path="res://Core/UI/EquipItemList.gd" id="30_parwt"]
 [ext_resource type="PackedScene" uid="uid://klf04bvcc7g8" path="res://Objects/equip_entry.tscn" id="31_so3v4"]
+[ext_resource type="Script" path="res://Core/UI/LearnSlotsContainer.gd" id="36_i5krb"]
+[ext_resource type="PackedScene" uid="uid://bqxrlkguws84" path="res://Objects/learn_slot.tscn" id="36_ucopl"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="41_68qbl"]
 [ext_resource type="Texture2D" uid="uid://d2kwfq345i27k" path="res://Graphics/System/partyMenu/base_group.png" id="41_nfds3"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="42_b05c5"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="43_7oo4p"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="44_iwi1e"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="45_63yia"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="46_4hk1r"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="47_p8gom"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="48_nqxrf"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="51_d771a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
@@ -117,6 +129,38 @@ _data = {
 "RESET": SubResource("Animation_mug7x"),
 "standby": SubResource("Animation_n2qvv")
 }
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5fut7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_68qbl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_b05c5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_7oo4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_iwi1e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_63yia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_4hk1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_p8gom")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_nqxrf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
 
 [node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File")]
 process_mode = 3
@@ -435,9 +479,10 @@ extraText = "Equip"
 showHelp = true
 tasks = [NodePath("Node")]
 
-[node name="Node" type="Node" parent="PartyMenu/CharacterStatusScreen" node_paths=PackedStringArray("charStats")]
+[node name="Node" type="Node" parent="PartyMenu/CharacterStatusScreen" node_paths=PackedStringArray("charStats", "listSpawner")]
 script = ExtResource("17_ji2ek")
 charStats = NodePath("../Background/CharStats")
+listSpawner = NodePath("../../MainScreen/SpawnParty")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen"]
 layout_mode = 1
@@ -831,12 +876,14 @@ extraText = "Action"
 showHelp = true
 tasks = [NodePath("EquipScreen")]
 
-[node name="EquipScreen" type="Node" parent="PartyMenu/CharacterEquipScreen" node_paths=PackedStringArray("charStats", "description", "equipList", "itemList")]
+[node name="EquipScreen" type="Node" parent="PartyMenu/CharacterEquipScreen" node_paths=PackedStringArray("charStats", "charAdds", "description", "equipList", "itemList", "listSpawner")]
 script = ExtResource("24_va8dx")
 charStats = NodePath("../Background/CharEquip")
+charAdds = NodePath("../Background/CharEquip/STATS/ADD")
 description = NodePath("../Background/CharEquip/Info/RichTextLabel")
 equipList = NodePath("../Background/CharEquip/EquipList")
 itemList = NodePath("../Background/CharEquip/ItemList")
+listSpawner = NodePath("../../MainScreen/SpawnParty")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterEquipScreen"]
 layout_mode = 1
@@ -1069,177 +1116,244 @@ text = "100%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ADD" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS"]
-visible = false
+[node name="ADD" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS" node_paths=PackedStringArray("Str", "Agi", "Vit", "Mag", "PAb", "MAb")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("26_cwcnd")
+styles = Array[LabelSettings]([ExtResource("27_hchun"), null, ExtResource("26_rqmi2")])
+Str = NodePath("Str")
+Agi = NodePath("Agi")
+Vit = NodePath("Vit")
+Mag = NodePath("Int")
+PAb = NodePath("PAb")
+MAb = NodePath("Mab")
 
-[node name="STRNum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="Str" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
 layout_mode = 1
-anchors_preset = -1
 anchor_right = 0.5
-offset_top = -4.0
 offset_bottom = 12.0
+script = ExtResource("29_a64n3")
+number = NodePath("StrNum")
+sign = NodePath("StrSign")
+
+[node name="StrNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Str"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("18_dtd4u")
 text = "8888"
 label_settings = ExtResource("26_rqmi2")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="AGINum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="StrSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Str"]
 layout_mode = 1
 anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = ">"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Agi" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
+layout_mode = 1
 anchor_left = 0.5
 anchor_right = 1.0
 offset_left = 4.0
-offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 12.0
-theme = ExtResource("18_dtd4u")
-text = "8888"
-label_settings = ExtResource("27_hchun")
-horizontal_alignment = 2
-vertical_alignment = 1
+script = ExtResource("29_a64n3")
+number = NodePath("AgiNum")
+sign = NodePath("AgiSign")
 
-[node name="VITNum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="AgiNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Agi"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_top = 7.0
-offset_bottom = 23.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("18_dtd4u")
 text = "8888"
 label_settings = ExtResource("26_rqmi2")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="INTNum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="AgiSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Agi"]
 layout_mode = 1
 anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = ">"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Vit" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
+layout_mode = 1
+anchor_right = 0.5
+offset_top = 11.0
+offset_bottom = 23.0
+script = ExtResource("29_a64n3")
+number = NodePath("VitNum")
+sign = NodePath("VitSign")
+
+[node name="VitNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Vit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = "8888"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VitSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Vit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = ">"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Int" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
+layout_mode = 1
 anchor_left = 0.5
 anchor_right = 1.0
 offset_left = 4.0
-offset_top = 7.0
+offset_top = 11.0
 offset_right = 4.0
 offset_bottom = 23.0
+script = ExtResource("29_a64n3")
+number = NodePath("IntNum")
+sign = NodePath("IntSign")
+
+[node name="IntNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Int"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("18_dtd4u")
 text = "8888"
-label_settings = ExtResource("27_hchun")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PhyAbsNum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_top = 18.0
-offset_bottom = 34.0
-theme = ExtResource("18_dtd4u")
-text = "100%"
 label_settings = ExtResource("26_rqmi2")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MagAbsNum2" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="IntSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Int"]
 layout_mode = 1
 anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = ">"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PAb" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
+layout_mode = 1
+anchor_right = 0.5
+offset_top = 21.0
+offset_bottom = 33.0
+script = ExtResource("29_a64n3")
+number = NodePath("PAbNum")
+sign = NodePath("PAbSign")
+format = "%d%%"
+
+[node name="PAbNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/PAb"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = "8888"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PAbSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/PAb"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = ">"
+label_settings = ExtResource("26_rqmi2")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Mab" type="Control" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD" node_paths=PackedStringArray("number", "sign")]
+layout_mode = 1
 anchor_left = 0.5
 anchor_right = 1.0
 offset_left = 4.0
-offset_top = 18.0
+offset_top = 21.0
 offset_right = 4.0
-offset_bottom = 34.0
-theme = ExtResource("18_dtd4u")
-text = "100%"
-label_settings = ExtResource("27_hchun")
-horizontal_alignment = 2
-vertical_alignment = 1
+offset_bottom = 33.0
+script = ExtResource("29_a64n3")
+number = NodePath("MabNum")
+sign = NodePath("MabSign")
+format = "%d%%"
 
-[node name="STRNum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="MabNum" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Mab"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_top = -4.0
-offset_right = -20.0
-offset_bottom = 12.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("18_dtd4u")
-text = ">"
+text = "8888"
 label_settings = ExtResource("26_rqmi2")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="AGINum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
+[node name="MabSign" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD/Mab"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
 anchor_right = 1.0
-offset_left = 4.0
-offset_top = -4.0
-offset_right = -16.0
-offset_bottom = 12.0
-theme = ExtResource("18_dtd4u")
-text = ">"
-label_settings = ExtResource("27_hchun")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="VITNum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_top = 7.0
+anchor_bottom = 1.0
 offset_right = -20.0
-offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("18_dtd4u")
 text = ">"
 label_settings = ExtResource("26_rqmi2")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="INTNum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-offset_left = 4.0
-offset_top = 7.0
-offset_right = -16.0
-offset_bottom = 23.0
-theme = ExtResource("18_dtd4u")
-text = ">"
-label_settings = ExtResource("27_hchun")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PhyAbsNum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_top = 18.0
-offset_right = -20.0
-offset_bottom = 34.0
-theme = ExtResource("18_dtd4u")
-text = ">"
-label_settings = ExtResource("26_rqmi2")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="MagAbsNum3" type="Label" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip/STATS/ADD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-offset_left = 4.0
-offset_top = 18.0
-offset_right = -16.0
-offset_bottom = 34.0
-theme = ExtResource("18_dtd4u")
-text = ">"
-label_settings = ExtResource("27_hchun")
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -1298,7 +1412,6 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="CharacterSkillsScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1309,11 +1422,13 @@ script = ExtResource("11_rqkob")
 leftText = "PC"
 rightText = "PC"
 extraText = "Status"
-showHelp = true
 tasks = [NodePath("SkillsScreen")]
 
-[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen"]
+[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("charStats", "slotsContainer", "listSpawner")]
 script = ExtResource("26_s2kf0")
+charStats = NodePath("../Background/Container/StatsContainer")
+slotsContainer = NodePath("../Background/Container/SlotsContainer")
+listSpawner = NodePath("../../MainScreen/SpawnParty")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen"]
 layout_mode = 1
@@ -1330,7 +1445,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("25_mxt8l")
 
-[node name="CharStats" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background"]
+[node name="Container" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1344,7 +1459,7 @@ offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/CharStats"]
+[node name="Label" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
 layout_mode = 0
 offset_right = 192.0
 offset_bottom = 16.0
@@ -1352,6 +1467,245 @@ theme = ExtResource("11_hotyh")
 text = "Character - Actions"
 label_settings = ExtResource("19_wre01")
 horizontal_alignment = 1
+
+[node name="LineContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SlotsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("lineContainer", "slotsContainer", "cursor")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("36_i5krb")
+lineContainer = NodePath("../LineContainer")
+slotsContainer = NodePath(".")
+learnSlotTemplate = ExtResource("36_ucopl")
+cursor = NodePath("../CursorContainer/AnimatedSprite2D")
+
+[node name="StatsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("nameLabel", "hpLabel", "mpLabel", "apCount", "apPercCount")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_smy0q")
+nameLabel = NodePath("Label")
+includeMax = false
+hpLabel = NodePath("Control/LPNum")
+mpLabel = NodePath("Control2/MPNum")
+apCount = NodePath("ApCount")
+apPercCount = NodePath("PercAP")
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 16.0
+theme = ExtResource("11_hotyh")
+text = "Hikari"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -112.0
+offset_right = -68.0
+offset_bottom = 16.0
+grow_horizontal = 0
+
+[node name="LP" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "LP"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="LPNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "88888"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_right = -4.0
+offset_bottom = 16.0
+grow_horizontal = 0
+
+[node name="MP" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "MP"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="MPNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "88888"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ApCount" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -16.0
+offset_right = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("11_hotyh")
+text = "12"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="APLabel" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -16.0
+offset_right = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("11_hotyh")
+text = "AP"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="PercAP" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/StatsContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("18_dtd4u")
+text = "(100%)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeLabel" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 72.0
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/CharacterSkillsScreen/Background/Container/UpgradeLabel"]
+texture = ExtResource("19_85gig")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_menu"
+
+[node name="ExtraLabel" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/UpgradeLabel"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Upgrade"
+vertical_alignment = 1
+
+[node name="HelpLabel" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+offset_top = -16.0
+offset_right = 128.0
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/CharacterSkillsScreen/Background/Container/HelpLabel"]
+texture = ExtResource("20_q4gm6")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_select"
+
+[node name="ExtraLabel" type="Label" parent="PartyMenu/CharacterSkillsScreen/Background/Container/HelpLabel"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Help"
+vertical_alignment = 1
+
+[node name="CursorContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/Background/Container/CursorContainer"]
+position = Vector2(-16, -32)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
 
 [node name="InventoryScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 visible = false
@@ -1493,6 +1847,7 @@ offset_bottom = 16.0
 texture = ExtResource("18_uvw8m")
 
 [node name="GroupScreen" type="Control" parent="PartyMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1965,6 +2320,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Blocker" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

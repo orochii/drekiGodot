@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=17 format=3 uid="uid://bs77brxfkt5yg"]
+[gd_resource type="Resource" script_class="Actor" load_steps=80 format=3 uid="uid://bs77brxfkt5yg"]
 
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="1_fphf6"]
 [ext_resource type="Texture2D" uid="uid://br0sx61j1stfs" path="res://Graphics/Faces/1_pixart2.png" id="1_hbvuk"]
@@ -6,11 +6,34 @@
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearning.gd" id="2_jpdbq"]
 [ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="2_loit1"]
 [ext_resource type="Texture2D" uid="uid://dlrtaypnag7vp" path="res://Graphics/Faces/1_faceAnimated.png" id="3_2jrs3"]
-[ext_resource type="Resource" uid="uid://blr2lg8ngj1rn" path="res://Data/Skills/Trance.tres" id="3_du70q"]
+[ext_resource type="Resource" uid="uid://blr2lg8ngj1rn" path="res://Data/Skills/Passives/Trance.tres" id="3_du70q"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="3_lw1w4"]
 [ext_resource type="Resource" uid="uid://84msihrapm3r" path="res://Data/Items/Sword.tres" id="4_e84ib"]
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearningSlot.gd" id="4_lqmfh"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="4_tif0j"]
+[ext_resource type="Resource" uid="uid://bmoebsnnnt02v" path="res://Data/Skills/Shouten Cut.tres" id="7_kdk53"]
+[ext_resource type="Resource" uid="uid://bcjmmb72ik0vj" path="res://Data/Skills/Double Attack.tres" id="7_n6i3k"]
+[ext_resource type="Resource" uid="uid://wbswo26fo6qb" path="res://Data/Skills/Pass Through.tres" id="9_4vdh6"]
+[ext_resource type="Resource" uid="uid://b4t5oltlf182l" path="res://Data/Skills/Scan.tres" id="10_lt8ap"]
+[ext_resource type="Resource" uid="uid://pdi1owy52v3t" path="res://Data/Skills/Remedy.tres" id="11_ph6an"]
+[ext_resource type="Resource" uid="uid://bjcf4iytsn2c5" path="res://Data/Skills/Suplex.tres" id="11_rxxx5"]
+[ext_resource type="Resource" uid="uid://bm7gkajyaarfr" path="res://Data/Skills/Venom.tres" id="12_1v47q"]
+[ext_resource type="Resource" uid="uid://c46i8nstxwu1p" path="res://Data/Skills/Mental Absorb.tres" id="12_4egdu"]
+[ext_resource type="Resource" uid="uid://bkm3n8vk32glu" path="res://Data/Skills/Typhoon.tres" id="13_5iaos"]
+[ext_resource type="Resource" uid="uid://dfneoufka8rpa" path="res://Data/Skills/Snowball.tres" id="13_wtnol"]
+[ext_resource type="Resource" uid="uid://du8sw0dgv72qr" path="res://Data/Skills/Ragna Edge.tres" id="14_ph4v6"]
+[ext_resource type="Resource" uid="uid://cmfv0i5pfs2vq" path="res://Data/Skills/Meteor Strike.tres" id="14_uwtqf"]
+[ext_resource type="Resource" uid="uid://dxxgc0cx6fb4i" path="res://Data/Skills/Earthquake.tres" id="15_mea8q"]
+[ext_resource type="Resource" uid="uid://cxy5n7o443lfd" path="res://Data/Skills/Comet Punch.tres" id="16_tnhyi"]
+[ext_resource type="Resource" uid="uid://cq4uwukusociq" path="res://Data/Skills/Absolute Zero.tres" id="17_k2l1u"]
+[ext_resource type="Resource" uid="uid://bykhma6eebfu6" path="res://Data/Skills/Snowstorm.tres" id="19_fpjfc"]
+[ext_resource type="Resource" uid="uid://cx4ivcd7c7v0w" path="res://Data/Skills/Passives/Counterattack.tres" id="19_v4wko"]
+[ext_resource type="Resource" uid="uid://b88jfl1eecwuj" path="res://Data/Skills/Passives/Air Juggling.tres" id="20_53l4b"]
+[ext_resource type="Resource" uid="uid://cefeox1qh3rn3" path="res://Data/Skills/Winter Breeze.tres" id="20_umb4a"]
+[ext_resource type="Resource" uid="uid://da2en1uohwxpl" path="res://Data/Skills/Passives/Weakness Policy.tres" id="21_45fuy"]
+[ext_resource type="Resource" uid="uid://b42adf5xgbq8f" path="res://Data/Skills/Ice Star.tres" id="21_y2j4w"]
+[ext_resource type="Resource" uid="uid://ccioxi607u4w" path="res://Data/Skills/Crystalize.tres" id="22_idw7a"]
+[ext_resource type="Resource" uid="uid://cx8xixtxstrjy" path="res://Data/Skills/Passives/Sturdy.tres" id="22_pmfoi"]
 
 [sub_resource type="Resource" id="Resource_juwmk"]
 script = ExtResource("2_loit1")
@@ -27,16 +50,239 @@ script = ExtResource("2_loit1")
 element = 10
 value = 3
 
+[sub_resource type="Resource" id="Resource_anlwo"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("7_n6i3k")
+apCost = 0
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_o63kf"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(-1, -1)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_anlwo")])
+
 [sub_resource type="Resource" id="Resource_do5da"]
 script = ExtResource("2_jpdbq")
-skill = ExtResource("3_du70q")
-apCost = 10
+skill = ExtResource("7_kdk53")
+apCost = 0
 requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
 
 [sub_resource type="Resource" id="Resource_rxm80"]
 script = ExtResource("4_lqmfh")
 gridPosition = Vector2i(0, 0)
 learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_do5da")])
+
+[sub_resource type="Resource" id="Resource_kwnou"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("9_4vdh6")
+apCost = 3
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("7_kdk53")])
+
+[sub_resource type="Resource" id="Resource_yyubb"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("11_rxxx5")
+apCost = 6
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_jsvuf"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(2, 0)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_kwnou"), SubResource("Resource_yyubb")])
+
+[sub_resource type="Resource" id="Resource_h55nm"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("12_1v47q")
+apCost = 3
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("9_4vdh6")])
+
+[sub_resource type="Resource" id="Resource_dptuk"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(4, 1)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_h55nm")])
+
+[sub_resource type="Resource" id="Resource_kamet"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("13_5iaos")
+apCost = 3
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("9_4vdh6")])
+
+[sub_resource type="Resource" id="Resource_fvlx7"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(4, 2)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_kamet")])
+
+[sub_resource type="Resource" id="Resource_pmru5"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("14_uwtqf")
+apCost = 12
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("13_5iaos")])
+
+[sub_resource type="Resource" id="Resource_ffvi8"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(6, 2)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_pmru5")])
+
+[sub_resource type="Resource" id="Resource_8jiuh"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("10_lt8ap")
+apCost = 0
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_tjliy"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(0, 3)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_8jiuh")])
+
+[sub_resource type="Resource" id="Resource_m2wlg"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("11_ph6an")
+apCost = 0
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_816fm"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(0, 4)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_m2wlg")])
+
+[sub_resource type="Resource" id="Resource_vxjlr"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("12_4egdu")
+apCost = 7
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("11_ph6an")])
+
+[sub_resource type="Resource" id="Resource_pgiqh"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(2, 4)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_vxjlr")])
+
+[sub_resource type="Resource" id="Resource_0rjpl"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("13_wtnol")
+apCost = 1
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_sj5c8"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("19_fpjfc")
+apCost = 6
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("13_wtnol")])
+
+[sub_resource type="Resource" id="Resource_r0kvq"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(0, 5)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_0rjpl"), SubResource("Resource_sj5c8")])
+
+[sub_resource type="Resource" id="Resource_h2p2h"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("20_umb4a")
+apCost = 3
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("13_wtnol")])
+
+[sub_resource type="Resource" id="Resource_eq45n"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("21_y2j4w")
+apCost = 6
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("20_umb4a")])
+
+[sub_resource type="Resource" id="Resource_bg466"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("22_idw7a")
+apCost = 12
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("21_y2j4w")])
+
+[sub_resource type="Resource" id="Resource_rxju2"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(2, 6)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_h2p2h"), SubResource("Resource_eq45n"), SubResource("Resource_bg466")])
+
+[sub_resource type="Resource" id="Resource_tpq7g"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("14_ph4v6")
+apCost = 6
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_6aiee"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("15_mea8q")
+apCost = 9
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("14_ph4v6")])
+
+[sub_resource type="Resource" id="Resource_0g3av"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(0, 7)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_tpq7g"), SubResource("Resource_6aiee")])
+
+[sub_resource type="Resource" id="Resource_i3acn"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("16_tnhyi")
+apCost = 2
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("7_kdk53")])
+
+[sub_resource type="Resource" id="Resource_lkhbk"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("17_k2l1u")
+apCost = 10
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([ExtResource("16_tnhyi")])
+
+[sub_resource type="Resource" id="Resource_x80rf"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(0, 8)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_i3acn"), SubResource("Resource_lkhbk")])
+
+[sub_resource type="Resource" id="Resource_mjjd6"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("3_du70q")
+apCost = 12
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_ju84x"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(6, 6)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_mjjd6")])
+
+[sub_resource type="Resource" id="Resource_y8y8w"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("19_v4wko")
+apCost = 7
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_ytf2i"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(6, 7)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_y8y8w")])
+
+[sub_resource type="Resource" id="Resource_d373g"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("20_53l4b")
+apCost = 5
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_hpuq3"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(6, 8)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_d373g")])
+
+[sub_resource type="Resource" id="Resource_u0ax8"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("21_45fuy")
+apCost = 8
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_vjgqc"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(8, 6)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_u0ax8")])
+
+[sub_resource type="Resource" id="Resource_l3owq"]
+script = ExtResource("2_jpdbq")
+skill = ExtResource("22_pmfoi")
+apCost = 8
+requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
+
+[sub_resource type="Resource" id="Resource_dyu4v"]
+script = ExtResource("4_lqmfh")
+gridPosition = Vector2i(8, 7)
+learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_l3owq")])
 
 [resource]
 script = ExtResource("1_oyatu")
@@ -54,7 +300,7 @@ birthmonth = 7
 birthyear = 493
 startingEquipment = Array[Resource("res://Core/Data/Items/EquipItem.gd")]([ExtResource("4_e84ib")])
 equippableFlags = Array[int]([0, 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 16])
-learningSlots = Array[ExtResource("4_lqmfh")]([SubResource("Resource_rxm80")])
+learningSlots = Array[ExtResource("4_lqmfh")]([SubResource("Resource_o63kf"), SubResource("Resource_rxm80"), SubResource("Resource_jsvuf"), SubResource("Resource_dptuk"), SubResource("Resource_fvlx7"), SubResource("Resource_ffvi8"), SubResource("Resource_tjliy"), SubResource("Resource_816fm"), SubResource("Resource_pgiqh"), SubResource("Resource_r0kvq"), SubResource("Resource_rxju2"), SubResource("Resource_0g3av"), SubResource("Resource_x80rf"), SubResource("Resource_ju84x"), SubResource("Resource_ytf2i"), SubResource("Resource_hpuq3"), SubResource("Resource_vjgqc"), SubResource("Resource_dyu4v")])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_juwmk"), SubResource("Resource_0vyim"), SubResource("Resource_vyfqr")])
 startLevel = 1.0
 expGrowth = Vector2i(25, 50)

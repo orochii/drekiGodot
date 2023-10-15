@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=4 format=3 uid="uid://pdi1owy52v3t"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_erpk8"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_wvmtl"]
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("1_erpk8")
+base = 50
+
+[resource]
+script = ExtResource("2_wvmtl")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetScope = 0
+targetState = 0
+repeats = 1
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+name = "Scan"
+description = "Performs a double attack with wielded weapons."

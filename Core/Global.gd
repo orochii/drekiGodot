@@ -54,7 +54,8 @@ func _init():
 
 func _ready():
 	Config = ConfigManager.new()
-	newGame()
+	#newGame()
+	State = GameState.new()
 
 func newGame():
 	State = GameState.new()

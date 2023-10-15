@@ -109,7 +109,6 @@ func _deserialize(savedata : Dictionary):
 				_characters = savedata[key]
 			_:
 				set(key, savedata[key])
-	print(party.inventory.size())
 
 func _deserializeActors(data : Array):
 	var ary:Array[GameActor] = []

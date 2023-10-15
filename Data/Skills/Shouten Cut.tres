@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://bmoebsnnnt02v"]
+
+[ext_resource type="Texture2D" uid="uid://d114bt2vnevhk" path="res://Graphics/Icons/skills/ShoutenCut.png" id="1_6obqo"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_fxe8w"]
+
+[resource]
+script = ExtResource("1_fxe8w")
+flags = Array[int]([])
+targetKind = 0
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = ""
+description = ""
+icon = ExtResource("1_6obqo")

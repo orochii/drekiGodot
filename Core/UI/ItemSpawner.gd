@@ -54,6 +54,8 @@ func showTask(payload):
 
 func hideTask():
 	pass
+func reset():
+	pass
 
 func setFocus():
 	if(toFocus != null):

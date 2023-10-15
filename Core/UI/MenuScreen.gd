@@ -26,14 +26,16 @@ func _process(delta):
 		returnScreen()
 
 func returnScreen():
+	active = false
 	get_parent()._on_return(closeOnBack,payload)
+	for t in tasks:
+		t.reset()
 
 func showScreen(legends : InputLegends, payload=null):
-	get_viewport().gui_release_focus()
 	active = false
+	get_viewport().gui_release_focus()
 	if (legends != null):
 		legends.setTexts(leftText,rightText,extraText,showHelp)
-	active = true
 	for t in tasks:
 		t.showTask(payload)
 	visible = true
@@ -47,6 +49,7 @@ func showScreen(legends : InputLegends, payload=null):
 	if get_viewport().gui_get_focus_owner()==null:
 		if firstSelected != null: firstSelected.grab_focus()
 		else: get_viewport().gui_release_focus()
+	active = true
 
 func hideScreen():
 	visible = false

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://du8sw0dgv72qr"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_dhbeh"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_ie5gr"]
+[ext_resource type="Texture2D" uid="uid://cgj88w8qfn1yf" path="res://Graphics/Icons/skills/RagnaEdge.png" id="2_wdnl3"]
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("1_dhbeh")
+base = 50
+
+[resource]
+script = ExtResource("2_ie5gr")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetScope = 0
+targetState = 0
+repeats = 1
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+name = "Ragna Edge"
+description = "Performs a double attack with wielded weapons."
+icon = ExtResource("2_wdnl3")

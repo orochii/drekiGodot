@@ -37,7 +37,6 @@ func refreshTargets():
 		UIUtils.setVNeighbors(targetList)
 		if targetList.size() != 0: targetList[0].grab_focus()
 	elif itemEntry.data is EquipItem:
-		#TODO: Show if item is equippable.
 		var members : Array = Global.State.party.members
 		for i in range(members.size()):
 			var m = members[i]

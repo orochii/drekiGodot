@@ -14,6 +14,8 @@ func setFocus():
 		toFocus = null
 func hideTask():
 	pass
+func reset():
+	pass
 
 func _ready():
 	UIUtils.setVNeighbors(buttons)

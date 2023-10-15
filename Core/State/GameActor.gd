@@ -6,6 +6,12 @@ var position : int = 0
 var exp : int
 var equips : Array
 var _expList : Array[int] = []
+var currWeapon : int = -1
+var currAP : int
+var apPerc : int
+
+var availableSkills:Array
+var learnedSkills:Array
 
 func _init(_id:StringName):
 	id = _id
@@ -27,6 +33,64 @@ func _init(_id:StringName):
 			if item.slot==s && equips[i]==null && canEquip(item):
 				equips[i] = item.getId()
 				break
+	# Set starting skills
+	for learningSlot in actor.learningSlots:
+		learnSlot(learningSlot)
+
+func getSkills():
+	var skills = []
+	# Equip skills
+	for e in equips:
+		var item = Global.Db.getItem(e) as EquipItem
+		skills.append(item.skill)
+	# Available skills
+	for s in availableSkills:
+		var skill = Global.Db.getSkill(s)
+		if skill is UseableSkill:
+			skills.append(skill)
+	#TODO Fylgja and scrolls?
+	return skills
+
+func learnSlot(learningSlot:SkillLearningSlot):
+	if learningSlot==null: return false
+	var prevLearn:SkillLearning = null
+	for learning in learningSlot.learnings:
+		if _isLearned(learning):
+			prevLearn = learning
+		else:
+			_learn(learning)
+			if prevLearn != null:
+				availableSkills.erase(prevLearn.skill.getId())
+			return true
+	return false
+func getCurrentLearningFromSlot(learningSlot:SkillLearningSlot):
+	for learning in learningSlot.learnings:
+		if !_isLearned(learning):
+			return learning
+	return null
+func hasBaseRequirements(learningSlot:SkillLearningSlot):
+	if learningSlot.learnings.size()==0: return false
+	var l = learningSlot.learnings[0]
+	for req in l.requirements:
+		if !learnedSkills.has(req.getId()): return false
+	return true
+func _isLearned(learning:SkillLearning):
+	return learnedSkills.has(learning.skill.getId())
+func _learn(learning:SkillLearning):
+	if learning.apCost > currAP: return false
+	for req in learning.requirements:
+		if !learnedSkills.has(req.getId()): return false
+	# Apply cost
+	currAP -= learning.apCost
+	# Learn
+	var id = learning.skill.getId()
+	learnedSkills.append(id)
+	availableSkills.append(id)
+	return true
+
+func getCurrWeaponIdx():
+	if currWeapon<0: return 0
+	return currWeapon
 
 func getFeatures():
 	var actor:Actor = getData()
@@ -34,16 +98,26 @@ func getFeatures():
 	# Base features
 	features.append_array(actor.features)
 	# Equip features
-	for e in equips:
+	for i in range(equips.size()):
+		var e = equips[i]
 		if(e != null):
 			var data = Global.Db.getItem(e)
 			if data is EquipItem:
 				var equip = data as EquipItem
+				if equip.slot==Global.EquipSlot.ARMS:
+					if i != getCurrWeaponIdx():
+						continue
 				features.append_array(equip.features)
 	# Status features
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
 		features.append_array(data.features)
+	# Passive skill features
+	for s in availableSkills:
+		var skill = Global.Db.getSkill(s)
+		if skill is PassiveSkill:
+			var passive = skill as PassiveSkill
+			features.append_array(passive.features)
 	return features
 
 func getBaseMaxHP():
@@ -93,6 +167,10 @@ func getNextLvlExp():
 func getRemainingNextLvlExp():
 	return getLevelExp(level+1)-getLevelExp(level)
 
+func getEquip(slotIdx:int):
+	var e = equips[slotIdx]
+	if (e==null): return null
+	return Global.Db.getItem(e)
 func equip(slotIdx:int, item:EquipItem):
 	# Resize array if needed
 	var _slotsData = Global.Db.equipSlots
@@ -134,24 +212,29 @@ func _serialize():
 		"currHP" : currHP,
 		"currMP" : currMP,
 		"states" : _serializeStates(),
-		"equips" : equips
+		"equips" : equips,
+		"learnedSkills" : learnedSkills,
+		"availableSkills" : availableSkills,
+		"currAP" : currAP,
+		"apPerc" : apPerc
 	}
 	return savedata
-
 func _serializeStates():
 	var data = []
 	for s in states:
 		data.append(s._serialize())
 	return data
-
 func _deserialize(savedata : Dictionary):
 	for key in savedata:
 		match key:
 			"equips":
 				equips = savedata[key]
+			"learnedSkills":
+				learnedSkills = savedata[key]
+			"availableSkills":
+				availableSkills = savedata[key]
 			_:
 				set(key, savedata[key])
-
 func _deserializeStates(data:Array):
 	for s in data:
 		var ss = StatusState.new()

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveSkill" load_steps=3 format=3 uid="uid://cx4ivcd7c7v0w"]
+
+[ext_resource type="Texture2D" uid="uid://dyh6682f15ivg" path="res://Graphics/Icons/skills/CounterattackP.png" id="1_tw6fx"]
+[ext_resource type="Script" path="res://Core/Data/Skills/PassiveSkill.gd" id="2_ssh27"]
+
+[resource]
+script = ExtResource("2_ssh27")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+name = "Counterattack"
+description = "Upgrades single-target techniques. Ups evasion against single-target techniques."
+icon = ExtResource("1_tw6fx")

@@ -34,10 +34,11 @@ func setScreen(idx:int,payload=null,skipTransition=false):
 func _on_return(closeMenu:bool,payload=null):
 	Global.Scene.performTransition()
 	await get_tree().create_timer(0.05).timeout
-	setScreen(0,payload,true)
 	if closeMenu: 
 		Global.freeScreenshot()
 		close()
+	else:
+		setScreen(0,payload,true)
 
 func _on_inventory_pressed():
 	Global.Audio.playSFX("decision")

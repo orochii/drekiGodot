@@ -9,6 +9,7 @@ var idx:int
 var slot:SlotData
 var item:BaseItem
 var parentMenu:CharacterEquipScreen
+var weaponIdx:int = 0
 
 func getKind():
 	slot.kind
@@ -17,6 +18,10 @@ func setSlot(_idx:int,p):
 	idx = _idx
 	var slot = Global.Db.equipSlots[idx]
 	slotName.text = slot.name
+	if slot.kind==Global.EquipSlot.ARMS:
+		weaponIdx = idx
+	else:
+		weaponIdx = 0
 
 func setup(_item:BaseItem):
 	item = _item

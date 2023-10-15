@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveSkill" load_steps=3 format=3 uid="uid://da2en1uohwxpl"]
+
+[ext_resource type="Texture2D" uid="uid://byttk07krmbwo" path="res://Graphics/Icons/skills/WeaknessPolicy.png" id="1_jqbyq"]
+[ext_resource type="Script" path="res://Core/Data/Skills/PassiveSkill.gd" id="2_0g0ff"]
+
+[resource]
+script = ExtResource("2_0g0ff")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+name = "Weakness Policy"
+description = "Upgrades single-target techniques. Ups evasion against single-target techniques."
+icon = ExtResource("1_jqbyq")

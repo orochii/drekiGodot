@@ -6,8 +6,11 @@ class_name CharacterStats
 @export var nameLabel:Label
 @export var jobLabel:Label
 @export var lvLabel:Label
+@export var includeMax:bool = true
 @export var hpLabel:Label
 @export var mpLabel:Label
+@export var apCount:Label
+@export var apPercCount:Label
 
 @export_group("Stats")
 @export var strLabel:Label
@@ -33,9 +36,22 @@ func setup(_actor:GameActor):
 	if(face != null): face.texture = data.faceGraphic
 	if(nameLabel != null): nameLabel.text = actor.name
 	if(jobLabel != null): jobLabel.text = data.jobName
+	refresh()
+
+func refresh():
 	if(lvLabel != null): lvLabel.text = "%d" % actor.level
-	if(hpLabel != null): hpLabel.text = "%d/%d" % [actor.currHP,actor.getMaxHP()]
-	if(mpLabel != null): mpLabel.text = "%d/%d" % [actor.currMP,actor.getMaxMP()]
+	if(hpLabel != null): 
+		if includeMax:
+			hpLabel.text = "%d/%d" % [actor.currHP,actor.getMaxHP()]
+		else:
+			hpLabel.text = "%d" % [actor.currHP]
+	if(mpLabel != null): 
+		if includeMax:
+			mpLabel.text = "%d/%d" % [actor.currMP,actor.getMaxMP()]
+		else:
+			mpLabel.text = "%d" % [actor.currMP]
+	if(apCount != null): apCount.text = "%d" % actor.currAP
+	if(apPercCount != null): apPercCount.text = "(%d%%)" % actor.apPerc
 	
 	if(strLabel != null): strLabel.text = "%d" % actor.getStr()
 	if(vitLabel != null): vitLabel.text = "%d" % actor.getVit()

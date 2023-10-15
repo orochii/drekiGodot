@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveSkill" load_steps=3 format=3 uid="uid://blr2lg8ngj1rn"]
+
+[ext_resource type="Texture2D" uid="uid://c8ecbsu384bfr" path="res://Graphics/Icons/skills/Trance.png" id="1_yacwq"]
+[ext_resource type="Script" path="res://Core/Data/Skills/PassiveSkill.gd" id="2_c1i0q"]
+
+[resource]
+script = ExtResource("2_c1i0q")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+name = "Trance"
+description = "Upgrades single-target techniques. Ups evasion against single-target techniques."
+icon = ExtResource("1_yacwq")

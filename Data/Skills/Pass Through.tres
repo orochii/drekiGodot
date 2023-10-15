@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://wbswo26fo6qb"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_telva"]
+[ext_resource type="Texture2D" uid="uid://ce6i834lyfym1" path="res://Graphics/Icons/skills/PassThrough.png" id="2_b8ggs"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_d4du0"]
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("1_telva")
+base = 50
+
+[resource]
+script = ExtResource("2_d4du0")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetScope = 0
+targetState = 0
+repeats = 1
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+name = "Double Attack"
+description = "Performs a double attack with wielded weapons."
+icon = ExtResource("2_b8ggs")
