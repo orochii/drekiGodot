@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://dfjpyyp1jb8de"]
+
+[ext_resource type="Texture2D" uid="uid://bgla0n3vp4j61" path="res://Graphics/Icons/items/item_0265.png" id="1_ai807"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_2euih"]
+
+[resource]
+script = ExtResource("2_2euih")
+flags = Array[int]([])
+targetKind = 0
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Leather Gloves"
+description = ""
+icon = ExtResource("1_ai807")

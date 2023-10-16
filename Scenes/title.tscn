@@ -1,9 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://l3o1lrgc6lob"]
+[gd_scene load_steps=14 format=3 uid="uid://l3o1lrgc6lob"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_f3bs7"]
 [ext_resource type="Script" path="res://Core/Title.gd" id="2_8inx2"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="3_lh7mr"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="3_n8usv"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_o4r6j"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="4_dm2ak"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="5_k1iyk"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="6_w5hhb"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="7_c1qe2"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="8_g2e12"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="9_4saca"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="10_1qins"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7j80d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_lh7mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dm2ak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k1iyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w5hhb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c1qe2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_g2e12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4saca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1qins")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
 
 [node name="someScene" type="Node3D"]
 
@@ -17,10 +57,12 @@ grow_vertical = 2
 script = ExtResource("1_f3bs7")
 File = NodePath("FileMenu")
 
-[node name="Node" type="Node" parent="TitleGameUI" node_paths=PackedStringArray("fileMenu", "buttons")]
+[node name="Node" type="Node" parent="TitleGameUI" node_paths=PackedStringArray("fileMenu", "buttons", "cursor")]
+process_mode = 3
 script = ExtResource("2_8inx2")
 fileMenu = NodePath("../FileMenu")
 buttons = [NodePath("VBoxContainer/Continue"), NodePath("VBoxContainer/New"), NodePath("VBoxContainer/Load"), NodePath("VBoxContainer/Config"), NodePath("VBoxContainer/Extras"), NodePath("VBoxContainer/Exit")]
+cursor = NodePath("Cursor")
 
 [node name="Sprite2D" type="Sprite2D" parent="TitleGameUI/Node"]
 position = Vector2(476, 235)
@@ -41,6 +83,7 @@ theme_override_constants/separation = 0
 [node name="Continue" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Continue"]
@@ -57,6 +100,7 @@ horizontal_alignment = 1
 [node name="New" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/New"]
@@ -73,6 +117,7 @@ horizontal_alignment = 1
 [node name="Load" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Load"]
@@ -89,6 +134,7 @@ horizontal_alignment = 1
 [node name="Config" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Config"]
@@ -105,6 +151,7 @@ horizontal_alignment = 1
 [node name="Extras" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Extras"]
@@ -121,6 +168,7 @@ horizontal_alignment = 1
 [node name="Exit" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("3_o4r6j")
 flat = true
 
 [node name="Label" type="Label" parent="TitleGameUI/Node/VBoxContainer/Exit"]
@@ -133,6 +181,13 @@ grow_vertical = 2
 theme = ExtResource("3_o4r6j")
 text = "Exit"
 horizontal_alignment = 1
+
+[node name="Cursor" type="AnimatedSprite2D" parent="TitleGameUI/Node"]
+visible = false
+position = Vector2(476, 235)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_7j80d")
+offset = Vector2(-16, -6)
 
 [node name="FileMenu" parent="TitleGameUI" instance=ExtResource("3_n8usv")]
 process_mode = 3

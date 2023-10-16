@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://if3kt7xlutx8"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_gs24v"]
+[ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_sphsm"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_uqrjn"]
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("1_gs24v")
+base = 50
+
+[resource]
+script = ExtResource("3_uqrjn")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+name = "Punch"
+description = "Basic attack."
+icon = ExtResource("2_sphsm")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=72 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -63,6 +63,8 @@
 [ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="46_4hk1r"]
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="47_p8gom"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="48_nqxrf"]
+[ext_resource type="Script" path="res://Core/UI/SkillList.gd" id="49_v0hn6"]
+[ext_resource type="PackedScene" uid="uid://cuqdikr3niocv" path="res://Objects/skill_entry.tscn" id="50_hg110"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="51_d771a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
@@ -304,6 +306,97 @@ patch_margin_left = 132
 patch_margin_right = 176
 script = ExtResource("11_l3uei")
 
+[node name="LowerPanel" type="TextureRect" parent="PartyMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -32.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("9_jr1t3")
+
+[node name="Gold" type="Label" parent="PartyMenu/LowerPanel"]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 15.0
+offset_right = 300.0
+offset_bottom = 30.0
+theme = ExtResource("11_hotyh")
+text = "00000"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_axca8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/LowerPanel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 256.0
+offset_bottom = 32.0
+theme_override_constants/separation = 0
+
+[node name="Inventory" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Inventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Inventory"
+vertical_alignment = 1
+
+[node name="Group" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Group"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Group"
+vertical_alignment = 1
+
+[node name="System" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/System"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "System"
+vertical_alignment = 1
+
 [node name="MainScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasks")]
 visible = false
 layout_mode = 1
@@ -321,13 +414,14 @@ closeOnBack = true
 firstSelected = NodePath("../LowerPanel/HBoxContainer/Inventory")
 tasks = [NodePath("SpawnParty")]
 
-[node name="SpawnParty" type="Node" parent="PartyMenu/MainScreen" node_paths=PackedStringArray("parentMenu", "container", "memberSubmenu", "memberSubmenuButtons")]
+[node name="SpawnParty" type="Node" parent="PartyMenu/MainScreen" node_paths=PackedStringArray("parentMenu", "container", "memberSubmenu", "memberSubmenuButtons", "cursor")]
 script = ExtResource("13_k8txl")
 parentMenu = NodePath("../..")
 partyMemberTemplate = ExtResource("14_enkbo")
 container = NodePath("../PartyStatsPanel")
 memberSubmenu = NodePath("../MemberSubmenu")
 memberSubmenuButtons = [NodePath("../MemberSubmenu/Container/Status"), NodePath("../MemberSubmenu/Container/Equip"), NodePath("../MemberSubmenu/Container/Actions")]
+cursor = NodePath("../Cursor")
 
 [node name="PartyStatsPanel" type="Control" parent="PartyMenu/MainScreen"]
 layout_mode = 1
@@ -463,6 +557,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_hotyh")
 text = "Action"
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/MainScreen"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
 
 [node name="CharacterStatusScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 visible = false
@@ -876,7 +978,7 @@ extraText = "Action"
 showHelp = true
 tasks = [NodePath("EquipScreen")]
 
-[node name="EquipScreen" type="Node" parent="PartyMenu/CharacterEquipScreen" node_paths=PackedStringArray("charStats", "charAdds", "description", "equipList", "itemList", "listSpawner")]
+[node name="EquipScreen" type="Node" parent="PartyMenu/CharacterEquipScreen" node_paths=PackedStringArray("charStats", "charAdds", "description", "equipList", "itemList", "listSpawner", "cursor")]
 script = ExtResource("24_va8dx")
 charStats = NodePath("../Background/CharEquip")
 charAdds = NodePath("../Background/CharEquip/STATS/ADD")
@@ -884,6 +986,7 @@ description = NodePath("../Background/CharEquip/Info/RichTextLabel")
 equipList = NodePath("../Background/CharEquip/EquipList")
 itemList = NodePath("../Background/CharEquip/ItemList")
 listSpawner = NodePath("../../MainScreen/SpawnParty")
+cursor = NodePath("../Background/CharEquip/Cursor")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterEquipScreen"]
 layout_mode = 1
@@ -1411,6 +1514,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterEquipScreen/Background/CharEquip"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
+
 [node name="CharacterSkillsScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 layout_mode = 1
 anchors_preset = 15
@@ -1424,10 +1535,11 @@ rightText = "PC"
 extraText = "Status"
 tasks = [NodePath("SkillsScreen")]
 
-[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("charStats", "slotsContainer", "listSpawner")]
+[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("charStats", "slotsContainer", "skillList", "listSpawner")]
 script = ExtResource("26_s2kf0")
 charStats = NodePath("../Background/Container/StatsContainer")
 slotsContainer = NodePath("../Background/Container/SlotsContainer")
+skillList = NodePath("../SkillList")
 listSpawner = NodePath("../../MainScreen/SpawnParty")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen"]
@@ -1470,6 +1582,7 @@ horizontal_alignment = 1
 
 [node name="LineContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
@@ -1690,6 +1803,7 @@ vertical_alignment = 1
 
 [node name="CursorContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
@@ -1701,6 +1815,80 @@ grow_vertical = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/Background/Container/CursorContainer"]
 position = Vector2(-16, -32)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
+
+[node name="SkillList" type="Control" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("container", "scroll", "cursor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -39.0
+offset_right = 160.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("49_v0hn6")
+container = NodePath("Container/GridContainer")
+skillEntryTemplate = ExtResource("50_hg110")
+scroll = NodePath("Container")
+cursor = NodePath("AnimatedSprite2D")
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillList"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="ScrollContainer" parent="PartyMenu/CharacterSkillsScreen/SkillList"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="PartyMenu/CharacterSkillsScreen/SkillList/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/SkillList"]
+visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5fut7")
 frame = 6
@@ -1722,7 +1910,7 @@ extraText = "Order"
 showHelp = true
 tasks = [NodePath("ItemSpawner")]
 
-[node name="ItemSpawner" type="Node" parent="PartyMenu/InventoryScreen" node_paths=PackedStringArray("parentScreen", "scroll", "container", "catSel", "useScreen")]
+[node name="ItemSpawner" type="Node" parent="PartyMenu/InventoryScreen" node_paths=PackedStringArray("parentScreen", "scroll", "container", "catSel", "useScreen", "cursor")]
 script = ExtResource("17_uwbpf")
 parentScreen = NodePath("..")
 scroll = NodePath("../Control/ItemDisplay/List")
@@ -1730,6 +1918,7 @@ container = NodePath("../Control/ItemDisplay/List/VBoxContainer")
 itemEntryTemplate = ExtResource("18_8bsst")
 catSel = NodePath("../Control/CategoryArea/CatSel")
 useScreen = NodePath("../Control/ItemUse")
+cursor = NodePath("../Cursor")
 
 [node name="Control" type="Control" parent="PartyMenu/InventoryScreen"]
 layout_mode = 1
@@ -1773,7 +1962,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemEntry", "description", "container")]
+[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemEntry", "description", "container", "cursor")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1793,6 +1982,7 @@ partyTargetTemplate = ExtResource("22_1mtvs")
 itemEntry = NodePath("Content/ItemEntry")
 description = NodePath("Content/RichTextLabel")
 container = NodePath("Content/TargetInfo")
+cursor = NodePath("../../Cursor")
 
 [node name="Content" type="Control" parent="PartyMenu/InventoryScreen/Control/ItemUse"]
 layout_mode = 1
@@ -1845,6 +2035,14 @@ layout_mode = 0
 offset_right = 32.0
 offset_bottom = 16.0
 texture = ExtResource("18_uvw8m")
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/InventoryScreen"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
 
 [node name="GroupScreen" type="Control" parent="PartyMenu"]
 visible = false
@@ -1908,9 +2106,10 @@ firstSelected = NodePath("Window/Contents/VBoxContainer/Save")
 tasks = [NodePath("Node")]
 payload = [NodePath("../LowerPanel/HBoxContainer/System")]
 
-[node name="Node" type="Node" parent="PartyMenu/SystemScreen" node_paths=PackedStringArray("buttons")]
+[node name="Node" type="Node" parent="PartyMenu/SystemScreen" node_paths=PackedStringArray("buttons", "cursor")]
 script = ExtResource("24_op1bb")
 buttons = [NodePath("../Window/Contents/VBoxContainer/Save"), NodePath("../Window/Contents/VBoxContainer/Load"), NodePath("../Window/Contents/VBoxContainer/Config"), NodePath("../Window/Contents/VBoxContainer/ToTitle"), NodePath("../Window/Contents/VBoxContainer/Quit"), NodePath("../Window/Contents/VBoxContainer/Back")]
+cursor = NodePath("../Cursor")
 
 [node name="Window" type="Control" parent="PartyMenu/SystemScreen"]
 layout_mode = 1
@@ -1985,6 +2184,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../Load")
 focus_next = NodePath("../Load")
 focus_previous = NodePath(".")
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Save"]
@@ -2001,6 +2201,7 @@ text = "Save"
 [node name="Load" type="Button" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Load"]
@@ -2017,6 +2218,7 @@ text = "Load"
 [node name="Config" type="Button" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Config"]
@@ -2033,6 +2235,7 @@ text = "Config"
 [node name="ToTitle" type="Button" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/ToTitle"]
@@ -2049,6 +2252,7 @@ text = "To title"
 [node name="Quit" type="Button" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Quit"]
@@ -2065,6 +2269,7 @@ text = "Quit"
 [node name="Back" type="Button" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("11_hotyh")
 flat = true
 
 [node name="Label" type="Label" parent="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Back"]
@@ -2077,6 +2282,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_hotyh")
 text = "Back"
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/SystemScreen"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
 
 [node name="InputLegends" type="NinePatchRect" parent="PartyMenu" node_paths=PackedStringArray("leftTop", "rightTop", "extraObj", "extraAction", "helpObj")]
 layout_mode = 1
@@ -2193,97 +2406,6 @@ theme = ExtResource("18_dtd4u")
 text = "Help"
 vertical_alignment = 1
 
-[node name="LowerPanel" type="TextureRect" parent="PartyMenu"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -32.0
-offset_right = 160.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("9_jr1t3")
-
-[node name="Gold" type="Label" parent="PartyMenu/LowerPanel"]
-layout_mode = 0
-offset_left = 268.0
-offset_top = 15.0
-offset_right = 300.0
-offset_bottom = 30.0
-theme = ExtResource("11_hotyh")
-text = "00000"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("12_axca8")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/LowerPanel"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 256.0
-offset_bottom = 32.0
-theme_override_constants/separation = 0
-
-[node name="Inventory" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-flat = true
-
-[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Inventory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_hotyh")
-text = "Inventory"
-vertical_alignment = 1
-
-[node name="Group" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-flat = true
-
-[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/Group"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_hotyh")
-text = "Group"
-vertical_alignment = 1
-
-[node name="System" type="Button" parent="PartyMenu/LowerPanel/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-flat = true
-
-[node name="Label" type="Label" parent="PartyMenu/LowerPanel/HBoxContainer/System"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_hotyh")
-text = "System"
-vertical_alignment = 1
-
 [node name="DataScreen" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -2329,6 +2451,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_force_pass_scroll_events = false
 
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Inventory" to="PartyMenu" method="_on_inventory_pressed"]
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Group" to="PartyMenu" method="_on_group_pressed"]
+[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/System" to="PartyMenu" method="_on_system_pressed"]
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Status" to="PartyMenu/MainScreen/SpawnParty" method="_on_status_pressed"]
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Equip" to="PartyMenu/MainScreen/SpawnParty" method="_on_equip_pressed"]
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Actions" to="PartyMenu/MainScreen/SpawnParty" method="_on_actions_pressed"]
@@ -2338,6 +2463,3 @@ mouse_force_pass_scroll_events = false
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/ToTitle" to="PartyMenu/SystemScreen/Node" method="_on_to_title_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Quit" to="PartyMenu/SystemScreen/Node" method="_on_quit_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Back" to="PartyMenu/SystemScreen/Node" method="_on_back_pressed"]
-[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Inventory" to="PartyMenu" method="_on_inventory_pressed"]
-[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/Group" to="PartyMenu" method="_on_group_pressed"]
-[connection signal="pressed" from="PartyMenu/LowerPanel/HBoxContainer/System" to="PartyMenu" method="_on_system_pressed"]

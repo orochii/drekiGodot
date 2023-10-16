@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://bg617ojy3hhbx"]
+
+[ext_resource type="Texture2D" uid="uid://bcpmc3ntwwk8q" path="res://Graphics/Icons/items/item_0245.png" id="1_y5h0i"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_ocnp6"]
+
+[resource]
+script = ExtResource("2_ocnp6")
+flags = Array[int]([])
+targetKind = 0
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Short Bow"
+description = ""
+icon = ExtResource("1_y5h0i")

@@ -2,9 +2,11 @@ extends Node
 
 @export var charStats:CharacterStats
 @export var slotsContainer:LearnSlotsContainer
+@export var skillList:SkillList
 @export var listSpawner:PartyListSpawner
 
 var currIdx:int = 0
+var toFocus = null
 
 func showTask(payload):
 	if(payload != null):
@@ -14,12 +16,16 @@ func showTask(payload):
 	var actor = Global.State.getActor(members[currIdx])
 	charStats.setup(actor)
 	slotsContainer.setup(actor)
+	skillList.setup(actor)
+	toFocus = skillList.getFirst()
 func setFocus():
-	pass
+	if(toFocus != null):
+		toFocus.grab_focus()
+	skillList.active = true
 func hideTask():
 	pass
 func reset():
-	pass
+	skillList.active = false
 
 func _process(delta):
 	if(get_parent().visible==false): return

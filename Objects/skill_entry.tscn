@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuqdikr3niocv"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_logyo"]
+[ext_resource type="Script" path="res://Core/UI/SkillEntry.gd" id="2_slltt"]
+[ext_resource type="Texture2D" uid="uid://d1ohmutinogtg" path="res://Graphics/Icons/skills/DoubleAttack.png" id="3_7lsva"]
+
+[node name="SkillEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName")]
+custom_minimum_size = Vector2(48, 16)
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("1_logyo")
+flat = true
+script = ExtResource("2_slltt")
+itemIcon = NodePath("NinePatchRect")
+itemName = NodePath("Label")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("3_7lsva")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_logyo")
+text = "Character"
+vertical_alignment = 1

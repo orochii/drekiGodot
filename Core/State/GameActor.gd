@@ -39,10 +39,17 @@ func _init(_id:StringName):
 
 func getSkills():
 	var skills = []
+	var _slotData:Array[SlotData] = Global.Db.equipSlots
 	# Equip skills
-	for e in equips:
-		var item = Global.Db.getItem(e) as EquipItem
-		skills.append(item.skill)
+	for i in range(_slotData.size()):
+		if _slotData[i].kind==Global.EquipSlot.ARMS:
+			var e = equips[i]
+			if(e == null):
+				var skill = Global.Db.defaultAttackSkills[i] as UseableSkill
+				skills.append(skill)
+			else:
+				var item = Global.Db.getItem(e) as EquipItem
+				skills.append(item.skill)
 	# Available skills
 	for s in availableSkills:
 		var skill = Global.Db.getSkill(s)

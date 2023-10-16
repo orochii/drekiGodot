@@ -1,6 +1,7 @@
 extends Node
 
 @export var buttons : Array[Button]
+@export var cursor:AnimatedSprite2D
 
 var toFocus = null
 
@@ -13,15 +14,24 @@ func setFocus():
 		toFocus.grab_focus()
 		toFocus = null
 func hideTask():
-	pass
+	cursor.visible = false
 func reset():
-	pass
+	cursor.visible = false
 
 func _ready():
 	UIUtils.setVNeighbors(buttons)
-	pass
+	cursor.play("default")
 func _process(delta):
-	pass
+	var focused = get_viewport().gui_get_focus_owner()
+	if(buttons.has(focused)):
+		positionCursor(focused)
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(2,8)
+	else:
+		cursor.visible = false
 
 func _on_save_pressed():
 	Global.Audio.playSFX("decision")

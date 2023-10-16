@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="Database" load_steps=13 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=16 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
+[ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Punch.tres" id="1_kftcr"]
 [ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
+[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Kick.tres" id="2_7uveh"]
+[ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Bite.tres" id="3_7dnsd"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
@@ -43,3 +46,4 @@ startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource(
 startingScene = ExtResource("4_d28sx")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
+defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd")])

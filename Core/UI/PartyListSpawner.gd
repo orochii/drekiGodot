@@ -6,6 +6,7 @@ class_name PartyListSpawner
 @export var container : Control
 @export var memberSubmenu : Control
 @export var memberSubmenuButtons : Array[Button]
+@export var cursor:AnimatedSprite2D
 
 var spawnedMembers : Array
 var currMemberIdx:int = -1
@@ -39,24 +40,34 @@ func showTask(payload):
 		showSubmenu(currMemberIdx,false)
 
 func hideTask():
-	pass
+	cursor.visible = false
+	backupMemberIdx = -1
 func reset():
 	currMemberIdx = -1
 	lastIdx = -1
 	backupMemberIdx = -1
 	active = false
+	cursor.visible = false
+
+func _ready():
+	cursor.play("default")
 
 func _process(delta):
+	if (memberSubmenu.visible==true):
+		get_parent().active=false
 	if(active==false): return
 	if get_parent().visible==false: return
 	if get_parent().active==true:
 		var focused = get_viewport().gui_get_focus_owner()
+		positionCursor(focused)
 		if (focused==null || !focused.is_visible_in_tree()):
 			if(backupMemberIdx != -1):
 				spawnedMembers[backupMemberIdx].grab_focus()
 		return
 	
 	if (memberSubmenu.visible==false): return
+	var focused = get_viewport().gui_get_focus_owner()
+	positionCursor(focused)
 	if Input.is_action_just_pressed("action_cancel"):
 		Global.Audio.playSFX("cancel")
 		hideSubmenu()
@@ -96,6 +107,13 @@ func setFocus():
 		toFocus.grab_focus()
 		toFocus = null
 	active = true
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(10,8)
+	else:
+		cursor.visible = false
 
 func _on_status_pressed():
 	Global.Audio.playSFX("decision")

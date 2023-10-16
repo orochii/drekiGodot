@@ -6,6 +6,7 @@ extends Node
 @export var itemEntryTemplate : PackedScene
 @export var catSel : NinePatchRect
 @export var useScreen : ItemUseSubscreen
+@export var cursor : AnimatedSprite2D
 
 var itemEntries : Array
 var filteredEntries : Array
@@ -14,30 +15,32 @@ var currCategory:Global.EItemCategory = Global.EItemCategory.MEDICINE
 
 func _process(delta):
 	if parentScreen.visible==false: return
-	if parentScreen.active==false: return
-	# Scroll to focused control
-	var focused = get_viewport().gui_get_focus_owner()
-	if itemEntries.has(focused):
-		scroll.ensure_control_visible(focused)
-	# Category selector thing uh yes.
-	if moveLeft():
-		Global.Audio.playSFX("cursor")
-		var newCat = currCategory
-		if currCategory != 0:
-			newCat -= 1
-		else:
-			newCat = Global.EItemCategory.UNIQUE
-		applyFilter(newCat)
-		setFocus()
-	elif moveRight():
-		Global.Audio.playSFX("cursor")
-		var newCat = currCategory
-		if currCategory != Global.EItemCategory.UNIQUE:
-			newCat += 1
-		else:
-			newCat = Global.EItemCategory.MEDICINE
-		applyFilter(newCat)
-		setFocus()
+	if parentScreen.active==true:
+		# Category selector thing uh yes.
+		if moveLeft():
+			Global.Audio.playSFX("cursor")
+			var newCat = currCategory
+			if currCategory != 0:
+				newCat -= 1
+			else:
+				newCat = Global.EItemCategory.UNIQUE
+			applyFilter(newCat)
+			setFocus()
+		elif moveRight():
+			Global.Audio.playSFX("cursor")
+			var newCat = currCategory
+			if currCategory != Global.EItemCategory.UNIQUE:
+				newCat += 1
+			else:
+				newCat = Global.EItemCategory.MEDICINE
+			applyFilter(newCat)
+			setFocus()
+		# Scroll to focused control
+		var focused = get_viewport().gui_get_focus_owner()
+		if itemEntries.has(focused):
+			scroll.ensure_control_visible(focused)
+		await get_tree().process_frame
+		positionCursor(focused)
 
 func showTask(payload):
 	if itemEntries != null:
@@ -53,9 +56,16 @@ func showTask(payload):
 	applyFilter(Global.EItemCategory.MEDICINE)
 
 func hideTask():
-	pass
+	cursor.visible = false
 func reset():
-	pass
+	cursor.visible = false
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(10,8)
+	else:
+		cursor.visible = false
 
 func setFocus():
 	if(toFocus != null):

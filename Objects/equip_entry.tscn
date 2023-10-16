@@ -6,6 +6,7 @@
 
 [node name="EquipEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName", "itemNum")]
 custom_minimum_size = Vector2(0, 16)
+theme = ExtResource("3_x8bp4")
 flat = true
 script = ExtResource("1_hvl1h")
 itemIcon = NodePath("Icon")

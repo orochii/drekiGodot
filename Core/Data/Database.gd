@@ -6,6 +6,7 @@ class_name Database
 @export var startingScene : PackedScene
 @export var equipSlots : Array[SlotData]
 @export var iconLibrary : IconLibrary
+@export var defaultAttackSkills : Array[UseableSkill]
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

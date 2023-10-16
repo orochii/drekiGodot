@@ -7,6 +7,7 @@ class_name CharacterEquipScreen
 @export var equipList:EquipList
 @export var itemList:EquipItemList
 @export var listSpawner:PartyListSpawner
+@export var cursor:AnimatedSprite2D
 var currIdx:int = 0
 var actor:GameActor
 
@@ -26,10 +27,14 @@ func hideTask():
 	if(actor==null): return
 	actor.currWeapon = -1
 func reset():
-	pass
+	cursor.visible = false
 
 var currFocus
 var currItem:BaseItem = null
+
+func _ready():
+	cursor.visible = false
+	cursor.play("default")
 
 func _process(delta):
 	if(get_parent().visible==false): return
@@ -61,6 +66,12 @@ func cycleRight():
 
 func updateCurrItem():
 	var focused = get_viewport().gui_get_focus_owner()
+	if (focused is EquipLine)||(focused is EquipEntry):
+		cursor.visible = true
+		if (focused is EquipLine):
+			cursor.global_position = focused.global_position + Vector2(10,8)
+		else:
+			cursor.global_position = focused.global_position + Vector2(2,8)
 	if focused != currFocus:
 		currFocus = focused
 		if currFocus is EquipLine:
@@ -70,7 +81,7 @@ func updateCurrItem():
 			charStats.refresh()
 			refreshItem()
 			return
-		if currFocus is EquipEntry:
+		elif currFocus is EquipEntry:
 			var i = currFocus as EquipEntry
 			currItem = i.data
 			refreshItem()

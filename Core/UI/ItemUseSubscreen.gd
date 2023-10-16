@@ -6,11 +6,13 @@ class_name ItemUseSubscreen
 @export var itemEntry : ItemEntry
 @export var description : RichTextLabel
 @export var container : Container
+@export var cursor : AnimatedSprite2D
 
 var curr : ItemEntry
 var targetList : Array[PartyTargetEntry]
 
 func _ready():
+	cursor.play("default")
 	visible = false
 
 func setItem(entry:ItemEntry):
@@ -47,8 +49,18 @@ func refreshTargets():
 
 func _process(delta):
 	if(!visible):return
+	var focused = get_viewport().gui_get_focus_owner()
+	if(targetList.has(focused)):
+		positionCursor(focused)
 	if(Input.is_action_just_pressed("action_cancel")):
 		Global.Audio.playSFX("cancel")
 		visible = false
 		parentScreen.active = true
 		curr.grab_focus()
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(10,8)
+	else:
+		cursor.visible = false
