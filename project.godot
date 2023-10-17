@@ -254,3 +254,7 @@ sys_snap={
 
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://Lang/language.en.translation", "res://Lang/language.es.translation")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"

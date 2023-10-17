@@ -11,6 +11,7 @@ func _init():
 	Global.UI = self
 
 func _process(delta):
+	Global.State.playTime += delta
 	if Input.is_action_just_pressed("action_select"):
 		if currLang == "en":
 			currLang = "es"

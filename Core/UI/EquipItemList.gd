@@ -17,6 +17,7 @@ func _process(delta):
 		ensure_control_visible(focused)
 	# Close
 	if(Input.is_action_just_pressed("action_cancel")):
+		Global.Audio.playSFX("cancel")
 		equipScreen.onListClose()
 
 func showMenu():

@@ -20,6 +20,9 @@ var lastSceneName : String = ""
 # system state
 var playTime:float = 0
 var stepsTaken:int = 0
+# Screenshot differentiator helper (why time doesn't have millis? :C)
+var lastTime = null
+var count = 0
 
 func initialize():
 	party = GameParty.new()
@@ -137,10 +140,7 @@ func _deserializeCharacters():
 
 func getSaveTimestamp():
 	var time = Time.get_datetime_dict_from_system()
-	return "%d/%d/%d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
-
-var lastTime = null
-var count = 0
+	return "%d/%d/%d %02d:%02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute, time.second]
 
 func getScreenshotTimestamp():
 	var time = Time.get_datetime_dict_from_system()
@@ -159,3 +159,12 @@ func getScreenshotTimestamp():
 		count = 0
 	lastTime = time
 	return "%d-%d-%d_%02d%02d%02d_%d" % [time.year, time.month, time.day, time.hour, time.minute, time.second, count]
+
+func formatPlayTime(seconds:float) -> String:
+	var ts = floori(seconds)
+	var milli = floor((seconds - ts) * 1000)
+	var s = ts % 60
+	var tm = ts / 60
+	var m = tm % 60
+	var h = tm / 60
+	return "%02d:%02d:%02d.%03d" % [h,m,s,milli]

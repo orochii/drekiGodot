@@ -103,6 +103,7 @@ func moveRight():
 	return Input.is_action_just_pressed("action_extra")
 
 func onSlotSelected(idx:int):
+	Global.Audio.playSFX("decision")
 	Global.Audio.resetLastFocused()
 	get_parent().active = false
 	equipList.visible = false

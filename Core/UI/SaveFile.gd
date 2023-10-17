@@ -32,7 +32,8 @@ func setup(slot:String,idx:int):
 					members.append(m)
 					break
 		areaName.text = "" # TODO
-		playTime.text = "%f" % data["playTime"]
+		
+		playTime.text = Global.State.formatPlayTime(data["playTime"])
 		saveStamp.text = data["timestamp"]
 		if members.size() != 0:
 			leaderName.text = members[0]["name"]
