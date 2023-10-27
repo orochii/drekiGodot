@@ -153,7 +153,7 @@ func generateOptions():
 	backOpacity.setup("Background Opacity", 0, 10)
 	var battleShadows:DropdownOption = createDropdown()
 	battleShadows.setVariable(Global.Config, "battleShadows")
-	battleShadows.setup("Screen Mode", {0:"Disabled",1:"Simple",2:"Animated"})
+	battleShadows.setup("Shadow Style", {0:"Disabled",1:"Simple",2:"Animated"})
 	var gamepadButtons:DropdownOption = createDropdown()
 	gamepadButtons.setVariable(Global.Config, "gamepadButtons")
 	gamepadButtons.setup("Gamepad Button Icons", {0:"8bitdo M30",1:"Xbox360",2:"PlayStation"})
