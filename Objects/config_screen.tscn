@@ -1,0 +1,391 @@
+[gd_scene load_steps=19 format=3 uid="uid://cmgt8ndcewqmp"]
+
+[ext_resource type="Script" path="res://Core/UI/ConfigMenu.gd" id="1_1ehev"]
+[ext_resource type="PackedScene" uid="uid://pbpg8tbmt7dx" path="res://Objects/dropdown_option.tscn" id="2_5c1o3"]
+[ext_resource type="PackedScene" uid="uid://nxxyny8ov4y6" path="res://Objects/slider_option.tscn" id="3_jf4wj"]
+[ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="4_hcx0y"]
+[ext_resource type="PackedScene" uid="uid://um0ck5kxjygn" path="res://Objects/binding_option.tscn" id="4_p0bug"]
+[ext_resource type="Script" path="res://Core/UI/MenuBackground.gd" id="5_lbm2j"]
+[ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="6_8kkmq"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="7_gtt6p"]
+[ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="8_wyqg7"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="10_74lug"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="11_7bfs6"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="12_2eccj"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="13_pc42m"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="14_ag1jg"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="15_48iaf"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="16_fm6r6"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="17_l8ljb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xqnp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_74lug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7bfs6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2eccj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_pc42m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ag1jg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_48iaf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_fm6r6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_l8ljb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="ConfigScreen" type="Control" node_paths=PackedStringArray("helpText", "scroll", "container", "categoryButtons", "cursor")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ehev")
+helpText = NodePath("HelpWindow/Contents/HelpText")
+scroll = NodePath("ContentsWindow/Contents")
+container = NodePath("ContentsWindow/Contents/VBoxContainer")
+dropdownTemplate = ExtResource("2_5c1o3")
+sliderTemplate = ExtResource("3_jf4wj")
+bindingTemplate = ExtResource("4_p0bug")
+categoryButtons = [NodePath("CategoryWindow/Contents/VBoxContainer/General"), NodePath("CategoryWindow/Contents/VBoxContainer/Audio"), NodePath("CategoryWindow/Contents/VBoxContainer/Graphics"), NodePath("CategoryWindow/Contents/VBoxContainer/Binding"), NodePath("CategoryWindow/Contents/VBoxContainer/Back")]
+cursor = NodePath("Cursor")
+
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_hcx0y")
+patch_margin_left = 132
+patch_margin_right = 176
+script = ExtResource("5_lbm2j")
+
+[node name="HelpWindow" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+
+[node name="Back" type="NinePatchRect" parent="HelpWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="HelpWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="HelpWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HelpText" type="RichTextLabel" parent="HelpWindow/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_gtt6p")
+text = "Lorem ipsum dolor sit amet asdasd this is one line and counting omg it's so much spayyyss.
+Second line?"
+
+[node name="CategoryWindow" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 32)
+anchors_preset = 0
+offset_top = 48.0
+offset_right = 128.0
+offset_bottom = 148.0
+
+[node name="Back" type="NinePatchRect" parent="CategoryWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="CategoryWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="CategoryWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CategoryWindow/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="General" type="Button" parent="CategoryWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryWindow/Contents/VBoxContainer/General"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("8_wyqg7")
+
+[node name="Label" type="Label" parent="CategoryWindow/Contents/VBoxContainer/General"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "General"
+vertical_alignment = 1
+
+[node name="Audio" type="Button" parent="CategoryWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryWindow/Contents/VBoxContainer/Audio"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("8_wyqg7")
+
+[node name="Label" type="Label" parent="CategoryWindow/Contents/VBoxContainer/Audio"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Audio"
+vertical_alignment = 1
+
+[node name="Graphics" type="Button" parent="CategoryWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryWindow/Contents/VBoxContainer/Graphics"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("8_wyqg7")
+
+[node name="Label" type="Label" parent="CategoryWindow/Contents/VBoxContainer/Graphics"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Graphics"
+vertical_alignment = 1
+
+[node name="Binding" type="Button" parent="CategoryWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryWindow/Contents/VBoxContainer/Binding"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("8_wyqg7")
+
+[node name="Label" type="Label" parent="CategoryWindow/Contents/VBoxContainer/Binding"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Binding"
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="CategoryWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CategoryWindow/Contents/VBoxContainer/Back"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("8_wyqg7")
+
+[node name="Label" type="Label" parent="CategoryWindow/Contents/VBoxContainer/Back"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+vertical_alignment = 1
+
+[node name="ContentsWindow" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="NinePatchRect" parent="ContentsWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="ContentsWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8kkmq")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="ScrollContainer" parent="ContentsWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("7_gtt6p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentsWindow/Contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Cursor" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_4xqnp")
+offset = Vector2(-16, -6)
+
+[connection signal="pressed" from="CategoryWindow/Contents/VBoxContainer/General" to="." method="_on_general_pressed"]
+[connection signal="pressed" from="CategoryWindow/Contents/VBoxContainer/Audio" to="." method="_on_audio_pressed"]
+[connection signal="pressed" from="CategoryWindow/Contents/VBoxContainer/Graphics" to="." method="_on_graphics_pressed"]
+[connection signal="pressed" from="CategoryWindow/Contents/VBoxContainer/Binding" to="." method="_on_binding_pressed"]
+[connection signal="pressed" from="CategoryWindow/Contents/VBoxContainer/Back" to="." method="_on_back_pressed"]

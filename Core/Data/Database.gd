@@ -7,6 +7,9 @@ class_name Database
 @export var equipSlots : Array[SlotData]
 @export var iconLibrary : IconLibrary
 @export var defaultAttackSkills : Array[UseableSkill]
+@export var ignoreKeyForRebind : Array[Key]
+@export var ignoreButtonForRebind : Array[JoyButton]
+@export var ignoreAxisForRebind : Array[JoyAxis]
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

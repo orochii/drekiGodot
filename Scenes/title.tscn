@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://l3o1lrgc6lob"]
+[gd_scene load_steps=15 format=3 uid="uid://l3o1lrgc6lob"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_f3bs7"]
 [ext_resource type="Script" path="res://Core/Title.gd" id="2_8inx2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="8_g2e12"]
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="9_4saca"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="10_1qins"]
+[ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="13_vxv0y"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7j80d"]
 animations = [{
@@ -47,20 +48,23 @@ animations = [{
 
 [node name="someScene" type="Node3D"]
 
-[node name="TitleGameUI" type="Control" parent="." node_paths=PackedStringArray("File")]
+[node name="TitleGameUI" type="Control" parent="." node_paths=PackedStringArray("File", "Config")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_f3bs7")
 File = NodePath("FileMenu")
+Config = NodePath("ConfigScreen")
 
-[node name="Node" type="Node" parent="TitleGameUI" node_paths=PackedStringArray("fileMenu", "buttons", "cursor")]
+[node name="Node" type="Node" parent="TitleGameUI" node_paths=PackedStringArray("fileMenu", "configMenu", "buttons", "cursor")]
 process_mode = 3
 script = ExtResource("2_8inx2")
 fileMenu = NodePath("../FileMenu")
+configMenu = NodePath("../ConfigScreen")
 buttons = [NodePath("VBoxContainer/Continue"), NodePath("VBoxContainer/New"), NodePath("VBoxContainer/Load"), NodePath("VBoxContainer/Config"), NodePath("VBoxContainer/Extras"), NodePath("VBoxContainer/Exit")]
 cursor = NodePath("Cursor")
 
@@ -83,6 +87,7 @@ theme_override_constants/separation = 0
 [node name="Continue" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -100,6 +105,7 @@ horizontal_alignment = 1
 [node name="New" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -117,6 +123,7 @@ horizontal_alignment = 1
 [node name="Load" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -134,6 +141,7 @@ horizontal_alignment = 1
 [node name="Config" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -151,6 +159,7 @@ horizontal_alignment = 1
 [node name="Extras" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -168,6 +177,7 @@ horizontal_alignment = 1
 [node name="Exit" type="Button" parent="TitleGameUI/Node/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_o4r6j")
 flat = true
 
@@ -191,6 +201,11 @@ offset = Vector2(-16, -6)
 
 [node name="FileMenu" parent="TitleGameUI" instance=ExtResource("3_n8usv")]
 process_mode = 3
+z_index = 200
+layout_mode = 1
+
+[node name="ConfigScreen" parent="TitleGameUI" instance=ExtResource("13_vxv0y")]
+visible = false
 z_index = 200
 layout_mode = 1
 

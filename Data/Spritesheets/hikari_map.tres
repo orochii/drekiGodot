@@ -22,6 +22,7 @@ baseDiag = ExtResource("2_e2ngo")
 blink = ExtResource("3_36amf")
 blinkDiag = ExtResource("4_qwtqu")
 totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"
 fps = 8
 
@@ -32,6 +33,7 @@ baseDiag = ExtResource("7_fst5l")
 blink = ExtResource("8_x2e4k")
 blinkDiag = ExtResource("9_t46ox")
 totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"jump"
 fps = 8
 
@@ -42,6 +44,7 @@ baseDiag = ExtResource("11_vcw8n")
 blink = ExtResource("12_egg7k")
 blinkDiag = ExtResource("13_ome0q")
 totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"run"
 fps = 8
 

@@ -29,6 +29,7 @@ atlas = ExtResource("1_s0nhy")
 region = Rect2(0, 64, 208, 64)
 
 [node name="PartyMember" type="TextureButton" node_paths=PackedStringArray("positionIcon", "faceGraphic", "nameLabel", "classLabel", "levelLabel", "nextLabel", "lpLabel", "mpLabel")]
+mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_o4rjq")
 texture_pressed = SubResource("AtlasTexture_6f4vq")
 texture_hover = SubResource("AtlasTexture_c18fo")

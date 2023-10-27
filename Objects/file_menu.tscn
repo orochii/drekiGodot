@@ -13,7 +13,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7gdel"]
 shader = ExtResource("3_fhxyn")
 
-[node name="FileMenu" type="Control" node_paths=PackedStringArray("screenshotBack", "container")]
+[node name="FileMenu" type="Control" node_paths=PackedStringArray("helpText", "screenshotBack", "container")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -22,6 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_naewe")
+helpText = NodePath("Window/Contents/Label")
 screenshotBack = NodePath("ScreenshotBack")
 savefileTemplate = ExtResource("2_5u522")
 container = NodePath("SaveFileContainer/VBox")

@@ -1,14 +1,30 @@
-[gd_resource type="Resource" script_class="AudioData" load_steps=19 format=3 uid="uid://c0ykl7muh1eoh"]
+[gd_resource type="Resource" script_class="AudioData" load_steps=27 format=3 uid="uid://c0ykl7muh1eoh"]
 
 [ext_resource type="Script" path="res://Core/Audio/AudioData.gd" id="1_djncj"]
+[ext_resource type="AudioStream" uid="uid://lvdlu5oe5wrm" path="res://Audio/SFX/foot/foot_moving0.ogg" id="1_lj0py"]
+[ext_resource type="AudioStream" uid="uid://jcibj063fo80" path="res://Audio/SFX/foot/foot_moving1.ogg" id="2_5pp6k"]
 [ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_c0kmo"]
 [ext_resource type="AudioStream" uid="uid://d0hh0pvx7wnem" path="res://Audio/SFX/select.ogg" id="2_j75sv"]
+[ext_resource type="AudioStream" uid="uid://cewgnb2gpvwdp" path="res://Audio/SFX/foot/foot_moving2.ogg" id="3_j6dkg"]
 [ext_resource type="AudioStream" uid="uid://c15oeagrfabv3" path="res://Audio/SFX/cursor.ogg" id="4_1o3fr"]
+[ext_resource type="AudioStream" uid="uid://dnnjwyw4tuoso" path="res://Audio/SFX/foot/foot_moving3.ogg" id="4_2clbn"]
 [ext_resource type="AudioStream" uid="uid://bs3fquwc8bya5" path="res://Audio/SFX/drum.ogg" id="5_j8wkg"]
+[ext_resource type="Script" path="res://Core/Audio/AudioEvent.gd" id="5_pevc5"]
+[ext_resource type="AudioStream" uid="uid://b46idysp4uxe2" path="res://Audio/SFX/Swosh2.ogg" id="6_f4rga"]
 [ext_resource type="AudioStream" uid="uid://d0rdcr5n2ljjy" path="res://Audio/SFX/drop.ogg" id="6_saj3h"]
 [ext_resource type="AudioStream" uid="uid://pkphrpukxryr" path="res://Audio/SFX/smithey.ogg" id="7_4sybj"]
 [ext_resource type="AudioStream" uid="uid://loptenrkxkbb" path="res://Audio/SFX/space_blaster.ogg" id="8_b0sg2"]
 [ext_resource type="AudioStream" uid="uid://dnv6mqsq8b3tf" path="res://Audio/SFX/glass.ogg" id="9_d6xdj"]
+
+[sub_resource type="Resource" id="Resource_65yqc"]
+script = ExtResource("5_pevc5")
+id = &"step"
+samples = Array[AudioStream]([ExtResource("1_lj0py"), ExtResource("2_5pp6k"), ExtResource("3_j6dkg"), ExtResource("4_2clbn")])
+
+[sub_resource type="Resource" id="Resource_xpip1"]
+script = ExtResource("5_pevc5")
+id = &"jump"
+samples = Array[AudioStream]([ExtResource("6_f4rga")])
 
 [sub_resource type="Resource" id="Resource_p62hq"]
 script = ExtResource("2_c0kmo")
@@ -77,3 +93,4 @@ pitch = 1.0
 script = ExtResource("1_djncj")
 loops = Array[Resource("res://Core/Audio/LoopData.gd")]([])
 systemSFX = Array[ExtResource("2_c0kmo")]([SubResource("Resource_p62hq"), SubResource("Resource_griox"), SubResource("Resource_lbqx6"), SubResource("Resource_t6rok"), SubResource("Resource_3mbp2"), SubResource("Resource_ypw3a"), SubResource("Resource_0x0di"), SubResource("Resource_yel7k"), SubResource("Resource_ryy3b")])
+events = Array[ExtResource("5_pevc5")]([SubResource("Resource_65yqc"), SubResource("Resource_xpip1")])

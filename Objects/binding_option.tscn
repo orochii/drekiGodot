@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://um0ck5kxjygn"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_g70lw"]
+[ext_resource type="Script" path="res://Core/UI/BindingOption.gd" id="2_jsnjb"]
+[ext_resource type="Texture2D" uid="uid://b0oc4ntkvyhy5" path="res://Graphics/Icons/keys/Space.png" id="3_myg7w"]
+[ext_resource type="Texture2D" uid="uid://dyvgjg0uh4bq1" path="res://Graphics/Icons/buttonsM30/X button.png" id="4_vjn85"]
+
+[node name="BindingOption" type="Button" node_paths=PackedStringArray("backPanel", "keyboardBindIcons", "gamepadBindIcons", "label")]
+custom_minimum_size = Vector2(0, 16)
+mouse_filter = 2
+theme = ExtResource("1_g70lw")
+flat = true
+script = ExtResource("2_jsnjb")
+backPanel = NodePath("Data")
+keyboardBindIcons = [NodePath("Data/HBoxContainer/KeyboardBindings/Bind1/Icon")]
+gamepadBindIcons = [NodePath("Data/HBoxContainer/GamepadBindings/Bind1/Icon")]
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+theme = ExtResource("1_g70lw")
+text = "Move Left"
+
+[node name="Data" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_g70lw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Data"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="KeyboardBindings" type="HBoxContainer" parent="Data/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Bind1" type="Panel" parent="Data/HBoxContainer/KeyboardBindings"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+theme = ExtResource("1_g70lw")
+
+[node name="Icon" type="NinePatchRect" parent="Data/HBoxContainer/KeyboardBindings/Bind1"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_myg7w")
+
+[node name="GamepadBindings" type="HBoxContainer" parent="Data/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Bind1" type="Panel" parent="Data/HBoxContainer/GamepadBindings"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+theme = ExtResource("1_g70lw")
+
+[node name="Icon" type="NinePatchRect" parent="Data/HBoxContainer/GamepadBindings/Bind1"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vjn85")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

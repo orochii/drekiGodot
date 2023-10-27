@@ -6,6 +6,7 @@
 
 [node name="ItemEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName", "itemNum")]
 custom_minimum_size = Vector2(192, 16)
+mouse_filter = 2
 theme = ExtResource("3_ju34l")
 flat = true
 script = ExtResource("1_ee7cf")

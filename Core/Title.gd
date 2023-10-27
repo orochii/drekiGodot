@@ -1,6 +1,7 @@
 extends Node
 
 @export var fileMenu:FileMenu
+@export var configMenu:ConfigMenu
 @export var buttons:Array[Button]
 @export var cursor:AnimatedSprite2D
 
@@ -32,13 +33,13 @@ func _on_continue_pressed():
 func _on_new_pressed():
 	Global.Audio.playSFX("decision")
 	Global.newGame()
-	print("Loading starting map.")
 	Global.Scene.transfer(Global.Db.startingScene.resource_path)
 func _on_load_pressed():
 	Global.Audio.playSFX("decision")
 	fileMenu.open(1, false)
 func _on_config_pressed():
 	Global.Audio.playSFX("decision")
+	configMenu.open(false)
 func _on_extras_pressed():
 	Global.Audio.playSFX("decision")
 func _on_exit_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=73 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -66,6 +66,7 @@
 [ext_resource type="Script" path="res://Core/UI/SkillList.gd" id="49_v0hn6"]
 [ext_resource type="PackedScene" uid="uid://cuqdikr3niocv" path="res://Objects/skill_entry.tscn" id="50_hg110"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="51_d771a"]
+[ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
 atlas = ExtResource("7_jt7fy")
@@ -164,7 +165,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config")]
 process_mode = 3
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 3
@@ -183,6 +184,7 @@ script = ExtResource("1_8xb7b")
 Message = NodePath("MessageBox")
 Party = NodePath("PartyMenu")
 File = NodePath("FileMenu")
+Config = NodePath("ConfigScreen")
 
 [node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
 visible = false
@@ -283,6 +285,7 @@ script = ExtResource("8_c65gf")
 
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1592,7 +1595,7 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SlotsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("lineContainer", "slotsContainer", "cursor")]
+[node name="SlotsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("lineContainer", "slotsContainer", "cursor", "parentScreen")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1608,6 +1611,7 @@ lineContainer = NodePath("../LineContainer")
 slotsContainer = NodePath(".")
 learnSlotTemplate = ExtResource("36_ucopl")
 cursor = NodePath("../CursorContainer/AnimatedSprite2D")
+parentScreen = NodePath("../../../SkillsScreen")
 
 [node name="StatsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("nameLabel", "hpLabel", "mpLabel", "apCount", "apPercCount")]
 layout_mode = 1
@@ -2432,17 +2436,10 @@ texture = ExtResource("11_eyxf8")
 [node name="FileMenu" parent="." instance=ExtResource("51_d771a")]
 layout_mode = 1
 
-[node name="ConfigScreen" type="Control" parent="."]
-visible = false
+[node name="ConfigScreen" parent="." instance=ExtResource("67_jr4cg")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Blocker" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

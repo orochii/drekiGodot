@@ -1,13 +1,47 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c265ubj8cuc1v"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://c265ubj8cuc1v"]
 
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="1_t2gev"]
 [ext_resource type="StyleBox" uid="uid://d2v3m8nwbfgyt" path="res://Themes/sb_grabber.tres" id="2_5l3wa"]
+[ext_resource type="Texture2D" uid="uid://byo43gwfwk657" path="res://Graphics/System/slider.png" id="2_bqr5a"]
+[ext_resource type="Texture2D" uid="uid://bk6b616ggsdhq" path="res://Graphics/System/downarrow.png" id="2_jgjwr"]
+[ext_resource type="Texture2D" uid="uid://dg50775xjngcc" path="res://Graphics/System/sliderTick.png" id="3_8temk"]
 [ext_resource type="StyleBox" uid="uid://cvh2gvjs75g0k" path="res://Themes/sb_scroll.tres" id="3_55uhc"]
+[ext_resource type="StyleBox" uid="uid://b02wpkju6ek3n" path="res://Themes/sb_optionbutton.tres" id="3_mgsg1"]
+[ext_resource type="Texture2D" uid="uid://063o0ojj722o" path="res://Graphics/System/checked.png" id="4_xk2i0"]
+[ext_resource type="Texture2D" uid="uid://4qkcuipvke8f" path="res://Graphics/System/unchecked.png" id="5_xpctd"]
+[ext_resource type="Texture2D" uid="uid://dajuw67kujtdc" path="res://Graphics/System/panel.png" id="6_1x4l0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inlgl"]
 bg_color = Color(0.74902, 0.87451, 0.996078, 0.12549)
 border_width_right = 2
 border_color = Color(0.827451, 0.784314, 0.368627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4p75u"]
+bg_color = Color(0.827451, 0.784314, 0.368627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbcac"]
+bg_color = Color(0.903428, 0.867342, 0.509713, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fwre"]
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.501961)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.882353)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0id5"]
+texture = ExtResource("6_1x4l0")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
 
 [resource]
 default_font = ExtResource("1_t2gev")
@@ -16,12 +50,37 @@ Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/font_sizes/font_size = 8
 Button/fonts/font = ExtResource("1_t2gev")
 Button/styles/focus = SubResource("StyleBoxFlat_inlgl")
+HSlider/icons/grabber = ExtResource("2_bqr5a")
+HSlider/icons/grabber_disabled = ExtResource("2_bqr5a")
+HSlider/icons/grabber_highlight = ExtResource("2_bqr5a")
+HSlider/icons/tick = ExtResource("3_8temk")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_4p75u")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_dbcac")
+HSlider/styles/slider = SubResource("StyleBoxFlat_2fwre")
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.501961)
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 0
 Label/font_sizes/font_size = 8
 Label/fonts/font = ExtResource("1_t2gev")
+OptionButton/constants/arrow_margin = 4
+OptionButton/constants/h_separation = 2
+OptionButton/constants/modulate_arrow = 0
+OptionButton/constants/outline_size = 0
+OptionButton/font_sizes/font_size = 8
+OptionButton/fonts/font = ExtResource("1_t2gev")
+OptionButton/icons/arrow = ExtResource("2_jgjwr")
+OptionButton/styles/hover = ExtResource("3_mgsg1")
+OptionButton/styles/normal = ExtResource("3_mgsg1")
+OptionButton/styles/pressed = ExtResource("3_mgsg1")
+Panel/styles/panel = SubResource("StyleBoxTexture_l0id5")
+PopupMenu/constants/v_separation = 0
+PopupMenu/icons/radio_checked = ExtResource("4_xk2i0")
+PopupMenu/icons/radio_checked_disabled = ExtResource("4_xk2i0")
+PopupMenu/icons/radio_unchecked = ExtResource("5_xpctd")
+PopupMenu/icons/radio_unchecked_disabled = ExtResource("5_xpctd")
+PopupMenu/styles/hover = ExtResource("3_mgsg1")
+PopupMenu/styles/panel = ExtResource("3_mgsg1")
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.501961)
 RichTextLabel/constants/shadow_offset_x = 1

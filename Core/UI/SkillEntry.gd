@@ -11,4 +11,3 @@ func setup(_skill:UseableSkill):
 	if(skill==null): return
 	itemIcon.texture = skill.icon
 	itemName.text = skill.name
-	print(skill.name)

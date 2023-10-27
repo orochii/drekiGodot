@@ -1,6 +1,8 @@
 extends Object
 class_name ConfigManager
 
+const SCREEN_SIZE:Vector2i = Vector2i(480,270)
+
 # Game
 var activeBattle : bool = false
 var battleSpeed : int = 5
@@ -25,6 +27,7 @@ func loadConfig():
 		var json = savegame.get_pascal_string()
 		savegame.close()
 		var data = JSON.parse_string(json)
+		deserialize(data)
 
 func saveConfig():
 	var data = serialize()
@@ -34,7 +37,9 @@ func saveConfig():
 	savegame.close()
 
 func exist():
-	return DirAccess.dir_exists_absolute(configFilename())
+	var dir = DirAccess.open(configPath())
+	return dir.file_exists(configFilename())
+#return DirAccess.dir_exists_absolute(configFilename())
 func configPath() -> String:
 	return "user://"
 func configFilename() -> String:
@@ -95,7 +100,28 @@ func deserialize(data : Dictionary):
 	if data.has("audio"):
 		var audio = data["audio"]
 		if(audio.has("MasterVolume")): Global.Audio.setMasterVol(audio["MasterVolume"])
-		if(audio.has("BGMVolume")): Global.Audio.setMasterVol(audio["BGMVolume"])
-		if(audio.has("BGSVolume")): Global.Audio.setMasterVol(audio["BGSVolume"])
-		if(audio.has("AmbVolume")): Global.Audio.setMasterVol(audio["AmbVolume"])
-		if(audio.has("SFXVolume")): Global.Audio.setMasterVol(audio["SFXVolume"])
+		if(audio.has("BGMVolume")): Global.Audio.setBGMVol(audio["BGMVolume"])
+		if(audio.has("BGSVolume")): Global.Audio.setBGSVol(audio["BGSVolume"])
+		if(audio.has("AmbVolume")): Global.Audio.setAmbVol(audio["AmbVolume"])
+		if(audio.has("SFXVolume")): Global.Audio.setSFXVol(audio["SFXVolume"])
+	refreshLanguage()
+	refreshScreenSize()
+
+func refreshLanguage():
+	TranslationServer.set_locale(language)
+
+func refreshScreenSize():
+	var window = Global.get_window()
+	if screenMode:
+		window.mode = Window.MODE_FULLSCREEN
+	else:
+		window.mode = Window.MODE_WINDOWED
+		window.size = SCREEN_SIZE * screenScale
+		#window.content_scale_factor = screenScale
+		centerWindow()
+
+func centerWindow():
+	var screenPosition = DisplayServer.screen_get_position()
+	var screenSize = DisplayServer.screen_get_size()
+	var windowSize = DisplayServer.window_get_size()
+	DisplayServer.window_set_position(screenPosition + ((screenSize-windowSize) / 2))

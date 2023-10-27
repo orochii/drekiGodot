@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bdtixu1gjo24t"]
+[gd_scene load_steps=27 format=3 uid="uid://bdtixu1gjo24t"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_2u3d2"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_w01y2"]
@@ -18,7 +18,9 @@
 [ext_resource type="Script" path="res://Core/Interpreter/SwitchPageCondition.gd" id="17_vfssd"]
 [ext_resource type="Texture2D" uid="uid://cydht6rchygld" path="res://Graphics/Character/_NPCS/fuu.png" id="18_034c0"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="19_h0n44"]
+[ext_resource type="PackedScene" uid="uid://vkcurxxtnqnr" path="res://Graphics/Models/arm_2.glb" id="20_7gxa6"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="20_yk21h"]
+[ext_resource type="PackedScene" uid="uid://brpmbslutbb0o" path="res://Graphics/Models/arm_2_down.tscn" id="21_dgidf"]
 
 [sub_resource type="Resource" id="Resource_5nxel"]
 script = ExtResource("2_ggrum")
@@ -34,6 +36,7 @@ radius = 0.49
 script = ExtResource("19_h0n44")
 base = ExtResource("18_034c0")
 totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"
 fps = 8
 
@@ -114,3 +117,36 @@ texture = ExtResource("8_32wid")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.914318, 0.182661, -0.361467, 0, 0.892515, 0.451018, 0.404998, -0.412373, 0.816042, 0, 0, 38.8811)
+shadow_enabled = true
+
+[node name="arm_2" parent="." instance=ExtResource("20_7gxa6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10.1411, 21.9838, 12.8965)
+visible = false
+
+[node name="arm_3" parent="." instance=ExtResource("21_dgidf")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10.1411, 21.9838, 12.8965)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.833934, 0.551864, 0, -0.551864, 0.833934, 0, 6.88251, -10.8253)
+use_collision = true
+size = Vector3(1, 1, 6.48729)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.699312, 0.279917, -0.65773, 0.0270855, 0.909101, 0.415694, 0.714303, -0.308515, 0.628164, -2.41883, 13.7458, 1.04948)
+use_collision = true
+size = Vector3(1, 1, 13.4177)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.60232, 17.2451, 3.74809)
+use_collision = true
+size = Vector3(2.3642, 1, 2.60766)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0497, 18.264, 3.512)
+use_collision = true
+size = Vector3(2.3642, 1, 2.60766)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0497, 19.1866, 5.14299)
+use_collision = true
+size = Vector3(2.3642, 1, 2.60766)

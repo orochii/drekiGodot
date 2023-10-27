@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://pbpg8tbmt7dx"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_7v0hg"]
+[ext_resource type="Script" path="res://Core/UI/DropdownOption.gd" id="2_lgtxn"]
+
+[node name="DropdownOption" type="Button" node_paths=PackedStringArray("option", "label")]
+custom_minimum_size = Vector2(0, 16)
+mouse_filter = 2
+theme = ExtResource("1_7v0hg")
+flat = true
+script = ExtResource("2_lgtxn")
+option = NodePath("Data/OptionButton")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+theme = ExtResource("1_7v0hg")
+text = "Active Battle"
+
+[node name="Data" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_7v0hg")
+
+[node name="OptionButton" type="OptionButton" parent="Data"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_7v0hg")
+flat = true
+item_count = 2
+selected = 0
+popup/item_0/text = "Yes"
+popup/item_0/id = 0
+popup/item_1/text = "No"
+popup/item_1/id = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="item_selected" from="Data/OptionButton" to="." method="_on_option_button_item_selected"]

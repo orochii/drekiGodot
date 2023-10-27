@@ -8,6 +8,7 @@ const SHORT:float = 0.05
 @export var slotsContainer:Control
 @export var learnSlotTemplate:PackedScene
 @export var cursor:AnimatedSprite2D
+@export var parentScreen:CharacterActionsScreen
 
 var actor:GameActor
 var data:Actor
@@ -58,35 +59,44 @@ func setup(_actor:GameActor):
 	# active = true
 
 func _process(delta):
+	if(!self.is_visible_in_tree()): return
 	if moveDelay > 0:
 		moveDelay -= delta
 	if active:
 		cursor.visible = true
 		# <>
 		if(Input.is_action_pressed("move_left")):
-			if moveDelay > 0: return
+			if moveDelay > 0 && !Input.is_action_just_pressed("move_left"): return
 			cursorPosition.x = clamp(cursorPosition.x-1, 0, 8)
-			refreshCursorPos()
+			if refreshCursorPos(): Global.Audio.playSFX("cursor")
 			moveDelay = DELAY if Input.is_action_just_pressed("move_left") else SHORT
 		elif(Input.is_action_pressed("move_right")):
-			if moveDelay > 0: return
+			if moveDelay > 0 && !Input.is_action_just_pressed("move_right"): return
 			cursorPosition.x = clamp(cursorPosition.x+1, 0, 8)
-			refreshCursorPos()
+			if refreshCursorPos(): Global.Audio.playSFX("cursor")
 			moveDelay = DELAY if Input.is_action_just_pressed("move_right") else SHORT
 		elif(Input.is_action_pressed("move_up")):
-			if moveDelay > 0: return
+			if moveDelay > 0 && !Input.is_action_just_pressed("move_up"): return
 			cursorPosition.y = clamp(cursorPosition.y-1, 0, 8)
-			refreshCursorPos()
+			if refreshCursorPos(): Global.Audio.playSFX("cursor")
 			moveDelay = DELAY if Input.is_action_just_pressed("move_up") else SHORT
 		elif(Input.is_action_pressed("move_down")):
-			if moveDelay > 0: return
+			if moveDelay > 0 && !Input.is_action_just_pressed("move_down"): return
 			cursorPosition.y = clamp(cursorPosition.y+1, 0, 8)
-			refreshCursorPos()
+			if refreshCursorPos(): Global.Audio.playSFX("cursor")
 			moveDelay = DELAY if Input.is_action_just_pressed("move_down") else SHORT
 		else:
 			moveDelay = 0
+		#
+		if(Input.is_action_just_pressed("action_cancel")):
+			Global.Audio.playSFX("cancel")
+			parentScreen.setSkillList(true)
 	else:
 		cursor.visible = false
 
 func refreshCursorPos():
-	cursor.position = Vector2(cursorPosition) * Vector2(16,16) + Vector2(8,8)
+	var newPos = Vector2(cursorPosition) * Vector2(16,16) + Vector2(8,8)
+	if newPos != cursor.position:
+		cursor.position = newPos
+		return true
+	return false

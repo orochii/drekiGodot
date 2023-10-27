@@ -1,4 +1,5 @@
 extends Node
+class_name CharacterActionsScreen
 
 @export var charStats:CharacterStats
 @export var slotsContainer:LearnSlotsContainer
@@ -30,6 +31,11 @@ func reset():
 func _process(delta):
 	if(get_parent().visible==false): return
 	if(get_parent().active==false): return
+	if(slotsContainer.active): return
+	if(Input.is_action_just_pressed("action_menu")):
+		setSkillList(false)
+		Global.Audio.playSFX("decision")
+		return
 	if(moveLeft()):
 		Global.Audio.playSFX("cursor")
 		get_parent().get_parent().setScreen(2,[currIdx])
@@ -57,3 +63,15 @@ func moveLeft():
 	return false #Input.is_action_just_pressed("cycle_left")
 func moveRight():
 	return Input.is_action_just_pressed("action_extra")
+
+func setSkillList(v:bool):
+	if v==false:
+		_oldListIdx = skillList.getListIndex()
+		get_viewport().gui_release_focus()
+	skillList.visible = v
+	slotsContainer.active = !v
+	get_parent().active = v
+	if v == true:
+		skillList.setListIndex(_oldListIdx)
+
+var _oldListIdx = -1

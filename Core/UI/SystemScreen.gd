@@ -23,7 +23,7 @@ func _ready():
 	cursor.play("default")
 func _process(delta):
 	var focused = get_viewport().gui_get_focus_owner()
-	if(buttons.has(focused)):
+	if(focused is Button && buttons.has(focused)):
 		positionCursor(focused)
 
 func positionCursor(focused):
@@ -43,6 +43,8 @@ func _on_load_pressed():
 	Global.UI.Party.close()
 func _on_config_pressed():
 	Global.Audio.playSFX("decision")
+	Global.UI.Config.open(true)
+	Global.UI.Party.close()
 func _on_to_title_pressed():
 	Global.Audio.playSFX("decision")
 	Global.Scene.toTitle()

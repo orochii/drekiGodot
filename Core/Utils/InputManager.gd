@@ -20,6 +20,8 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("sys_snap"):
 		Global.saveScreenshot()
+	if Input.is_action_just_pressed("sys_config"):
+		Global.UI.Config.open(false)
 
 func _input(event):
 	if event is InputEventKey:
@@ -46,8 +48,8 @@ func serializeBindings() -> Dictionary:
 		if action.begins_with("ui_"): continue
 		if action.begins_with("sys_"): continue
 		var events = InputMap.action_get_events(action)
+		var actionData = []
 		for ev in events:
-			var actionData = []
 			if ev is InputEventKey:
 				var keyEv = ev as InputEventKey
 				var _e = {
@@ -71,7 +73,7 @@ func serializeBindings() -> Dictionary:
 					"value": joyEv.axis_value
 				}
 				actionData.append(_e)
-			bindingData[action] = actionData
+		bindingData[action] = actionData
 	return bindingData
 
 func deserializeBindings(bindingData : Dictionary):
@@ -82,6 +84,7 @@ func deserializeBindings(bindingData : Dictionary):
 			match event["type"]:
 				"key":
 					var _ev = InputEventKey.new()
+					_ev.keycode = 0
 					_ev.physical_keycode = event["physical_keycode"]
 					InputMap.action_add_event(action, _ev)
 				"joyButton":

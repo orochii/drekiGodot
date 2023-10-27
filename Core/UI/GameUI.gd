@@ -4,6 +4,7 @@ class_name GameUI
 @export var Message : GameMessage
 @export var Party : PartyMenu
 @export var File : FileMenu
+@export var Config : ConfigMenu
 
 var currLang = "en"
 
@@ -12,12 +13,6 @@ func _init():
 
 func _process(delta):
 	Global.State.playTime += delta
-	if Input.is_action_just_pressed("action_select"):
-		if currLang == "en":
-			currLang = "es"
-		else:
-			currLang = "en"
-		TranslationServer.set_locale(currLang)
 
 func busy():
 	if Global.Scene.transferring: return true

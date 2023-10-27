@@ -1,9 +1,107 @@
 ,en,es
 langName,English,Español
-langDesc,Select your language,Elige tu idioma
 Inventory,Inventory,Inventario
 Group,Group,Grupo
 System,System,Sistema
 Data,Data,Datos
 Help,Help,Ayuda
 ---,---,---
+Lv,Lv,Nv
+NEXT,NEXT,SIG.
+LP,LP,LP
+MP,MP,MP
+Continue,Continue,Continuar
+New,New,Nuevo
+Load,Load,Cargar
+save_help,Select a slot where you want to save the game.,Selecciona una ranura donde quieres guardar el juego.
+load_help,Select a slot with a game you want to load.,Selecciona una ranura con el juego que quieres cargar.
+Config,Config,Opciones
+Exit,Exit,Salir
+Quit,Quit,Salir
+General,General,General
+General_help,Gameplay options and other miscelaneous stuff.,Opciones de jugabilidad y otras cosas misceláneas.
+Audio,Audio,Audio
+Audio_help,Adjust volume levels.,Ajusta niveles de volumen.
+Graphics,Graphics,Gráficos
+Graphics_help,Set graphical and visual options.,Define opciones visuales y gráficas.
+Binding,Bindings,Control
+Binding_help,Configure input bindings.,Configura opciones de control.
+Back,Back,Atrás
+Back_help,Returns to previous screen.,Regresa a la pantalla anterior.
+Active Battle,Active Battle,Batalla activa
+Active Battle_help,"When turned on, enemies can act while you select actions.","Si está activada, los enemigos actuarán mientras seleccionas tus acciones."
+Battle Speed,Battle Speed,Velocidad de batalla
+Battle Speed_help,"Sets how quickly the action bar is filled.
+Low: Slow. High: Fast.","Ajusta qué tan rápido se llena la barra de acción de los batallantes.
+Bajo: Lento. Alto: Rápido."
+Battle Camera,Battle Camera,Cámara de batalla
+Battle Camera_help,"When enabled, camera will move and rotate in battle based on the actions.","Cuando activa, la cámara se moverá y rotará en batalla dependiendo de las acciones."
+Skip Tutorials,Skip Tutorials,Saltar tutoriales
+Skip Tutorials_help,"If enabled, all tutorials and help prompts will be skipped.","Al activarse, se eliminan todos los tutoriales y avisos de ayuda."
+Pause on Focus Lost,Pause on Focus Lost,Pausar al perder foco
+Pause on Focus Lost_help,Game will pause automatically when application focus is lost.,El juego se pausará automáticamente mientras la aplicación está fuera de foco.
+Language,Language,Lenguaje
+Language_help,Select the game's language.,Selecciona el lenguage del juego.
+English,English,Inglés
+Spanish,Spanish,Español
+Yes,Yes,Sí
+No,No,No
+Master Volume,Master Volume,Volumen general
+Master Volume_help,Adjusts the general volume of the game.,Ajusta el volumen general del juego.
+BGM Volume,BGM Volume,Volumen música
+BGM Volume_help,Adjusts the music volume.,Ajusta el volumen de la música.
+BGS Volume,BGS Volume,Volumen sonidos de fondo
+BGS Volume_help,Adjusts the volume for background sounds.,Ajusta el volumen de sonidos de fondo.
+Ambient Volume,Ambient Volume,Volumen de ambiente
+Ambient Volume_help,Adjusts the volume for ambient sounds.,Ajusta el volumen de sonidos de ambientación.
+SFX Volume,SFX Volume,Volumen efectos sonoros
+SFX Volume_help,Adjusts the volume for sound effects.,Ajusta el volumen de efectos de sonido.
+Screen Scale,Screen Scale,Escala de pantalla
+Screen Scale_help,Changes the screen scale.,Cambia la escala de pantalla.
+Screen Mode,Screen Mode,Modo de pantalla
+Screen Mode_help,Windowed mode or fullscreen mode.,Modo ventana o modo pantalla completa.
+Message Skin,Message Skin,Estilo de mensaje
+Message Skin_help,Changes the skin to the message text boxes.,Cambia el estilo a las ventanas de mensaje.
+Background Opacity,Background Opacity,Opacidad de fondo
+Background Opacity_help,Adjusts the opacity for the menu background.,Ajusta la opacidad del fondo del menú.
+Shadow Style,Shadow Style,Estilo de sombra
+Shadow Style_help,Sets the battler's shadow style.,Configura el estilo de las sombras del combatiente.
+Gamepad Button Icons,Controller Button Icons,Estilo de íconos de controlador
+Gamepad Button Icons_help,Select the style used for the controller icons.,Selecciona el estilo de los iconos para el controlador.
+Windowed,Windowed,Ventana
+Fullscreen,Fullscreen,Pantalla completa
+White,White,Claro
+Dark,Dark,Oscuro
+Disabled,Disabled,Desactivado
+Simple,Simple,Simple
+Animated,Animated,Animado
+move_left,Move Left,Mover izquierda
+move_left_help,Moves the cursor or the player to the left.,Mueve a la izquierda el cursor o el jugador.
+move_right,Move Right,Mover derecha
+move_right_help,Moves the cursor or the player to the right.,Mueve a la derecha el cursor o el jugador.
+move_up,Move Up,Mover arriba
+move_up_help,Moves the cursor or the player up.,Mueve hacia arriba el cursor o el jugador.
+move_down,Move Down,Mover abajo
+move_down_help,Moves the cursor or the player down.,Mueve hacia abajo el cursor o el jugador.
+action_ok,Action: Ok,Acción: Aceptar
+action_ok_help,"Interacts with objects, selects options in menus.","Interactúa con objetos, selecciona opciones en menús."
+action_cancel,Action: Cancel,Acción: Cancelar
+action_cancel_help,Cancels and returns from menus.,Cancela opciones y vuelve atrás en menús.
+action_run,Action: Run,Acción: Correr
+action_run_help,Hold button to run.,Mantener presionado para correr.
+action_menu,Action: Menu,Acción: Menú
+action_menu_help,"Opens the menu, sometimes opens extra menus within menus.","Abre el menú, algunas veces abre menús extra dentro de otros menús."
+action_extra,Action: Extra,Acción: Extra
+action_extra_help,Used for special functions. Jumps while moving the player avatar.,Usado para funciones especiales. Salta mientras mueves el jugador.
+action_select,Action: Select,Acción: Select
+action_select_help,,
+action_start,Action: Start,Acción: Start
+action_start_help,,
+cycle_left,Cycle Left,Ciclo izquierda
+cycle_left_help,Cycles left or backwards between options.,Vuelve a la opción anterior o cicla hacia la izquierda.
+cycle_right,Cycle Right,Ciclo derecha
+cycle_right_help,Cycles right or forward between options.,Selecciona la opción siguiente o cicla hacia la derecha.
+cam_left,Camera Left,Cámara izquierda
+cam_left_help,Rotate camera towards the left direction.,Rota la cámara en dirección izquierda.
+cam_right,Camera Right,Cámara derecha
+cam_right_help,Rotate camera towards the right direction.,Rota la cámara en dirección derecha.

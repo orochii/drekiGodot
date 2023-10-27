@@ -7,6 +7,7 @@
 
 [node name="PartyTargetEntry" type="Button" node_paths=PackedStringArray("canUse", "nameText", "lpText", "mpText", "status1", "status2", "canEquip", "equipLabel")]
 custom_minimum_size = Vector2(0, 16)
+mouse_filter = 2
 theme = ExtResource("1_ugqnl")
 flat = true
 script = ExtResource("2_vgv60")

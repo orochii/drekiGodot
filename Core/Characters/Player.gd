@@ -1,10 +1,10 @@
 extends Character
 class_name Player
 
-var closeEvents : Array[NPC]
+var closeEvents : Array
 
 func _ready():
-	pass
+	super._ready()
 
 func _process(delta):
 	var direction = Vector3.ZERO
@@ -18,12 +18,9 @@ func _process(delta):
 	if getInteract(): interact()
 	
 	if canMove() && Input.is_action_just_pressed("action_menu"):
+		Global.Audio.playSFX("decision")
 		Global.cacheScreenshot()
 		Global.UI.Party.open()
-	# if Input.is_action_just_pressed("action_select"):
-	# 	Global.saveGame("test")
-	# if Input.is_action_just_pressed("action_menu"):
-	# 	Global.loadGame("test")
 
 func getHorz():
 	if !canMove(): return 0
@@ -43,7 +40,7 @@ func getJump():
 
 func getDash():
 	if !canMove(): return false
-	return Input.is_action_pressed("action_cancel")
+	return Input.is_action_pressed("action_run")
 
 func canMove():
 	if Global.Ev.isBusy(): return false
@@ -66,10 +63,15 @@ func interact():
 	if closestEv != null: closestEv.onInteract()
 
 func _on_area_3d_area_entered(area: Area3D):
-	pass
+	if area is Trigger:
+		var trigger = area as Trigger
+		trigger.onTouch()
+		if !closeEvents.has(trigger): closeEvents.append(trigger)
 
 func _on_area_3d_area_exited(area: Area3D):
-	pass
+	if area is Trigger:
+		var trigger = area as Trigger
+		if closeEvents.has(trigger): closeEvents.erase(trigger)
 
 func _on_area_3d_body_entered(body: Node3D):
 	if body is NPC:

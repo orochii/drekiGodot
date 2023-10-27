@@ -37,7 +37,7 @@ func setup(slot:String,idx:int):
 		saveStamp.text = data["timestamp"]
 		if members.size() != 0:
 			leaderName.text = members[0]["name"]
-			leaderLevel.text = "Lv %d" % members[0]["level"]
+			leaderLevel.text = "%d" % members[0]["level"]
 			for i in range(partyIcons.size()):
 				if i < members.size():
 					var actor = Global.Db.getActor(members[i]["id"])

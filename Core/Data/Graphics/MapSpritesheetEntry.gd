@@ -6,6 +6,7 @@ class_name MapSpritesheetEntry
 @export var blink : Texture2D
 @export var blinkDiag : Texture2D
 @export var totalFrames : int = 4
+@export var events : Array[StringName] = ["","step","","step"]
 
 func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
@@ -94,3 +95,9 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 
 func getTotalFrames():
 	return totalFrames
+
+func getFrameEvent(idx:int) -> StringName:
+	if(events.size() > idx):
+		if events[idx]==null: return &""
+		return events[idx]
+	return &""

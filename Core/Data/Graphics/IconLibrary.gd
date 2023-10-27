@@ -23,11 +23,13 @@ func initializeDictionary():
 	initialized = true
 
 func getIconName(entry : StringName, kind : int) -> String:
+	initializeDictionary()
 	var _i = _getIconFromCollection(iconCollectionDict,entry,kind)
 	if (_i != null): return _i.resource_path
 	return ""
 
 func getActionIcon(action : StringName, kind : int = -2) -> Texture:
+	initializeDictionary()
 	if kind <= -2:
 		kind = Global.Inputs.lastInputKind
 	if kind < 0:
@@ -44,13 +46,33 @@ func getActionIconName(action : StringName, kind : int = -2) -> String:
 	if icon != null: return icon.resource_path
 	return ""
 
-func _getIconFromCollection(collection : Dictionary, entry : StringName, kind : int) -> Texture:
+func getEventBindIcon(ev:InputEvent, kind : int = -2):
 	initializeDictionary()
+	if kind <= -2:
+		kind = Global.Inputs.lastInputKind
+	var keyName = _getEventBindName(ev)
+	if ev is InputEventKey:
+		return _getIconFromCollection(keyCollectionDict,keyName, 0)
+	if ev is InputEventJoypadButton or ev is InputEventJoypadMotion:
+		return _getIconFromCollection(joyCollectionDict,keyName, kind)
+	return null
+
+func _getIconFromCollection(collection : Dictionary, entry : StringName, kind : int) -> Texture:
 	if collection.has(entry):
 		var e : IconLibraryEntry = collection[entry]
 		if (e.icons.size() > kind): return e.icons[kind]
 		if (e.icons.size() > 0): return e.icons[0]
 	return null
+
+func _getEventBindName(ev:InputEvent):
+	if ev is InputEventKey:
+		var str = ev.as_text()
+		return str
+	if ev is InputEventJoypadButton or ev is InputEventJoypadMotion:
+		var str = ev.as_text()
+		str = str.split("(")[1].split(")")[0].split(",")[0]
+		return str
+	return ""
 
 func _getActionKeyName(action : StringName) -> String:
 	var evs : Array[InputEvent] = InputMap.action_get_events(action)

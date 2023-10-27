@@ -14,6 +14,7 @@ func _ready():
 	cursor.play("default")
 
 func _process(delta):
+	if(visible==false): return
 	if(active==false): return
 	var focused = get_viewport().gui_get_focus_owner()
 	if entries.has(focused):
@@ -31,8 +32,6 @@ func setup(actor:GameActor):
 	for skill in skills:
 		var inst:SkillEntry = skillEntryTemplate.instantiate()
 		inst.setup(skill)
-		if skill==null: print(skill)
-		else: print(skill.resource_path)
 		container.add_child(inst)
 		entries.append(inst)
 	UIUtils.setGridNeighbors(entries,2)
@@ -40,3 +39,14 @@ func setup(actor:GameActor):
 func getFirst():
 	if(entries.size() == 0): return null
 	return entries[0]
+
+func getListIndex():
+	var focused = get_viewport().gui_get_focus_owner()
+	return entries.find(focused)
+
+func setListIndex(idx:int):
+	if(idx >= 0 && idx < entries.size()):
+		entries[idx].grab_focus()
+	else:
+		var f = getFirst()
+		if(f != null): f.grab_focus()

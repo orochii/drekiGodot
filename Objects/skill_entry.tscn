@@ -10,6 +10,7 @@ size_flags_horizontal = 3
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath(".")
 focus_neighbor_right = NodePath(".")
+mouse_filter = 2
 theme = ExtResource("1_logyo")
 flat = true
 script = ExtResource("2_slltt")

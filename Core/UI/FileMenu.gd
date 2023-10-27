@@ -1,6 +1,7 @@
 extends Control
 class_name FileMenu
 
+@export var helpText : Label
 @export var screenshotBack : NinePatchRect
 @export var savefileTemplate : PackedScene
 @export var container : Container
@@ -71,6 +72,7 @@ func open(mode,fromMenu):
 		await get_tree().create_timer(0.05).timeout
 	Global.cacheScreenshot()
 	fileMode = mode
+	helpText.text = "save_help" if mode==0 else "load_help"
 	self.fromMenu = fromMenu
 	createSaveList()
 	#

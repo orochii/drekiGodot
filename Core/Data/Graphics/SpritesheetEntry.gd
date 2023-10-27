@@ -15,3 +15,6 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 
 func getTotalFrames():
 	return 1
+
+func getFrameEvent(idx:int) -> StringName:
+	return &""

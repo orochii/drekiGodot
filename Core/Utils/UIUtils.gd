@@ -3,7 +3,7 @@ class_name UIUtils
 
 static func setVNeighbors(srcAry:Array):
 	for i in range(srcAry.size()):
-		var current:Button = srcAry[i]
+		var current = srcAry[i]
 		current.focus_neighbor_left = current.get_path()
 		current.focus_neighbor_right = current.get_path()
 		# Prev
@@ -22,7 +22,7 @@ static func setVNeighbors(srcAry:Array):
 
 static func setHNeighbors(srcAry:Array):
 	for i in range(srcAry.size()):
-		var current:Button = srcAry[i]
+		var current = srcAry[i]
 		current.focus_neighbor_top = current.get_path()
 		current.focus_neighbor_bottom = current.get_path()
 		# Prev
@@ -42,15 +42,15 @@ static func setHNeighbors(srcAry:Array):
 static func setGridNeighbors(srcAry:Array,columns:int):
 	for i in range(srcAry.size()):
 		# Get all references
-		var current:Button = srcAry[i]
+		var current = srcAry[i]
 		var ti = max(0,i-1)
-		var left:Button = srcAry[ti]
+		var left = srcAry[ti]
 		ti = min(srcAry.size()-1,i+1)
-		var right:Button = srcAry[ti]
+		var right = srcAry[ti]
 		ti = max(0,i-columns)
-		var top:Button = srcAry[ti]
+		var top = srcAry[ti]
 		ti = min(srcAry.size()-1,i+columns)
-		var bottom:Button = srcAry[ti]
+		var bottom = srcAry[ti]
 		# Set neighbors
 		current.focus_neighbor_top = top.get_path()
 		current.focus_neighbor_bottom = bottom.get_path()

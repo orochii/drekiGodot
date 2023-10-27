@@ -1,6 +1,8 @@
 extends Sprite3D
 class_name CharGraphic
 
+signal onFrame(ev:StringName, idx:int)
+
 @export var spritesheet : Spritesheet
 @export var state : StringName = &"base"
 @export var shadow : Sprite3D
@@ -11,6 +13,7 @@ var speed : float = 1
 var blinkCounter : float = 0
 var blinkState : bool = false
 var frameCounter : float = 0
+var lastFrame : int = -1
 
 func _ready():
 	blinkCounter = blinkRate.x
@@ -28,10 +31,17 @@ func _process(delta):
 func updateFrame(delta):
 	updateAngleDeform()
 	if spritesheet != null:
-		var s = spritesheet.getSheet(state)
+		var s:SpritesheetEntry = spritesheet.getSheet(state)
 		if s != null:
 			updateFrameCounter(delta, s.fps, s.getTotalFrames())
-			s.getFrame(self, floori(frameCounter), blinkState)
+			var newFrame = floori(frameCounter)
+			s.getFrame(self, newFrame, blinkState)
+			if(lastFrame != newFrame):
+				# emit frame change if spritesheet says so
+				var ev:StringName = s.getFrameEvent(newFrame)
+				if ev != &"":
+					onFrame.emit(ev,newFrame)
+			lastFrame = newFrame
 	else:
 		texture = null
 

@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://nxxyny8ov4y6"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_wd0qe"]
+[ext_resource type="Script" path="res://Core/UI/SliderOption.gd" id="2_j1mov"]
+
+[node name="SliderOption" type="Button" node_paths=PackedStringArray("slider", "label")]
+custom_minimum_size = Vector2(0, 16)
+mouse_filter = 2
+theme = ExtResource("1_wd0qe")
+flat = true
+script = ExtResource("2_j1mov")
+slider = NodePath("Data/HSlider")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+theme = ExtResource("1_wd0qe")
+text = "Battle Speed"
+
+[node name="Data" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_wd0qe")
+
+[node name="HSlider" type="HSlider" parent="Data"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_wd0qe")
+max_value = 10.0
+value = 1.0
+scrollable = false
+tick_count = 11
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="drag_ended" from="Data/HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="value_changed" from="Data/HSlider" to="." method="_on_h_slider_value_changed"]

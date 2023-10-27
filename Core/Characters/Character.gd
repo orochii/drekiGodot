@@ -10,10 +10,16 @@ const GRAVITY : float = 98*2
 @export var graphic : CharGraphic
 @export var collider: CollisionShape3D
 @export var state : StringName = &"base"
+@export var raycast : RayCast3D
+@export var soundEmitter : AudioStreamPlayer3D
+@export var stepEventOverride : StringName = &""
 
 var target_velocity = Vector3.ZERO
 var grounded : bool = false
 var collision : bool = true
+
+func _ready():
+	graphic.onFrame.connect(playStep)
 
 func setMove(direction : Vector3):
 	if direction != Vector3.ZERO:
@@ -26,6 +32,7 @@ func setMove(direction : Vector3):
 func jump():
 	if is_on_floor():
 		target_velocity.y = JUMP
+		playJump()
 
 func _physics_process(delta):
 	grounded = is_on_floor()
@@ -38,7 +45,31 @@ func _physics_process(delta):
 	if graphic != null:
 		graphic.speed = velocity.length() / AVG_SPEED
 		graphic.state = getCurrentState()
+	#if(raycast != null):
+	#	var c = raycast.get_collider()
+	#	if c != null:
+	#		var mesh:MeshInstance3D = c.get_parent()
+	#		#mesh.material
 	move_and_slide()
+
+func playJump():
+	var audio:AudioManager = Global.Audio
+	var _ev = audio.audioData.getEvent("jump")
+	if(_ev==null): return
+	soundEmitter.stream = _ev.getSample()
+	soundEmitter.play()
+
+func playStep(ev:StringName, idx:int):
+	if(ev != &"step"): return
+	if(!grounded): return
+	if(soundEmitter != null):
+		var audio:AudioManager = Global.Audio
+		if stepEventOverride.length() != 0:
+			var _ev = audio.audioData.getEvent(stepEventOverride)
+		else:
+			var _ev = audio.audioData.getEvent(&"step")
+			soundEmitter.stream = _ev.getSample()
+			soundEmitter.play()
 
 func getCurrentState():
 	if state == &"base":

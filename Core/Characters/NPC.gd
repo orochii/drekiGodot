@@ -5,10 +5,12 @@ class_name NPC
 var currentEvent : BaseEvent
 
 func _ready():
+	super._ready()
 	# Register to switch/variable change signal
 	Global.State.onSwitchChange.connect(_onSwitchChange)
 	Global.State.onVariableChange.connect(_onVariableChange)
 	refreshPage()
+
 func _exit_tree():
 	# Unregister to signals
 	Global.State.onSwitchChange.disconnect(_onSwitchChange)
