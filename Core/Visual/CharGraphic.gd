@@ -22,11 +22,12 @@ func _process(delta):
 	var dts = delta * speed
 	updateFrame(dts)
 	updateBlink(delta)
-	if raycast.is_colliding():
-		var pos = raycast.get_collision_point()
-		shadow.global_position.y = pos.y
-		var size = 1 - (shadow.position.y / raycast.target_position.y)
-		shadow.scale = Vector3.ONE * size
+	if(raycast != null):
+		if raycast.is_colliding():
+			var pos = raycast.get_collision_point()
+			shadow.global_position.y = pos.y
+			var size = 1 - (shadow.position.y / raycast.target_position.y)
+			shadow.scale = Vector3.ONE * size
 
 func updateFrame(delta):
 	updateAngleDeform()

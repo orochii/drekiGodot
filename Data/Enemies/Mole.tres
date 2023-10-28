@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://cn4v6tsk48ile"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=5 format=3 uid="uid://cn4v6tsk48ile"]
 
+[ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyScript.gd" id="1_xbswy"]
+
+[sub_resource type="Resource" id="Resource_qjdvo"]
+script = ExtResource("1_xbswy")
+conditions = Array[Resource("res://Core/Data/Enemies/EnemyScriptCondition.gd")]([])
+options = Array[Resource("res://Core/Data/Enemies/EnemyScriptOptions.gd")]([])
 
 [resource]
 script = ExtResource("1_i0uq7")
 name = "Mole"
 type = "Mammal"
 description = "Moles will conquer the earth!"
+battleSprite = ExtResource("1_dqtx7")
 gender = 2
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 level = 1
@@ -16,7 +24,7 @@ str = 0
 vit = 0
 mag = 0
 agi = 0
-actions = Array[Resource("res://Core/Data/Enemies/EnemyScript.gd")]([])
-rewardExp = 0
-rewardGold = 0
+actions = Array[ExtResource("1_xbswy")]([SubResource("Resource_qjdvo")])
+rewardExp = 5
+rewardGold = 3
 rewardItems = Array[Resource("res://Core/Data/Items/BaseItem.gd")]([])

@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://shd0vii63ajl"]
+
+[ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
+[ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="1_u172e"]
+[ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_vn4qv"]
+[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_p0i4c"]
+[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="3_u2gvs"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
+
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_rbil0")
+camera = NodePath("Scenario/Camera/Camera3D")
+
+[node name="Scenario" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Scenario"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_f7xr6")
+
+[node name="Camera" type="Node3D" parent="Scenario"]
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Scenario/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+current = true
+fov = 20.0
+size = 16.875
+
+[node name="Allies" type="Node3D" parent="."]
+
+[node name="Battler" type="Node3D" parent="Allies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93207, 0, -1.37709)
+script = ExtResource("1_vn4qv")
+
+[node name="Graphic" type="Sprite3D" parent="Allies/Battler"]
+offset = Vector2(-0.83, 0)
+pixel_size = 0.0625
+billboard = 2
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_u172e")
+region_enabled = true
+script = ExtResource("3_p0i4c")
+spritesheet = ExtResource("3_u2gvs")
+
+[node name="Enemies" type="Node3D" parent="."]

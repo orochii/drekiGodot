@@ -7,11 +7,11 @@ extends Node3D
 var currRotation : Vector3
 
 func _ready():
-	position = target.position
+	if(target != null): position = target.position
 	currRotation = global_rotation_degrees
 
 func _process(delta):
-	position = target.position
+	if(target != null): position = target.position
 	var _cr = global_rotation_degrees
 	_cr.x = moveTowardsAngle(_cr.x, currRotation.x, rotationSpeed * delta)
 	_cr.y = moveTowardsAngle(_cr.y, currRotation.y, rotationSpeed * delta)
