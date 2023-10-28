@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3bt0yfvvxmdj"]
+[gd_scene load_steps=13 format=3 uid="uid://b3bt0yfvvxmdj"]
 
 [ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
 [ext_resource type="Shader" path="res://Core/Shaders/TextureFader.gdshader" id="2_bs647"]
+[ext_resource type="PackedScene" uid="uid://shd0vii63ajl" path="res://Scenes/battle.tscn" id="2_yqp68"]
 [ext_resource type="Texture2D" uid="uid://fvwpxyaylqgv" path="res://Graphics/Transitions/squares.png" id="3_u07fv"]
 
 [sub_resource type="Gradient" id="Gradient_k0mpe"]
@@ -82,6 +83,7 @@ script = ExtResource("1_qvwbx")
 cover = NodePath("Fader")
 transition = NodePath("Transition")
 transitionPlayer = NodePath("TransitionPlayer")
+battleSceneTemplate = ExtResource("2_yqp68")
 
 [node name="Fader" type="TextureRect" parent="."]
 visible = false

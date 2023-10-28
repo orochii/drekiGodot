@@ -209,6 +209,9 @@ func getData():
 	if id=="": return null
 	return Global.Db.getActor(id)
 
+func getBattleGraphic():
+	return getData().battleSprite
+
 func _serialize():
 	var savedata = {
 		"id" : id,

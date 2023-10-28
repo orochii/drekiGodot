@@ -56,3 +56,6 @@ func getBaseAgi():
 
 func getData():
 	return null
+
+func getBattleGraphic():
+	return null

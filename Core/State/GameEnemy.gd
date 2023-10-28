@@ -35,3 +35,6 @@ func getBaseAgi():
 
 func getData():
 	return Global.Db.getEnemy(id)
+
+func getBattleGraphic():
+	return getData().battleSprite

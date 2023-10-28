@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=9 format=3 uid="uid://3ft3ynrhkjkr"]
+[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://3ft3ynrhkjkr"]
 
 [ext_resource type="Texture2D" uid="uid://c0b3tqg6tqfvd" path="res://Graphics/Faces/5_pixart2.png" id="1_8y0px"]
 [ext_resource type="Script" path="res://Core/Data/Actors/Actor.gd" id="1_ga2pu"]
+[ext_resource type="Resource" uid="uid://brkbbs6uk8mn8" path="res://Data/Spritesheets/redwyvern_battler.tres" id="2_5wn6s"]
 [ext_resource type="Texture2D" uid="uid://bp3m1q5ntddsv" path="res://Graphics/Faces/5_faceAnimated.png" id="2_ycywp"]
 [ext_resource type="Texture2D" uid="uid://bsw72cnkiidcb" path="res://Graphics/Faces/5_face2.png" id="3_6l6n3"]
 [ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="4_21r2c"]
@@ -29,6 +30,7 @@ description = "A cute fluffy red wyvern. Not really a reptile, apparently."
 faceGraphic = ExtResource("2_ycywp")
 faceSmall = ExtResource("3_6l6n3")
 artwork = ExtResource("1_8y0px")
+battleSprite = ExtResource("2_5wn6s")
 gender = 0
 birthday = 10
 birthmonth = 5

@@ -29,3 +29,10 @@ class_name Enemy
 @export var rewardExp : int
 @export var rewardGold : int
 @export var rewardItems : Array[BaseItem]
+
+func getId():
+	# res://Data/Enemies/Mole.tres
+	var len = resource_path.length()
+	var dirlen = "res://Data/Enemies/".length()
+	var extlen = ".tres".length()
+	return resource_path.substr(dirlen, len-dirlen-extlen)

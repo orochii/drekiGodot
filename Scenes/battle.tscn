@@ -1,47 +1,57 @@
-[gd_scene load_steps=7 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=6 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
-[ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="1_u172e"]
-[ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_vn4qv"]
-[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_p0i4c"]
-[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="3_u2gvs"]
+[ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
+[ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
+[ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop")]
+process_mode = 3
 script = ExtResource("1_rbil0")
-camera = NodePath("Scenario/Camera/Camera3D")
+testTroop = ExtResource("2_b4hq5")
+camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
+battlerTemplate = ExtResource("2_bnp7f")
+party = NodePath("SubViewportContainer/SubViewport/Allies")
+troop = NodePath("SubViewportContainer/SubViewport/Enemies")
+partyPositionOffset = Vector3(1, 0, 4)
 
-[node name="Scenario" type="Node3D" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Scenario"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="Scenario" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Scenario"]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_f7xr6")
 
-[node name="Camera" type="Node3D" parent="Scenario"]
-transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 0, 0)
+[node name="Camera" type="Node3D" parent="SubViewportContainer/SubViewport/Scenario"]
+transform = Transform3D(1, 0, 0, 0, 0.866024, 0.499999, 0, -0.499999, 0.866024, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Scenario/Camera"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Scenario/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
 current = true
 fov = 20.0
 size = 16.875
 
-[node name="Allies" type="Node3D" parent="."]
+[node name="Allies" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="Battler" type="Node3D" parent="Allies"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93207, 0, -1.37709)
-script = ExtResource("1_vn4qv")
+[node name="Enemies" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="Graphic" type="Sprite3D" parent="Allies/Battler"]
-offset = Vector2(-0.83, 0)
-pixel_size = 0.0625
-billboard = 2
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("1_u172e")
-region_enabled = true
-script = ExtResource("3_p0i4c")
-spritesheet = ExtResource("3_u2gvs")
-
-[node name="Enemies" type="Node3D" parent="."]
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport/Enemies" node_paths=PackedStringArray("battleManager")]
+script = ExtResource("4_bpma2")
+battleManager = NodePath("../../../..")
+drawOffset = Vector2(12, 12)
+drawScale = 5.0

@@ -7,13 +7,13 @@
 [sub_resource type="Resource" id="Resource_qu4nc"]
 script = ExtResource("2_ra544")
 enemy = ExtResource("1_380wp")
-position = Vector3(-2, 0, 1)
+position = Vector3(-2, 0, -2)
 flags = 0
 
 [sub_resource type="Resource" id="Resource_ha733"]
 script = ExtResource("2_ra544")
 enemy = ExtResource("1_380wp")
-position = Vector3(-2.5, 0, -1)
+position = Vector3(-4, 0, 2)
 flags = 0
 
 [resource]

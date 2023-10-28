@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://wvctddsd21hk"]
+
+[ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_b2f6x"]
+[ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="2_xv8kg"]
+[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_r8px5"]
+[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="4_nra88"]
+
+[node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 0)
+script = ExtResource("1_b2f6x")
+graphic = NodePath("Graphic")
+
+[node name="Graphic" type="Sprite3D" parent="."]
+offset = Vector2(-0.83, 0)
+pixel_size = 0.0625
+billboard = 2
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("2_xv8kg")
+region_enabled = true
+script = ExtResource("3_r8px5")
+spritesheet = ExtResource("4_nra88")

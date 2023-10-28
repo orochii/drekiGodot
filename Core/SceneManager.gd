@@ -4,10 +4,12 @@ class_name SceneManager
 const TRANSFER_FADE_LEN = 0.5
 signal onFadeEnd()
 signal onTransitionEnd()
+signal onBattleEnd()
 
 @export var cover : TextureRect
 @export var transition : TextureRect
 @export var transitionPlayer : AnimationPlayer
+@export var battleSceneTemplate : PackedScene
 
 var transferring = false
 var originalTexture : Texture
@@ -17,6 +19,7 @@ var fadeDuration = 1
 var currentScene : Node = null
 var pausingEntities = []
 var transitioning = false
+var battleInstance:BattleManager = null
 
 func _ready():
 	cover.visible = true
@@ -59,6 +62,21 @@ func transfer(newMap):
 	await onFadeEnd
 	askUnpause(self)
 	transferring = false
+
+func callBattle(troop:EnemyTroop):
+	Global.State.currentTroop = troop
+	battleInstance = battleSceneTemplate.instantiate()
+	Global.get_parent().add_child(battleInstance)
+	askPause(battleInstance)
+	return onBattleEnd
+
+func endBattle():
+	if(battleInstance == null): return
+	battleInstance.queue_free()
+	askUnpause(battleInstance)
+	battleInstance = null
+	onBattleEnd.emit()
+	print("ASD")
 
 func toTitle():
 	Global.Audio.fadeOutBGM(0.5)

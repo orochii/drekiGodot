@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=5 format=3 uid="uid://brkbbs6uk8mn8"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_si1yl"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_xqu7o"]
+[ext_resource type="Texture2D" uid="uid://dpsea72vi6kko" path="res://Graphics/Battler/redwyvern_battler.png" id="3_0imlx"]
+
+[sub_resource type="Resource" id="Resource_rvl44"]
+script = ExtResource("1_si1yl")
+frames = Array[Vector2i]([Vector2i(0, 0)])
+name = &"base"
+fps = 8
+
+[resource]
+script = ExtResource("2_xqu7o")
+texture = ExtResource("3_0imlx")
+cellW = 202
+cellH = 202
+collection = Array[ExtResource("1_si1yl")]([SubResource("Resource_rvl44")])
