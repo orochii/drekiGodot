@@ -246,6 +246,7 @@ func _deserialize(savedata : Dictionary):
 			_:
 				set(key, savedata[key])
 func _deserializeStates(data:Array):
+	states.clear()
 	for s in data:
 		var ss = StatusState.new()
 		ss._deserialize(s)

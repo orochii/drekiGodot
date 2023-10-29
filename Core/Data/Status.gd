@@ -9,7 +9,7 @@ class_name Status
 
 @export_category("Behavior")
 @export_flags("Non Resistance", "HP0", "No EXP", "No Evade") var flags = 0
-@export var restriction : int # None, NoMagic, AtkEnemy, AtkAlly, CantMove
+@export var restriction : Global.ERestriction # None, NoMagic, AtkEnemy, AtkAlly, CantMove
 
 @export_category("Effects over Time")
 @export var eotActivation : int # TURN,MILLISECONDS

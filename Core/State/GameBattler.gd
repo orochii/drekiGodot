@@ -59,3 +59,19 @@ func getData():
 
 func getBattleGraphic():
 	return null
+
+func inputable():
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		if data.restriction >= Global.ERestriction.AttackAnyone: return false
+	return true
+func canAct():
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		if data.restriction >= Global.ERestriction.CantMove: return false
+	return true
+func hasRestriction(r:Global.ERestriction):
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		if data.restriction == r: return true
+	return false

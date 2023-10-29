@@ -29,6 +29,10 @@ enum ETargetScope { ONE, ALL, RANDOM }
 enum ETargetState { ALIVE, DEAD, ANY }
 enum EUsePermit { BATTLE, MAP, ANYWHERE }
 
+# NoHands and NoMove try to mimic Live a Live's arm/leg restriction, 
+# while NoMagic is for sealing off magic specifically
+enum ERestriction { None, NoHands, NoMove, NoMagic, AttackAnyone, AttackEnemy, AttackAlly, CantMove }
+
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
