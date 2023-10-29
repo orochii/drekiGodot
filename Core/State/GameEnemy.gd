@@ -42,6 +42,8 @@ func getData():
 
 func getBattleGraphic():
 	return getData().battleSprite
+func getSmallFace():
+	return getData().battleSprite
 
 func isEnemy(other:GameBattler):
 	if other is GameActor:

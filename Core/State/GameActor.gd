@@ -214,6 +214,8 @@ func getData():
 
 func getBattleGraphic():
 	return getData().battleSprite
+func getSmallFace():
+	return getData().faceSmall
 
 func _serialize():
 	var savedata = {

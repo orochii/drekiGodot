@@ -1,0 +1,163 @@
+[gd_scene load_steps=9 format=3 uid="uid://uderfa3lt408"]
+
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleMemberStatus.gd" id="1_kepsv"]
+[ext_resource type="Texture2D" uid="uid://63rlr6lse8bm" path="res://Graphics/System/battle/base_lay.png" id="2_ep4ky"]
+[ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="3_dt8v8"]
+[ext_resource type="Texture2D" uid="uid://266w7nwewg81" path="res://Graphics/System/battle/HP_T.png" id="4_320rw"]
+[ext_resource type="Texture2D" uid="uid://c5ns4ml14vhcg" path="res://Graphics/System/battle/HP_Bar.PNG" id="5_u13e3"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="6_w0xqw"]
+[ext_resource type="Texture2D" uid="uid://cc0ladkb8i30y" path="res://Graphics/System/battle/SP_T.png" id="7_5pvhh"]
+[ext_resource type="Texture2D" uid="uid://qf7k56bewjxc" path="res://Graphics/System/battle/SP_Bar.PNG" id="8_gl8ke"]
+
+[node name="BattleMemberStatus" type="Control" node_paths=PackedStringArray("face", "hpBar", "hpLabel", "mpBar", "mpLabel", "cpBar")]
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 8
+script = ExtResource("1_kepsv")
+face = NodePath("BackTexture/Face")
+hpBar = NodePath("BackTexture/LPBack/LPBar")
+hpLabel = NodePath("BackTexture/LPBack/LPLabel")
+mpBar = NodePath("BackTexture/MPBack/MPBar")
+mpLabel = NodePath("BackTexture/MPBack/MPLabel")
+cpBar = NodePath("BackTexture/BarContainer/CPBar")
+
+[node name="BackTexture" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(82, 32)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 82.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("2_ep4ky")
+
+[node name="Face" type="NinePatchRect" parent="BackTexture"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -30.0
+offset_right = 31.0
+offset_bottom = -6.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("3_dt8v8")
+
+[node name="LPBack" type="NinePatchRect" parent="BackTexture"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -37.0
+offset_right = 80.0
+offset_bottom = -21.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("4_320rw")
+
+[node name="LPBar" type="NinePatchRect" parent="BackTexture/LPBack"]
+custom_minimum_size = Vector2(31, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 47.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("5_u13e3")
+
+[node name="LPLabel" type="Label" parent="BackTexture/LPBack"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -9.0
+offset_right = -4.0
+offset_bottom = 7.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("6_w0xqw")
+text = "250"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MPBack" type="NinePatchRect" parent="BackTexture"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -26.0
+offset_right = 80.0
+offset_bottom = -10.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("7_5pvhh")
+
+[node name="MPBar" type="NinePatchRect" parent="BackTexture/MPBack"]
+custom_minimum_size = Vector2(31, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 47.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("8_gl8ke")
+
+[node name="MPLabel" type="Label" parent="BackTexture/MPBack"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -9.0
+offset_right = -4.0
+offset_bottom = 7.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("6_w0xqw")
+text = "250"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BarContainer" type="Control" parent="BackTexture"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CPBar" type="ColorRect" parent="BackTexture/BarContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 1)

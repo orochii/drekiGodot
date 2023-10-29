@@ -10,20 +10,37 @@ var battle:BattleManager
 var atbValue:float
 var currentAction:BattleAction = null
 
+func getScreenPosition():
+	return battle.posToScreen(self.global_position)
+func getScreenSize() -> Vector2:
+	return graphic.region_rect.size
+func getSize() -> Vector2:
+	return getScreenSize() * graphic.pixel_size
+
 func setup(_battler:GameBattler):
 	battler = _battler
 	graphic.spritesheet = _battler.getBattleGraphic()
 
 func _process(delta):
+	# TODO:
+	# - Movement
 	pass
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
-	atbValue += (0.5 + ownAgi / avgSpeed) * delta
-	print(atbValue)
+	var avgFactor = ownAgi * 1.0 / avgSpeed
+	var addValue = (0.5 + avgFactor) * delta
+	if battler is GameEnemy && Global.Config.activeBattle:
+		addValue *= 0.8
+	atbValue += addValue
+	if atbValue>ATB_MAX: atbValue=ATB_MAX
 
 func isAtbFull():
-	return atbValue > ATB_MAX
+	return atbValue >= ATB_MAX
+
+func endTurn():
+	atbValue = 0
+	currentAction = null
 
 func pickAction():
 	var actionScript:ActionScript = battler.pickActionScript()
@@ -35,6 +52,10 @@ func pickAction():
 		currentAction.targetIdx = 0
 	else:
 		currentAction = actionScript.makeDecision(self)
+
+func pickAutoaction():
+	var actionScript:ActionScript = ActionScript.new()
+	currentAction = actionScript.makeDecision(self)
 
 func getEnemies(state:Global.ETargetState):
 	var ary:Array[Battler] = []

@@ -1,13 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=20 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattlePartyStatus.gd" id="5_lf6n2"]
+[ext_resource type="PackedScene" uid="uid://uderfa3lt408" path="res://Objects/battle/battle_member_status.tscn" id="6_ew4k2"]
+[ext_resource type="Texture2D" uid="uid://cle0vtsocv4iu" path="res://Graphics/_REF_/2023-10-29_121101_091.png" id="7_31nwu"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattlerStatusManager.gd" id="7_vcc71"]
+[ext_resource type="PackedScene" uid="uid://d1mnishqtv15n" path="res://Objects/battle/battler_status_hud.tscn" id="8_m4x0d"]
+[ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="9_6y5ss"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="9_ol241"]
+[ext_resource type="Texture2D" uid="uid://doje8qka66pja" path="res://Graphics/System/battle/element_background.png" id="10_vkifn"]
+[ext_resource type="Texture2D" uid="uid://b15twoiikwfyu" path="res://Graphics/System/battle/actionIcon_action.png" id="11_ey1mi"]
+[ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="12_epljo"]
+[ext_resource type="Texture2D" uid="uid://fo3w6qcsqbr" path="res://Graphics/System/battle/actionIcon_item.png" id="13_p82oe"]
+[ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="13_xug2n"]
+[ext_resource type="Texture2D" uid="uid://bu33fnk204iqb" path="res://Graphics/System/battle/actionIcon_wait.png" id="14_vmfkj"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop")]
+[sub_resource type="QuadMesh" id="QuadMesh_jbevs"]
+size = Vector2(320, -240)
+center_offset = Vector3(480, 270, 0)
+
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_b4hq5")
@@ -16,6 +33,8 @@ battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/Allies")
 troop = NodePath("SubViewportContainer/SubViewport/Enemies")
 partyPositionOffset = Vector3(1, 0, 4)
+partyStatus = NodePath("BattleUI/PartyStatus")
+battlerStatus = NodePath("BattleUI/BattlerStatus")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -55,3 +74,278 @@ script = ExtResource("4_bpma2")
 battleManager = NodePath("../../../..")
 drawOffset = Vector2(12, 12)
 drawScale = 5.0
+
+[node name="BattleUI" type="Control" parent="."]
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BattlerStatus" type="Control" parent="BattleUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_vcc71")
+statusTemplate = ExtResource("8_m4x0d")
+
+[node name="PartyStatus" type="Control" parent="BattleUI" node_paths=PackedStringArray("container")]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_lf6n2")
+container = NodePath("VBoxContainer")
+memberStatusTemplate = ExtResource("6_ew4k2")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="BattleUI/PartyStatus"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -1
+
+[node name="ActorCommand" type="Control" parent="BattleUI"]
+custom_minimum_size = Vector2(128, 96)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Window" type="Control" parent="BattleUI/ActorCommand"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="Back" type="NinePatchRect" parent="BattleUI/ActorCommand/Window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="BattleUI/ActorCommand/Window"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="BattleUI/ActorCommand/Window"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BattleUI/ActorCommand/Window/Contents"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "Use a weapon or ability."
+vertical_alignment = 1
+
+[node name="Action" type="TextureButton" parent="BattleUI/ActorCommand"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -61.0
+offset_right = -22.0
+offset_bottom = -45.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+texture_normal = ExtResource("10_vkifn")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BattleUI/ActorCommand/Action"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("11_ey1mi")
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Label" type="Label" parent="BattleUI/ActorCommand/Action"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Action"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inventory" type="TextureButton" parent="BattleUI/ActorCommand"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -47.0
+offset_right = -10.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+texture_normal = ExtResource("10_vkifn")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BattleUI/ActorCommand/Inventory"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("13_p82oe")
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Label" type="Label" parent="BattleUI/ActorCommand/Inventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wait" type="TextureButton" parent="BattleUI/ActorCommand"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -33.0
+offset_right = 2.0
+offset_bottom = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+texture_normal = ExtResource("10_vkifn")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BattleUI/ActorCommand/Wait"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("14_vmfkj")
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Label" type="Label" parent="BattleUI/ActorCommand/Wait"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "◄ Wait ►"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Escape" type="TextureButton" parent="BattleUI/ActorCommand"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -19.0
+offset_right = 2.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+texture_normal = ExtResource("10_vkifn")
+
+[node name="Sprite2D" type="Sprite2D" parent="BattleUI/ActorCommand/Escape"]
+texture = ExtResource("12_epljo")
+centered = false
+script = ExtResource("13_xug2n")
+bindName = &"cycle_left"
+
+[node name="Sprite2D2" type="Sprite2D" parent="BattleUI/ActorCommand/Escape"]
+position = Vector2(16, 0)
+texture = ExtResource("12_epljo")
+centered = false
+script = ExtResource("13_xug2n")
+bindName = &"cycle_right"
+
+[node name="Label" type="Label" parent="BattleUI/ActorCommand/Escape"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Run"
+vertical_alignment = 1
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+self_modulate = Color(1, 0.667175, 0.974754, 0.25098)
+mesh = SubResource("QuadMesh_jbevs")
+texture = ExtResource("7_31nwu")

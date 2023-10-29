@@ -11,4 +11,6 @@ class_name UseableItem
 @export var canUse : Global.EUsePermit
 
 @export_category("Effect")
+@export var startSequence : Array[BaseEffect]
 @export var actionSequence : Array[BaseEffect]
+@export var endSequence : Array[BaseEffect]

@@ -65,6 +65,20 @@ func getStatusRate(s:Status):
 				rate *= statusAffinityFeature.getEffect()
 	return rate
 
+func getSortedStates():
+	var ary:Array[StatusState] = []
+	ary.append_array(states)
+	ary.sort_custom(_sort_states_by_priority)
+	return ary
+
+func _sort_states_by_priority(a:StatusState, b:StatusState):
+	# If true, b will be after
+	var aData = Global.Db.getStatus(a.id)
+	var bData = Global.Db.getStatus(b.id)
+	if aData.displayRating > bData.displayRating:
+		return true
+	return false
+
 func getName():
 	return ""
 func getMaxHP():
@@ -115,6 +129,8 @@ func getData():
 	return null
 
 func getBattleGraphic():
+	return null
+func getSmallFace():
 	return null
 
 func isDead():

@@ -1,7 +1,12 @@
 extends Resource
 class_name BaseEffect
 
-func execute():
+func execute(action:BattleAction):
+	# action.action
+	# action.battler
+	# action.repeatIdx
+	# action.remainingTimes
+	print("Someone is active! " + action.battler.getName())
 	pass
 
 # Planned actions

@@ -1,6 +1,10 @@
 extends Node3D
 class_name BattleManager
 
+enum EBattleResult {
+	NONE, WIN, LOSE, DRAW
+}
+
 @export var testTroop:EnemyTroop
 @export var camera:Camera3D
 @export var battlerTemplate:PackedScene
@@ -8,7 +12,12 @@ class_name BattleManager
 @export var troop:Node
 @export var partyPositionBase:Vector3 = Vector3(6,0,0)
 @export var partyPositionOffset:Vector3 = Vector3(0,0,1)
+@export var partyStatus:BattlePartyStatus
+@export var battlerStatus:BattlerStatusManager
 
+var test:bool = false
+var battleResult:EBattleResult = EBattleResult.NONE
+var waitingCount:float = 0.0
 var allBattlers:Array[Battler]
 var waitingBattlers:Array[Battler]
 var readyBattlers:Array[Battler]
@@ -16,7 +25,9 @@ var actionBattlers:Array[Battler]
 
 func _ready():
 	# For playtesting
-	if (Global.State.party == null): Global.newGame()
+	if (Global.State.party == null):
+		test = true
+		Global.newGame()
 	if (Global.State.currentTroop == null): Global.State.currentTroop = testTroop
 	# Play music
 	Global.Audio.rememberBGM(&"prebattle")
@@ -28,17 +39,53 @@ func _ready():
 	_createParty()
 	# 
 	waitingBattlers.append_array(allBattlers)
+	# Add a small wait to the start
+	waitingCount = 1.0
 
 func _process(delta):
 	if(Global.Scene.transitioning): return
+	if(battleResult != EBattleResult.NONE): return
+	# Debug
+	_doDebug()
+	
+	if(waitingCount > 0):
+		waitingCount -= delta
+		return
 	
 	# Battle process
 	# - Execute actions
 	if actionBattlers.size() != 0:
-		print("Someone is active! " + actionBattlers[0].battler.getName())
+		# TODO Action execution
+		var activeBattler:Battler = actionBattlers[0]
+		var currentAction:BattleAction = activeBattler.currentAction
+		activeBattler.currentAction = null
+		
+		if currentAction.action != null:
+			print("BATTLER: %s executes %s" % [activeBattler.battler.getName(), currentAction.action.name])
+			# resolve starting effects
+			var startEffects:Array[BaseEffect] = currentAction.resolveActionList(0)
+			for effect in startEffects:
+				await effect.execute(currentAction)
+			
+			# resolve action effects N times
+			currentAction.setRepeats()
+			while currentAction.repeatAvailable():
+				var effects:Array[BaseEffect] = currentAction.resolveActionList(1)
+				for effect in effects:
+					await effect.execute(currentAction)
+				currentAction.advanceRepeat()
+			
+			# resolve ending effects
+			var endEffects:Array[BaseEffect] = currentAction.resolveActionList(2)
+			for effect in endEffects:
+				await effect.execute(currentAction)
+		else:
+			print("BATTLER: %s waits." % [activeBattler.battler.getName()])
+		
+		endBattlerTurn(activeBattler)
 		return
 	
-	var deltaAtb = Global.Config.battleSpeed * delta
+	var deltaAtb = Global.Config.battleSpeed * delta / 10.0
 	# Battle process
 	# - Advance ATB and get battlers ready!
 	var avgSpeed = 0
@@ -59,20 +106,21 @@ func _process(delta):
 				if(b.battler.automatic()):
 					# Pick action
 					b.pickAction()
-					# Change to next battler array
-					readyBattlers.erase(b)
-					actionBattlers.append(b)
 			else:
 				# Ready autoaction
+				b.pickAutoaction()
+			if(b.currentAction != null):
 				# Change to next battler array
-				pass
+				readyBattlers.erase(b)
+				actionBattlers.append(b)
 		else:
-			b.atbValue = 0
-			readyBattlers.erase(b)
-			waitingBattlers.append(b)
-	# Debug
-	_doDebug()
+			endBattlerTurn(b)
 
+func endBattlerTurn(b:Battler):
+	b.endTurn()
+	readyBattlers.erase(b)
+	actionBattlers.erase(b)
+	waitingBattlers.append(b)
 #
 func _playBattleMusic():
 	var currentMusic:SystemAudioEntry = _resolveBattleMusic()
@@ -101,6 +149,8 @@ func _createParty():
 		inst.global_position = startingPosition + (partyPositionOffset * i)
 		inst.global_rotation_degrees = Vector3(0, -90, 0)
 		allBattlers.append(inst)
+		partyStatus.setup(inst)
+		battlerStatus.setup(inst,false)
 
 func _createTroop():
 	var _troopData:EnemyTroop = Global.State.currentTroop
@@ -116,9 +166,20 @@ func _createTroop():
 		inst.global_position = entry.position
 		inst.global_rotation_degrees = Vector3(0, 90, 0)
 		allBattlers.append(inst)
+		battlerStatus.setup(inst,true)
 
 func _doDebug():
 	if(Input.is_action_just_pressed("action_cancel")):
-		print("END?")
-		Global.Audio.restoreBGM(&"prebattle")
-		Global.Scene.endBattle()
+		battleEnd(EBattleResult.DRAW)
+
+func battleEnd(result:EBattleResult):
+	battleResult = result
+	Global.Audio.restoreBGM(&"prebattle")
+	Global.Scene.endBattle()
+	if(test): Global.Scene.quit()
+
+func posToScreen(pos : Vector3) -> Vector2:
+	return camera.unproject_position(pos)
+
+func screenSize() -> Vector2:
+	return get_viewport().get_visible_rect().size

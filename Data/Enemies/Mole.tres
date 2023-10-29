@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://cn4v6tsk48ile"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=5 format=3 uid="uid://cn4v6tsk48ile"]
 
 [ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_thtna"]
+
+[sub_resource type="Resource" id="Resource_2t7cd"]
+script = ExtResource("1_thtna")
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
 
 [resource]
 script = ExtResource("1_i0uq7")
@@ -12,13 +18,13 @@ battleSprite = ExtResource("1_dqtx7")
 gender = 2
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 level = 1
-mhp = 0
-mmp = 0
-str = 0
-vit = 0
-mag = 0
-agi = 0
-actions = Array[Resource("res://Core/Data/ActionScript/ActionScript.gd")]([])
+mhp = 32
+mmp = 5
+str = 40
+vit = 42
+mag = 5
+agi = 10
+actions = Array[ExtResource("1_thtna")]([SubResource("Resource_2t7cd")])
 rewardExp = 5
 rewardGold = 3
 rewardItems = Array[Resource("res://Core/Data/Items/BaseItem.gd")]([])

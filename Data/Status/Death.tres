@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="Status" load_steps=2 format=3 uid="uid://c8ma2t0gb3gc6"]
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://c8ma2t0gb3gc6"]
 
+[ext_resource type="Texture2D" uid="uid://dp76dos0endp6" path="res://Graphics/Icons/states/st_01.png" id="1_53exu"]
 [ext_resource type="Script" path="res://Core/Data/Status.gd" id="1_54gpo"]
 
 [resource]
 script = ExtResource("1_54gpo")
-name = ""
-description = ""
-displayRating = 0
-flags = 0
-restriction = 0
+name = "Death"
+description = ":shrug:"
+icon = ExtResource("1_53exu")
+displayRating = 11
+flags = 10
+restriction = 7
 eotActivation = 0
 eotInterval = 0
 eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
