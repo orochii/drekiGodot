@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://dnqs3rt1qdyyg"]
+
+[ext_resource type="Texture2D" uid="uid://o8d6g50dqew0" path="res://Graphics/Icons/states/st_03.png" id="1_c6mo7"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="2_uwr12"]
+
+[resource]
+script = ExtResource("2_uwr12")
+name = "Frozen"
+description = ":shrug: 3"
+icon = ExtResource("1_c6mo7")
+displayRating = 0
+flags = 10
+restriction = 7
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+statusRemove = Array[ExtResource("2_uwr12")]([])
+releaseAtBattleEnd = false
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

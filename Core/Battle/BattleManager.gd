@@ -31,11 +31,18 @@ func _ready():
 
 func _process(delta):
 	if(Global.Scene.transitioning): return
+	
+	# Battle process
+	# - Execute actions
+	if actionBattlers.size() != 0:
+		
+		return
+	
 	var deltaAtb = Global.Config.battleSpeed * delta
 	# Battle process
 	# - Advance ATB and get battlers ready!
 	var avgSpeed = 0
-	for b in allBattlers: avgSpeed += b._battler.getAgi()
+	for b in allBattlers: avgSpeed += b.battler.getAgi()
 	avgSpeed /= allBattlers.size() * 2
 	for b in waitingBattlers:
 		b.updateAtb(deltaAtb,avgSpeed)
@@ -45,16 +52,26 @@ func _process(delta):
 	
 	# Battle process
 	# - Automatic actions for ready battlers.
-	
-	# Battle process
-	# - Execute actions
-	
-	
+	for b in readyBattlers:
+		if(b.battler.canAct()):
+			if(b.battler.inputable()):
+				# Let enemies do their thing
+				if(b.battler.automatic()):
+					# Pick action
+					b.pickAction()
+					# Change to next battler array
+					readyBattlers.erase(b)
+					actionBattlers.append(b)
+			else:
+				# Ready autoaction
+				# Change to next battler array
+				pass
+		else:
+			b.atbValue = 0
+			readyBattlers.erase(b)
+			waitingBattlers.append(b)
 	# Debug
-	if(Input.is_action_just_pressed("action_cancel")):
-		print("END?")
-		Global.Audio.restoreBGM(&"prebattle")
-		Global.Scene.endBattle()
+	_doDebug()
 
 #
 func _playBattleMusic():
@@ -79,6 +96,7 @@ func _createParty():
 		var actor = Global.State.getActor(m)
 		var inst:Battler = battlerTemplate.instantiate()
 		party.add_child(inst)
+		inst.battle = self
 		inst.setup(actor)
 		inst.global_position = startingPosition + (partyPositionOffset * i)
 		inst.global_rotation_degrees = Vector3(0, -90, 0)
@@ -93,7 +111,14 @@ func _createTroop():
 		var enemy = GameEnemy.new(entry.enemy.getId())
 		var inst:Battler = battlerTemplate.instantiate()
 		party.add_child(inst)
+		inst.battle = self
 		inst.setup(enemy)
 		inst.global_position = entry.position
 		inst.global_rotation_degrees = Vector3(0, 90, 0)
 		allBattlers.append(inst)
+
+func _doDebug():
+	if(Input.is_action_just_pressed("action_cancel")):
+		print("END?")
+		Global.Audio.restoreBGM(&"prebattle")
+		Global.Scene.endBattle()

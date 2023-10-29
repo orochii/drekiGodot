@@ -33,6 +33,13 @@ enum EUsePermit { BATTLE, MAP, ANYWHERE }
 # while NoMagic is for sealing off magic specifically
 enum ERestriction { None, NoHands, NoMove, NoMagic, AttackAnyone, AttackEnemy, AttackAlly, CantMove }
 
+enum EStatusFlags {
+	NON_RESISTANCE = 1,
+	INCAPACITATED = 2,
+	NO_EXP = 4,
+	NO_EVADE = 8
+}
+
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database

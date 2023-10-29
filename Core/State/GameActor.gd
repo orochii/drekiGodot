@@ -251,3 +251,13 @@ func _deserializeStates(data:Array):
 		var ss = StatusState.new()
 		ss._deserialize(s)
 		states.append(ss)
+
+func automatic():
+	return false
+func isEnemy(other:GameBattler):
+	if other is GameEnemy:
+		return true
+	return false
+
+func getActionScriptList() -> Array[ActionScript]:
+	return [ActionScript.new()]

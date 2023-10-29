@@ -38,3 +38,12 @@ func getData():
 
 func getBattleGraphic():
 	return getData().battleSprite
+
+func isEnemy(other:GameBattler):
+	if other is GameActor:
+		return true
+	return false
+
+func getActionScriptList() -> Array[ActionScript]:
+	var enemy:Enemy = getData()
+	return enemy.actions

@@ -10,6 +10,61 @@ var states : Array[StatusState]
 func getFeatures():
 	return []
 
+func changeHP(val:int):
+	currHP = clampi(currHP + val, 0, getMaxHP())
+	var deathStatus = Global.Db.getStatus("Death")
+	if currHP == 0:
+		# Add death
+		addStatus(deathStatus,true)
+	else:
+		removeStatus(deathStatus)
+
+func changeMP(val:int):
+	currMP = clampi(currMP + val, 0, getMaxHP())
+	var deathStatus = Global.Db.getStatus("Dry")
+	if currMP == 0:
+		# Add death
+		addStatus(deathStatus,true)
+	else:
+		removeStatus(deathStatus)
+
+func hasStatus(s:Status):
+	var sid = s.getId()
+	for ss in states:
+		if ss.id == sid:
+			return ss
+	return null
+
+func addStatus(s:Status,force:bool=false):
+	var ss = hasStatus(s)
+	var rate = getStatusRate(s)
+	if (force || rate > randf()):
+		if ss == null: # Doesn't have status
+			ss = StatusState.new()
+			ss.id = s.getId()
+			ss.turns = 0
+			ss.stack = 1
+			states.append(ss)
+		else: # Does have status
+			ss.stack = clampi(ss.stack+1, 1, 3)
+		for rs in s.statusRemove:
+			removeStatus(rs)
+
+func removeStatus(s:Status):
+	var ss = hasStatus(s)
+	if ss != null:
+		states.erase(ss)
+
+func getStatusRate(s:Status):
+	var rate = 1.0
+	var features = getFeatures()
+	for f in features:
+		if f is StatusAffinityFeature:
+			var statusAffinityFeature = f as StatusAffinityFeature
+			if statusAffinityFeature.status == s:
+				rate *= statusAffinityFeature.getEffect()
+	return rate
+
 func getMaxHP():
 	return applyFeatureStatChange(getBaseMaxHP(), Global.Stat.HP)
 func getMaxMP():
@@ -60,6 +115,12 @@ func getData():
 func getBattleGraphic():
 	return null
 
+func isDead():
+	#for s in states:
+	#	var data:Status = Global.Db.getStatus(s.id)
+	#	if (data.flags & Global.EStatusFlags.INCAPACITATED) != 0: return false
+	return currHP == 0
+
 func inputable():
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
@@ -75,3 +136,32 @@ func hasRestriction(r:Global.ERestriction):
 		var data:Status = Global.Db.getStatus(s.id)
 		if data.restriction == r: return true
 	return false
+
+func automatic():
+	return true
+func isEnemy(other:GameBattler):
+	return false
+
+func getActionScriptList() -> Array[ActionScript]:
+	return [ActionScript.new()]
+func pickActionScript() -> ActionScript:
+	var actions = getActionScriptList()
+	if actions.size() == 0:
+		return null
+	var validActions:Array[ActionScript] = []
+	var maxPriority = 0
+	for a in actions:
+		var valid = true
+		for c in a.conditions:
+			if !c.evaluate():
+				valid = false
+				break
+		if valid:
+			validActions.append(a)
+			if(maxPriority < a.priority): maxPriority = a.priority
+	var minPriority = maxPriority - 3
+	var prioritizedActions:Array[ActionScript] = []
+	for a in validActions:
+		if a.priority >= minPriority: prioritizedActions.append(a)
+	var rIdx = randi()%prioritizedActions.size()
+	return prioritizedActions[rIdx]

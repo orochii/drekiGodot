@@ -23,7 +23,7 @@ class_name Enemy
 @export var agi : int
 
 @export_group("Actions")
-@export var actions : Array[EnemyScript]
+@export var actions : Array[ActionScript]
 
 @export_group("Rewards")
 @export var rewardExp : int

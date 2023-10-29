@@ -8,7 +8,7 @@ class_name Status
 @export var displayRating : int
 
 @export_category("Behavior")
-@export_flags("Non Resistance", "HP0", "No EXP", "No Evade") var flags = 0
+@export_flags("Non Resistance", "Incapacitated", "No EXP", "No Evade") var flags = 0
 @export var restriction : Global.ERestriction # None, NoMagic, AtkEnemy, AtkAlly, CantMove
 
 @export_category("Effects over Time")
@@ -25,3 +25,10 @@ class_name Status
 @export_range(0,1) var releaseOnDamageReceived : float
 @export var releaseOnTurnsElapsed : int
 @export_range(0,1) var releaseOnTurnsElapsedRate : float
+
+func getId():
+	# res://Data/Status/Death.tres
+	var len = resource_path.length()
+	var dirlen = "res://Data/Status/".length()
+	var extlen = ".tres".length()
+	return resource_path.substr(dirlen, len-dirlen-extlen)
