@@ -8,6 +8,10 @@ func _init(_id:StringName):
 	currHP = getMaxHP()
 	currMP = getMaxMP()
 
+func getName():
+	var enemy:Enemy = getData()
+	return enemy.name
+
 func getFeatures():
 	var enemy:Enemy = getData()
 	var features = []

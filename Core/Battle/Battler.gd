@@ -11,7 +11,7 @@ var atbValue:float
 var currentAction:BattleAction = null
 
 func setup(_battler:GameBattler):
-	battler = battler
+	battler = _battler
 	graphic.spritesheet = _battler.getBattleGraphic()
 
 func _process(delta):
@@ -20,13 +20,21 @@ func _process(delta):
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
 	atbValue += (0.5 + ownAgi / avgSpeed) * delta
+	print(atbValue)
 
 func isAtbFull():
 	return atbValue > ATB_MAX
 
 func pickAction():
 	var actionScript:ActionScript = battler.pickActionScript()
-	currentAction = actionScript.makeDecision(self)
+	if actionScript==null:
+		currentAction = BattleAction.new()
+		currentAction.battler = self
+		currentAction.action = null
+		currentAction.scope = Global.ETargetScope.ONE
+		currentAction.targetIdx = 0
+	else:
+		currentAction = actionScript.makeDecision(self)
 
 func getEnemies(state:Global.ETargetState):
 	var ary:Array[Battler] = []

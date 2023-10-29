@@ -37,6 +37,9 @@ func _init(_id:StringName):
 	for learningSlot in actor.learningSlots:
 		learnSlot(learningSlot)
 
+func getName():
+	return name
+
 func getSkills():
 	var skills = []
 	var _slotData:Array[SlotData] = Global.Db.equipSlots

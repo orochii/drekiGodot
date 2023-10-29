@@ -27,7 +27,7 @@ func _ready():
 	_createTroop()
 	_createParty()
 	# 
-	waitingBattlers.append(allBattlers)
+	waitingBattlers.append_array(allBattlers)
 
 func _process(delta):
 	if(Global.Scene.transitioning): return
@@ -35,7 +35,7 @@ func _process(delta):
 	# Battle process
 	# - Execute actions
 	if actionBattlers.size() != 0:
-		
+		print("Someone is active! " + actionBattlers[0].battler.getName())
 		return
 	
 	var deltaAtb = Global.Config.battleSpeed * delta
@@ -110,7 +110,7 @@ func _createTroop():
 		entry.position
 		var enemy = GameEnemy.new(entry.enemy.getId())
 		var inst:Battler = battlerTemplate.instantiate()
-		party.add_child(inst)
+		troop.add_child(inst)
 		inst.battle = self
 		inst.setup(enemy)
 		inst.global_position = entry.position

@@ -65,6 +65,8 @@ func getStatusRate(s:Status):
 				rate *= statusAffinityFeature.getEffect()
 	return rate
 
+func getName():
+	return ""
 func getMaxHP():
 	return applyFeatureStatChange(getBaseMaxHP(), Global.Stat.HP)
 func getMaxMP():
