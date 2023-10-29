@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="AudioData" load_steps=27 format=3 uid="uid://c0ykl7muh1eoh"]
+[gd_resource type="Resource" script_class="AudioData" load_steps=29 format=3 uid="uid://c0ykl7muh1eoh"]
 
 [ext_resource type="Script" path="res://Core/Audio/AudioData.gd" id="1_djncj"]
 [ext_resource type="AudioStream" uid="uid://lvdlu5oe5wrm" path="res://Audio/SFX/foot/foot_moving0.ogg" id="1_lj0py"]
+[ext_resource type="AudioStream" uid="uid://d1enyy3xj0c13" path="res://Audio/BGM/[Conflict] Dance of Blades.ogg" id="1_vbv3q"]
 [ext_resource type="AudioStream" uid="uid://jcibj063fo80" path="res://Audio/SFX/foot/foot_moving1.ogg" id="2_5pp6k"]
 [ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_c0kmo"]
 [ext_resource type="AudioStream" uid="uid://d0hh0pvx7wnem" path="res://Audio/SFX/select.ogg" id="2_j75sv"]
@@ -15,6 +16,13 @@
 [ext_resource type="AudioStream" uid="uid://pkphrpukxryr" path="res://Audio/SFX/smithey.ogg" id="7_4sybj"]
 [ext_resource type="AudioStream" uid="uid://loptenrkxkbb" path="res://Audio/SFX/space_blaster.ogg" id="8_b0sg2"]
 [ext_resource type="AudioStream" uid="uid://dnv6mqsq8b3tf" path="res://Audio/SFX/glass.ogg" id="9_d6xdj"]
+
+[sub_resource type="Resource" id="Resource_dv6ya"]
+script = ExtResource("2_c0kmo")
+name = &""
+stream = ExtResource("1_vbv3q")
+volume = 1.0
+pitch = 1.0
 
 [sub_resource type="Resource" id="Resource_65yqc"]
 script = ExtResource("5_pevc5")
@@ -94,3 +102,4 @@ script = ExtResource("1_djncj")
 loops = Array[Resource("res://Core/Audio/LoopData.gd")]([])
 systemSFX = Array[ExtResource("2_c0kmo")]([SubResource("Resource_p62hq"), SubResource("Resource_griox"), SubResource("Resource_lbqx6"), SubResource("Resource_t6rok"), SubResource("Resource_3mbp2"), SubResource("Resource_ypw3a"), SubResource("Resource_0x0di"), SubResource("Resource_yel7k"), SubResource("Resource_ryy3b")])
 events = Array[ExtResource("5_pevc5")]([SubResource("Resource_65yqc"), SubResource("Resource_xpip1")])
+defaultBattleMusic = Array[ExtResource("2_c0kmo")]([SubResource("Resource_dv6ya")])

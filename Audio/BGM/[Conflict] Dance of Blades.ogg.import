@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d1enyy3xj0c13"
+path="res://.godot/imported/[Conflict] Dance of Blades.ogg-5d2583f022dd9f17a0cb772a269385ba.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/BGM/[Conflict] Dance of Blades.ogg"
+dest_files=["res://.godot/imported/[Conflict] Dance of Blades.ogg-5d2583f022dd9f17a0cb772a269385ba.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

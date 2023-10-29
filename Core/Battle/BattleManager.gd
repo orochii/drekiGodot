@@ -9,15 +9,67 @@ class_name BattleManager
 @export var partyPositionBase:Vector3 = Vector3(6,0,0)
 @export var partyPositionOffset:Vector3 = Vector3(0,0,1)
 
+var allBattlers:Array[Battler]
+var waitingBattlers:Array[Battler]
+var readyBattlers:Array[Battler]
+var actionBattlers:Array[Battler]
+
 func _ready():
+	# For playtesting
 	if (Global.State.party == null): Global.newGame()
-	# Create scenario
-	# Get current troop from state
 	if (Global.State.currentTroop == null): Global.State.currentTroop = testTroop
+	# Play music
+	Global.Audio.rememberBGM(&"prebattle")
+	_playBattleMusic()
+	# Create scenario
+	# TODO
 	# Create battlers
 	_createTroop()
 	_createParty()
-	pass # Replace with function body.
+	# 
+	waitingBattlers.append(allBattlers)
+
+func _process(delta):
+	if(Global.Scene.transitioning): return
+	var deltaAtb = Global.Config.battleSpeed * delta
+	# Battle process
+	# - Advance ATB and get battlers ready!
+	var avgSpeed = 0
+	for b in allBattlers: avgSpeed += b._battler.getAgi()
+	avgSpeed /= allBattlers.size() * 2
+	for b in waitingBattlers:
+		b.updateAtb(deltaAtb,avgSpeed)
+		if(b.isAtbFull()):
+			waitingBattlers.erase(b)
+			readyBattlers.append(b)
+	
+	# Battle process
+	# - Automatic actions for ready battlers.
+	
+	# Battle process
+	# - Execute actions
+	
+	
+	# Debug
+	if(Input.is_action_just_pressed("action_cancel")):
+		print("END?")
+		Global.Audio.restoreBGM(&"prebattle")
+		Global.Scene.endBattle()
+
+#
+func _playBattleMusic():
+	var currentMusic:SystemAudioEntry = _resolveBattleMusic()
+	if currentMusic==null:
+		Global.Audio.stopBGM()
+	else:
+		Global.Audio.playBGM(currentMusic.getStreamName(), currentMusic.volume, currentMusic.pitch)
+
+func _resolveBattleMusic() -> SystemAudioEntry:
+	if Global.Audio.audioData.defaultBattleMusic.size() != 0:
+		return Global.Audio.audioData.defaultBattleMusic[0]
+	if Global.State.currentTroop.battleMusic.size() != 0:
+		return Global.State.currentTroop.battleMusic[0]
+	return null
 
 func _createParty():
 	var members : Array = Global.State.party.members
@@ -30,6 +82,7 @@ func _createParty():
 		inst.setup(actor)
 		inst.global_position = startingPosition + (partyPositionOffset * i)
 		inst.global_rotation_degrees = Vector3(0, -90, 0)
+		allBattlers.append(inst)
 
 func _createTroop():
 	var _troopData:EnemyTroop = Global.State.currentTroop
@@ -43,8 +96,4 @@ func _createTroop():
 		inst.setup(enemy)
 		inst.global_position = entry.position
 		inst.global_rotation_degrees = Vector3(0, 90, 0)
-
-func _process(delta):
-	if(Input.is_action_just_pressed("action_cancel")):
-		print("END?")
-		Global.Scene.endBattle()
+		allBattlers.append(inst)

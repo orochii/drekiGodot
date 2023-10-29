@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3bt0yfvvxmdj"]
+[gd_scene load_steps=17 format=3 uid="uid://b3bt0yfvvxmdj"]
 
 [ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
 [ext_resource type="Shader" path="res://Core/Shaders/TextureFader.gdshader" id="2_bs647"]
 [ext_resource type="PackedScene" uid="uid://shd0vii63ajl" path="res://Scenes/battle.tscn" id="2_yqp68"]
 [ext_resource type="Texture2D" uid="uid://fvwpxyaylqgv" path="res://Graphics/Transitions/squares.png" id="3_u07fv"]
+[ext_resource type="PackedScene" uid="uid://dx40wqlccbhts" path="res://Scenes/breakscreen_transition_test.tscn" id="5_4e0cv"]
+[ext_resource type="AudioStream" uid="uid://bs3fquwc8bya5" path="res://Audio/SFX/drum.ogg" id="5_yxdoo"]
+[ext_resource type="AudioStream" uid="uid://dnv6mqsq8b3tf" path="res://Audio/SFX/glass.ogg" id="6_0qm8y"]
 
 [sub_resource type="Gradient" id="Gradient_k0mpe"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -36,6 +39,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("breakscreen_transition_test:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_liscs"]
 resource_name = "execute"
@@ -63,14 +90,86 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.0, 0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("breakscreen_transition_test:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qqseo"]
+resource_name = "break"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("breakscreen_transition_test:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.002, 0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("breakscreen_transition_test:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_yxdoo")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_0qm8y")
+}],
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i4l1k"]
 _data = {
 "RESET": SubResource("Animation_0q6v2"),
+"break": SubResource("Animation_qqseo"),
 "execute": SubResource("Animation_liscs")
 }
 
-[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover", "transition", "transitionPlayer")]
+[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover", "transition", "breakScreen", "transitionPlayer")]
 process_mode = 3
 z_index = 1000
 layout_mode = 3
@@ -82,6 +181,7 @@ grow_vertical = 2
 script = ExtResource("1_qvwbx")
 cover = NodePath("Fader")
 transition = NodePath("Transition")
+breakScreen = NodePath("breakscreen_transition_test")
 transitionPlayer = NodePath("TransitionPlayer")
 battleSceneTemplate = ExtResource("2_yqp68")
 
@@ -110,5 +210,14 @@ texture = SubResource("GradientTexture1D_8gymi")
 libraries = {
 "": SubResource("AnimationLibrary_i4l1k")
 }
+
+[node name="breakscreen_transition_test" parent="." instance=ExtResource("5_4e0cv")]
+visible = false
+layout_mode = 1
+rotationMagnitude = 40.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_0qm8y")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="TransitionPlayer" to="." method="_on_transition_player_animation_finished"]

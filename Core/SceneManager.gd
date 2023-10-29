@@ -8,6 +8,7 @@ signal onBattleEnd()
 
 @export var cover : TextureRect
 @export var transition : TextureRect
+@export var breakScreen : BreakScreen_Transition
 @export var transitionPlayer : AnimationPlayer
 @export var battleSceneTemplate : PackedScene
 
@@ -64,19 +65,24 @@ func transfer(newMap):
 	transferring = false
 
 func callBattle(troop:EnemyTroop):
+	breakScreenTransition()
+	await get_tree().process_frame
 	Global.State.currentTroop = troop
 	battleInstance = battleSceneTemplate.instantiate()
 	Global.get_parent().add_child(battleInstance)
 	askPause(battleInstance)
-	return onBattleEnd
+	await onBattleEnd
 
 func endBattle():
 	if(battleInstance == null): return
+	fadeOut(TRANSFER_FADE_LEN)
+	await onFadeEnd
 	battleInstance.queue_free()
 	askUnpause(battleInstance)
 	battleInstance = null
+	fadeIn(TRANSFER_FADE_LEN)
+	await onFadeEnd
 	onBattleEnd.emit()
-	print("ASD")
 
 func toTitle():
 	Global.Audio.fadeOutBGM(0.5)
@@ -125,6 +131,16 @@ func performTransition():
 	transition.visible = true
 	transitionPlayer.speed_scale = 4
 	transitionPlayer.play("execute")
+	askPause(self)
+
+func breakScreenTransition():
+	if(transitioning):return
+	transitioning = true
+	var img = get_viewport().get_texture().get_image()
+	var tex = ImageTexture.create_from_image(img)
+	breakScreen.setTexture(tex)
+	transitionPlayer.speed_scale = 1
+	transitionPlayer.play("break")
 	askPause(self)
 
 func _on_transition_player_animation_finished(anim_name):

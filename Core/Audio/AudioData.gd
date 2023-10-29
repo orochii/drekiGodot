@@ -4,6 +4,8 @@ class_name AudioData
 @export var loops : Array[LoopData] = []
 @export var systemSFX : Array[SystemAudioEntry]
 @export var events : Array[AudioEvent]
+@export_group("Music")
+@export var defaultBattleMusic : Array[SystemAudioEntry]
 
 var initialized : bool = false
 var dict : Dictionary
