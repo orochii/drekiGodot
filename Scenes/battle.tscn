@@ -244,6 +244,7 @@ theme = ExtResource("9_ol241")
 texture_normal = ExtResource("10_vkifn")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="BattleUI/ActorCommand/Inventory"]
+layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 texture = ExtResource("13_p82oe")
@@ -281,6 +282,7 @@ theme = ExtResource("9_ol241")
 texture_normal = ExtResource("10_vkifn")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="BattleUI/ActorCommand/Wait"]
+layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 texture = ExtResource("14_vmfkj")
