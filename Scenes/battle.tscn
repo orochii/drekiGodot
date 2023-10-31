@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=43 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -40,6 +40,38 @@
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ccex3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_lcu0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_547wg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_teiob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_r0utk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_wrpa2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_d5se2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_v5dwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_taie0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ane6s"]
 animations = [{
@@ -172,7 +204,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "buttons", "waitButton", "cursor")]
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
 anchors_preset = 12
@@ -183,6 +215,9 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("9_mkxs7")
 battle = NodePath("../..")
+buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
+waitButton = NodePath("Wait")
+cursor = NodePath("AnimatedSprite2D")
 
 [node name="Window" type="Control" parent="BattleUI/ActorCommand"]
 custom_minimum_size = Vector2(0, 32)
@@ -401,6 +436,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Run"
 vertical_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BattleUI/ActorCommand"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ccex3")
+offset = Vector2(-16, -6)
 
 [node name="ActorSkillSelect" type="Control" parent="BattleUI"]
 visible = false
@@ -1040,3 +1081,7 @@ visible = false
 self_modulate = Color(1, 0.667175, 0.974754, 0.25098)
 mesh = SubResource("QuadMesh_jbevs")
 texture = ExtResource("34_83ru8")
+
+[connection signal="pressed" from="BattleUI/ActorCommand/Action" to="BattleUI/ActorCommand" method="_on_action_pressed"]
+[connection signal="pressed" from="BattleUI/ActorCommand/Inventory" to="BattleUI/ActorCommand" method="_on_inventory_pressed"]
+[connection signal="pressed" from="BattleUI/ActorCommand/Wait" to="BattleUI/ActorCommand" method="_on_wait_pressed"]
