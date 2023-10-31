@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=45 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="23_wrpa2"]
 [ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="24_d5se2"]
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="25_v5dwb"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleActorSkillSelect.gd" id="26_2f8um"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="26_taie0"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="27_hnp7d"]
 [ext_resource type="Texture2D" uid="uid://cc0ladkb8i30y" path="res://Graphics/System/battle/SP_T.png" id="28_3jgu6"]
@@ -206,7 +207,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "buttons", "waitButton", "cursor")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "buttons", "waitButton", "cursor", "skillSelect")]
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
 anchors_preset = 12
@@ -220,6 +221,7 @@ battle = NodePath("../..")
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
 cursor = NodePath("AnimatedSprite2D")
+skillSelect = NodePath("../ActorSkillSelect")
 
 [node name="Window" type="Control" parent="BattleUI/ActorCommand"]
 custom_minimum_size = Vector2(0, 32)
@@ -445,7 +447,7 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ccex3")
 offset = Vector2(-16, -6)
 
-[node name="ActorSkillSelect" type="Control" parent="BattleUI"]
+[node name="ActorSkillSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("skillList", "helpText", "actorCommand")]
 visible = false
 custom_minimum_size = Vector2(0, 136)
 layout_mode = 1
@@ -455,6 +457,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("26_2f8um")
+skillList = NodePath("SkillList")
+helpText = NodePath("HelpWindow/Content/RichTextLabel")
+actorCommand = NodePath("../ActorCommand")
 
 [node name="SkillList" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("container", "scroll", "cursor")]
 custom_minimum_size = Vector2(0, 80)
@@ -1086,6 +1092,7 @@ theme = ExtResource("9_ol241")
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
 
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
+visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 visible = false

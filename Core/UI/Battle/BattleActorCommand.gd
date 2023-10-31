@@ -7,6 +7,7 @@ const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
 @export var buttons:Array[BaseButton]
 @export var waitButton:BaseButton
 @export var cursor:AnimatedSprite2D
+@export var skillSelect:BattleActorSkillSelect
 
 var waitIdx = 0
 var originalButtonPositions:Array[Vector2]
@@ -55,9 +56,7 @@ func _setup(b:Battler):
 	print("%s set to command." % currentBattler.battler.getName())
 	visible = true
 	Global.Audio.playSFX("decision")
-	var idx = currentBattler.getLastIndex(&"command")
-	if(idx==null): idx = 0
-	buttons[idx].grab_focus()
+	selectLast()
 	var wIdx = currentBattler.getLastIndex(&"wait")
 	if wIdx==null:
 		_resetWait()
@@ -66,6 +65,11 @@ func _setup(b:Battler):
 func _unset():
 	currentBattler = null
 	visible = false
+
+func selectLast():
+	var idx = currentBattler.getLastIndex(&"command")
+	if(idx==null): idx = 0
+	buttons[idx].grab_focus()
 
 func positionCursor(focused:Node):
 	var found = false
@@ -87,6 +91,7 @@ func positionCursor(focused:Node):
 func _on_action_pressed():
 	Global.Audio.playSFX("decision")
 	currentBattler.setLastIndex(&"command", 0)
+	skillSelect.open()
 
 func _on_inventory_pressed():
 	Global.Audio.playSFX("decision")

@@ -24,11 +24,11 @@ func _process(delta):
 	else:
 		cursor.visible = false
 
-func setup(actor:GameActor):
+func setup(battler:GameBattler):
 	for e in entries: e.queue_free()
 	entries.clear()
-	if(actor==null): return
-	var skills = actor.getSkills()
+	if(battler==null): return
+	var skills = battler.getSkills()
 	for skill in skills:
 		var inst:SkillEntry = skillEntryTemplate.instantiate()
 		inst.setup(skill)

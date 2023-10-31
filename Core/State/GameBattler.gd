@@ -14,6 +14,9 @@ func getLastIndex(tag:StringName):
 func setLastIndex(tag:StringName,value):
 	lastIndexes[tag] = value
 
+func getSkills():
+	return []
+
 func getFeatures():
 	return []
 
