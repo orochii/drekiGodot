@@ -1,20 +1,17 @@
-[gd_resource type="Resource" script_class="Database" load_steps=18 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=19 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
 [ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Punch.tres" id="1_kftcr"]
+[ext_resource type="Resource" uid="uid://cgweyquyc6otq" path="res://Data/Skills/Common/Move Back.tres" id="1_ml5ph"]
 [ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
-[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_tp0wf"]
+[ext_resource type="Resource" uid="uid://c50k2n5aulkf1" path="res://Data/Skills/Common/Wait.tres" id="2_7ll6p"]
 [ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Kick.tres" id="2_7uveh"]
+[ext_resource type="Resource" uid="uid://cd571o5wvubcl" path="res://Data/Skills/Common/Move Forward.tres" id="3_4vm70"]
 [ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Bite.tres" id="3_7dnsd"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
-
-[sub_resource type="Resource" id="Resource_7hdry"]
-script = ExtResource("1_tp0wf")
-priority = 5
-conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
 
 [sub_resource type="Resource" id="Resource_64mun"]
 script = ExtResource("1_nydlf")
@@ -53,7 +50,7 @@ startingScene = ExtResource("4_d28sx")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
 defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd")])
+commonActions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_ml5ph"), ExtResource("2_7ll6p"), ExtResource("3_4vm70")])
 ignoreKeyForRebind = Array[int]([4194319, 4194320, 4194321, 4194322, 4194309, 4194305])
 ignoreButtonForRebind = Array[int]([])
 ignoreAxisForRebind = Array[int]([0, 1])
-defaultAction = SubResource("Resource_7hdry")

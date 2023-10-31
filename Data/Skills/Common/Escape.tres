@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=2 format=3 uid="uid://ck06xhgmploxa"]
+
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_vvvre"]
+
+[resource]
+script = ExtResource("1_vvvre")
+flags = Array[int]([])
+targetKind = 0
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Escape"
+description = ""

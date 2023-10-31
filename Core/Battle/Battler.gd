@@ -2,6 +2,9 @@ extends Node3D
 class_name Battler
 
 const ATB_MAX = 1
+const DEFAULT_SPEED = 40
+const POSITION_OFFSET = Vector3(0,0,-2)
+const START_OFFSET = Vector3(0,0,-20)
 
 @export var graphic:CharGraphic
 
@@ -9,6 +12,39 @@ var battler:GameBattler
 var battle:BattleManager
 var atbValue:float
 var currentAction:BattleAction = null
+
+# Position stuff
+var moveSpeed = DEFAULT_SPEED
+var homePosition:Vector3 = Vector3(0,0,0)
+var targetPosition:Vector3 = Vector3(0,0,0)
+var _startDirection:float = 0
+var direction:float = 0
+
+func setStartDirection(a:float):
+	# inst.setStartDirection(-90)
+	_startDirection = a
+	direction = a
+	global_rotation_degrees = Vector3(0, direction, 0)
+func moveToPosition(pos:Vector3):
+	self.global_position = pos
+	targetPosition = pos
+func moveToStartPosition():
+	var homePos = getHomePosition()
+	var startPos = homePos + getStartOffset()
+	moveToPosition(startPos)
+func moveToHome():
+	targetPosition = getHomePosition()
+func setHomePosition(pos:Vector3):
+	# inst.setHomePosition(startingPosition + (partyPositionOffset * i))
+	homePosition = pos
+func getHomePosition():
+	var offset:Vector3 = POSITION_OFFSET * battler.getPosition()
+	var d = deg_to_rad(_startDirection)
+	var rotOffset = offset.rotated(Vector3(0,1,0),d)
+	return homePosition + rotOffset
+func getStartOffset():
+	var d = deg_to_rad(_startDirection)
+	return START_OFFSET.rotated(Vector3(0,1,0),d)
 
 func getScreenPosition():
 	return battle.posToScreen(self.global_position)
@@ -24,7 +60,7 @@ func setup(_battler:GameBattler):
 func _process(delta):
 	# TODO:
 	# - Movement
-	pass
+	global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
@@ -41,6 +77,13 @@ func isAtbFull():
 func endTurn():
 	atbValue = 0
 	currentAction = null
+
+func setAction(action:Resource, scope:Global.ETargetScope, targetIdx:int):
+	currentAction = BattleAction.new()
+	currentAction.battler = self
+	currentAction.action = action
+	currentAction.scope = scope
+	currentAction.targetIdx = targetIdx
 
 func pickAction():
 	var actionScript:ActionScript = battler.pickActionScript()

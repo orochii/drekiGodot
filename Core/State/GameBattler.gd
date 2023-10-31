@@ -183,3 +183,6 @@ func pickActionScript() -> ActionScript:
 		if a.priority >= minPriority: prioritizedActions.append(a)
 	var rIdx = randi()%prioritizedActions.size()
 	return prioritizedActions[rIdx]
+
+func getPosition() -> int:
+	return 0

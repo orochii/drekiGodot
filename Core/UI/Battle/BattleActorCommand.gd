@@ -1,11 +1,14 @@
 extends Control
 class_name BattleActorCommand
 
+const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
+
 @export var battle:BattleManager
 @export var buttons:Array[BaseButton]
 @export var waitButton:BaseButton
 @export var cursor:AnimatedSprite2D
 
+var waitIdx = 0
 var originalButtonPositions:Array[Vector2]
 var currentBattler:Battler = null
 var readyBattlers:Array[Battler] = []
@@ -19,13 +22,7 @@ func _ready():
 
 func _process(delta):
 	var focused = get_viewport().gui_get_focus_owner()
-	if focused == waitButton:
-		if Input.is_action_just_pressed("move_left"):
-			waitIdx = clampi(waitIdx + 1, 0, 2)
-			_setWait(waitIdx)
-		elif Input.is_action_just_pressed("move_right"):
-			waitIdx = clampi(waitIdx - 1, 0, 2)
-			_setWait(waitIdx)
+	if focused == waitButton: _updateWaitSelection()
 	positionCursor(focused)
 	if currentBattler != null:
 		if _canBeCommanded(currentBattler):
@@ -87,14 +84,17 @@ func _on_inventory_pressed():
 
 func _on_wait_pressed():
 	Global.Audio.playSFX("decision")
+	#idx- 0:back 1:wait 2:forward
+	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetScope.ONE,0)
+	_unset()
 
-const WAIT_OPTIONS = [
-	"◄ Back  ",
-	"◄ Wait ►",
-	"  Forward ►"
-	]
-var waitIdx = 0
-
+func _updateWaitSelection():
+	if Input.is_action_just_pressed("move_left"):
+		waitIdx = clampi(waitIdx + 1, 0, 2)
+		_setWait(waitIdx)
+	elif Input.is_action_just_pressed("move_right"):
+		waitIdx = clampi(waitIdx - 1, 0, 2)
+		_setWait(waitIdx)
 func _resetWait():
 	_setWait(1)
 func _setWait(i:int):

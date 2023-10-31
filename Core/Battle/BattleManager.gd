@@ -4,6 +4,7 @@ class_name BattleManager
 enum EBattleResult {
 	NONE, WIN, LOSE, DRAW
 }
+const START_DELAY = 1.5
 
 signal onBattlerReady(battler:Battler)
 
@@ -19,6 +20,7 @@ signal onBattlerReady(battler:Battler)
 @export var actorCommand:BattleActorCommand
 
 var test:bool = false
+var _start = false
 var battleResult:EBattleResult = EBattleResult.NONE
 var waitingCount:float = 0.0
 var allBattlers:Array[Battler]
@@ -61,20 +63,23 @@ func _ready():
 	# 
 	waitingBattlers.append_array(allBattlers)
 	# Add a small wait to the start
-	waitingCount = 1.0
+	if(Global.Scene.transitioning):
+		waitingCount = START_DELAY
 
 func _process(delta):
+	# Wait
+	if(waitingCount > 0):
+		waitingCount -= delta
+		return
+	if !_start:
+		for b in allBattlers: b.moveToHome()
+		_start = true
 	# Stop conditions
 	if(Global.Scene.transitioning): return
 	if(battleResult != EBattleResult.NONE): return
 	
 	# Debug
 	_doDebug()
-	
-	# Wait
-	if(waitingCount > 0):
-		waitingCount -= delta
-		return
 	
 	# Battle process
 	# - Execute actions
@@ -183,8 +188,9 @@ func _createParty():
 		party.add_child(inst)
 		inst.battle = self
 		inst.setup(actor)
-		inst.global_position = startingPosition + (partyPositionOffset * i)
-		inst.global_rotation_degrees = Vector3(0, -90, 0)
+		inst.setStartDirection(-90)
+		inst.setHomePosition(startingPosition + (partyPositionOffset * i))
+		inst.moveToStartPosition()
 		allBattlers.append(inst)
 		partyStatus.setup(inst)
 		battlerStatus.setup(inst,false)
@@ -200,8 +206,9 @@ func _createTroop():
 		troop.add_child(inst)
 		inst.battle = self
 		inst.setup(enemy)
-		inst.global_position = entry.position
-		inst.global_rotation_degrees = Vector3(0, 90, 0)
+		inst.setStartDirection(90)
+		inst.setHomePosition(entry.position)
+		inst.moveToStartPosition()
 		allBattlers.append(inst)
 		battlerStatus.setup(inst,true)
 

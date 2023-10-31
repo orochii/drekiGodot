@@ -23,7 +23,7 @@ func setActor(i:int, a : GameActor):
 func refresh():
 	if actor != null:
 		var data : Actor = actor.getData()
-		positionIcon.region_rect.position.x = actor.position * 32
+		positionIcon.region_rect.position.y = actor.position * 32
 		faceGraphic.texture = data.faceGraphic
 		nameLabel.text = actor.name
 		classLabel.text = data.jobName

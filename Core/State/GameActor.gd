@@ -40,6 +40,9 @@ func _init(_id:StringName):
 func getName():
 	return name
 
+func getPosition() -> int:
+	return position
+
 func getSkills():
 	var skills = []
 	var _slotData:Array[SlotData] = Global.Db.equipSlots
