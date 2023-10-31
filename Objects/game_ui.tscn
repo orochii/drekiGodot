@@ -285,7 +285,6 @@ script = ExtResource("8_c65gf")
 
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2437,6 +2436,7 @@ texture = ExtResource("11_eyxf8")
 layout_mode = 1
 
 [node name="ConfigScreen" parent="." instance=ExtResource("67_jr4cg")]
+visible = false
 layout_mode = 1
 
 [node name="Blocker" type="Control" parent="."]
