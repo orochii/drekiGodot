@@ -17,9 +17,7 @@ func setup(text:String, min:int, max:int, scale:float = 1):
 	slider.max_value = max
 	slider.tick_count = max-min+1
 	_scale = scale
-	var v = self.getValue()
-	if(_scale != 1): v /= _scale
-	slider.set_value_no_signal(v)
+	onVisible()
 
 func _on_h_slider_value_changed(value):
 	var v = value
@@ -36,3 +34,8 @@ func _process(delta):
 	if(!visible || !active): return
 	if(Input.is_action_just_pressed("action_cancel")):
 		setActive(false)
+
+func onVisible():
+	var v = self.getValue()
+	if(_scale != 1): v /= _scale
+	slider.set_value_no_signal(v)

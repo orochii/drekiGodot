@@ -26,6 +26,8 @@ func _process(delta):
 	positionCursor(focused)
 	if currentBattler != null:
 		if _canBeCommanded(currentBattler):
+			# Ignore if config is open
+			if(battle.configMenu.visible): return
 			# Continue action selection
 			if visible:
 				# Press back to uh switch character (?)
@@ -53,8 +55,14 @@ func _setup(b:Battler):
 	print("%s set to command." % currentBattler.battler.getName())
 	visible = true
 	Global.Audio.playSFX("decision")
-	buttons[0].grab_focus()
-	_resetWait()
+	var idx = currentBattler.getLastIndex(&"command")
+	if(idx==null): idx = 0
+	buttons[idx].grab_focus()
+	var wIdx = currentBattler.getLastIndex(&"wait")
+	if wIdx==null:
+		_resetWait()
+	else:
+		_setWait(wIdx)
 func _unset():
 	currentBattler = null
 	visible = false
@@ -78,14 +86,18 @@ func positionCursor(focused:Node):
 
 func _on_action_pressed():
 	Global.Audio.playSFX("decision")
+	currentBattler.setLastIndex(&"command", 0)
 
 func _on_inventory_pressed():
 	Global.Audio.playSFX("decision")
+	currentBattler.setLastIndex(&"command", 1)
 
 func _on_wait_pressed():
 	Global.Audio.playSFX("decision")
 	#idx- 0:back 1:wait 2:forward
 	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetScope.ONE,0)
+	currentBattler.setLastIndex(&"command", 2)
+	currentBattler.setLastIndex(&"wait", waitIdx)
 	_unset()
 
 func _updateWaitSelection():

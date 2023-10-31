@@ -18,6 +18,7 @@ signal onBattlerReady(battler:Battler)
 @export var partyStatus:BattlePartyStatus
 @export var battlerStatus:BattlerStatusManager
 @export var actorCommand:BattleActorCommand
+@export var configMenu:ConfigMenu
 
 var test:bool = false
 var _start = false
@@ -77,9 +78,10 @@ func _process(delta):
 	# Stop conditions
 	if(Global.Scene.transitioning): return
 	if(battleResult != EBattleResult.NONE): return
-	
+	if(configMenu.visible): return
 	# Debug
-	_doDebug()
+	if _doInput():
+		return
 	
 	# Battle process
 	# - Execute actions
@@ -212,6 +214,14 @@ func _createTroop():
 		allBattlers.append(inst)
 		battlerStatus.setup(inst,true)
 
-func _doDebug():
+func _doInput() -> bool:
+	# Summon config
+	if(Input.is_action_just_pressed("sys_config")):
+		Global.Audio.playSFX("decision")
+		configMenu.open(false)
+		return true
+	# Debug end battle
 	if(Input.is_action_just_pressed("action_extra")):
 		battleEnd(EBattleResult.DRAW)
+		return true
+	return false

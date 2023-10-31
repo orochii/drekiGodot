@@ -26,8 +26,13 @@ func _draw():
 		draw_line(tl, bl, Color.GREEN, drawScale)
 		draw_line(tr, br, Color.GREEN, drawScale)
 		draw_line(bl, br, Color.GREEN, drawScale)
-		
+		# Draw enemy
 		for entry in battleManager.testTroop.entries:
 			var enemyPos = entry.position
-			var pos = offset + Vector2(entry.position.x, entry.position.z) * drawScale
-			draw_line(pos, pos+Vector2(0,-drawScale), Color.GREEN, drawScale)
+			var pos = offset + Vector2(enemyPos.x, enemyPos.z) * drawScale
+			draw_line(pos, pos+Vector2(0,-drawScale), Color.PALE_VIOLET_RED, drawScale)
+		# Draw actors area or something?
+		for i in range(3):
+			var actorPos = battleManager.partyPositionBase + (battleManager.partyPositionOffset * (i-1))
+			var pos = offset + Vector2(actorPos.x, actorPos.z) * drawScale
+			draw_line(pos, pos+Vector2(0,-drawScale), Color.ALICE_BLUE, drawScale)

@@ -120,6 +120,11 @@ func getAll(state:Global.ETargetState):
 		if _stateConditionMet(b,state): ary.append(b)
 	return ary
 
+func getLastIndex(tag:StringName):
+	return battler.getLastIndex(tag)
+func setLastIndex(tag:StringName,value):
+	battler.setLastIndex(tag,value)
+
 func _stateConditionMet(b:Battler,state:Global.ETargetState):
 	if state==Global.ETargetState.ANY: return true
 	return (state==Global.ETargetState.DEAD) == b.battler.isDead()

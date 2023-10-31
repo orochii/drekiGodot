@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=44 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://bebfsexaw3d4c" path="res://Graphics/_REF_/2023-10-29_121110_113.png" id="34_83ru8"]
 [ext_resource type="Texture2D" uid="uid://bd8d53aa0rurl" path="res://Graphics/System/partyMenu/back_inventory.png" id="35_afqrn"]
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
+[ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="38_4irjf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
@@ -109,7 +110,7 @@ animations = [{
 size = Vector2(320, -240)
 center_offset = Vector3(480, 270, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "configMenu")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_b4hq5")
@@ -121,6 +122,7 @@ partyPositionOffset = Vector3(1, 0, 4)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")
 actorCommand = NodePath("BattleUI/ActorCommand")
+configMenu = NodePath("ConfigScreen")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -566,6 +568,7 @@ patch_margin_bottom = 8
 
 [node name="Content" type="Control" parent="BattleUI/ActorSkillSelect/HelpWindow"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -629,6 +632,7 @@ patch_margin_bottom = 8
 
 [node name="Contents" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0
@@ -691,6 +695,7 @@ vertical_alignment = 1
 [node name="MPCost" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
 custom_minimum_size = Vector2(48, 16)
 layout_mode = 1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -738,6 +743,7 @@ grow_vertical = 0
 [node name="Cooldown" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_right = 24.0
@@ -770,6 +776,7 @@ vertical_alignment = 2
 [node name="Charges" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -814,6 +821,7 @@ grow_vertical = 0
 [node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect"]
 custom_minimum_size = Vector2(0, 94)
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 48.0
@@ -1057,6 +1065,7 @@ patch_margin_bottom = 8
 
 [node name="Content" type="Control" parent="BattleUI/ActorItemSelect/HelpWindow"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -1075,6 +1084,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("9_ol241")
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
+
+[node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 visible = false

@@ -6,6 +6,13 @@ var level : int = 1
 var currHP : int
 var currMP : int
 var states : Array[StatusState]
+var lastIndexes:Dictionary
+
+func getLastIndex(tag:StringName):
+	if lastIndexes.has(tag): return lastIndexes[tag]
+	return null
+func setLastIndex(tag:StringName,value):
+	lastIndexes[tag] = value
 
 func getFeatures():
 	return []

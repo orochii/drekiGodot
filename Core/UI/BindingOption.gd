@@ -13,7 +13,6 @@ var currIdx:int = 0
 func setup(text:String, actionName:StringName):
 	label.text = text
 	_property = actionName
-	readEvents()
 
 func readEvents():
 	var events = InputMap.action_get_events(_property)
@@ -120,4 +119,5 @@ func onInactive():
 	backPanel.self_modulate.a = 0
 
 func onVisible():
+	readEvents()
 	refreshVisuals()

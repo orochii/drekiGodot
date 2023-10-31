@@ -16,12 +16,7 @@ func setup(text:String, options:Dictionary={true:"Yes",false:"No"}):
 	for k in options:
 		option.add_item(options[k])
 		values.append(k)
-	var v = self.getValue()
-	var i = values.find(v)
-	if(i != -1):
-		_active = false
-		option.select(i)
-	_active = true
+	onVisible()
 
 func _on_option_button_item_selected(index):
 	if(!_active): return
@@ -41,3 +36,11 @@ func _process(delta):
 	if(!visible || !active): return
 	if(Input.is_action_just_pressed("action_cancel")):
 		setActive(false)
+
+func onVisible():
+	var v = self.getValue()
+	var i = values.find(v)
+	if(i != -1):
+		_active = false
+		option.select(i)
+	_active = true
