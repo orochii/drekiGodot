@@ -12,3 +12,6 @@ func getId():
 	var dirlen = "res://Data/Skills/".length()
 	var extlen = ".tres".length()
 	return resource_path.substr(dirlen, len-dirlen-extlen)
+
+func isUseable(inBattle:bool):
+	return false

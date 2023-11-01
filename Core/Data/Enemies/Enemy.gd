@@ -11,6 +11,7 @@ class_name Enemy
 @export var gender : Global.Gender = Global.Gender.NONE
 
 @export_group("Features")
+@export var innateElement : Global.Element
 @export var features : Array[BaseFeature]
 
 @export_group("Stats")

@@ -16,6 +16,7 @@ type = "Mammal"
 description = "Moles will conquer the earth!"
 battleSprite = ExtResource("1_dqtx7")
 gender = 2
+innateElement = 9
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 level = 1
 mhp = 32

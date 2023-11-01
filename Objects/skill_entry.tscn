@@ -34,3 +34,5 @@ grow_vertical = 2
 theme = ExtResource("1_logyo")
 text = "Character"
 vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -38,6 +38,7 @@ birthyear = 507
 startingEquipment = Array[Resource("res://Core/Data/Items/EquipItem.gd")]([])
 equippableFlags = Array[int]([3, 5, 8, 9, 12, 16])
 learningSlots = Array[Resource("res://Core/Data/Actors/SkillLearningSlot.gd")]([])
+innateElement = 10
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_bqd5t"), SubResource("Resource_uq8i1"), SubResource("Resource_cl1tm")])
 startLevel = 1.0
 expGrowth = Vector2i(25, 50)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=46 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="26_taie0"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="27_hnp7d"]
 [ext_resource type="Texture2D" uid="uid://cc0ladkb8i30y" path="res://Graphics/System/battle/SP_T.png" id="28_3jgu6"]
+[ext_resource type="Script" path="res://Scenes/BattleSkillStatusWindow.gd" id="29_jqwx8"]
 [ext_resource type="Texture2D" uid="uid://qf7k56bewjxc" path="res://Graphics/System/battle/SP_Bar.PNG" id="29_uxrax"]
 [ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="30_q3xjd"]
 [ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="31_ycsw0"]
@@ -447,8 +448,7 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ccex3")
 offset = Vector2(-16, -6)
 
-[node name="ActorSkillSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("skillList", "helpText", "actorCommand")]
-visible = false
+[node name="ActorSkillSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("skillList", "helpText", "statusWindow", "actorCommand")]
 custom_minimum_size = Vector2(0, 136)
 layout_mode = 1
 anchors_preset = 12
@@ -460,7 +460,323 @@ grow_vertical = 0
 script = ExtResource("26_2f8um")
 skillList = NodePath("SkillList")
 helpText = NodePath("HelpWindow/Content/RichTextLabel")
+statusWindow = NodePath("StatusWindow")
 actorCommand = NodePath("../ActorCommand")
+
+[node name="StatusWindow" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("face", "mpBar", "mpNum", "mpCost", "cooldown", "cooldownCount", "charges", "chargesCount", "reason")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 96.0
+grow_vertical = 0
+script = ExtResource("29_jqwx8")
+face = NodePath("Contents/Face")
+mpBar = NodePath("Contents/MPBack/MPBar")
+mpNum = NodePath("Contents/MPBack/MPLabel")
+mpCost = NodePath("Contents/MPCost/Num")
+cooldown = NodePath("Contents/UseRestrict/Cooldown")
+cooldownCount = NodePath("Contents/UseRestrict/Cooldown/Label")
+charges = NodePath("Contents/UseRestrict/Charges")
+chargesCount = NodePath("Contents/UseRestrict/Charges/Label")
+reason = NodePath("Contents/UseRestrict/Reason")
+
+[node name="Background" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Face" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_right = -48.0
+offset_bottom = 24.0
+grow_horizontal = 0
+texture = ExtResource("27_hnp7d")
+
+[node name="MPBack" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = 24.0
+grow_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("28_3jgu6")
+
+[node name="MPBar" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPBack"]
+custom_minimum_size = Vector2(31, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 47.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("29_uxrax")
+
+[node name="MPLabel" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPBack"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -6.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+text = "250"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MPCost" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -36.0
+offset_right = -4.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("30_q3xjd")
+text = "MP Cost"
+label_settings = ExtResource("31_ycsw0")
+vertical_alignment = 2
+
+[node name="Num" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "8888"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="UseRestrict" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -20.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Cooldown" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
+visible = false
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Icon" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Cooldown"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_right = 12.0
+grow_vertical = 0
+texture = ExtResource("32_ma8rw")
+
+[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Cooldown"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "88"
+vertical_alignment = 2
+
+[node name="Charges" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
+visible = false
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Icon" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Charges"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_right = 12.0
+grow_vertical = 0
+texture = ExtResource("33_qqhny")
+
+[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Charges"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "88/88"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Reason" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "Unavailable"
+vertical_alignment = 2
+
+[node name="HelpWindow" type="Control" parent="BattleUI/ActorSkillSelect"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Background" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/HelpWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/HelpWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Content" type="Control" parent="BattleUI/ActorSkillSelect/HelpWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BattleUI/ActorSkillSelect/HelpWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please?"
 
 [node name="SkillList" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("container", "scroll", "cursor")]
 custom_minimum_size = Vector2(0, 80)
@@ -469,6 +785,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = -80.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("17_8fcou")
@@ -529,289 +847,6 @@ visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ane6s")
 offset = Vector2(-16, -6)
-
-[node name="HelpWindow" type="Control" parent="BattleUI/ActorSkillSelect"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -128.0
-offset_right = -80.0
-offset_bottom = -78.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Background" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/HelpWindow"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_6y5ss")
-region_rect = Rect2(0, 0, 64, 64)
-
-[node name="Border" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/HelpWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_6y5ss")
-draw_center = false
-region_rect = Rect2(64, 0, 32, 32)
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 8
-
-[node name="Content" type="Control" parent="BattleUI/ActorSkillSelect/HelpWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 4.0
-offset_right = -8.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="BattleUI/ActorSkillSelect/HelpWindow/Content"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_ol241")
-text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please?"
-
-[node name="StatusWindow" type="Control" parent="BattleUI/ActorSkillSelect"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -136.0
-offset_bottom = -70.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Background" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_6y5ss")
-region_rect = Rect2(0, 0, 64, 64)
-
-[node name="Border" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_6y5ss")
-draw_center = false
-region_rect = Rect2(64, 0, 32, 32)
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 8
-
-[node name="Contents" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Face" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 1
-offset_right = 24.0
-offset_bottom = 24.0
-texture = ExtResource("27_hnp7d")
-
-[node name="MPBack" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
-custom_minimum_size = Vector2(48, 16)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_top = -5.0
-offset_bottom = 11.0
-grow_horizontal = 0
-size_flags_vertical = 8
-texture = ExtResource("28_3jgu6")
-
-[node name="MPBar" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPBack"]
-custom_minimum_size = Vector2(31, 16)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -16.0
-offset_right = 47.0
-grow_vertical = 0
-size_flags_vertical = 8
-texture = ExtResource("29_uxrax")
-
-[node name="MPLabel" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPBack"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -6.0
-offset_bottom = 10.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("9_ol241")
-text = "250"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="MPCost" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
-custom_minimum_size = Vector2(48, 16)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -29.0
-offset_bottom = -13.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("30_q3xjd")
-text = "MP Cost"
-label_settings = ExtResource("31_ycsw0")
-vertical_alignment = 2
-
-[node name="Num" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_ol241")
-text = "8888"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="UseRestrict" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Cooldown" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_right = 24.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Icon" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Cooldown"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_right = 12.0
-grow_vertical = 0
-texture = ExtResource("32_ma8rw")
-
-[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Cooldown"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_ol241")
-text = "88"
-vertical_alignment = 2
-
-[node name="Charges" type="Control" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Icon" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Charges"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_right = 12.0
-grow_vertical = 0
-texture = ExtResource("33_qqhny")
-
-[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/UseRestrict/Charges"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 14.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_ol241")
-text = "88/88"
-vertical_alignment = 2
 
 [node name="ActorItemSelect" type="Control" parent="BattleUI"]
 visible = false

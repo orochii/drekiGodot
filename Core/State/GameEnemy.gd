@@ -15,7 +15,14 @@ func getName():
 func getFeatures():
 	var enemy:Enemy = getData()
 	var features = []
+	# Base features
 	features.append_array(enemy.features)
+	# Status features
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		features.append_array(data.features)
+	# Passive skill features?
+	# Return
 	return features
 
 func getBaseMaxHP():
@@ -39,6 +46,9 @@ func getBaseAgi():
 
 func getData():
 	return Global.Db.getEnemy(id)
+
+func getInnateElement():
+	return getData().innateElement
 
 func getBattleGraphic():
 	return getData().battleSprite

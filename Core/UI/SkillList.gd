@@ -6,6 +6,8 @@ class_name SkillList
 @export var scroll:ScrollContainer
 @export var cursor:AnimatedSprite2D
 
+var inBattle:bool = false
+var onSkillSelected:Callable
 var entries:Array[SkillEntry]
 var active:bool = false
 
@@ -31,7 +33,9 @@ func setup(battler:GameBattler):
 	var skills = battler.getSkills()
 	for skill in skills:
 		var inst:SkillEntry = skillEntryTemplate.instantiate()
+		inst.setEnabled(skill.isUseable(inBattle))
 		inst.setup(skill)
+		inst.skillSelected.connect(_onSelected)
 		container.add_child(inst)
 		entries.append(inst)
 	UIUtils.setGridNeighbors(entries,2)
@@ -50,3 +54,13 @@ func setListIndex(idx:int):
 	else:
 		var f = getFirst()
 		if(f != null): f.grab_focus()
+
+func getCurrentItem():
+	var focused = get_viewport().gui_get_focus_owner()
+	if entries.has(focused):
+		return focused.skill
+	return null
+
+func _onSelected(skillEntry, skill):
+	if onSkillSelected.is_valid():
+		onSkillSelected.call(skillEntry, skill)

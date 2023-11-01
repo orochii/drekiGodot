@@ -27,6 +27,7 @@ const MAX_LEVEL : int = 255
 @export var learningSlots : Array[SkillLearningSlot]
 
 @export_group("Features")
+@export var innateElement : Global.Element
 @export var features : Array[BaseFeature]
 
 @export_group("Stats")

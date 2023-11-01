@@ -215,6 +215,9 @@ func getData():
 	if id=="": return null
 	return Global.Db.getActor(id)
 
+func getInnateElement():
+	return getData().innateElement
+
 func getBattleGraphic():
 	return getData().battleSprite
 func getSmallFace():
@@ -234,7 +237,9 @@ func _serialize():
 		"learnedSkills" : learnedSkills,
 		"availableSkills" : availableSkills,
 		"currAP" : currAP,
-		"apPerc" : apPerc
+		"apPerc" : apPerc,
+		"lastIndexes" : lastIndexes,
+		"skillConditions" : skillConditions
 	}
 	return savedata
 func _serializeStates():

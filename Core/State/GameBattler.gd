@@ -7,6 +7,31 @@ var currHP : int
 var currMP : int
 var states : Array[StatusState]
 var lastIndexes:Dictionary
+var skillConditions:Dictionary
+
+func getSkillCooldown(id:StringName):
+	if skillConditions.has(id):
+		var s = skillConditions[id]
+		if s.has("cooldown"):
+			return s["cooldown"]
+	return 0
+func getSkillChargesSpent(id:StringName):
+	if skillConditions.has(id):
+		var s = skillConditions[id]
+		if s.has("chargesSpent"):
+			return s["chargesSpent"]
+	return 0
+func setSkillCooldown(id:StringName,cooldown:int):
+	if !skillConditions.has(id): skillConditions[id] = {}
+	var s = skillConditions[id]
+	s["cooldown"] = cooldown
+func addSkillChargesSpent(id:StringName):
+	if !skillConditions.has(id): skillConditions[id] = {}
+	var s = skillConditions[id]
+	if s.has("chargesSpent"):
+		s["chargesSpent"] += 1
+	else:
+		s["chargesSpent"] = 1
 
 func getLastIndex(tag:StringName):
 	if lastIndexes.has(tag): return lastIndexes[tag]
@@ -74,6 +99,29 @@ func getStatusRate(s:Status):
 			if statusAffinityFeature.status == s:
 				rate *= statusAffinityFeature.getEffect()
 	return rate
+
+func getElementRate(e:Global.Element):
+	var rate = getInnateElementRate(e)
+	var features = getFeatures()
+	for f in features:
+		if f is ElementAffinityFeature:
+			var elementAffinityFeature = f as ElementAffinityFeature
+			if elementAffinityFeature.element == e:
+				rate *= elementAffinityFeature.getEffect()
+	return rate
+func getInnateElement():
+	return Global.Element.NONE
+func getInnateElementRank(element:Global.Element):
+	var innate = getInnateElement()
+	for inn in Global.Db.innateElementRelations:
+		if inn.id==innate:
+			for relation in inn.relations:
+				if relation.element==element:
+					return relation.rank
+	return Global.Rank.C
+func getInnateElementRate(element:Global.Element):
+	var rank = getInnateElementRank(element)
+	return ElementAffinityFeature.RANK_EFFECT[rank]
 
 func getSortedStates():
 	var ary:Array[StatusState] = []
