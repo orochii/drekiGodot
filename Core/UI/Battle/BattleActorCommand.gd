@@ -4,10 +4,12 @@ class_name BattleActorCommand
 const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
 
 @export var battle:BattleManager
+@export var skillSelect:BattleActorSkillSelect
+@export var targetSelect:BattleActorTargetSelect
+@export_group("Members")
 @export var buttons:Array[BaseButton]
 @export var waitButton:BaseButton
 @export var cursor:AnimatedSprite2D
-@export var skillSelect:BattleActorSkillSelect
 
 var waitIdx = 0
 var originalButtonPositions:Array[Vector2]
@@ -18,7 +20,8 @@ func _ready():
 	visible = false
 	battle.onBattlerReady.connect(_onBattlerReady)
 	UIUtils.setVNeighbors(buttons)
-	for b in buttons: originalButtonPositions.append(b.position)
+	for b in buttons:
+		originalButtonPositions.append(Vector2(b.offset_left,b.offset_right))
 	cursor.play("default")
 
 func _process(delta):
@@ -65,6 +68,8 @@ func _setup(b:Battler):
 func _unset():
 	currentBattler = null
 	visible = false
+	skillSelect.close()
+	targetSelect.close()
 
 func selectLast():
 	var idx = currentBattler.getLastIndex(&"command")
@@ -76,14 +81,18 @@ func positionCursor(focused:Node):
 	for i in range(buttons.size()):
 		var b = buttons[i]
 		if(focused == b):
-			var newPos = originalButtonPositions[i] + Vector2(-4,0)
-			b.position = lerp(b.position, newPos, 0.5)
+			var currPos = Vector2(b.offset_left,b.offset_right)
+			var newPos = originalButtonPositions[i] + Vector2(-4,-4)
+			var lerpedPos = lerp(currPos, newPos, 0.5)
+			b.offset_left = lerpedPos.x
+			b.offset_right = lerpedPos.y
 			cursor.global_position = b.global_position + Vector2(2,8)
 			found = true
 			var npr:NinePatchRect = b.get_node("NinePatchRect")
 			npr.region_rect.position.x = 16
 		else:
-			b.position = originalButtonPositions[i]
+			b.offset_left = originalButtonPositions[i].x
+			b.offset_right = originalButtonPositions[i].y
 			var npr:NinePatchRect = b.get_node("NinePatchRect")
 			npr.region_rect.position.x = 0
 	cursor.visible = found

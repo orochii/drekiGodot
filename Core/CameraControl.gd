@@ -9,6 +9,13 @@ var currRotation : Vector3
 func _ready():
 	if(target != null): position = target.position
 	currRotation = global_rotation_degrees
+	var window = get_window()
+	updateScreenSize(window.content_scale_size)
+
+func _enter_tree():
+	Global.Config.onScreenSizeChange.connect(updateScreenSize)
+func _exit_tree():
+	Global.Config.onScreenSizeChange.disconnect(updateScreenSize)
 
 func _process(delta):
 	if(target != null): position = target.position
@@ -55,3 +62,7 @@ func moveTowardsAngle(from:float,to:float,delta:float) -> float:
 	while r >= 180: r -= 360 # <>
 	while r < -180: r += 360 # <>
 	return r
+
+func updateScreenSize(newSize:Vector2i):
+	camera.size = newSize.y * Global.PIXEL_SIZE
+	camera.fov = newSize.y * Global.PIXEL_FOV

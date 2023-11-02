@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Database" load_steps=51 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=22 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
+[ext_resource type="Script" path="res://Core/Data/ScreenResolution.gd" id="1_g4sgc"]
 [ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Punch.tres" id="1_kftcr"]
 [ext_resource type="Resource" uid="uid://cgweyquyc6otq" path="res://Data/Skills/Common/Move Back.tres" id="1_ml5ph"]
 [ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
@@ -12,8 +13,16 @@
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
-[ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="9_83ubw"]
-[ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="9_fkp7d"]
+
+[sub_resource type="Resource" id="Resource_ldt41"]
+script = ExtResource("1_g4sgc")
+displayName = "4:3"
+resolution = Vector2i(320, 240)
+
+[sub_resource type="Resource" id="Resource_j61gb"]
+script = ExtResource("1_g4sgc")
+displayName = "16:9"
+resolution = Vector2i(480, 270)
 
 [sub_resource type="Resource" id="Resource_64mun"]
 script = ExtResource("1_nydlf")
@@ -45,156 +54,6 @@ script = ExtResource("1_nydlf")
 name = "Other"
 kind = 3
 
-[sub_resource type="Resource" id="Resource_0up02"]
-script = ExtResource("9_fkp7d")
-element = 5
-rank = 3
-
-[sub_resource type="Resource" id="Resource_psb1v"]
-script = ExtResource("9_fkp7d")
-element = 6
-rank = 0
-
-[sub_resource type="Resource" id="Resource_i61wr"]
-script = ExtResource("9_fkp7d")
-element = 7
-rank = 1
-
-[sub_resource type="Resource" id="Resource_pc2xu"]
-script = ExtResource("9_83ubw")
-id = 5
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_0up02"), SubResource("Resource_psb1v"), SubResource("Resource_i61wr")])
-
-[sub_resource type="Resource" id="Resource_bholi"]
-script = ExtResource("9_fkp7d")
-element = 5
-rank = 0
-
-[sub_resource type="Resource" id="Resource_ut7fm"]
-script = ExtResource("9_fkp7d")
-element = 6
-rank = 3
-
-[sub_resource type="Resource" id="Resource_y3rmw"]
-script = ExtResource("9_fkp7d")
-element = 10
-rank = 3
-
-[sub_resource type="Resource" id="Resource_0f7i5"]
-script = ExtResource("9_83ubw")
-id = 6
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_bholi"), SubResource("Resource_ut7fm"), SubResource("Resource_y3rmw")])
-
-[sub_resource type="Resource" id="Resource_b4wqv"]
-script = ExtResource("9_fkp7d")
-element = 7
-rank = 3
-
-[sub_resource type="Resource" id="Resource_53hfx"]
-script = ExtResource("9_fkp7d")
-element = 8
-rank = 0
-
-[sub_resource type="Resource" id="Resource_lldn0"]
-script = ExtResource("9_fkp7d")
-element = 10
-rank = 1
-
-[sub_resource type="Resource" id="Resource_lufgy"]
-script = ExtResource("9_83ubw")
-id = 7
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_b4wqv"), SubResource("Resource_53hfx"), SubResource("Resource_lldn0")])
-
-[sub_resource type="Resource" id="Resource_dr3x5"]
-script = ExtResource("9_fkp7d")
-element = 5
-rank = 3
-
-[sub_resource type="Resource" id="Resource_t5xfg"]
-script = ExtResource("9_fkp7d")
-element = 7
-rank = 0
-
-[sub_resource type="Resource" id="Resource_i5hrs"]
-script = ExtResource("9_fkp7d")
-element = 8
-rank = 3
-
-[sub_resource type="Resource" id="Resource_i3dka"]
-script = ExtResource("9_83ubw")
-id = 8
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_dr3x5"), SubResource("Resource_t5xfg"), SubResource("Resource_i5hrs")])
-
-[sub_resource type="Resource" id="Resource_tu2yk"]
-script = ExtResource("9_fkp7d")
-element = 7
-rank = 3
-
-[sub_resource type="Resource" id="Resource_vx8qf"]
-script = ExtResource("9_fkp7d")
-element = 9
-rank = 3
-
-[sub_resource type="Resource" id="Resource_y2354"]
-script = ExtResource("9_fkp7d")
-element = 10
-rank = 0
-
-[sub_resource type="Resource" id="Resource_e6u2o"]
-script = ExtResource("9_83ubw")
-id = 9
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_tu2yk"), SubResource("Resource_vx8qf"), SubResource("Resource_y2354")])
-
-[sub_resource type="Resource" id="Resource_0ogmf"]
-script = ExtResource("9_fkp7d")
-element = 5
-rank = 1
-
-[sub_resource type="Resource" id="Resource_erfxi"]
-script = ExtResource("9_fkp7d")
-element = 9
-rank = 0
-
-[sub_resource type="Resource" id="Resource_y1kjx"]
-script = ExtResource("9_fkp7d")
-element = 10
-rank = 3
-
-[sub_resource type="Resource" id="Resource_hsga0"]
-script = ExtResource("9_83ubw")
-id = 10
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_0ogmf"), SubResource("Resource_erfxi"), SubResource("Resource_y1kjx")])
-
-[sub_resource type="Resource" id="Resource_oaad0"]
-script = ExtResource("9_fkp7d")
-element = 11
-rank = 4
-
-[sub_resource type="Resource" id="Resource_rb7wq"]
-script = ExtResource("9_fkp7d")
-element = 12
-rank = 0
-
-[sub_resource type="Resource" id="Resource_g0in6"]
-script = ExtResource("9_83ubw")
-id = 11
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_oaad0"), SubResource("Resource_rb7wq")])
-
-[sub_resource type="Resource" id="Resource_aqqqg"]
-script = ExtResource("9_fkp7d")
-element = 11
-rank = 0
-
-[sub_resource type="Resource" id="Resource_1bue5"]
-script = ExtResource("9_fkp7d")
-element = 12
-rank = 4
-
-[sub_resource type="Resource" id="Resource_u2f60"]
-script = ExtResource("9_83ubw")
-id = 12
-relations = Array[ExtResource("9_fkp7d")]([SubResource("Resource_aqqqg"), SubResource("Resource_1bue5")])
-
 [resource]
 script = ExtResource("1_37k5x")
 startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf"), ExtResource("4_ihar5")])
@@ -206,4 +65,5 @@ commonActions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtRe
 ignoreKeyForRebind = Array[int]([4194319, 4194320, 4194321, 4194322, 4194309, 4194305])
 ignoreButtonForRebind = Array[int]([])
 ignoreAxisForRebind = Array[int]([0, 1])
-innateElementRelation = Array[ExtResource("9_83ubw")]([SubResource("Resource_pc2xu"), SubResource("Resource_0f7i5"), SubResource("Resource_lufgy"), SubResource("Resource_i3dka"), SubResource("Resource_e6u2o"), SubResource("Resource_hsga0"), SubResource("Resource_g0in6"), SubResource("Resource_u2f60")])
+innateElementRelations = Array[Resource("res://Core/Data/InnateElement.gd")]([])
+availableScreenResolutions = Array[ExtResource("1_g4sgc")]([SubResource("Resource_ldt41"), SubResource("Resource_j61gb")])

@@ -1,6 +1,9 @@
 extends Node3D
 
 const COMPRESSION = FileAccess.COMPRESSION_GZIP
+# Camera stuff
+const PIXEL_SIZE = 0.0625
+const PIXEL_FOV = 0.07407407407407407407407407407407
 
 enum Gender { MALE, FEMALE, NONE }
 enum Month { 

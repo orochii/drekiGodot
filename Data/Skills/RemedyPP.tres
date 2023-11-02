@@ -11,7 +11,7 @@ base = 50
 [resource]
 script = ExtResource("3_4k6cg")
 flags = Array[int]([0, 4])
-targetKind = 2
+targetKind = 1
 targetScope = 0
 targetState = 0
 repeats = 1

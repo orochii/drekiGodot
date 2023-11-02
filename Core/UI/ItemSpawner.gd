@@ -49,8 +49,9 @@ func showTask(payload):
 	itemEntries.clear()
 	var items : Array = Global.State.party.inventory
 	for i in items:
-		var inst = itemEntryTemplate.instantiate()
-		inst.setup(i,self)
+		var inst:ItemEntry = itemEntryTemplate.instantiate()
+		inst.setup(i)
+		inst.itemSelected.connect(_onSelected)
 		container.add_child(inst)
 		itemEntries.append(inst)
 	applyFilter(Global.EItemCategory.MEDICINE)
@@ -101,3 +102,7 @@ func moveRight():
 
 func showUse(item):
 	useScreen.setItem(item)
+
+func _onSelected(itemEntry, item):
+	Global.Audio.playSFX("decision")
+	showUse(itemEntry)

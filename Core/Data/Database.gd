@@ -12,6 +12,7 @@ class_name Database
 @export var ignoreButtonForRebind : Array[JoyButton]
 @export var ignoreAxisForRebind : Array[JoyAxis]
 @export var innateElementRelations : Array[InnateElement]
+@export var availableScreenResolutions : Array[ScreenResolution]
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

@@ -137,6 +137,14 @@ func generateOptions():
 	sfxVolume.setup("SFX Volume", 0, 10, 0.1)
 	# Graphics
 	category = "graphics"
+	var screenResolution:DropdownOption = createDropdown()
+	screenResolution.setVariable(Global.Config, "screenResolution")
+	var resolutionOptions = {}
+	for i in range(Global.Db.availableScreenResolutions.size()):
+		var r:ScreenResolution = Global.Db.availableScreenResolutions[i]
+		resolutionOptions[i] = r.displayName
+	screenResolution.setup("Screen Resolution", resolutionOptions)
+	screenResolution.onValueChange = Global.Config.refreshScreenSize
 	var screenScale:SliderOption = createSlider()
 	screenScale.setVariable(Global.Config, "screenScale")
 	screenScale.setup("Screen Scale", 1, 4)

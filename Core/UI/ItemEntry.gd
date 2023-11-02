@@ -1,19 +1,19 @@
 extends Button
 class_name ItemEntry
 
+signal itemSelected(skillEntry:ItemEntry,skill:UseableItem)
+
 @export var itemIcon : NinePatchRect
 @export var itemName : Label
 @export var itemNum : Label
 
 var entry:GameInventoryEntry = null
-var parentScreen
 var data:BaseItem = null
 var canUse:bool = false
 
-func setup(_entry:GameInventoryEntry,p):
+func setup(_entry:GameInventoryEntry):
 	entry = _entry
 	data = Global.Db.getItem(entry.id)
-	parentScreen = p
 	_refresh()
 
 func setCanUse(v:bool):
@@ -41,6 +41,4 @@ func _refresh():
 			setCanUse(true)
 
 func _on_pressed():
-	if(parentScreen != null):
-		Global.Audio.playSFX("decision")
-		parentScreen.showUse(self)
+	itemSelected.emit(self,data)

@@ -11,10 +11,10 @@ base = 50
 [resource]
 script = ExtResource("2_wvmtl")
 flags = Array[int]([0, 4])
-targetKind = 2
+targetKind = 1
 targetScope = 0
 targetState = 0
-repeats = 1
+repeats = 0
 costType = 0
 cost = 3
 charges = 0

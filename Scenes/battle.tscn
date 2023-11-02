@@ -1,10 +1,12 @@
-[gd_scene load_steps=46 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=62 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
+[ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattlePartyStatus.gd" id="5_lf6n2"]
+[ext_resource type="Texture2D" uid="uid://dbthfq3ua28st" path="res://Graphics/System/battle/selectorParticle.png" id="6_e2b2n"]
 [ext_resource type="PackedScene" uid="uid://uderfa3lt408" path="res://Objects/battle/battle_member_status.tscn" id="6_ew4k2"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattlerStatusManager.gd" id="7_vcc71"]
 [ext_resource type="PackedScene" uid="uid://d1mnishqtv15n" path="res://Objects/battle/battler_status_hud.tscn" id="8_m4x0d"]
@@ -12,6 +14,7 @@
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorCommand.gd" id="9_mkxs7"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="9_ol241"]
 [ext_resource type="Texture2D" uid="uid://doje8qka66pja" path="res://Graphics/System/battle/element_background.png" id="10_vkifn"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleActorTargetSelect.gd" id="10_xffvq"]
 [ext_resource type="Texture2D" uid="uid://b15twoiikwfyu" path="res://Graphics/System/battle/actionIcon_action.png" id="11_ey1mi"]
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="12_epljo"]
 [ext_resource type="Texture2D" uid="uid://fo3w6qcsqbr" path="res://Graphics/System/battle/actionIcon_item.png" id="13_p82oe"]
@@ -28,9 +31,9 @@
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="25_v5dwb"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorSkillSelect.gd" id="26_2f8um"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="26_taie0"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleSkillStatusWindow.gd" id="27_7jvca"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="27_hnp7d"]
 [ext_resource type="Texture2D" uid="uid://cc0ladkb8i30y" path="res://Graphics/System/battle/SP_T.png" id="28_3jgu6"]
-[ext_resource type="Script" path="res://Scenes/BattleSkillStatusWindow.gd" id="29_jqwx8"]
 [ext_resource type="Texture2D" uid="uid://qf7k56bewjxc" path="res://Graphics/System/battle/SP_Bar.PNG" id="29_uxrax"]
 [ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="30_q3xjd"]
 [ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="31_ycsw0"]
@@ -41,8 +44,40 @@
 [ext_resource type="Texture2D" uid="uid://bd8d53aa0rurl" path="res://Graphics/System/partyMenu/back_inventory.png" id="35_afqrn"]
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="38_4irjf"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleActorItemSelect.gd" id="39_bi6w1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvfdo"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_e2b2n")
+
+[sub_resource type="Gradient" id="Gradient_y7i7p"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bvn66"]
+gradient = SubResource("Gradient_y7i7p")
+
+[sub_resource type="Curve" id="Curve_yoxac"]
+max_value = 5.0
+_data = [Vector2(0, 0), 0.0, 2.11649, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xyxo5"]
+curve = SubResource("Curve_yoxac")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0pev0"]
+direction = Vector3(0, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_xyxo5")
+color_ramp = SubResource("GradientTexture1D_bvn66")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n4dii"]
+orientation = 1
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ccex3"]
 animations = [{
@@ -108,6 +143,42 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1ofs"]
+atlas = ExtResource("9_6y5ss")
+region = Rect2(64, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3v41"]
+atlas = ExtResource("9_6y5ss")
+region = Rect2(80, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyxoa"]
+atlas = ExtResource("9_6y5ss")
+region = Rect2(96, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k48uu"]
+atlas = ExtResource("9_6y5ss")
+region = Rect2(112, 48, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7lnuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1ofs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3v41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyxoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k48uu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="QuadMesh" id="QuadMesh_jbevs"]
 size = Vector2(320, -240)
 center_offset = Vector3(480, 270, 0)
@@ -134,11 +205,13 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("camera")]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(960, 540)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
+script = ExtResource("4_ivj8n")
+camera = NodePath("Scenario/Camera/Camera3D")
 
 [node name="Scenario" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
@@ -165,8 +238,18 @@ battleManager = NodePath("../../../..")
 drawOffset = Vector2(12, 12)
 drawScale = 5.0
 
+[node name="SelectionParticles" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="SelectionParticle" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/SelectionParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+material_override = SubResource("StandardMaterial3D_fvfdo")
+cast_shadow = 0
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_0pev0")
+draw_pass_1 = SubResource("QuadMesh_n4dii")
+
 [node name="BattleUI" type="Control" parent="."]
-custom_minimum_size = Vector2(320, 240)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,7 +291,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "buttons", "waitButton", "cursor", "skillSelect")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "targetSelect", "buttons", "waitButton", "cursor")]
+visible = false
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
 anchors_preset = 12
@@ -219,10 +303,11 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("9_mkxs7")
 battle = NodePath("../..")
+skillSelect = NodePath("../ActorSkillSelect")
+targetSelect = NodePath("../ActorTargetSelect")
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
 cursor = NodePath("AnimatedSprite2D")
-skillSelect = NodePath("../ActorSkillSelect")
 
 [node name="Window" type="Control" parent="BattleUI/ActorCommand"]
 custom_minimum_size = Vector2(0, 32)
@@ -448,7 +533,8 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ccex3")
 offset = Vector2(-16, -6)
 
-[node name="ActorSkillSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("skillList", "helpText", "statusWindow", "actorCommand")]
+[node name="ActorSkillSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "skillList", "helpText", "statusWindow")]
+visible = false
 custom_minimum_size = Vector2(0, 136)
 layout_mode = 1
 anchors_preset = 12
@@ -458,10 +544,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("26_2f8um")
+actorCommand = NodePath("../ActorCommand")
 skillList = NodePath("SkillList")
 helpText = NodePath("HelpWindow/Content/RichTextLabel")
 statusWindow = NodePath("StatusWindow")
-actorCommand = NodePath("../ActorCommand")
 
 [node name="StatusWindow" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("face", "mpBar", "mpNum", "mpCost", "cooldown", "cooldownCount", "charges", "chargesCount", "reason")]
 layout_mode = 1
@@ -471,7 +557,7 @@ anchor_bottom = 1.0
 offset_top = -80.0
 offset_right = 96.0
 grow_vertical = 0
-script = ExtResource("29_jqwx8")
+script = ExtResource("27_7jvca")
 face = NodePath("Contents/Face")
 mpBar = NodePath("Contents/MPBack/MPBar")
 mpNum = NodePath("Contents/MPBack/MPLabel")
@@ -858,6 +944,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("39_bi6w1")
 
 [node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect"]
 custom_minimum_size = Vector2(0, 94)
@@ -1125,6 +1212,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("9_ol241")
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
+
+[node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "cursor", "selector", "selectorParticles")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_xffvq")
+actorCommand = NodePath("../ActorCommand")
+cursor = NodePath("CursorSingle")
+selector = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles")
+selectorParticles = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticle")
+
+[node name="CursorSingle" type="AnimatedSprite2D" parent="BattleUI/ActorTargetSelect"]
+sprite_frames = SubResource("SpriteFrames_7lnuv")
+frame_progress = 0.876155
+offset = Vector2(0, -16)
 
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
 visible = false

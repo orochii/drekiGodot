@@ -1,7 +1,7 @@
 extends Object
 class_name ConfigManager
 
-const SCREEN_SIZE:Vector2i = Vector2i(480,270)
+signal onScreenSizeChange(newSize:Vector2i)
 
 # Game
 var activeBattle : bool = false
@@ -11,6 +11,7 @@ var skipTutorials : bool = false
 var pauseOnFocusLost : bool = true
 var language : String = "en"
 # Graphics
+var screenResolution : int = 0
 var screenScale : int = 2
 var screenMode : bool = false
 var messageSkin : int = 0
@@ -20,6 +21,7 @@ var gamepadButtons : int = 0
 
 func _init():
 	loadConfig()
+	var window = Global.get_window()
 
 func loadConfig():
 	if exist():
@@ -60,6 +62,7 @@ func serialize() -> Dictionary:
 		"bindings":Global.Inputs.serializeBindings(),
 		# Graphics: ScreenScale, ScreenMode, MessageSkin, BackOpacity, BattleShadows, GamepadButtons
 		"graphics":{
+			"ScreenResolution" : screenResolution,
 			"ScreenScale" : screenScale, 
 			"ScreenMode" : screenMode, 
 			"MessageSkin" : messageSkin, 
@@ -91,6 +94,7 @@ func deserialize(data : Dictionary):
 		Global.Inputs.deserializeBindings(data["bindings"])
 	if data.has("graphics"):
 		var graphics = data["graphics"]
+		if(graphics.has("ScreenResolution")): screenResolution = graphics["ScreenResolution"]
 		if(graphics.has("ScreenScale")): screenScale = graphics["ScreenScale"]
 		if(graphics.has("ScreenMode")): screenMode = graphics["ScreenMode"]
 		if(graphics.has("MessageSkin")): messageSkin = graphics["MessageSkin"]
@@ -112,12 +116,18 @@ func refreshLanguage():
 
 func refreshScreenSize():
 	var window = Global.get_window()
+	# Size
+	var _screenSize:ScreenResolution = Global.Db.availableScreenResolutions[0]
+	if screenResolution >= 0 && screenResolution < Global.Db.availableScreenResolutions.size():
+		_screenSize = Global.Db.availableScreenResolutions[screenResolution]
+	window.content_scale_size = _screenSize.resolution
+	onScreenSizeChange.emit(_screenSize)
+	# Scale and screen mode
 	if screenMode:
 		window.mode = Window.MODE_FULLSCREEN
 	else:
 		window.mode = Window.MODE_WINDOWED
-		window.size = SCREEN_SIZE * screenScale
-		#window.content_scale_factor = screenScale
+		window.size = window.content_scale_size * screenScale
 		centerWindow()
 
 func centerWindow():

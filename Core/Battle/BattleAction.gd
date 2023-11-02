@@ -5,6 +5,8 @@ var battler:Battler
 var action:Resource #(BaseSkill or BaseItem)
 var scope:Global.ETargetScope
 var targetIdx:int
+
+# Don't set manually
 var repeatIdx:int = 0
 var remainingTimes:int = 0
 
