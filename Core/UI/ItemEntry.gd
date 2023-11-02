@@ -1,7 +1,7 @@
 extends Button
 class_name ItemEntry
 
-signal itemSelected(skillEntry:ItemEntry,skill:UseableItem)
+signal itemSelected(obj:ItemEntry,skill:UseableItem,entry:GameInventoryEntry)
 
 @export var itemIcon : NinePatchRect
 @export var itemName : Label
@@ -16,7 +16,9 @@ func setup(_entry:GameInventoryEntry):
 	data = Global.Db.getItem(entry.id)
 	_refresh()
 
-func setCanUse(v:bool):
+func setEnabled(inBattle:bool):
+	var v = false
+	if (data != null): v = data.isUseable(inBattle)
 	canUse = v
 	modulate.a = 1 if v else 0.5
 
@@ -30,15 +32,10 @@ func _process(delta):
 func _refresh():
 	if(entry==null): return
 	itemNum.text = "%d"%entry.amount
-	setCanUse(false)
 	if(data==null): return
 	itemIcon.texture = data.icon
 	itemName.text = data.name
-	#
-	if(data is UseableItem):
-		var d = data as UseableItem
-		if (d.canUse != Global.EUsePermit.BATTLE):
-			setCanUse(true)
 
 func _on_pressed():
-	itemSelected.emit(self,data)
+	print("Emit item signal")
+	itemSelected.emit(self,data,entry)

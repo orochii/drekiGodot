@@ -26,6 +26,7 @@ func open():
 	var idx = battler().getLastIndex(&"skill")
 	if(idx==null): idx = 0
 	skillList.setListIndex(idx)
+	_refreshHelp(true)
 
 func close():
 	visible = false
@@ -42,9 +43,9 @@ func _goBack():
 	actorCommand.visible = true
 	actorCommand.selectLast()
 
-func _refreshHelp():
+func _refreshHelp(force=false):
 	var currItem = skillList.getCurrentItem()
-	if currItem != lastItem:
+	if currItem != lastItem || force:
 		if currItem==null:
 			helpText.text = ""
 		else:

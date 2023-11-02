@@ -74,6 +74,8 @@ func updateAtb(delta,avgSpeed:int):
 func isAtbFull():
 	return atbValue >= ATB_MAX
 
+func startTurn():
+	battler.advanceSkillConditions()
 func endTurn():
 	atbValue = 0
 	currentAction = null

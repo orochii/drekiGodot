@@ -15,4 +15,4 @@ script = ExtResource("1_qlmdr")
 texture = ExtResource("2_eddo4")
 cellW = 64
 cellH = 64
-collection = Array[ExtResource("1_u0p85")]([SubResource("Resource_rvl44")])
+collection = [SubResource("Resource_rvl44")]

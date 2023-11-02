@@ -3,16 +3,16 @@ class_name BattleActorItemSelect
 
 @export var actorCommand:BattleActorCommand
 @export_group("Members")
-#@export var itemList:ItemList
+@export var itemList:ItemsList
 @export var helpText:RichTextLabel
-#@export var statusWindow:BattleSkillStatusWindow
+@export var statusWindow:BattleItemStatus
 
 var lastItem:UseableItem
 
 func _ready():
 	visible = false
-	#itemList.inBattle = true
-	#itemList.onItemSelected = _onItemSelected
+	itemList.inBattle = true
+	itemList.onItemSelected = _onItemSelected
 
 func battler():
 	return actorCommand.currentBattler
@@ -20,16 +20,17 @@ func battler():
 func open():
 	actorCommand.visible = false
 	visible = true
-	#statusWindow.setBattler(battler())
-	#itemList.setup()
-	#itemList.active = true
+	statusWindow.setup(battler())
+	itemList.setup()
+	itemList.active = true
 	var idx = battler().getLastIndex(&"skill")
 	if(idx==null): idx = 0
-	#itemList.setListIndex(idx)
+	itemList.setListIndex(idx)
+	_refreshHelp(true)
 
 func close():
 	visible = false
-	#itemList.active = false
+	itemList.active = false
 
 func _process(delta):
 	if !visible: return
@@ -43,9 +44,9 @@ func _goBack():
 	actorCommand.visible = true
 	actorCommand.selectLast()
 
-func _refreshHelp():
-	var currItem = null #itemList.getCurrentItem()
-	if currItem != lastItem:
+func _refreshHelp(force=false):
+	var currItem = itemList.getCurrentItem()
+	if currItem != lastItem || force:
 		if currItem==null:
 			helpText.text = ""
 		else:
@@ -53,7 +54,7 @@ func _refreshHelp():
 		#statusWindow.setup(currItem)
 		lastItem = currItem
 
-func _onItemSelected(entry,item):
+func _onItemSelected(obj, item, entry):
 	Global.Audio.playSFX("decision")
-	#battler().setLastIndex(&"item", itemList.getListIndex())
-	#actorCommand.targetSelect.setup(item)
+	battler().setLastIndex(&"item", itemList.getListIndex())
+	actorCommand.targetSelect.setup(item)

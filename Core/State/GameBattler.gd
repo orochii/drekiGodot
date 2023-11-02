@@ -9,6 +9,11 @@ var states : Array[StatusState]
 var lastIndexes:Dictionary
 var skillConditions:Dictionary
 
+func advanceSkillConditions():
+	for key in skillConditions:
+		var cd = getSkillCooldown(key)
+		if cd > 0:
+			setSkillCooldown(key, cd-1)
 func getSkillCooldown(id:StringName):
 	if skillConditions.has(id):
 		var s = skillConditions[id]
@@ -25,6 +30,7 @@ func setSkillCooldown(id:StringName,cooldown:int):
 	if !skillConditions.has(id): skillConditions[id] = {}
 	var s = skillConditions[id]
 	s["cooldown"] = cooldown
+	skillConditions[id] = s
 func addSkillChargesSpent(id:StringName):
 	if !skillConditions.has(id): skillConditions[id] = {}
 	var s = skillConditions[id]
@@ -32,6 +38,7 @@ func addSkillChargesSpent(id:StringName):
 		s["chargesSpent"] += 1
 	else:
 		s["chargesSpent"] = 1
+	skillConditions[id] = s
 
 func getLastIndex(tag:StringName):
 	if lastIndexes.has(tag): return lastIndexes[tag]

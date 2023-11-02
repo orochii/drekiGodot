@@ -119,6 +119,7 @@ func _calcAvgSpeed():
 func _advanceAtb(b:Battler,deltaAtb,avgSpeed):
 	b.updateAtb(deltaAtb,avgSpeed)
 	if(b.isAtbFull()):
+		b.startTurn()
 		waitingBattlers.erase(b)
 		readyBattlers.append(b)
 		onBattlerReady.emit(b)
@@ -138,6 +139,7 @@ func _advanceActions(b:Battler):
 			readyBattlers.erase(b)
 			actionBattlers.append(b)
 	else:
+		b.atbValue = 0
 		endBattlerTurn(b)
 
 func _executeAction(currentAction:BattleAction):
@@ -145,6 +147,8 @@ func _executeAction(currentAction:BattleAction):
 	activeBattler.currentAction = null
 	if currentAction.action != null:
 		print("BATTLER: %s executes %s" % [activeBattler.battler.getName(), currentAction.action.name])
+		# resolve action cost
+		currentAction.resolveCost()
 		# resolve starting effects
 		var startEffects:Array[BaseEffect] = currentAction.resolveActionList(0)
 		for effect in startEffects:

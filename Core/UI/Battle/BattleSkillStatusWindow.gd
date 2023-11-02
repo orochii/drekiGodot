@@ -38,7 +38,7 @@ func setup(skill:UseableSkill):
 			cooldown.visible = false
 			charges.visible = false
 			reason.text = "Cooldown %d turns" % currCooldown
-		if chargesRemaining <= 0 && skill.charges != 0:
+		elif chargesRemaining <= 0 && skill.charges != 0:
 			cooldown.visible = false
 			charges.visible = false
 			reason.text = "Depleted"
@@ -60,8 +60,8 @@ func _process(delta):
 			_refreshCost()
 
 func _refreshStatus():
-	mpCurr = battler.battler.currHP
-	var mpPerc = mpCurr * 1.0 / battler.battler.getMaxHP()
+	mpCurr = battler.battler.currMP
+	var mpPerc = mpCurr * 1.0 / battler.battler.getMaxMP()
 	mpNum.text = "%d" % mpCurr
 	_setMpBarWidth(mpPerc)
 

@@ -62,5 +62,8 @@ func getCurrentItem():
 	return null
 
 func _onSelected(skillEntry, skill):
+	if !skillEntry.enabled:
+		Global.Audio.playSFX("buzzer")
+		return
 	if onSkillSelected.is_valid():
 		onSkillSelected.call(skillEntry, skill)

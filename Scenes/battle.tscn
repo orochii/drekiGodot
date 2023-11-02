@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=65 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -45,6 +45,9 @@
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="38_4irjf"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorItemSelect.gd" id="39_bi6w1"]
+[ext_resource type="Script" path="res://Core/UI/ItemList.gd" id="40_u1w8q"]
+[ext_resource type="PackedScene" uid="uid://rjd18xm8wgbx" path="res://Objects/item_entry.tscn" id="41_rvmd3"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleItemStatus.gd" id="44_0ks3v"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
@@ -291,7 +294,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "targetSelect", "buttons", "waitButton", "cursor")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "buttons", "waitButton", "cursor")]
 visible = false
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
@@ -304,6 +307,7 @@ grow_vertical = 0
 script = ExtResource("9_mkxs7")
 battle = NodePath("../..")
 skillSelect = NodePath("../ActorSkillSelect")
+itemSelect = NodePath("../ActorItemSelect")
 targetSelect = NodePath("../ActorTargetSelect")
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
@@ -921,6 +925,7 @@ offset_right = -8.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("9_ol241")
 
 [node name="GridContainer" type="GridContainer" parent="BattleUI/ActorSkillSelect/SkillList/Container"]
 layout_mode = 2
@@ -934,8 +939,7 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ane6s")
 offset = Vector2(-16, -6)
 
-[node name="ActorItemSelect" type="Control" parent="BattleUI"]
-visible = false
+[node name="ActorItemSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "itemList", "helpText", "statusWindow")]
 custom_minimum_size = Vector2(0, 152)
 layout_mode = 1
 anchors_preset = 12
@@ -945,8 +949,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("39_bi6w1")
+actorCommand = NodePath("../ActorCommand")
+itemList = NodePath("ItemList")
+helpText = NodePath("HelpWindow/Content/RichTextLabel")
+statusWindow = NodePath("ItemList/EquipContainer")
 
-[node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect"]
+[node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect" node_paths=PackedStringArray("container", "scroll", "cursor")]
 custom_minimum_size = Vector2(0, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -956,6 +964,11 @@ offset_top = 48.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("40_u1w8q")
+container = NodePath("Container/GridContainer")
+itemEntryTemplate = ExtResource("41_rvmd3")
+scroll = NodePath("Container")
+cursor = NodePath("Cursor")
 
 [node name="Background" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList"]
 layout_mode = 1
@@ -997,6 +1010,7 @@ offset_right = -8.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("9_ol241")
 
 [node name="GridContainer" type="GridContainer" parent="BattleUI/ActorItemSelect/ItemList/Container"]
 layout_mode = 2
@@ -1064,7 +1078,7 @@ layout_mode = 2
 texture = ExtResource("35_afqrn")
 region_rect = Rect2(224, 32, 32, 16)
 
-[node name="EquipContainer" type="HBoxContainer" parent="BattleUI/ActorItemSelect/ItemList"]
+[node name="EquipContainer" type="HBoxContainer" parent="BattleUI/ActorItemSelect/ItemList" node_paths=PackedStringArray("nameLabel", "equip1Icon", "equip1Label", "equip2Icon", "equip2Label")]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -1076,6 +1090,12 @@ offset_right = -8.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("44_0ks3v")
+nameLabel = NodePath("../ItemCategories/ActorName")
+equip1Icon = NodePath("LeftHand/NinePatchRect")
+equip1Label = NodePath("LeftHand/LeftName")
+equip2Icon = NodePath("RightHand/NinePatchRect")
+equip2Label = NodePath("RightHand/RightName")
 
 [node name="LeftHand" type="Control" parent="BattleUI/ActorItemSelect/ItemList/EquipContainer"]
 layout_mode = 2

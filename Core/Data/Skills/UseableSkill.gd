@@ -18,6 +18,7 @@ enum ECostType { AmountMP, PercentMP }
 @export var charges : int
 @export var cooldown : int
 @export var canUse : Global.EUsePermit
+@export_range(0, 1) var cpCost : float = 0.6
 
 @export_category("Effect")
 @export var startSequence : Array[BaseEffect]

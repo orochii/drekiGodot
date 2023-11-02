@@ -19,7 +19,7 @@ func setItem(entry:ItemEntry):
 	parentScreen.active = false
 	visible = true
 	curr = entry
-	itemEntry.setup(entry.entry,self)
+	itemEntry.setup(entry.entry)
 	description.text = itemEntry.data.description
 	get_viewport().gui_release_focus()
 	refreshTargets()

@@ -10,6 +10,30 @@ var targetIdx:int
 var repeatIdx:int = 0
 var remainingTimes:int = 0
 
+func resolveCost():
+	if action is UseableSkill:
+		var skill = action as UseableSkill
+		# take off MP
+		var cost = skill.getMPCost(battler.battler)
+		battler.battler.changeMP(-cost)
+		# set cooldown
+		var skId = skill.getId()
+		if skill.cooldown != 0:
+			battler.battler.setSkillCooldown(skId, skill.cooldown+1)
+		# add spent charge
+		if skill.charges != 0:
+			battler.battler.addSkillChargesSpent(skId)
+		# reduce atb
+		battler.atbValue -= skill.cpCost
+	elif action is UseableItem:
+		var item = action as UseableItem
+		# remove 1 of item on chance
+		var r = randf()
+		if (r < item.spendOnUseChance):
+			Global.State.party.loseItem(item.getId(), 1)
+		# reduce atb
+		battler.atbValue -= item.cpCost
+
 func selectRandomTarget():
 	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE

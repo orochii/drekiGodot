@@ -5,6 +5,7 @@ const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
 
 @export var battle:BattleManager
 @export var skillSelect:BattleActorSkillSelect
+@export var itemSelect:BattleActorItemSelect
 @export var targetSelect:BattleActorTargetSelect
 @export_group("Members")
 @export var buttons:Array[BaseButton]
@@ -69,6 +70,7 @@ func _unset():
 	currentBattler = null
 	visible = false
 	skillSelect.close()
+	itemSelect.close()
 	targetSelect.close()
 
 func selectLast():
@@ -105,6 +107,7 @@ func _on_action_pressed():
 func _on_inventory_pressed():
 	Global.Audio.playSFX("decision")
 	currentBattler.setLastIndex(&"command", 1)
+	itemSelect.open()
 
 func _on_wait_pressed():
 	Global.Audio.playSFX("decision")

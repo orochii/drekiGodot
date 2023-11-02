@@ -9,7 +9,9 @@ class_name ItemsList
 var inBattle:bool = false
 var onItemSelected:Callable
 var entries:Array[ItemEntry]
+var filteredEntries:Array
 var active:bool = false
+var currCategory:Global.EItemCategory = Global.EItemCategory.MEDICINE
 
 func _ready():
 	cursor.visible = false
@@ -26,19 +28,19 @@ func _process(delta):
 	else:
 		cursor.visible = false
 
-func setup(battler:GameBattler):
+func setup():
 	for e in entries: e.queue_free()
 	entries.clear()
-	if(battler==null): return
-	var skills = battler.getSkills()
-	for skill in skills:
+	var items : Array = Global.State.party.inventory
+	for item in items:
 		var inst:ItemEntry = itemEntryTemplate.instantiate()
-		inst.setEnabled(skill.isUseable(inBattle))
-		inst.setup(skill)
+		inst.setup(item)
+		inst.setEnabled(inBattle)
 		inst.itemSelected.connect(_onSelected)
 		container.add_child(inst)
 		entries.append(inst)
 	UIUtils.setGridNeighbors(entries,2)
+	applyFilter(currCategory)
 
 func getFirst():
 	if(entries.size() == 0): return null
@@ -61,6 +63,32 @@ func getCurrentItem():
 		return focused.data
 	return null
 
-func _onSelected(itemEntry, item):
+func applyFilter(newCategory:Global.EItemCategory):
+	currCategory = newCategory
+	repositionCatSel()
+	filteredEntries.clear()
+	for e in entries:
+		if(e.getCategory()==currCategory):
+			e.visible = true
+			filteredEntries.append(e)
+		else:
+			e.visible = false
+	# Set up neighboring configuration
+	UIUtils.setGridNeighbors(filteredEntries,2)
+	# And then do the doodeedoo :)
+	var desiredIndex = min(0,filteredEntries.size()-1)
+	if(desiredIndex >= 0): filteredEntries[desiredIndex].grab_focus()
+
+func repositionCatSel():
+	var pos = Vector2(currCategory * 32, 0)
+	#catSel.position = pos
+
+func _onSelected(obj, item, entry):
+	print("emitted item signal received")
+	if !obj.canUse:
+		Global.Audio.playSFX("buzzer")
+		print("item can't use")
+		return
 	if onItemSelected.is_valid():
-		onItemSelected.call(itemEntry, item)
+		print("item selected for use")
+		onItemSelected.call(obj, item, entry)

@@ -35,7 +35,6 @@ func _refresh():
 		itemNum.text = ""
 		return
 	itemNum.text = "%d"%entry.amount
-	#setCanUse(false)
 	if(data==null): return
 	itemIcon.texture = data.icon
 	itemName.text = data.name

@@ -35,6 +35,7 @@ func setup(obj:Resource):
 		return
 	_selectTarget(0)
 	actorCommand.skillSelect.close()
+	actorCommand.itemSelect.close()
 	visible = true
 
 func select():
@@ -47,7 +48,11 @@ func select():
 
 func goBack():
 	Global.Audio.playSFX("cancel")
-	actorCommand.skillSelect.open()
+	if _skill != null:
+		actorCommand.skillSelect.open()
+	if _item != null:
+		actorCommand.itemSelect.open()
+	close()
 
 func close():
 	visible = false
@@ -87,7 +92,6 @@ func _moveCursor(dir:Vector2):
 		_selectTarget(0)
 	else:
 		var _targets = _getTargets()
-		print(_targets)
 		var _pos = _currentTarget.homePosition
 		var _targetPos = Vector2(_pos.x, _pos.z) + dir
 		var _closestTarget = null

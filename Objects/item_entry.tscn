@@ -5,7 +5,8 @@
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_ju34l"]
 
 [node name="ItemEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemName", "itemNum")]
-custom_minimum_size = Vector2(192, 16)
+custom_minimum_size = Vector2(0, 16)
+size_flags_horizontal = 3
 mouse_filter = 2
 theme = ExtResource("3_ju34l")
 flat = true
