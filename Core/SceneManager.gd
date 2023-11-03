@@ -73,6 +73,9 @@ func callBattle(troop:EnemyTroop):
 	askPause(battleInstance)
 	await onBattleEnd
 
+func inBattle():
+	return battleInstance != null
+
 func endBattle():
 	if(battleInstance == null): return
 	fadeOut(TRANSFER_FADE_LEN)

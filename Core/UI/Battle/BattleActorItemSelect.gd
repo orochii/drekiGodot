@@ -7,7 +7,7 @@ class_name BattleActorItemSelect
 @export var helpText:RichTextLabel
 @export var statusWindow:BattleItemStatus
 
-var lastItem:UseableItem
+var lastItem:BaseItem
 
 func _ready():
 	visible = false
@@ -23,7 +23,7 @@ func open():
 	statusWindow.setup(battler())
 	itemList.setup()
 	itemList.active = true
-	var idx = battler().getLastIndex(&"skill")
+	var idx = battler().getLastIndex(&"item")
 	if(idx==null): idx = 0
 	itemList.setListIndex(idx)
 	_refreshHelp(true)
@@ -36,8 +36,40 @@ func _process(delta):
 	if !visible: return
 	_refreshHelp()
 	# TODO: Category change, equip left/right
+	if Input.is_action_just_pressed("cycle_left"):
+		if _equipTo(0):
+			Global.Audio.playSFX("equip")
+			itemList.refresh()
+			statusWindow.setup(battler())
+		else:
+			Global.Audio.playSFX("buzzer")
+		return
+	if Input.is_action_just_pressed("cycle_right"):
+		if _equipTo(1):
+			Global.Audio.playSFX("equip")
+			itemList.refresh()
+			statusWindow.setup(battler())
+		else:
+			Global.Audio.playSFX("buzzer")
+		return
+	if Input.is_action_just_pressed("action_extra"):
+		Global.Audio.playSFX("cursor")
+		_changeCategory()
+		return
 	if Input.is_action_just_pressed("action_cancel"):
 		_goBack()
+
+func _equipTo(slot:int):
+	if battler().battler is GameActor:
+		var item = itemList.getCurrentItem()
+		if item is EquipItem:
+			var equip = item as EquipItem
+			var actor = battler().battler as GameActor
+			return actor.equip(slot, equip)
+	return false
+
+func _changeCategory():
+	itemList.switchCatForward()
 
 func _goBack():
 	close()

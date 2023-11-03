@@ -5,12 +5,15 @@
 
 [resource]
 script = ExtResource("2_chq3q")
-targetKind = 0
-targetScope = 0
+targetKind = 1
+targetScope = 1
 targetState = 0
 spendOnUseChance = 0.0
+cpCost = 0.6
 canUse = 2
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Lunar Teardrop"
 description = "Restores all LP and MP to the group, resets all skill uses. Can't be used in battle."
 icon = ExtResource("1_30yog")

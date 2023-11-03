@@ -5,12 +5,15 @@
 
 [resource]
 script = ExtResource("2_g5btl")
-targetKind = 0
+targetKind = 1
 targetScope = 0
 targetState = 0
 spendOnUseChance = 0.0
+cpCost = 0.6
 canUse = 2
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Lifesaver L"
 description = "Revives and restores 4096LP and 512MP to the group."
 icon = ExtResource("1_uu6mx")

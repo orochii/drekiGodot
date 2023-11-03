@@ -251,3 +251,27 @@ func pickActionScript() -> ActionScript:
 
 func getPosition() -> int:
 	return 0
+
+func canUse(action:Resource):
+	if action is UseableSkill:
+		var skill = action as UseableSkill
+		# MP Cost
+		var cost = skill.getMPCost(self)
+		if cost > currMP: return false
+		# cooldown
+		var skId = skill.getId()
+		if skill.cooldown != 0:
+			var cd = getSkillCooldown(skId)
+			if cd > 0: return false
+		# charges left
+		if skill.charges != 0:
+			var ch = getSkillChargesSpent(skId)
+			if ch >= skill.charges: return false
+	elif action is UseableItem:
+		var item = action as UseableItem
+		var itId = item.getId()
+		var count = Global.State.party.itemCount(itId)
+		if count <= 0: return false
+	else:
+		return false
+	return true

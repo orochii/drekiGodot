@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=67 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -48,6 +48,8 @@
 [ext_resource type="Script" path="res://Core/UI/ItemList.gd" id="40_u1w8q"]
 [ext_resource type="PackedScene" uid="uid://rjd18xm8wgbx" path="res://Objects/item_entry.tscn" id="41_rvmd3"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleItemStatus.gd" id="44_0ks3v"]
+[ext_resource type="Texture2D" uid="uid://cxefqesb3o84i" path="res://Graphics/System/partyMenu/cat_sel.png" id="44_astp7"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleTargetInfoWindow.gd" id="48_jpuxb"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
@@ -940,6 +942,7 @@ sprite_frames = SubResource("SpriteFrames_ane6s")
 offset = Vector2(-16, -6)
 
 [node name="ActorItemSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "itemList", "helpText", "statusWindow")]
+visible = false
 custom_minimum_size = Vector2(0, 152)
 layout_mode = 1
 anchors_preset = 12
@@ -954,7 +957,7 @@ itemList = NodePath("ItemList")
 helpText = NodePath("HelpWindow/Content/RichTextLabel")
 statusWindow = NodePath("ItemList/EquipContainer")
 
-[node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect" node_paths=PackedStringArray("container", "scroll", "cursor")]
+[node name="ItemList" type="Control" parent="BattleUI/ActorItemSelect" node_paths=PackedStringArray("container", "scroll", "cursor", "catSel", "catSelPosRef")]
 custom_minimum_size = Vector2(0, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -969,6 +972,8 @@ container = NodePath("Container/GridContainer")
 itemEntryTemplate = ExtResource("41_rvmd3")
 scroll = NodePath("Container")
 cursor = NodePath("Cursor")
+catSel = NodePath("ItemCategories/Control/CatSel")
+catSelPosRef = NodePath("ItemCategories/Control/CategoryContainer/Cat1")
 
 [node name="Background" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList"]
 layout_mode = 1
@@ -1051,32 +1056,50 @@ theme = ExtResource("9_ol241")
 text = "Hikari"
 vertical_alignment = 1
 
-[node name="CategoryContainer" type="HBoxContainer" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories"]
+[node name="Control" type="Control" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 16.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CategoryContainer" type="HBoxContainer" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/Control"]
+layout_mode = 1
+offset_right = 96.0
+offset_bottom = 16.0
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Cat1" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/CategoryContainer"]
+[node name="Cat1" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/Control/CategoryContainer"]
 custom_minimum_size = Vector2(32, 16)
 layout_mode = 2
 texture = ExtResource("35_afqrn")
 region_rect = Rect2(64, 32, 32, 16)
 
-[node name="Cat2" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/CategoryContainer"]
+[node name="Cat2" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/Control/CategoryContainer"]
 custom_minimum_size = Vector2(32, 16)
 layout_mode = 2
 texture = ExtResource("35_afqrn")
 region_rect = Rect2(160, 32, 32, 16)
 
-[node name="Cat3" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/CategoryContainer"]
+[node name="Cat3" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/Control/CategoryContainer"]
 custom_minimum_size = Vector2(32, 16)
 layout_mode = 2
 texture = ExtResource("35_afqrn")
 region_rect = Rect2(224, 32, 32, 16)
+
+[node name="CatSel" type="NinePatchRect" parent="BattleUI/ActorItemSelect/ItemList/ItemCategories/Control"]
+layout_mode = 1
+offset_right = 32.0
+offset_bottom = 16.0
+texture = ExtResource("44_astp7")
 
 [node name="EquipContainer" type="HBoxContainer" parent="BattleUI/ActorItemSelect/ItemList" node_paths=PackedStringArray("nameLabel", "equip1Icon", "equip1Label", "equip2Icon", "equip2Label")]
 layout_mode = 1
@@ -1233,7 +1256,7 @@ grow_vertical = 2
 theme = ExtResource("9_ol241")
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
 
-[node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "cursor", "selector", "selectorParticles")]
+[node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "status", "cursor", "selector", "selectorParticles")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1242,6 +1265,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_xffvq")
 actorCommand = NodePath("../ActorCommand")
+status = NodePath("TargetInfoWindow")
 cursor = NodePath("CursorSingle")
 selector = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles")
 selectorParticles = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticle")
@@ -1250,6 +1274,115 @@ selectorParticles = NodePath("../../SubViewportContainer/SubViewport/SelectionPa
 sprite_frames = SubResource("SpriteFrames_7lnuv")
 frame_progress = 0.876155
 offset = Vector2(0, -16)
+
+[node name="TargetInfoWindow" type="Control" parent="BattleUI/ActorTargetSelect" node_paths=PackedStringArray("nameLabel", "hpNum", "mpNum", "hpLabel", "mpLabel")]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("48_jpuxb")
+nameLabel = NodePath("Content/HBoxContainer/Name")
+hpNum = NodePath("Content/HBoxContainer/HPNum")
+mpNum = NodePath("Content/HBoxContainer/MPNum")
+hpLabel = NodePath("Content/HBoxContainer/HP")
+mpLabel = NodePath("Content/HBoxContainer/MP")
+
+[node name="Background" type="NinePatchRect" parent="BattleUI/ActorTargetSelect/TargetInfoWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="BattleUI/ActorTargetSelect/TargetInfoWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Content" type="Control" parent="BattleUI/ActorTargetSelect/TargetInfoWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("9_ol241")
+text = "Enemyname69"
+vertical_alignment = 1
+
+[node name="HP" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content/HBoxContainer"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("9_ol241")
+text = "LP"
+label_settings = ExtResource("31_ycsw0")
+vertical_alignment = 1
+
+[node name="HPNum" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("30_q3xjd")
+text = "8888888/8888888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MP" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content/HBoxContainer"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("9_ol241")
+text = "MP"
+label_settings = ExtResource("31_ycsw0")
+vertical_alignment = 1
+
+[node name="MPNum" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("30_q3xjd")
+text = "8888888/8888888"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
 visible = false

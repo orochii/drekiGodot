@@ -50,8 +50,7 @@ func screenSize() -> Vector2:
 func _ready():
 	# For playtesting
 	if (Global.State.party == null):
-		test = true
-		Global.newGame()
+		_prepareTest()
 	if (Global.State.currentTroop == null): Global.State.currentTroop = testTroop
 	# Play music
 	Global.Audio.rememberBGM(&"prebattle")
@@ -225,7 +224,20 @@ func _doInput() -> bool:
 		configMenu.open(false)
 		return true
 	# Debug end battle
-	if(Input.is_action_just_pressed("action_extra")):
-		battleEnd(EBattleResult.DRAW)
-		return true
+	#if(Input.is_action_just_pressed("action_extra")):
+	#	battleEnd(EBattleResult.DRAW)
+	#	return true
 	return false
+
+func _prepareTest():
+	test = true
+	Global.newGame()
+	# Give all items?
+	var path = "res://Data/Items/"
+	var pathLen = path.length()
+	var allItems = Global.get_dir_contents(path)
+	for i in allItems[0]:
+		var s = i as String
+		var idLen = s.length() - pathLen - 5
+		var itemId = s.substr(pathLen, idLen)
+		Global.State.party.gainItem(itemId,GameParty.MAX_ITEMS)

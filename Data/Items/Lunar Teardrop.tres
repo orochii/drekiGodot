@@ -5,14 +5,17 @@
 
 [resource]
 script = ExtResource("2_y88pf")
-targetKind = 0
+targetKind = 1
 targetScope = 0
 targetState = 0
 spendOnUseChance = 0.0
+cpCost = 0.6
 canUse = 1
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Ether"
-description = "Restores 50% of both max LP and MP."
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = "Lunar Teardrop"
+description = "Restores one ally's HP and MP to full. Replenish all charges. Can only be used outside of battle."
 icon = ExtResource("1_biswk")
 category = 0
 price = 0

@@ -151,3 +151,36 @@ func cacheScreenshot():
 		lastScreenshot = get_viewport().get_texture().get_image()
 func freeScreenshot():
 	lastScreenshot = null
+
+#Dir inspect or something
+func get_dir_contents(rootPath: String) -> Array:
+	var files = []
+	var directories = []
+	var dir = DirAccess.open(rootPath)
+	
+	if dir != null:
+		dir.include_hidden = false
+		dir.include_navigational = false
+		dir.list_dir_begin()
+		_add_dir_contents(dir, files, directories)
+	else:
+		push_error("An error occurred when trying to access the path.")
+	return [files, directories]
+
+func _add_dir_contents(dir: DirAccess, files: Array, directories: Array):
+	var file_name = dir.get_next()
+	while (file_name != ""):
+		var path = dir.get_current_dir() + "/" + file_name
+		if dir.current_is_dir():
+			print("Found directory: %s" % path)
+			var subDir = DirAccess.open(path)
+			subDir.include_hidden = false
+			subDir.include_navigational = false
+			subDir.list_dir_begin()
+			directories.append(path)
+			_add_dir_contents(subDir, files, directories)
+		else:
+			print("Found file: %s" % path)
+			files.append(path)
+		file_name = dir.get_next()
+	dir.list_dir_end()

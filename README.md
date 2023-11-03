@@ -2,10 +2,32 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Basic UI (party menu)
-- Battle system
+- Implement general item/skill effects in battle
+	- Move battler (maybe split into movement types)
+	- Move battle camera
+	- Apply basic damage (actually implement)
+		- Damage popups
+	- Show battler animation
+	- Spawn VFX
+- Groups menu
+- Data menu (enemies, characters, topics, journal)
+- Character status options (position, scrolls, fylgja)
+- Character skills screen: Skill check/use, learn skills.
+- Multi-message support.
 
 # DONE List
+- Battle system
+	- Turn behavior
+	- Skill/Item selection
+	- Target selection
+	- Action execution
+- Basic UI (party menu)
+	- Party menu main screen: select/open characters, inventory, etc (DONE)
+	- Character screens (DONE)
+		- Character Status layout: you can check status (DONE)
+		- Character equip: items can be equipped/unequipped (DONE)
+		- Character skills/learntree layout: list and tree are correctly populated (DONE)
+	- System: all options working (save,load,config,title,exit) (DONE)
 - Finish with basic database structures (DONE)
 	- Spritesheets: DONE
 	- BasicEffect: DONE

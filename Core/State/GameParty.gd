@@ -15,7 +15,7 @@ func gainItem(id:StringName,n:int):
 			return
 	var e = GameInventoryEntry.new()
 	e.id = id
-	e.amount = n
+	e.amount = mini(n, MAX_ITEMS)
 	inventory.append(e)
 
 func loseItem(id:StringName,n:int):

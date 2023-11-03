@@ -107,17 +107,21 @@ func _getTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
 	# Invert kind if is i.e. confused
 	if battler.battler.hasRestriction(Global.ERestriction.AttackAlly):
 		match kind:
+			Global.ETargetKind.ENEMY:
+				kind = Global.ETargetKind.ALLY
 			Global.ETargetKind.ALLY:
 				kind = Global.ETargetKind.ENEMY
 			Global.ETargetKind.ANY:
 				kind = Global.ETargetKind.ALLY
-			_:
-				kind = Global.ETargetKind.ALLY
 	# Return the array of viable targets
 	match kind:
+		Global.ETargetKind.ENEMY:
+			return battler.getEnemies(state)
 		Global.ETargetKind.ALLY:
 			return battler.getAllies(state)
 		Global.ETargetKind.ANY:
 			return battler.getAll(state)
+		Global.ETargetKind.USER:
+			return [battler]
 		_:
-			return battler.getEnemies(state)
+			return []

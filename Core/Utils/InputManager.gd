@@ -16,10 +16,12 @@ var lastInputKind : int = -1
 func _ready():
 	lastInputKind = -1
 	mirrorActionsToUIMappings()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _process(delta):
-	if Input.is_action_just_pressed("sys_snap"):
-		Global.saveScreenshot()
+	if !Global.Scene.inBattle():
+		if Input.is_action_just_pressed("sys_snap"):
+			Global.saveScreenshot()
 	if Input.is_action_just_pressed("sys_config"):
 		if(Global.UI != null): Global.UI.Config.open(false)
 

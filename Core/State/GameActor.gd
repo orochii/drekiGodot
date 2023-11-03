@@ -189,21 +189,25 @@ func equip(slotIdx:int, item:EquipItem):
 	var _slotsData = Global.Db.equipSlots
 	if(equips.size() < _slotsData.size()):
 		equips.resize(_slotsData.size())
+	# add new item into the slot
+	if(item != null):
+		# check if it's for the right slot
+		if _slotsData[slotIdx].kind != item.slot: return false
+		# Can't equip
+		if(canEquip(item) == false): return false
+		# Wrong slot
+		if(item.slot != _slotsData[slotIdx].kind): return false
 	# remove current item at slot, send back to inventory
 	if(equips[slotIdx] != null):
 		var oldEquip = equips[slotIdx]
 		equips[slotIdx] = null
 		Global.State.party.gainItem(oldEquip,1)
-	# add new item into the slot
+	# Equip
 	if(item != null):
-		# Can't equip
-		if(canEquip(item) == false): return false
-		# Wrong slot
-		if(item.slot != _slotsData[slotIdx].kind): return false
-		# Equip
 		var newEquip = item.getId()
 		equips[slotIdx] = newEquip
 		Global.State.party.loseItem(newEquip,1)
+	return true
 func canEquip(equip:EquipItem)->bool:
 	var a:Actor = getData()
 	for flag in equip.flags:
