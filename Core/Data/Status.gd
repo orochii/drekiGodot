@@ -12,7 +12,7 @@ class_name Status
 @export var restriction : Global.ERestriction # None, NoMagic, AtkEnemy, AtkAlly, CantMove
 
 @export_category("Effects over Time")
-@export var eotActivation : int # TURN,MILLISECONDS
+@export var eotActivation : Global.EStatusActivation
 @export var eotInterval : int
 @export var eotSequence : Array[BaseEffect]
 

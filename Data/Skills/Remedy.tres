@@ -20,6 +20,7 @@ cost = 3
 charges = 0
 cooldown = 1
 canUse = 2
+cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])

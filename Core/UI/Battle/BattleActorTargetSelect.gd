@@ -160,6 +160,7 @@ func _refreshTarget():
 		var pos = actorCommand.battle.posToScreen(_currentTarget.homePosition)
 		pos.x = roundi(pos.x)
 		pos.y = roundi(pos.y) - _currentTarget.getScreenSize().y
+		pos.y = maxi(pos.y, 16)
 		cursor.position = pos
 		status.setup(_currentTarget)
 

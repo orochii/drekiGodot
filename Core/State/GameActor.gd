@@ -51,7 +51,8 @@ func getSkills():
 		if _slotData[i].kind==Global.EquipSlot.ARMS:
 			var e = equips[i]
 			if(e == null):
-				var skill = Global.Db.defaultAttackSkills[i] as UseableSkill
+				var idx = getData().defaultWeaponSkills[i]
+				var skill = Global.Db.defaultAttackSkills[idx] as UseableSkill
 				skills.append(skill)
 			else:
 				var item = Global.Db.getItem(e) as EquipItem

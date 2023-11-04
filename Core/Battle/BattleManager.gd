@@ -30,7 +30,7 @@ var readyBattlers:Array[Battler]
 var actionBattlers:Array[Battler]
 
 func endBattlerTurn(b:Battler):
-	b.endTurn()
+	await b.endTurn()
 	readyBattlers.erase(b)
 	actionBattlers.erase(b)
 	waitingBattlers.append(b)
@@ -96,7 +96,7 @@ func _process(delta):
 		var deltaAtb = _calcDeltaAtb(delta)
 		var avgSpeed = _calcAvgSpeed()
 		for b in waitingBattlers:
-			_advanceAtb(b,deltaAtb,avgSpeed)
+			await _advanceAtb(b,deltaAtb,avgSpeed)
 	
 	# Battle process
 	# - Automatic actions for ready battlers.
@@ -116,7 +116,7 @@ func _calcAvgSpeed():
 	return avgSpeed
 
 func _advanceAtb(b:Battler,deltaAtb,avgSpeed):
-	b.updateAtb(deltaAtb,avgSpeed)
+	await b.updateAtb(deltaAtb,avgSpeed)
 	if(b.isAtbFull()):
 		b.startTurn()
 		waitingBattlers.erase(b)

@@ -70,6 +70,7 @@ func updateAtb(delta,avgSpeed:int):
 		addValue *= 0.8
 	atbValue += addValue
 	if atbValue>ATB_MAX: atbValue=ATB_MAX
+	await updateStatusTime(delta)
 
 func isAtbFull():
 	return atbValue >= ATB_MAX
@@ -77,8 +78,38 @@ func isAtbFull():
 func startTurn():
 	battler.advanceSkillConditions()
 func endTurn():
-	atbValue = 0
 	currentAction = null
+	await updateStatusTurns()
+
+func updateStatusTurns():
+	for ss in battler.states:
+		var status:Status = Global.Db.getStatus(ss.id)
+		if status.eotInterval != 0:
+			if status.eotActivation == Global.EStatusActivation.TURN:
+				await executeStatusEffects(status, ss.turns)
+	battler.advanceStatesTurn()
+func updateStatusTime(delta:float):
+	for ss in battler.states:
+		var status:Status = Global.Db.getStatus(ss.id)
+		if status.eotInterval != 0:
+			if status.eotActivation == Global.EStatusActivation.MILLISECONDS:
+				var milli:int = floori(ss.timer * 1000)
+				if ss.lastTimer != milli:
+					await executeStatusEffects(status, milli)
+					ss.lastTimer = milli
+				ss.timer += delta
+
+func executeStatusEffects(status:Status, curr:int):
+	# if on right interval, do stuff
+	var c = curr % status.eotInterval
+	if c == status.eotInterval:
+		var action = BattleAction.new()
+		action.battler = self
+		action.action = status
+		action.scope = Global.ETargetScope.ONE
+		action.targetIdx = 0
+		for effect in action.resolveActionList(0):
+			await effect.execute(action)
 
 func setAction(action:Resource, scope:Global.ETargetScope, targetIdx:int):
 	currentAction = BattleAction.new()

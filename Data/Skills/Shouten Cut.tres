@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_fxe8w")
 flags = Array[int]([])
-targetKind = 0
+targetKind = 3
 targetScope = 0
 targetState = 0
 repeats = 0
@@ -15,6 +15,7 @@ cost = 0
 charges = 0
 cooldown = 1
 canUse = 0
+cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])

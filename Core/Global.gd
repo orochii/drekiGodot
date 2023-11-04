@@ -42,6 +42,10 @@ enum EStatusFlags {
 	NO_EXP = 4,
 	NO_EVADE = 8
 }
+enum EStatusActivation {
+	TURN,
+	MILLISECONDS
+}
 
 var UI : GameUI
 var Ev : Interpreter
@@ -172,7 +176,6 @@ func _add_dir_contents(dir: DirAccess, files: Array, directories: Array):
 	while (file_name != ""):
 		var path = dir.get_current_dir() + "/" + file_name
 		if dir.current_is_dir():
-			print("Found directory: %s" % path)
 			var subDir = DirAccess.open(path)
 			subDir.include_hidden = false
 			subDir.include_navigational = false
@@ -180,7 +183,6 @@ func _add_dir_contents(dir: DirAccess, files: Array, directories: Array):
 			directories.append(path)
 			_add_dir_contents(subDir, files, directories)
 		else:
-			print("Found file: %s" % path)
 			files.append(path)
 		file_name = dir.get_next()
 	dir.list_dir_end()

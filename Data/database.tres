@@ -1,18 +1,21 @@
-[gd_resource type="Resource" script_class="Database" load_steps=22 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=55 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
 [ext_resource type="Script" path="res://Core/Data/ScreenResolution.gd" id="1_g4sgc"]
-[ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Punch.tres" id="1_kftcr"]
+[ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Common/Punch.tres" id="1_kftcr"]
 [ext_resource type="Resource" uid="uid://cgweyquyc6otq" path="res://Data/Skills/Common/Move Back.tres" id="1_ml5ph"]
 [ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
 [ext_resource type="Resource" uid="uid://c50k2n5aulkf1" path="res://Data/Skills/Common/Wait.tres" id="2_7ll6p"]
-[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Kick.tres" id="2_7uveh"]
+[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Common/Kick.tres" id="2_7uveh"]
 [ext_resource type="Resource" uid="uid://cd571o5wvubcl" path="res://Data/Skills/Common/Move Forward.tres" id="3_4vm70"]
-[ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Bite.tres" id="3_7dnsd"]
+[ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Common/Bite.tres" id="3_7dnsd"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
+[ext_resource type="Resource" uid="uid://br46b7nriekaj" path="res://Data/Skills/Common/Claw.tres" id="8_ubclu"]
+[ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="11_eq8wb"]
+[ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="12_8a6ld"]
 
 [sub_resource type="Resource" id="Resource_ldt41"]
 script = ExtResource("1_g4sgc")
@@ -54,16 +57,166 @@ script = ExtResource("1_nydlf")
 name = "Other"
 kind = 3
 
+[sub_resource type="Resource" id="Resource_he521"]
+script = ExtResource("11_eq8wb")
+element = 5
+rank = 3
+
+[sub_resource type="Resource" id="Resource_fkivu"]
+script = ExtResource("11_eq8wb")
+element = 6
+rank = 0
+
+[sub_resource type="Resource" id="Resource_hnrww"]
+script = ExtResource("11_eq8wb")
+element = 7
+rank = 1
+
+[sub_resource type="Resource" id="Resource_cnnp2"]
+script = ExtResource("12_8a6ld")
+id = 5
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_he521"), SubResource("Resource_fkivu"), SubResource("Resource_hnrww")])
+
+[sub_resource type="Resource" id="Resource_ecj21"]
+script = ExtResource("11_eq8wb")
+element = 5
+rank = 0
+
+[sub_resource type="Resource" id="Resource_gne4l"]
+script = ExtResource("11_eq8wb")
+element = 6
+rank = 3
+
+[sub_resource type="Resource" id="Resource_qwahj"]
+script = ExtResource("11_eq8wb")
+element = 10
+rank = 3
+
+[sub_resource type="Resource" id="Resource_k6f7v"]
+script = ExtResource("12_8a6ld")
+id = 6
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_ecj21"), SubResource("Resource_gne4l"), SubResource("Resource_qwahj")])
+
+[sub_resource type="Resource" id="Resource_dy7y1"]
+script = ExtResource("11_eq8wb")
+element = 7
+rank = 3
+
+[sub_resource type="Resource" id="Resource_7h7d5"]
+script = ExtResource("11_eq8wb")
+element = 8
+rank = 0
+
+[sub_resource type="Resource" id="Resource_slk7a"]
+script = ExtResource("11_eq8wb")
+element = 10
+rank = 1
+
+[sub_resource type="Resource" id="Resource_jdrt3"]
+script = ExtResource("12_8a6ld")
+id = 7
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_dy7y1"), SubResource("Resource_7h7d5"), SubResource("Resource_slk7a")])
+
+[sub_resource type="Resource" id="Resource_yigl3"]
+script = ExtResource("11_eq8wb")
+element = 5
+rank = 3
+
+[sub_resource type="Resource" id="Resource_8fi87"]
+script = ExtResource("11_eq8wb")
+element = 7
+rank = 0
+
+[sub_resource type="Resource" id="Resource_8v05b"]
+script = ExtResource("11_eq8wb")
+element = 8
+rank = 3
+
+[sub_resource type="Resource" id="Resource_rs42m"]
+script = ExtResource("12_8a6ld")
+id = 8
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_yigl3"), SubResource("Resource_8fi87"), SubResource("Resource_8v05b")])
+
+[sub_resource type="Resource" id="Resource_w0scx"]
+script = ExtResource("11_eq8wb")
+element = 7
+rank = 3
+
+[sub_resource type="Resource" id="Resource_ki548"]
+script = ExtResource("11_eq8wb")
+element = 9
+rank = 3
+
+[sub_resource type="Resource" id="Resource_knnci"]
+script = ExtResource("11_eq8wb")
+element = 10
+rank = 0
+
+[sub_resource type="Resource" id="Resource_g3rr3"]
+script = ExtResource("12_8a6ld")
+id = 9
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_w0scx"), SubResource("Resource_ki548"), SubResource("Resource_knnci")])
+
+[sub_resource type="Resource" id="Resource_tga5j"]
+script = ExtResource("11_eq8wb")
+element = 5
+rank = 1
+
+[sub_resource type="Resource" id="Resource_pb3l0"]
+script = ExtResource("11_eq8wb")
+element = 9
+rank = 0
+
+[sub_resource type="Resource" id="Resource_mk153"]
+script = ExtResource("11_eq8wb")
+element = 10
+rank = 3
+
+[sub_resource type="Resource" id="Resource_e1sm4"]
+script = ExtResource("12_8a6ld")
+id = 10
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_tga5j"), SubResource("Resource_pb3l0"), SubResource("Resource_mk153")])
+
+[sub_resource type="Resource" id="Resource_cyuhm"]
+script = ExtResource("11_eq8wb")
+element = 11
+rank = 4
+
+[sub_resource type="Resource" id="Resource_515ua"]
+script = ExtResource("11_eq8wb")
+element = 12
+rank = 0
+
+[sub_resource type="Resource" id="Resource_oup8f"]
+script = ExtResource("12_8a6ld")
+id = 11
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_cyuhm"), SubResource("Resource_515ua")])
+
+[sub_resource type="Resource" id="Resource_6ax2f"]
+script = ExtResource("11_eq8wb")
+element = 11
+rank = 0
+
+[sub_resource type="Resource" id="Resource_0qfpx"]
+script = ExtResource("11_eq8wb")
+element = 12
+rank = 4
+
+[sub_resource type="Resource" id="Resource_1pi4w"]
+script = ExtResource("12_8a6ld")
+id = 12
+relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_6ax2f"), SubResource("Resource_0qfpx")])
+
 [resource]
 script = ExtResource("1_37k5x")
 startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf"), ExtResource("4_ihar5")])
 startingScene = ExtResource("4_d28sx")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
-defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd")])
+defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd"), ExtResource("8_ubclu")])
 commonActions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_ml5ph"), ExtResource("2_7ll6p"), ExtResource("3_4vm70")])
 ignoreKeyForRebind = Array[int]([4194319, 4194320, 4194321, 4194322, 4194309, 4194305])
 ignoreButtonForRebind = Array[int]([])
 ignoreAxisForRebind = Array[int]([0, 1])
-innateElementRelations = Array[Resource("res://Core/Data/InnateElement.gd")]([])
+innateElementRelations = Array[ExtResource("12_8a6ld")]([SubResource("Resource_cnnp2"), SubResource("Resource_k6f7v"), SubResource("Resource_jdrt3"), SubResource("Resource_rs42m"), SubResource("Resource_g3rr3"), SubResource("Resource_e1sm4"), SubResource("Resource_oup8f"), SubResource("Resource_1pi4w")])
 availableScreenResolutions = Array[ExtResource("1_g4sgc")]([SubResource("Resource_ldt41"), SubResource("Resource_j61gb")])

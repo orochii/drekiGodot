@@ -8,6 +8,8 @@ const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
 @export var itemSelect:BattleActorItemSelect
 @export var targetSelect:BattleActorTargetSelect
 @export_group("Members")
+@export var highlight:Node3D
+@export var highlightParticles:GPUParticles3D
 @export var buttons:Array[BaseButton]
 @export var waitButton:BaseButton
 @export var cursor:AnimatedSprite2D
@@ -48,7 +50,6 @@ func _process(delta):
 
 func _onBattlerReady(b:Battler):
 	if _canBeCommanded(b):
-		print("%s is ready." % b.battler.getName())
 		readyBattlers.append(b)
 
 func _canBeCommanded(b:Battler):
@@ -56,8 +57,9 @@ func _canBeCommanded(b:Battler):
 
 func _setup(b:Battler):
 	currentBattler = b
+	highlight.global_position = currentBattler.homePosition
+	highlightParticles.emitting = true
 	readyBattlers.erase(currentBattler)
-	print("%s set to command." % currentBattler.battler.getName())
 	visible = true
 	Global.Audio.playSFX("decision")
 	selectLast()
@@ -68,6 +70,7 @@ func _setup(b:Battler):
 		_setWait(wIdx)
 func _unset():
 	currentBattler = null
+	highlightParticles.emitting = false
 	visible = false
 	skillSelect.close()
 	itemSelect.close()

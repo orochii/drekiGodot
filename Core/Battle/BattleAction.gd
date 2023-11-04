@@ -2,7 +2,7 @@ extends Object
 class_name BattleAction
 
 var battler:Battler
-var action:Resource #(BaseSkill or BaseItem)
+var action:Resource #(Status, BaseSkill or BaseItem)
 var scope:Global.ETargetScope
 var targetIdx:int
 
@@ -37,7 +37,10 @@ func resolveCost():
 func selectRandomTarget():
 	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE
-	if action is UseableSkill:
+	if action is Status:
+		targetKind = Global.ETargetKind.USER
+		targetState = Global.ETargetState.ANY
+	elif action is UseableSkill:
 		var sk = action as UseableSkill
 		targetKind = sk.targetKind
 		targetState = sk.targetState
@@ -80,6 +83,9 @@ func resolveActionList(type:int) -> Array[BaseEffect]:
 				return it.actionSequence
 			2:
 				return it.endSequence
+	elif action is Status:
+		var st = action as Status
+		return st.eotSequence
 	return []
 
 func resolveTargets() -> Array[Battler]:
@@ -93,6 +99,9 @@ func resolveTargets() -> Array[Battler]:
 		var it = action as UseableItem
 		targetKind = it.targetKind
 		targetState = it.targetState
+	elif action is Status:
+		targetKind = Global.ETargetKind.USER
+		targetState = Global.ETargetState.ANY
 	var ary = _getTargetArray(targetKind,targetState)
 	match scope:
 		Global.ETargetScope.ALL:

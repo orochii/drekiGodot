@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=69 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -83,6 +83,17 @@ color_ramp = SubResource("GradientTexture1D_bvn66")
 
 [sub_resource type="QuadMesh" id="QuadMesh_n4dii"]
 orientation = 1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jsclg"]
+load_path = "res://.godot/imported/selectorParticle.png-c78631959bfa40a0f23dabb2a11b5256.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hessc"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 1, 1)
+albedo_texture = SubResource("CompressedTexture2D_jsclg")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ccex3"]
 animations = [{
@@ -251,6 +262,18 @@ material_override = SubResource("StandardMaterial3D_fvfdo")
 cast_shadow = 0
 emitting = false
 amount = 2
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_0pev0")
+draw_pass_1 = SubResource("QuadMesh_n4dii")
+
+[node name="ActiveBattlerHighlight" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="ActiveBattlerParticles" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/ActiveBattlerHighlight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+material_override = SubResource("StandardMaterial3D_hessc")
+cast_shadow = 0
+emitting = false
+amount = 2
 process_material = SubResource("ParticleProcessMaterial_0pev0")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
@@ -296,7 +319,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "buttons", "waitButton", "cursor")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "highlight", "highlightParticles", "buttons", "waitButton", "cursor")]
 visible = false
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
@@ -311,6 +334,8 @@ battle = NodePath("../..")
 skillSelect = NodePath("../ActorSkillSelect")
 itemSelect = NodePath("../ActorItemSelect")
 targetSelect = NodePath("../ActorTargetSelect")
+highlight = NodePath("../../SubViewportContainer/SubViewport/ActiveBattlerHighlight")
+highlightParticles = NodePath("../../SubViewportContainer/SubViewport/ActiveBattlerHighlight/ActiveBattlerParticles")
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
 cursor = NodePath("AnimatedSprite2D")
@@ -1278,6 +1303,7 @@ offset = Vector2(0, -16)
 [node name="TargetInfoWindow" type="Control" parent="BattleUI/ActorTargetSelect" node_paths=PackedStringArray("nameLabel", "hpNum", "mpNum", "hpLabel", "mpLabel")]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

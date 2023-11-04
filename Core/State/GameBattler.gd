@@ -39,6 +39,11 @@ func addSkillChargesSpent(id:StringName):
 	else:
 		s["chargesSpent"] = 1
 	skillConditions[id] = s
+func resetSkillCooldowns():
+	for id in skillConditions:
+		skillConditions[id].erase("cooldown")
+func resetAllSkills():
+	skillConditions[id] = {}
 
 func getLastIndex(tag:StringName):
 	if lastIndexes.has(tag): return lastIndexes[tag]
@@ -60,7 +65,6 @@ func changeHP(val:int):
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
-
 func changeMP(val:int):
 	currMP = clampi(currMP + val, 0, getMaxHP())
 	var deathStatus = Global.Db.getStatus("Dry")
@@ -69,6 +73,11 @@ func changeMP(val:int):
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
+func recoverAll():
+	currHP = getMaxHP()
+	currMP = getMaxMP()
+	states.clear()
+	resetAllSkills()
 
 func hasStatus(s:Status):
 	var sid = s.getId()
@@ -135,7 +144,6 @@ func getSortedStates():
 	ary.append_array(states)
 	ary.sort_custom(_sort_states_by_priority)
 	return ary
-
 func _sort_states_by_priority(a:StatusState, b:StatusState):
 	# If true, b will be after
 	var aData = Global.Db.getStatus(a.id)
@@ -143,6 +151,31 @@ func _sort_states_by_priority(a:StatusState, b:StatusState):
 	if aData.displayRating > bData.displayRating:
 		return true
 	return false
+
+func removeStatesUponDamage():
+	var toRemove = []
+	for s in states:
+		var d:Status = Global.Db.getStatus(s.id)
+		var r = randf()
+		if r < d.releaseOnDamageReceived:
+			toRemove.append(s)
+	for s in toRemove: states.erase(s)
+func removeStatesAtBattleEnd():
+	var toRemove = []
+	for s in states:
+		var d:Status = Global.Db.getStatus(s.id)
+		if d.releaseAtBattleEnd: toRemove.append(s)
+	for s in toRemove: states.erase(s)
+func advanceStatesTurn():
+	var toRemove = []
+	for s in states:
+		var d:Status = Global.Db.getStatus(s.id)
+		s.turns += 1
+		if s.turns >= d.releaseOnTurnsElapsed:
+			var r = randf()
+			if r < d.releaseOnTurnsElapsedRate:
+				toRemove.append(s)
+	for s in toRemove: states.erase(s)
 
 func getName():
 	return ""
