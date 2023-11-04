@@ -2,11 +2,12 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Damage popups
+- Battle end screen
+- Escape option
 - Implement general item/skill effects in battle
 	- Move battler (maybe split into movement types)
 	- Move battle camera
-	- Apply basic damage (actually implement)
-		- Damage popups
 	- ApplyPercentDamage: hp/mp, amount
 	- Show battler animation
 	- Spawn VFX
@@ -21,6 +22,8 @@ One attempt at making RPG on Godot just how I like it :)
 - Multi-message support.
 
 # DONE List
+- Effects
+	- Apply basic damage (DONE)
 - Battle system
 	- Turn behavior
 	- Skill/Item selection
