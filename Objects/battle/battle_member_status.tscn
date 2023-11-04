@@ -63,7 +63,6 @@ size_flags_vertical = 8
 texture = ExtResource("4_320rw")
 
 [node name="LPBar" type="NinePatchRect" parent="BackTexture/LPBack"]
-custom_minimum_size = Vector2(31, 16)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -108,7 +107,6 @@ size_flags_vertical = 8
 texture = ExtResource("7_5pvhh")
 
 [node name="MPBar" type="NinePatchRect" parent="BackTexture/MPBack"]
-custom_minimum_size = Vector2(31, 16)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

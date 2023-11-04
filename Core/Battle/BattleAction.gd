@@ -6,9 +6,9 @@ var action:Resource #(Status, BaseSkill or BaseItem)
 var scope:Global.ETargetScope
 var targetIdx:int
 
-# Don't set manually
+# Don't set manually (except for maybe cleave)
 var repeatIdx:int = 0
-var remainingTimes:int = 0
+var totalRepeats:int = 0
 
 func resolveCost():
 	if action is UseableSkill:
@@ -49,13 +49,16 @@ func selectRandomTarget():
 		targetKind = it.targetKind
 		targetState = it.targetState
 	var ary = _getTargetArray(targetKind,targetState)
-	targetIdx = randi() % ary.size()
+	if ary.size()==0: 
+		targetIdx = 0
+	else:
+		targetIdx = randi() % ary.size()
 
 func setRepeats():
-	remainingTimes = resolveRepeats()
+	totalRepeats = resolveRepeats()
 	repeatIdx = 0
 func repeatAvailable():
-	return repeatIdx <= remainingTimes;
+	return repeatIdx <= totalRepeats;
 func advanceRepeat():
 	repeatIdx += 1
 func resolveRepeats() -> int: 
@@ -107,8 +110,10 @@ func resolveTargets() -> Array[Battler]:
 		Global.ETargetScope.ALL:
 			return ary
 		Global.ETargetScope.ONE:
+			if ary.size()==0: return []
 			return [ary[targetIdx]]
 		_:
+			if ary.size()==0: return []
 			var rndIdx = randi() % ary.size()
 			return [ary[rndIdx]]
 

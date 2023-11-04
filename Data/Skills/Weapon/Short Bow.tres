@@ -1,7 +1,22 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://bg617ojy3hhbx"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://bg617ojy3hhbx"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_5rbyu"]
 [ext_resource type="Texture2D" uid="uid://bcpmc3ntwwk8q" path="res://Graphics/Icons/items/item_0245.png" id="1_y5h0i"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_ocnp6"]
+
+[sub_resource type="Resource" id="Resource_rrbem"]
+script = ExtResource("1_5rbyu")
+type = 0
+base = 1
+atkF = 1.0
+strF = 1.0
+vitF = 0.0
+magF = 0.0
+agiF = 0.0
+pDefF = 1.0
+mDefF = 0.0
+hit = 1.0
+variance = 0.0
 
 [resource]
 script = ExtResource("2_ocnp6")
@@ -17,7 +32,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_rrbem")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Short Bow"
 description = ""

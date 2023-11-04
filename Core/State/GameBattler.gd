@@ -191,6 +191,8 @@ func getMag():
 	return applyFeatureStatChange(getBaseMag(), Global.Stat.Mag)
 func getAgi():
 	return applyFeatureStatChange(getBaseAgi(), Global.Stat.Agi)
+func getAtk():
+	return applyFeatureStatChange(0, Global.Stat.Atk)
 func getPhyAbs():
 	return applyFeatureStatChange(0, Global.Stat.PhyAbs)
 func getMagAbs():

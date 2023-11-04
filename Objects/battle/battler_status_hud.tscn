@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1mnishqtv15n"]
+[gd_scene load_steps=6 format=3 uid="uid://d1mnishqtv15n"]
 
 [ext_resource type="Script" path="res://Core/UI/Battle/BattlerStatusHUD.gd" id="1_455e7"]
 [ext_resource type="Texture2D" uid="uid://4lq1b4wktlu6" path="res://Graphics/System/battle/cpbar_back_skin.png" id="2_lhspm"]
 [ext_resource type="Texture2D" uid="uid://cxaosvj3hfiyi" path="res://Graphics/System/battle/CPSkin.png" id="3_10gv5"]
 [ext_resource type="Script" path="res://Core/UI/Battle/StatesDisplay.gd" id="4_e6rel"]
-[ext_resource type="Texture2D" uid="uid://dp76dos0endp6" path="res://Graphics/Icons/states/st_01.png" id="5_r3rpm"]
-[ext_resource type="Script" path="res://Core/UI/Battle/StateStackIcon.gd" id="6_8tvt6"]
+[ext_resource type="PackedScene" uid="uid://6bedvoqf6xfb" path="res://Objects/battle/status_icon.tscn" id="5_hqf8t"]
 
 [node name="BattlerStatusHUD" type="Control" node_paths=PackedStringArray("cp", "cpBar", "cpBarFull", "statesDisplay")]
 layout_mode = 3
@@ -71,7 +70,7 @@ offset_bottom = 7.0
 texture = ExtResource("3_10gv5")
 region_rect = Rect2(34, 82, 58, 10)
 
-[node name="States" type="HBoxContainer" parent="Control" node_paths=PackedStringArray("baseStackIcon")]
+[node name="States" type="HBoxContainer" parent="Control"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 1
 anchors_preset = 10
@@ -80,27 +79,4 @@ grow_horizontal = 2
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("4_e6rel")
-baseStackIcon = NodePath("StatusIcon")
-
-[node name="StatusIcon" type="NinePatchRect" parent="Control/States" node_paths=PackedStringArray("stacks")]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 2
-texture = ExtResource("5_r3rpm")
-script = ExtResource("6_8tvt6")
-stacks = [NodePath("."), NodePath("Level2"), NodePath("Level3")]
-
-[node name="Level2" type="NinePatchRect" parent="Control/States/StatusIcon"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 0
-offset_top = -2.0
-offset_right = 12.0
-offset_bottom = 10.0
-texture = ExtResource("5_r3rpm")
-
-[node name="Level3" type="NinePatchRect" parent="Control/States/StatusIcon"]
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 0
-offset_top = -4.0
-offset_right = 12.0
-offset_bottom = 8.0
-texture = ExtResource("5_r3rpm")
+stackIconTemplate = ExtResource("5_hqf8t")

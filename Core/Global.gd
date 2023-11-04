@@ -26,11 +26,12 @@ enum Element {
 	HEALING
 }
 enum Rank { A, B, C, D, E, F }
-enum Stat { HP, MP, Str, Vit, Mag, Agi, HitRate, Eva, PhyAbs, MagAbs }
+enum Stat { HP, MP, Str, Vit, Mag, Agi, HitRate, Eva, PhyAbs, MagAbs, Atk }
 enum ETargetKind { NONE, ALLY, ENEMY, ANY, USER }
 enum ETargetScope { ONE, ALL, RANDOM }
 enum ETargetState { ALIVE, DEAD, ANY }
 enum EUsePermit { BATTLE, MAP, ANYWHERE }
+enum EDamageType { HP,MP}
 
 # NoHands and NoMove try to mimic Live a Live's arm/leg restriction, 
 # while NoMagic is for sealing off magic specifically

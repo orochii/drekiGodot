@@ -23,10 +23,12 @@ class Values:
 			_label.text = "%d" % _show.x
 			# Update values
 			if(_curr != _show):
+				#
 				var dx = roundi(abs(_curr.x - _last.x) / BAR_ANIM_FRAMES)
 				if dx < 2: dx = 2
 				_show.x = move_toward(_show.x, _curr.x, dx)
-				var dy = roundi(abs(_curr.x - _last.x) / BAR_ANIM_FRAMES)
+				#
+				var dy = roundi(abs(_curr.y - _last.y) / BAR_ANIM_FRAMES)
 				if dy < 2: dy = 2
 				_show.y = move_toward(_show.y, _curr.y, dy)
 			else:
@@ -39,8 +41,6 @@ class Values:
 		bar.region_rect.size.x = px
 		bar.region_rect.size.y = size.y
 		bar.size.x = px
-
-
 
 @export var face:NinePatchRect
 @export var hpBar:NinePatchRect

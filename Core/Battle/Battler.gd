@@ -8,6 +8,8 @@ const START_OFFSET = Vector3(0,0,-20)
 
 @export var graphic:CharGraphic
 
+var appeared:bool = true
+var hidden:bool = false
 var battler:GameBattler
 var battle:BattleManager
 var atbValue:float
@@ -28,11 +30,15 @@ func setStartDirection(a:float):
 func moveToPosition(pos:Vector3):
 	self.global_position = pos
 	targetPosition = pos
+func goToStartPosition():
+	var homePos = getHomePosition()
+	var startPos = homePos + getStartOffset()
+	targetPosition = startPos
 func moveToStartPosition():
 	var homePos = getHomePosition()
 	var startPos = homePos + getStartOffset()
 	moveToPosition(startPos)
-func moveToHome():
+func goToHome():
 	targetPosition = getHomePosition()
 func setHomePosition(pos:Vector3):
 	# inst.setHomePosition(startingPosition + (partyPositionOffset * i))
@@ -70,36 +76,37 @@ func updateAtb(delta,avgSpeed:int):
 		addValue *= 0.8
 	atbValue += addValue
 	if atbValue>ATB_MAX: atbValue=ATB_MAX
-	await updateStatusTime(delta)
+	await _updateStatusTime(delta)
 
 func isAtbFull():
 	return atbValue >= ATB_MAX
 
 func startTurn():
 	battler.advanceSkillConditions()
+	await _updateStatusTurns()
 func endTurn():
 	currentAction = null
-	await updateStatusTurns()
+	battler.advanceStatesTurn()
 
-func updateStatusTurns():
+func _updateStatusTurns():
 	for ss in battler.states:
 		var status:Status = Global.Db.getStatus(ss.id)
 		if status.eotInterval != 0:
 			if status.eotActivation == Global.EStatusActivation.TURN:
-				await executeStatusEffects(status, ss.turns)
-	battler.advanceStatesTurn()
-func updateStatusTime(delta:float):
+				await _executeStatusEffects(status, ss.turns)
+
+func _updateStatusTime(delta:float):
 	for ss in battler.states:
 		var status:Status = Global.Db.getStatus(ss.id)
 		if status.eotInterval != 0:
 			if status.eotActivation == Global.EStatusActivation.MILLISECONDS:
 				var milli:int = floori(ss.timer * 1000)
 				if ss.lastTimer != milli:
-					await executeStatusEffects(status, milli)
+					await _executeStatusEffects(status, milli)
 					ss.lastTimer = milli
 				ss.timer += delta
 
-func executeStatusEffects(status:Status, curr:int):
+func _executeStatusEffects(status:Status, curr:int):
 	# if on right interval, do stuff
 	var c = curr % status.eotInterval
 	if c == status.eotInterval:
@@ -137,6 +144,7 @@ func getEnemies(state:Global.ETargetState):
 	var ary:Array[Battler] = []
 	for b in battle.allBattlers:
 		if battler.isEnemy(b.battler): 
+			if b.cantTarget(): continue
 			if _stateConditionMet(b,state): ary.append(b)
 	return ary
 
@@ -144,12 +152,14 @@ func getAllies(state:Global.ETargetState):
 	var ary:Array[Battler] = []
 	for b in battle.allBattlers:
 		if !battler.isEnemy(b.battler): 
+			if b.cantTarget(): continue
 			if _stateConditionMet(b,state): ary.append(b)
 	return ary
 
 func getAll(state:Global.ETargetState):
 	var ary:Array[Battler] = []
 	for b in battle.allBattlers:
+		if b.cantTarget(): continue
 		if _stateConditionMet(b,state): ary.append(b)
 	return ary
 
@@ -161,3 +171,11 @@ func setLastIndex(tag:StringName,value):
 func _stateConditionMet(b:Battler,state:Global.ETargetState):
 	if state==Global.ETargetState.ANY: return true
 	return (state==Global.ETargetState.DEAD) == b.battler.isDead()
+
+func appear():
+	moveToStartPosition()
+	goToHome()
+	appeared = true
+
+func cantTarget():
+	return hidden || !appeared

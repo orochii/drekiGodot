@@ -1,17 +1,15 @@
 extends HBoxContainer
 class_name StatesDisplay
 
-@export var baseStackIcon:StateStackIcon
+@export var stackIconTemplate:PackedScene
 @export var visibleStacks:int = 5
 
 var allStacks:Array[StateStackIcon]
 var battler:Battler = null
 
 func _ready():
-	baseStackIcon.setup(null)
-	allStacks.append(baseStackIcon)
-	for i in range(visibleStacks-1):
-		var n:StateStackIcon = baseStackIcon.duplicate()
+	for i in range(visibleStacks):
+		var n:StateStackIcon = stackIconTemplate.instantiate()
 		n.setup(null)
 		allStacks.append(n)
 		self.add_child(n)

@@ -117,9 +117,7 @@ func refreshLanguage():
 func refreshScreenSize():
 	var window = Global.get_window()
 	# Size
-	var _screenSize:ScreenResolution = Global.Db.availableScreenResolutions[0]
-	if screenResolution >= 0 && screenResolution < Global.Db.availableScreenResolutions.size():
-		_screenSize = Global.Db.availableScreenResolutions[screenResolution]
+	var _screenSize = currentScreenResolution()
 	window.content_scale_size = _screenSize.resolution
 	onScreenSizeChange.emit(_screenSize)
 	# Scale and screen mode
@@ -129,6 +127,12 @@ func refreshScreenSize():
 		window.mode = Window.MODE_WINDOWED
 		window.size = window.content_scale_size * screenScale
 		centerWindow()
+
+func currentScreenResolution():
+	var _screenSize:ScreenResolution = Global.Db.availableScreenResolutions[0]
+	if screenResolution >= 0 && screenResolution < Global.Db.availableScreenResolutions.size():
+		_screenSize = Global.Db.availableScreenResolutions[screenResolution]
+	return _screenSize
 
 func centerWindow():
 	var screenPosition = DisplayServer.screen_get_position()

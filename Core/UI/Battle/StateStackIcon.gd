@@ -17,6 +17,6 @@ func refresh():
 		var status:Status = Global.Db.getStatus(_statusState.id)
 		for i in range(stacks.size()):
 			var s = stacks[i]
-			s.visible = (i >= _statusState.stack)
+			s.visible = (i < _statusState.stack)
 			s.texture = status.icon
 		visible = true

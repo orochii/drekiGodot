@@ -3,7 +3,6 @@ extends Control
 class_name BreakScreen_Transition
 
 @export var mesh:MeshInstance2D
-@export var splices:Vector2i = Vector2i(4,4)
 @export var seed:int = 0
 @export var magnitude:float = 1
 @export var rotationMagnitude:float = 1
@@ -13,6 +12,7 @@ class_name BreakScreen_Transition
 var _lastTexture = null
 var _lastState = -1.0
 var noise:FastNoiseLite = null
+var splices:Vector2i
 
 func setTexture(texture:Texture):
 	mesh.texture = texture
@@ -21,6 +21,7 @@ func setTexture(texture:Texture):
 func _process(delta):
 	if(noise==null): noise = FastNoiseLite.new()
 	if(_lastTexture==mesh.texture && _lastState==state): return
+	splices = Global.Config.currentScreenResolution().aspectRatio
 	# Make color
 	var c = Color(1, 1, 1, transparency.sample(state))
 	# Set position

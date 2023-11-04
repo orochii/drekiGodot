@@ -7,8 +7,13 @@ One attempt at making RPG on Godot just how I like it :)
 	- Move battle camera
 	- Apply basic damage (actually implement)
 		- Damage popups
+	- ApplyPercentDamage: hp/mp, amount
 	- Show battler animation
 	- Spawn VFX
+	- Scan: target
+	- AddStatus: target, status
+	- RunEvent: evt
+	- Switch/Variable operation
 - Groups menu
 - Data menu (enemies, characters, topics, journal)
 - Character status options (position, scrolls, fylgja)

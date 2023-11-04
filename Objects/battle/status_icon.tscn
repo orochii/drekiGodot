@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://6bedvoqf6xfb"]
+
+[ext_resource type="Texture2D" uid="uid://dp76dos0endp6" path="res://Graphics/Icons/states/st_01.png" id="1_3fnhk"]
+[ext_resource type="Script" path="res://Core/UI/Battle/StateStackIcon.gd" id="2_4vxpb"]
+
+[node name="StatusIcon" type="NinePatchRect" node_paths=PackedStringArray("stacks")]
+custom_minimum_size = Vector2(12, 12)
+texture = ExtResource("1_3fnhk")
+script = ExtResource("2_4vxpb")
+stacks = [NodePath("."), NodePath("Level2"), NodePath("Level3")]
+
+[node name="Level2" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 0
+offset_top = -2.0
+offset_right = 12.0
+offset_bottom = 10.0
+texture = ExtResource("1_3fnhk")
+
+[node name="Level3" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 0
+offset_top = -4.0
+offset_right = 12.0
+offset_bottom = 8.0
+texture = ExtResource("1_3fnhk")

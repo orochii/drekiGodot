@@ -29,6 +29,13 @@ var waitingBattlers:Array[Battler]
 var readyBattlers:Array[Battler]
 var actionBattlers:Array[Battler]
 
+func battlerEscape(b:Battler):
+	b.goToStartPosition()
+	allBattlers.erase(b)
+	waitingBattlers.erase(b)
+	readyBattlers.erase(b)
+	actionBattlers.erase(b)
+
 func endBattlerTurn(b:Battler):
 	await b.endTurn()
 	readyBattlers.erase(b)
@@ -72,7 +79,8 @@ func _process(delta):
 		waitingCount -= delta
 		return
 	if !_start:
-		for b in allBattlers: b.moveToHome()
+		for b in allBattlers:
+			if b.appeared: b.goToHome()
 		_start = true
 	# Stop conditions
 	if(Global.Scene.transitioning): return
@@ -80,6 +88,10 @@ func _process(delta):
 	if(configMenu.visible): return
 	# Debug
 	if _doInput():
+		return
+	
+	# Judge
+	if _judge():
 		return
 	
 	# Battle process
@@ -101,7 +113,34 @@ func _process(delta):
 	# Battle process
 	# - Automatic actions for ready battlers.
 	for b in readyBattlers:
-		_advanceActions(b)
+		await _advanceActions(b)
+
+func _judge():
+	var alliesAlive:int = 0
+	var totalAllies:int = 0
+	var enemiesAlive:int = 0
+	for b in allBattlers:
+		if !b.appeared: continue
+		if b.battler is GameActor:
+			totalAllies += 1
+			if !b.battler.isDead(): alliesAlive += 1
+		else:
+			if !b.battler.isDead(): enemiesAlive += 1
+	# Debug
+	print("allies:%d total:%d enemies:%d" % [alliesAlive,totalAllies,enemiesAlive])
+	#EBattleResult.DRAW
+	if totalAllies==0:
+		battleEnd(EBattleResult.DRAW)
+		return true
+	#EBattleResult.LOSE
+	if alliesAlive==0:
+		battleEnd(EBattleResult.LOSE)
+		return true
+	#EBattleResult.WIN
+	if enemiesAlive==0:
+		battleEnd(EBattleResult.WIN)
+		return true
+	return false
 
 func _canAdvanceAtb():
 	return Global.Config.activeBattle || actorCommand.currentBattler == null
@@ -118,7 +157,7 @@ func _calcAvgSpeed():
 func _advanceAtb(b:Battler,deltaAtb,avgSpeed):
 	await b.updateAtb(deltaAtb,avgSpeed)
 	if(b.isAtbFull()):
-		b.startTurn()
+		await b.startTurn()
 		waitingBattlers.erase(b)
 		readyBattlers.append(b)
 		onBattlerReady.emit(b)
@@ -139,7 +178,7 @@ func _advanceActions(b:Battler):
 			actionBattlers.append(b)
 	else:
 		b.atbValue = 0
-		endBattlerTurn(b)
+		await endBattlerTurn(b)
 
 func _executeAction(currentAction:BattleAction):
 	var activeBattler = currentAction.battler
@@ -167,7 +206,7 @@ func _executeAction(currentAction:BattleAction):
 			await effect.execute(currentAction)
 	else:
 		print("BATTLER: %s waits." % [activeBattler.battler.getName()])
-	endBattlerTurn(activeBattler)
+	await endBattlerTurn(activeBattler)
 
 func _playBattleMusic():
 	var currentMusic:SystemAudioEntry = _resolveBattleMusic()
@@ -210,6 +249,7 @@ func _createTroop():
 		var inst:Battler = battlerTemplate.instantiate()
 		troop.add_child(inst)
 		inst.battle = self
+		inst.appeared = (entry.flags & 1) == 0
 		inst.setup(enemy)
 		inst.setStartDirection(90)
 		inst.setHomePosition(entry.position)

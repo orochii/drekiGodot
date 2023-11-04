@@ -21,11 +21,13 @@
 script = ExtResource("1_g4sgc")
 displayName = "4:3"
 resolution = Vector2i(320, 240)
+aspectRatio = Vector2i(12, 9)
 
 [sub_resource type="Resource" id="Resource_j61gb"]
 script = ExtResource("1_g4sgc")
 displayName = "16:9"
 resolution = Vector2i(480, 270)
+aspectRatio = Vector2i(16, 9)
 
 [sub_resource type="Resource" id="Resource_64mun"]
 script = ExtResource("1_nydlf")
