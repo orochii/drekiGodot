@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=76 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
@@ -41,7 +41,6 @@
 [ext_resource type="Texture2D" uid="uid://brn18hxlwd7m8" path="res://Graphics/System/turn_icon.png" id="32_ma8rw"]
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="33_qqhny"]
 [ext_resource type="Texture2D" uid="uid://dcfd0bmexqyaf" path="res://Graphics/System/stripeTexture.png" id="34_1cblp"]
-[ext_resource type="Texture2D" uid="uid://bebfsexaw3d4c" path="res://Graphics/_REF_/2023-10-29_121110_113.png" id="34_83ru8"]
 [ext_resource type="Texture2D" uid="uid://bd8d53aa0rurl" path="res://Graphics/System/partyMenu/back_inventory.png" id="35_afqrn"]
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="38_4irjf"]
@@ -51,6 +50,13 @@
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleItemStatus.gd" id="44_0ks3v"]
 [ext_resource type="Texture2D" uid="uid://cxefqesb3o84i" path="res://Graphics/System/partyMenu/cat_sel.png" id="44_astp7"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleTargetInfoWindow.gd" id="48_jpuxb"]
+[ext_resource type="Theme" uid="uid://crgwmpkbu5axv" path="res://Themes/BigText.tres" id="50_6ee6m"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattlePartyResultWindow.gd" id="50_6tcvp"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleEnd.gd" id="50_uhwb1"]
+[ext_resource type="PackedScene" uid="uid://dkjo1s5h4mu0u" path="res://Objects/battle/result_party_entry.tscn" id="51_cnyaj"]
+[ext_resource type="Texture2D" uid="uid://doapoqrfhbxcx" path="res://Graphics/_REF_/2023-11-04_132134_197.png" id="53_wcvq8"]
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleSpoilsWindow.gd" id="54_e0w84"]
+[ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="55_1qadm"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
@@ -198,9 +204,9 @@ animations = [{
 
 [sub_resource type="QuadMesh" id="QuadMesh_jbevs"]
 size = Vector2(320, -240)
-center_offset = Vector3(480, 270, 0)
+center_offset = Vector3(240, 135, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_b4hq5")
@@ -208,6 +214,7 @@ camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
 battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/Allies")
 troop = NodePath("SubViewportContainer/SubViewport/Enemies")
+partyPositionBase = null
 partyPositionOffset = Vector3(1, 0, 4)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")
@@ -215,6 +222,7 @@ actorCommand = NodePath("BattleUI/ActorCommand")
 damagePopupTemplate = ExtResource("4_jmik8")
 damagePopupContainer = NodePath("BattleUI/DamagePopupContainer")
 configMenu = NodePath("ConfigScreen")
+battleEndWindow = NodePath("BattleUI/BattleEnd")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -288,14 +296,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DamagePopupContainer" type="Control" parent="BattleUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="BattlerStatus" type="Control" parent="BattleUI"]
 layout_mode = 1
 anchors_preset = 15
@@ -305,6 +305,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_vcc71")
 statusTemplate = ExtResource("8_m4x0d")
+
+[node name="DamagePopupContainer" type="Control" parent="BattleUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PartyStatus" type="Control" parent="BattleUI" node_paths=PackedStringArray("container")]
 custom_minimum_size = Vector2(0, 48)
@@ -1421,6 +1429,195 @@ text = "8888888/8888888"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BattleEnd" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "party", "spoils")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("50_uhwb1")
+battle = NodePath("../..")
+party = NodePath("PartyResultWindow")
+spoils = NodePath("SpoilsWindow")
+
+[node name="PartyResultWindow" type="Control" parent="BattleUI/BattleEnd" node_paths=PackedStringArray("container")]
+visible = false
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("50_6tcvp")
+partyEntryTemplate = ExtResource("51_cnyaj")
+container = NodePath("Contents/VBoxContainer")
+
+[node name="Back" type="NinePatchRect" parent="BattleUI/BattleEnd/PartyResultWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="BattleUI/BattleEnd/PartyResultWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="BattleUI/BattleEnd/PartyResultWindow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BattleUI/BattleEnd/PartyResultWindow/Contents"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("50_6ee6m")
+text = "BATTLE RESULT"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/BattleEnd/PartyResultWindow/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 20.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="SpoilsWindow" type="Control" parent="BattleUI/BattleEnd" node_paths=PackedStringArray("scroll", "container", "helpText")]
+visible = false
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("54_e0w84")
+entryTemplate = ExtResource("55_1qadm")
+scroll = NodePath("Contents/VBoxContainer/ScrollContainer")
+container = NodePath("Contents/VBoxContainer/ScrollContainer/VBoxContainer")
+helpText = NodePath("Contents/VBoxContainer/HelpText")
+
+[node name="Back" type="NinePatchRect" parent="BattleUI/BattleEnd/SpoilsWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Borders" type="NinePatchRect" parent="BattleUI/BattleEnd/SpoilsWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Contents" type="Control" parent="BattleUI/BattleEnd/SpoilsWindow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="BattleUI/BattleEnd/SpoilsWindow/Contents"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("50_6ee6m")
+text = "SPOILS"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/BattleEnd/SpoilsWindow/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 20.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BattleUI/BattleEnd/SpoilsWindow/Contents/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("9_ol241")
+
+[node name="VBoxContainer" type="GridContainer" parent="BattleUI/BattleEnd/SpoilsWindow/Contents/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="HelpText" type="RichTextLabel" parent="BattleUI/BattleEnd/SpoilsWindow/Contents/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("9_ol241")
+text = "Help text here asdasdasd let's see when three lines stop fitting.
+Second line
+Third line doesn't fit whoop :C"
+
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
 visible = false
 
@@ -1428,7 +1625,7 @@ visible = false
 visible = false
 self_modulate = Color(1, 0.667175, 0.974754, 0.25098)
 mesh = SubResource("QuadMesh_jbevs")
-texture = ExtResource("34_83ru8")
+texture = ExtResource("53_wcvq8")
 
 [connection signal="pressed" from="BattleUI/ActorCommand/Action" to="BattleUI/ActorCommand" method="_on_action_pressed"]
 [connection signal="pressed" from="BattleUI/ActorCommand/Inventory" to="BattleUI/ActorCommand" method="_on_inventory_pressed"]

@@ -258,6 +258,12 @@ func isDead():
 	#	if (data.flags & Global.EStatusFlags.INCAPACITATED) != 0: return false
 	return currHP == 0
 
+func canGetExp():
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		if (data.flags & Global.EStatusFlags.NO_EXP) != 0: return false
+	return true
+
 func inputable():
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)

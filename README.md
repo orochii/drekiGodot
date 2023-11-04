@@ -2,7 +2,7 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Escape option
+- Scope change
 - Battle end screen
 - Implement general item/skill effects in battle
 	- Move battler (maybe split into movement types)
@@ -21,6 +21,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Multi-message support.
 
 # DONE List
+- Escape option
 - Damage popups
 - Effects
 	- Apply basic damage

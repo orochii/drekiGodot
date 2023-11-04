@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvdlxxda1kkea"]
+
+[ext_resource type="Script" path="res://Core/UI/GenericItemEntry.gd" id="1_33238"]
+[ext_resource type="Texture2D" uid="uid://b410nr8hmf1oc" path="res://Graphics/Icons/items/item_0182.png" id="2_imt0t"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_libwd"]
+
+[node name="GenericItemEntry" type="Button" node_paths=PackedStringArray("itemIcon", "itemLabel")]
+custom_minimum_size = Vector2(0, 16)
+offset_left = 67.0
+offset_right = 75.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+theme = ExtResource("3_libwd")
+flat = true
+script = ExtResource("1_33238")
+itemIcon = NodePath("Container/NinePatchRect")
+itemLabel = NodePath("Container/Label")
+
+[node name="Container" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Container"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("2_imt0t")
+
+[node name="Label" type="Label" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_libwd")
+text = "Item name"

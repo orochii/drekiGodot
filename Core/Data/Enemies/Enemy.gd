@@ -28,8 +28,9 @@ class_name Enemy
 
 @export_group("Rewards")
 @export var rewardExp : int
+@export var rewardApp : int
 @export var rewardGold : int
-@export var rewardItems : Array[BaseItem]
+@export var rewardTreasure : Array[EnemyTreasure]
 
 func getId():
 	# res://Data/Enemies/Mole.tres

@@ -15,6 +15,7 @@ var battler:GameBattler
 var battle:BattleManager
 var atbValue:float
 var currentAction:BattleAction = null
+var turn = 0
 
 # Position stuff
 var moveSpeed = DEFAULT_SPEED
@@ -88,6 +89,7 @@ func startTurn():
 func endTurn():
 	currentAction = null
 	battler.advanceStatesTurn()
+	turn += 1
 
 func _updateStatusTurns():
 	for ss in battler.states:

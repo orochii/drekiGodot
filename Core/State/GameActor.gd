@@ -22,6 +22,7 @@ func _init(_id:StringName):
 	currHP = getMaxHP()
 	currMP = getMaxMP()
 	makeExpList()
+	exp = getLevelExp(level)
 	# Resize array if needed
 	var _slotsData = Global.Db.equipSlots
 	if(equips.size() < _slotsData.size()):
@@ -36,6 +37,19 @@ func _init(_id:StringName):
 	# Set starting skills
 	for learningSlot in actor.learningSlots:
 		learnSlot(learningSlot)
+
+func gainExp(p):
+	exp += p
+	while exp >= getNextLvlExp():
+		level += 1
+	while exp < getLevelExp(level):
+		level -= 1
+
+func gainApp(p):
+	apPerc += p
+	while apPerc >= 100:
+		currAP += 1
+		apPerc -= 100
 
 func getName():
 	return name
@@ -176,10 +190,15 @@ func getLevelExp(l:int):
 	if l > Actor.MAX_LEVEL: return 0
 	makeExpList()
 	return _expList[l]
+func getCurrLvlPerc(diff:int=0):
+	var lvEx = getLevelExp(level)
+	var next = getNextLvlExp() - lvEx
+	var curr = exp+diff - lvEx
+	return (curr * 1.0) / next
 func getNextLvlExp():
 	return getLevelExp(level+1)
 func getRemainingNextLvlExp():
-	return getLevelExp(level+1)-getLevelExp(level)
+	return getNextLvlExp() - exp
 
 func getEquip(slotIdx:int):
 	var e = equips[slotIdx]

@@ -1,13 +1,32 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=5 format=3 uid="uid://cn4v6tsk48ile"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=12 format=3 uid="uid://cn4v6tsk48ile"]
 
 [ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_thtna"]
+[ext_resource type="Resource" uid="uid://ccnl1ck458bp4" path="res://Data/Items/Root.tres" id="3_lih1q"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="4_26iuy"]
+[ext_resource type="Resource" uid="uid://vdynhxx2qmk" path="res://Data/Items/Stem.tres" id="5_2tamw"]
+[ext_resource type="Resource" uid="uid://dm2ofvb0qvmel" path="res://Data/Items/Drench.tres" id="6_uolp8"]
 
 [sub_resource type="Resource" id="Resource_2t7cd"]
 script = ExtResource("1_thtna")
 priority = 5
 conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_f8mbg"]
+script = ExtResource("4_26iuy")
+item = ExtResource("3_lih1q")
+rate = 1.0
+
+[sub_resource type="Resource" id="Resource_bvv6b"]
+script = ExtResource("4_26iuy")
+item = ExtResource("5_2tamw")
+rate = 0.649
+
+[sub_resource type="Resource" id="Resource_pyeb4"]
+script = ExtResource("4_26iuy")
+item = ExtResource("6_uolp8")
+rate = 0.325
 
 [resource]
 script = ExtResource("1_i0uq7")
@@ -27,5 +46,6 @@ mag = 5
 agi = 10
 actions = Array[ExtResource("1_thtna")]([SubResource("Resource_2t7cd")])
 rewardExp = 5
+rewardApp = 0
 rewardGold = 3
-rewardItems = Array[Resource("res://Core/Data/Items/BaseItem.gd")]([])
+rewardTreasure = Array[ExtResource("4_26iuy")]([SubResource("Resource_f8mbg"), SubResource("Resource_bvv6b"), SubResource("Resource_pyeb4")])

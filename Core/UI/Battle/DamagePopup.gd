@@ -61,6 +61,7 @@ func setup(b:Battler,eff:Dictionary):
 			effectivenessText = "CRITICAL WEAKNESS"
 			effectivenessColor = effectivenessColors[4]
 	_setEffectiveness(effectivenessText, effectivenessColor)
+	_reposition()
 
 func _process(delta):
 	lifetimePerc += delta / lifetime

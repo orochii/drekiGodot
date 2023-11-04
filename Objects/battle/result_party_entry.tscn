@@ -1,0 +1,176 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkjo1s5h4mu0u"]
+
+[ext_resource type="Script" path="res://Core/UI/Battle/BattleResultPartyEntry.gd" id="1_57lru"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="2_wwfm8"]
+[ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="3_u2ppq"]
+[ext_resource type="Script" path="res://Scenes/ExpChangeBar.gd" id="4_kc3ok"]
+
+[node name="PartyEntry" type="Control" node_paths=PackedStringArray("nameLabel", "expNum", "expBar", "appNum", "appBar", "changeLabel")]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_57lru")
+nameLabel = NodePath("NameLabel")
+expNum = NodePath("ExpNum")
+expBar = NodePath("ExpBarBack")
+appNum = NodePath("ApNum")
+appBar = NodePath("ApBarBack")
+changeLabel = NodePath("GainLine")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "Hikari"
+
+[node name="ExpNum" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "10"
+horizontal_alignment = 2
+
+[node name="Exp" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_right = 120.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "EXP"
+label_settings = ExtResource("3_u2ppq")
+
+[node name="ApNum" type="Label" parent="."]
+layout_mode = 0
+offset_left = 95.0
+offset_right = 135.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "4%"
+horizontal_alignment = 2
+
+[node name="Ap" type="Label" parent="."]
+layout_mode = 0
+offset_left = 135.0
+offset_right = 175.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "AP"
+label_settings = ExtResource("3_u2ppq")
+
+[node name="GainLine" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 175.0
+offset_bottom = 16.0
+theme = ExtResource("2_wwfm8")
+text = "Level Up!"
+
+[node name="ExpBarBack" type="ColorRect" parent="." node_paths=PackedStringArray("barOld", "barChange")]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 96.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_kc3ok")
+barOld = NodePath("ExpBarOld")
+barChange = NodePath("ExpBarChange")
+barColor = Color(0.380392, 0.596078, 0.341176, 1)
+changeColor = Color(0.784314, 0.792157, 0.87451, 1)
+upColor = Color(1, 1, 0.501961, 1)
+
+[node name="Left" type="ColorRect" parent="ExpBarBack"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_right = 1.0
+offset_bottom = 1.5
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="Right" type="ColorRect" parent="ExpBarBack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.5
+offset_bottom = 1.5
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="ExpBarChange" type="ColorRect" parent="ExpBarBack"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 2.0
+
+[node name="ExpBarOld" type="ColorRect" parent="ExpBarBack"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 2.0
+
+[node name="ApBarBack" type="ColorRect" parent="." node_paths=PackedStringArray("barOld", "barChange")]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 13.0
+offset_right = 160.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_kc3ok")
+width = 30
+barOld = NodePath("ApBarOld")
+barChange = NodePath("ApBarChange")
+barColor = Color(0.478431, 0.494118, 0.701961, 1)
+changeColor = Color(0.784314, 0.792157, 0.87451, 1)
+upColor = Color(1, 1, 0.501961, 1)
+
+[node name="Left" type="ColorRect" parent="ApBarBack"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_right = 1.0
+offset_bottom = 1.5
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="Right" type="ColorRect" parent="ApBarBack"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.5
+offset_bottom = 1.5
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="ApBarChange" type="ColorRect" parent="ApBarBack"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 2.0
+
+[node name="ApBarOld" type="ColorRect" parent="ApBarBack"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 2.0

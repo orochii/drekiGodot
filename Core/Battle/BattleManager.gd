@@ -21,11 +21,15 @@ signal onBattlerReady(battler:Battler)
 @export var damagePopupTemplate:PackedScene
 @export var damagePopupContainer:Control
 @export var configMenu:ConfigMenu
+@export var battleEndWindow:BattleEnd
 
-var test:bool = false
 var _start = false
 var battleResult:EBattleResult = EBattleResult.NONE
 var waitingCount:float = 0.0
+#
+var partyBattlers:Array[Battler]
+var troopBattlers:Array[Battler]
+#
 var allBattlers:Array[Battler]
 var waitingBattlers:Array[Battler]
 var readyBattlers:Array[Battler]
@@ -46,14 +50,17 @@ func endBattlerTurn(b:Battler):
 
 func battleEnd(result:EBattleResult):
 	battleResult = result
-	Global.Audio.restoreBGM(&"prebattle")
-	Global.Scene.endBattle()
-	if(test): Global.Scene.quit()
+	battleEndWindow.execute(result)
 
 func spawnDamagePop(b:Battler,eff:Dictionary):
 	var pop = damagePopupTemplate.instantiate()
 	pop.setup(b,eff)
 	damagePopupContainer.add_child(pop)
+
+func findPartyBattler(actor):
+	for b in partyBattlers:
+		if b.battler == actor: return b
+	return null
 
 func posToScreen(pos : Vector3) -> Vector2:
 	return camera.unproject_position(pos)
@@ -243,6 +250,7 @@ func _createParty():
 		inst.setHomePosition(startingPosition + (partyPositionOffset * i))
 		inst.moveToStartPosition()
 		allBattlers.append(inst)
+		partyBattlers.append(inst)
 		partyStatus.setup(inst)
 		battlerStatus.setup(inst,false)
 
@@ -262,6 +270,7 @@ func _createTroop():
 		inst.setHomePosition(entry.position)
 		inst.moveToStartPosition()
 		allBattlers.append(inst)
+		troopBattlers.append(inst)
 		battlerStatus.setup(inst,true)
 
 func _doInput() -> bool:
@@ -277,7 +286,7 @@ func _doInput() -> bool:
 	return false
 
 func _prepareTest():
-	test = true
+	battleEndWindow.test = true
 	Global.newGame()
 	# Give all items?
 	var path = "res://Data/Items/"
