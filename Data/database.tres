@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Database" load_steps=55 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=56 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
 [ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
+[ext_resource type="Resource" uid="uid://ck06xhgmploxa" path="res://Data/Skills/Common/Escape.tres" id="5_df0cy"]
 [ext_resource type="Resource" uid="uid://br46b7nriekaj" path="res://Data/Skills/Common/Claw.tres" id="8_ubclu"]
 [ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="11_eq8wb"]
 [ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="12_8a6ld"]
@@ -216,7 +217,7 @@ startingScene = ExtResource("4_d28sx")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
 defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd"), ExtResource("8_ubclu")])
-commonActions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_ml5ph"), ExtResource("2_7ll6p"), ExtResource("3_4vm70")])
+commonActions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_ml5ph"), ExtResource("2_7ll6p"), ExtResource("3_4vm70"), ExtResource("5_df0cy")])
 ignoreKeyForRebind = Array[int]([4194319, 4194320, 4194321, 4194322, 4194309, 4194305])
 ignoreButtonForRebind = Array[int]([])
 ignoreAxisForRebind = Array[int]([0, 1])

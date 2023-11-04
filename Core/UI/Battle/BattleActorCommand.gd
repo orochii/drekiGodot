@@ -41,12 +41,23 @@ func _process(delta):
 				if Input.is_action_just_pressed("action_cancel"):
 					readyBattlers.append(currentBattler)
 					_unset()
+					return
+				# Escape
+				if _checkEscapeInput():
+					_on_escape_pressed()
 		else:
 			_unset()
 	else:
 		# Select a new battler
 		if readyBattlers.size() != 0:
 			_setup(readyBattlers[0])
+
+func _checkEscapeInput():
+	if Input.is_action_just_pressed("cycle_left"):
+		return Input.is_action_pressed("cycle_right")
+	if Input.is_action_just_pressed("cycle_right"):
+		return Input.is_action_pressed("cycle_left")
+	return false
 
 func _onBattlerReady(b:Battler):
 	if _canBeCommanded(b):
@@ -118,6 +129,10 @@ func _on_wait_pressed():
 	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetScope.ONE,0)
 	currentBattler.setLastIndex(&"command", 2)
 	currentBattler.setLastIndex(&"wait", waitIdx)
+	_unset()
+
+func _on_escape_pressed():
+	currentBattler.setAction(Global.Db.commonActions[3],Global.ETargetScope.ONE,0)
 	_unset()
 
 func _updateWaitSelection():

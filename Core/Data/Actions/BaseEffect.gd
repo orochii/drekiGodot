@@ -7,18 +7,18 @@ func execute(action:BattleAction):
 	# action.battler
 	# action.repeatIdx
 	# action.totalRepeats
-	print("%s executes effect." % action.battler.getName())
 	# actions can actually never call apply if not necessary
-	var targets = action.resolveTargets()
-	for target in targets:
-		apply(action.battler.battler, target)
+	#var targets = action.resolveTargets()
+	#for target in targets:
+	#	apply(action.battler.battler, target)
+	pass
 
 # Data change
 func apply(user:GameBattler, target:GameBattler):
-	var eff = calcEffect(user,target)
+	#var eff = calcEffect(user,target)
 	# do stuff with effect i.e. change hp/mp/addstatus
 	# any randomness occurs here, not on calcEffect
-	print("%s was targetted by this action." % [target.getName()])
+	pass
 
 func calcEffect(user:GameBattler, target:GameBattler):
 	# any calculation here must be deterministic

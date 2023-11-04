@@ -10,6 +10,7 @@ const START_OFFSET = Vector3(0,0,-20)
 
 var appeared:bool = true
 var hidden:bool = false
+var escaped:bool = false
 var battler:GameBattler
 var battle:BattleManager
 var atbValue:float
@@ -140,6 +141,9 @@ func pickAutoaction():
 	var actionScript:ActionScript = ActionScript.new()
 	currentAction = actionScript.makeDecision(self)
 
+func escape():
+	battle.battlerEscape(self)
+	escaped = true
 func damagePop(eff):
 	battle.spawnDamagePop(self,eff)
 
@@ -182,3 +186,6 @@ func appear():
 
 func cantTarget():
 	return hidden || !appeared
+
+func isHidden():
+	return !appeared || escaped

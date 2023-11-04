@@ -134,7 +134,7 @@ func _judge():
 		else:
 			if !b.battler.isDead(): enemiesAlive += 1
 	# Debug
-	print("allies:%d total:%d enemies:%d" % [alliesAlive,totalAllies,enemiesAlive])
+	#print("allies:%d total:%d enemies:%d" % [alliesAlive,totalAllies,enemiesAlive])
 	#EBattleResult.DRAW
 	if totalAllies==0:
 		battleEnd(EBattleResult.DRAW)
