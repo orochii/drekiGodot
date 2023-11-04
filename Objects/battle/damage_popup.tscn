@@ -1,0 +1,165 @@
+[gd_scene load_steps=16 format=3 uid="uid://c8uj28jhk2jv4"]
+
+[ext_resource type="Script" path="res://Core/UI/Battle/DamagePopup.gd" id="1_6den4"]
+[ext_resource type="LabelSettings" uid="uid://bcsvhfw87qyp4" path="res://Themes/damage/labelSetting_CriticalAbsorb.tres" id="2_dkpft"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="2_hnoe8"]
+[ext_resource type="FontFile" uid="uid://b46sdogj7xyee" path="res://Fonts/OroDamageOutline.ttf" id="3_ggd3s"]
+[ext_resource type="FontFile" uid="uid://bcgc5tiq4uuls" path="res://Fonts/OroDamageInside.ttf" id="4_2wgqh"]
+[ext_resource type="LabelSettings" uid="uid://c5d7fm7jse8ir" path="res://Themes/damage/labelSetting_Resisted.tres" id="4_yogsk"]
+[ext_resource type="LabelSettings" uid="uid://bn8wk52dqyie7" path="res://Themes/damage/labelSetting_Null.tres" id="5_gt3lo"]
+[ext_resource type="LabelSettings" uid="uid://q1nl1xp10hpg" path="res://Themes/damage/labelSetting_Absorb.tres" id="5_rfxof"]
+[ext_resource type="LabelSettings" uid="uid://c8xiul0d2x7k" path="res://Themes/damage/labelSetting_DamageColor.tres" id="6_7yh4u"]
+[ext_resource type="LabelSettings" uid="uid://cbh1xirm0j0jh" path="res://Themes/damage/labelSetting_CriticalWeakness.tres" id="6_70jtg"]
+[ext_resource type="LabelSettings" uid="uid://cuaeepe4prsdx" path="res://Themes/damage/labelSetting_Weakness.tres" id="7_rmrl5"]
+[ext_resource type="LabelSettings" uid="uid://byedjvoobmhg3" path="res://Themes/damage/labelSetting_HealColor.tres" id="9_k0o37"]
+[ext_resource type="LabelSettings" uid="uid://e225ixihsjti" path="res://Themes/damage/labelSetting_CriticalColor.tres" id="10_gccsl"]
+
+[sub_resource type="Curve" id="Curve_14ju8"]
+max_value = 64.0
+_data = [Vector2(0, 0), 0.0, 112.696, 0, 0, Vector2(1, 64), 3.87053e-07, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jqdxp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.748538, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="DamagePopup" type="Control" node_paths=PackedStringArray("container", "effectivenessTagIn", "effectivenessTagOut", "effectivenessTagOutBack", "damageIn", "damageOut", "damageOutBack")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 229.0
+offset_top = 135.0
+offset_right = 229.0
+offset_bottom = 135.0
+script = ExtResource("1_6den4")
+lifetime = 1.0
+positionCurve = SubResource("Curve_14ju8")
+opacityCurve = SubResource("Curve_jqdxp")
+container = NodePath("Container")
+effectivenessTagIn = NodePath("Container/EffectivenessTagIn")
+effectivenessTagOut = NodePath("Container/EffectivenessTagOut")
+effectivenessTagOutBack = NodePath("Container/EffectivenessTagOutBack")
+damageIn = NodePath("Container/DamageIn")
+damageOut = NodePath("Container/DamageOut")
+damageOutBack = NodePath("Container/DamageOutBack")
+effectivenessColors = Array[LabelSettings]([ExtResource("2_dkpft"), ExtResource("5_rfxof"), ExtResource("5_gt3lo"), ExtResource("4_yogsk"), ExtResource("7_rmrl5"), ExtResource("6_70jtg")])
+damageColors = Array[LabelSettings]([ExtResource("6_7yh4u"), ExtResource("9_k0o37"), ExtResource("10_gccsl")])
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -32.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="EffectivenessTagOutBack" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_right = 36.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme = ExtResource("2_hnoe8")
+theme_override_colors/font_color = Color(0.752941, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_2wgqh")
+text = "CRITICAL"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="EffectivenessTagIn" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme = ExtResource("2_hnoe8")
+theme_override_fonts/font = ExtResource("3_ggd3s")
+text = "CRITICAL"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="EffectivenessTagOut" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme = ExtResource("2_hnoe8")
+theme_override_colors/font_color = Color(0.752941, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_fonts/font = ExtResource("4_2wgqh")
+text = "CRITICAL"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DamageOutBack" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_hnoe8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_2wgqh")
+theme_override_font_sizes/font_size = 8
+text = "MISS"
+horizontal_alignment = 1
+
+[node name="DamageIn" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_hnoe8")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_ggd3s")
+text = "MISS"
+horizontal_alignment = 1
+
+[node name="DamageOut" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_hnoe8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_fonts/font = ExtResource("4_2wgqh")
+theme_override_font_sizes/font_size = 8
+text = "MISS"
+horizontal_alignment = 1

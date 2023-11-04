@@ -116,6 +116,22 @@ func getStatusRate(s:Status):
 				rate *= statusAffinityFeature.getEffect()
 	return rate
 
+func getElementSetRate(set:Array[Global.Element]):
+	if set.size()==0: return 1
+	var weaponRate = 0.0
+	var magicRate = 1.0
+	for e in set:
+		var rate = getElementRate(e)
+		if ElementAffinityFeature.WEAPON_ELEMENTS.has(e):
+			# Weapon element
+			if weaponRate < rate: weaponRate = rate
+		else:
+			# Magic element
+			magicRate *= rate
+	var totalRate = weaponRate + magicRate
+	if(weaponRate >= 0): totalRate /= 2
+	return totalRate
+
 func getElementRate(e:Global.Element):
 	var rate = getInnateElementRate(e)
 	var features = getFeatures()
@@ -137,7 +153,10 @@ func getInnateElementRank(element:Global.Element):
 	return Global.Rank.C
 func getInnateElementRate(element:Global.Element):
 	var rank = getInnateElementRank(element)
-	return ElementAffinityFeature.RANK_EFFECT[rank]
+	var eaf = ElementAffinityFeature.new()
+	eaf.element = element
+	eaf.value = rank
+	return eaf.getEffect()
 
 func getSortedStates():
 	var ary:Array[StatusState] = []

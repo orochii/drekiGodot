@@ -1,10 +1,11 @@
-[gd_scene load_steps=69 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=70 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 [ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
+[ext_resource type="PackedScene" uid="uid://c8uj28jhk2jv4" path="res://Objects/battle/damage_popup.tscn" id="4_jmik8"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattlePartyStatus.gd" id="5_lf6n2"]
 [ext_resource type="Texture2D" uid="uid://dbthfq3ua28st" path="res://Graphics/System/battle/selectorParticle.png" id="6_e2b2n"]
 [ext_resource type="PackedScene" uid="uid://uderfa3lt408" path="res://Objects/battle/battle_member_status.tscn" id="6_ew4k2"]
@@ -199,7 +200,7 @@ animations = [{
 size = Vector2(320, -240)
 center_offset = Vector3(480, 270, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "configMenu")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_b4hq5")
@@ -211,6 +212,8 @@ partyPositionOffset = Vector3(1, 0, 4)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")
 actorCommand = NodePath("BattleUI/ActorCommand")
+damagePopupTemplate = ExtResource("4_jmik8")
+damagePopupContainer = NodePath("BattleUI/DamagePopupContainer")
 configMenu = NodePath("ConfigScreen")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -279,6 +282,14 @@ draw_pass_1 = SubResource("QuadMesh_n4dii")
 
 [node name="BattleUI" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DamagePopupContainer" type="Control" parent="BattleUI"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

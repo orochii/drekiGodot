@@ -140,6 +140,9 @@ func pickAutoaction():
 	var actionScript:ActionScript = ActionScript.new()
 	currentAction = actionScript.makeDecision(self)
 
+func damagePop(eff):
+	battle.spawnDamagePop(self,eff)
+
 func getEnemies(state:Global.ETargetState):
 	var ary:Array[Battler] = []
 	for b in battle.allBattlers:

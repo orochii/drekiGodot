@@ -18,6 +18,8 @@ signal onBattlerReady(battler:Battler)
 @export var partyStatus:BattlePartyStatus
 @export var battlerStatus:BattlerStatusManager
 @export var actorCommand:BattleActorCommand
+@export var damagePopupTemplate:PackedScene
+@export var damagePopupContainer:Control
 @export var configMenu:ConfigMenu
 
 var test:bool = false
@@ -47,6 +49,11 @@ func battleEnd(result:EBattleResult):
 	Global.Audio.restoreBGM(&"prebattle")
 	Global.Scene.endBattle()
 	if(test): Global.Scene.quit()
+
+func spawnDamagePop(b:Battler,eff:Dictionary):
+	var pop = damagePopupTemplate.instantiate()
+	pop.setup(b,eff)
+	damagePopupContainer.add_child(pop)
 
 func posToScreen(pos : Vector3) -> Vector2:
 	return camera.unproject_position(pos)

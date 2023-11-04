@@ -1,6 +1,7 @@
 extends BaseEffect
 class_name ApplyBasicDamage
 
+@export_group("Damage calculation")
 @export var type : Global.EDamageType
 @export var base : int
 @export_range(0,5) var atkF:float = 0
@@ -10,7 +11,9 @@ class_name ApplyBasicDamage
 @export_range(0,5) var agiF:float = 0
 @export_range(0,1) var pDefF:float = 0
 @export_range(0,1) var mDefF:float = 1
-
+@export var elements:Array[Global.Element]
+@export_group("Chance and variance")
+@export_range(0,1) var crit:float = 0.04
 @export_range(0,1) var hit:float = 1
 @export_range(0,1) var variance:float = 0
 
@@ -21,7 +24,8 @@ func execute(action:BattleAction):
 	var targets = action.resolveTargets()
 	for t in targets:
 		var eff = apply(action.battler.battler, t.battler)
-		# Display effect- eff(damage,hit)
+		# Display effect- eff(damage,elementCorrection,hit)
+		t.damagePop(eff)
 
 # Data change ><
 func apply(user:GameBattler, target:GameBattler):
@@ -30,6 +34,10 @@ func apply(user:GameBattler, target:GameBattler):
 	var r = randf()
 	eff["hit"] = r < hit
 	if eff["hit"]:
+		# Apply crit
+		var rCrit = randf()
+		var critical = crit > rCrit
+		eff["critical"] = critical
 		# Apply variance
 		if variance > 0:
 			var v = 1 - variance + (randf() * variance * 2)
@@ -72,6 +80,11 @@ func calcEffect(user:GameBattler, target:GameBattler):
 		damage = damage * atkV
 	# TODO: Damage change features
 	# Element correction
+	var elementCorrection = target.getElementSetRate(elements)
+	damage *= elementCorrection
+	# Return result
 	return {
-		"damage" : roundi(damage)
+		"damage" : roundi(damage),
+		"elementCorrection" : elementCorrection,
+		"type" : type
 	}
