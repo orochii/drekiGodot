@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_disabled,unshaded;
+render_mode cull_disabled,unshaded,blend_add;
 
 uniform sampler2D baseTexture;
 uniform bool billboard;

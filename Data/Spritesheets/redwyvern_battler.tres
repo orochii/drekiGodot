@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=7 format=3 uid="uid://brkbbs6uk8mn8"]
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=9 format=3 uid="uid://brkbbs6uk8mn8"]
 
 [ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_si1yl"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_xqu7o"]
@@ -7,19 +7,36 @@
 [sub_resource type="Resource" id="Resource_rvl44"]
 script = ExtResource("1_si1yl")
 frames = Array[Vector2i]([Vector2i(0, 0)])
+events = Array[StringName]([&""])
 name = &"base"
 fps = 8
 
 [sub_resource type="Resource" id="Resource_81rtn"]
 script = ExtResource("1_si1yl")
 frames = Array[Vector2i]([Vector2i(0, 1)])
+events = Array[StringName]([&""])
 name = &"moving"
 fps = 8
 
 [sub_resource type="Resource" id="Resource_clfwp"]
 script = ExtResource("1_si1yl")
 frames = Array[Vector2i]([Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)])
+events = Array[StringName]([&""])
 name = &"dead"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_lix8s"]
+script = ExtResource("1_si1yl")
+frames = Array[Vector2i]([Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(0, 5)])
+events = Array[StringName]([&""])
+name = &"punch"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_hrhkk"]
+script = ExtResource("1_si1yl")
+frames = Array[Vector2i]([Vector2i(1, 1), Vector2i(3, 4), Vector2i(2, 4), Vector2i(2, 4), Vector2i(2, 4), Vector2i(0, 5), Vector2i(0, 5)])
+events = Array[StringName]([&"", &"", &"", &"", &"end"])
+name = &"kick"
 fps = 8
 
 [resource]
@@ -27,4 +44,4 @@ script = ExtResource("2_xqu7o")
 texture = ExtResource("3_0imlx")
 cellW = 202
 cellH = 202
-collection = Array[ExtResource("1_si1yl")]([SubResource("Resource_rvl44"), SubResource("Resource_81rtn"), SubResource("Resource_clfwp")])
+collection = Array[ExtResource("1_si1yl")]([SubResource("Resource_rvl44"), SubResource("Resource_81rtn"), SubResource("Resource_clfwp"), SubResource("Resource_lix8s"), SubResource("Resource_hrhkk")])

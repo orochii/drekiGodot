@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://bemt0x70k3ufx"]
+
+[ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_42as5"]
+[ext_resource type="Shader" path="res://Core/Shaders/simpleShaderBlendAdd.gdshader" id="2_kgnqh"]
+[ext_resource type="Texture2D" uid="uid://dbthfq3ua28st" path="res://Graphics/System/battle/selectorParticle.png" id="3_f3cw1"]
+[ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="4_kbf25"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87mfw"]
+render_priority = 0
+shader = ExtResource("2_kgnqh")
+shader_parameter/billboard = true
+shader_parameter/baseTexture = ExtResource("3_f3cw1")
+
+[sub_resource type="Gradient" id="Gradient_7flqp"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q73yv"]
+gradient = SubResource("Gradient_7flqp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ev6p6"]
+lifetime_randomness = 0.5
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+color_ramp = SubResource("GradientTexture1D_q73yv")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0fyl5"]
+
+[sub_resource type="Animation" id="Animation_j8ay7"]
+resource_name = "standby"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:done")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:queueForDeletion")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkf2h"]
+_data = {
+"standby": SubResource("Animation_j8ay7")
+}
+
+[node name="vfxTest" type="Node3D"]
+script = ExtResource("1_42as5")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_87mfw")
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ev6p6")
+draw_pass_1 = SubResource("QuadMesh_0fyl5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_qkf2h")
+}
+script = ExtResource("4_kbf25")
+loop = false

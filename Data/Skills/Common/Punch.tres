@@ -1,9 +1,21 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=7 format=3 uid="uid://csue8tocbn3tj"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://csue8tocbn3tj"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_4at4j"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_dmyps"]
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_i6wk7"]
 [ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_k5uof"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_aqm1o"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_pk4de"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_xa1bs"]
+
+[sub_resource type="Resource" id="Resource_84xlu"]
+script = ExtResource("1_4at4j")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
 
 [sub_resource type="Resource" id="Resource_iev4r"]
 script = ExtResource("1_i6wk7")
@@ -11,6 +23,12 @@ state = &"punch"
 loop = false
 waitForEnd = true
 applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_kl02w"]
+script = ExtResource("3_pk4de")
+visualEffectTemplate = ExtResource("4_xa1bs")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_dmyps")
@@ -42,7 +60,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_iev4r"), SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_84xlu"), SubResource("Resource_iev4r"), SubResource("Resource_kl02w"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Punch"
 description = "Basic attack."

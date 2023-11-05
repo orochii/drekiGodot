@@ -1,5 +1,8 @@
 extends AnimationPlayer
 
+@export var animName:String = "standby"
+@export var loop:bool = true
+
 func _ready():
 	play("standby")
 

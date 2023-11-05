@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://duyatlpiav1kr"]
+[gd_scene load_steps=5 format=3 uid="uid://duyatlpiav1kr"]
 
 [ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="2_i1q3m"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_coqbl"]
 [ext_resource type="Script" path="res://Core/Visual/ExplodeTest.gd" id="3_ds0un"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_yghwq"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.957908, 0.287076, 0, -0.287076, 0.957908, 0, 3.63869, 9.44885)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.0625
@@ -12,5 +16,5 @@ texture = ExtResource("2_i1q3m")
 script = ExtResource("3_ds0un")
 impostorTemplate = ExtResource("3_coqbl")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.957908, 0.287076, 0, -0.287076, 0.957908, 0, 3.63869, 9.44885)
+[node name="vfxTest" parent="." instance=ExtResource("4_yghwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2329, 0, 0)

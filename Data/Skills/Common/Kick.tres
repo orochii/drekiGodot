@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=9 format=3 uid="uid://drvnurhvkaolw"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://drvnurhvkaolw"]
 
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_14u8k"]
 [ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_p8kwa"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_vtanp"]
 [ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_5sdet"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_6sy4v"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_7moge"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_bav01"]
 
 [sub_resource type="Resource" id="Resource_w6ctq"]
 script = ExtResource("1_p8kwa")
@@ -21,6 +23,12 @@ state = &"kick"
 loop = false
 waitForEnd = true
 applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_fcl6m"]
+script = ExtResource("3_6sy4v")
+visualEffectTemplate = ExtResource("4_bav01")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_vtanp")
@@ -52,7 +60,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_w6ctq"), SubResource("Resource_36ur8"), SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_w6ctq"), SubResource("Resource_36ur8"), SubResource("Resource_fcl6m"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Kick"
 description = "Basic attack."

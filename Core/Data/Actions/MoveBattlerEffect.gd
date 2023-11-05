@@ -4,9 +4,9 @@ class_name MoveBattlerEffect
 const MAX_VALUE = 9999
 
 @export_enum("User", "Targets") var target: int
-@export_enum("Home", "Targets") var reference: int
-@export var referencePosition: Vector3
-@export var selfOffset: Vector3
+@export_enum("Home", "Targets") var reference: int = 1
+@export var referencePosition: Vector3 = Vector3(0.8,0,0)
+@export var selfOffset: Vector3 = Vector3(0.3,0,0)
 @export var positionOffset:Vector3
 @export var waitUntilFinished:bool = true
 
