@@ -1,8 +1,26 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://drvnurhvkaolw"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=9 format=3 uid="uid://drvnurhvkaolw"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_14u8k"]
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_p8kwa"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_vtanp"]
 [ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_5sdet"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_7moge"]
+
+[sub_resource type="Resource" id="Resource_w6ctq"]
+script = ExtResource("1_p8kwa")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+
+[sub_resource type="Resource" id="Resource_36ur8"]
+script = ExtResource("1_14u8k")
+state = &"kick"
+loop = false
+waitForEnd = true
+applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_vtanp")
@@ -34,7 +52,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_w6ctq"), SubResource("Resource_36ur8"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Kick"
 description = "Basic attack."

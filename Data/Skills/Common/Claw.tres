@@ -1,8 +1,16 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://br46b7nriekaj"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=7 format=3 uid="uid://br46b7nriekaj"]
 
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_coshe"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_poh21"]
 [ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_4oekh"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_pd7ny"]
+
+[sub_resource type="Resource" id="Resource_1xjx8"]
+script = ExtResource("1_poh21")
+state = &"kick"
+loop = false
+waitForEnd = true
+applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_coshe")
@@ -34,7 +42,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_1xjx8"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Claw"
 description = "Basic attack."

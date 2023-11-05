@@ -1,6 +1,8 @@
 extends Node3D
 class_name Battler
 
+signal onAnimationWaitEnd(stateName)
+
 const DAMAGE_POP_WAIT = 0.5
 const ATB_MAX = 1
 const DEFAULT_SPEED = 40
@@ -10,6 +12,7 @@ const START_OFFSET = Vector3(0,0,-20)
 @export var graphic:CharGraphic
 
 var overrideState:StringName = &""
+var overrideLoop:bool = false
 var appeared:bool = true
 var hidden:bool = false
 var escaped:bool = false
@@ -25,6 +28,7 @@ var moveSpeed = DEFAULT_SPEED
 var homePosition:Vector3 = Vector3(0,0,0)
 var targetPosition:Vector3 = Vector3(0,0,0)
 var _startDirection:float = 0
+var _oldDirection:float = 0
 var direction:float = 0
 # Counter stuff
 var currentCounters = []
@@ -37,6 +41,8 @@ func setStartDirection(a:float):
 	global_rotation_degrees = Vector3(0, direction, 0)
 func moveToPosition(pos:Vector3):
 	self.global_position = pos
+	targetPosition = pos
+func goToPosition(pos:Vector3):
 	targetPosition = pos
 func goToStartPosition():
 	var homePos = getHomePosition()
@@ -71,6 +77,23 @@ func setup(_battler:GameBattler):
 	battler = _battler
 	graphic.spritesheet = _battler.getBattleGraphic()
 
+func _ready():
+	graphic.onLoop.connect(_onGraphicLoop)
+	graphic.onFrame.connect(_onGraphicFrameEvent)
+
+func playPose(pose,loop):
+	overrideState = pose
+	overrideLoop = loop
+	graphic.setNewState(getCurrentPose())
+func _onGraphicLoop(_state:StringName):
+	onAnimationWaitEnd.emit(_state)
+	if !overrideLoop:
+		overrideState = &""
+		graphic.setNewState(getCurrentPose())
+func _onGraphicFrameEvent(ev:StringName, idx:int):
+	if ev==&"end":
+		onAnimationWaitEnd.emit(getCurrentPose())
+
 func _process(delta):
 	if effectWait():
 		effectWaitTime -= delta
@@ -80,9 +103,36 @@ func _process(delta):
 	if moving():
 		var dir = targetPosition - global_position
 		look_at(global_position - dir, Vector3.UP)
+		var deg = global_rotation_degrees
+		deg.x = 0; deg.z = 0
+		global_rotation_degrees = deg
 		global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
 		if !moving():
 			global_rotation_degrees = Vector3(0, direction, 0)
+
+# a
+func cacheDirection():
+	_oldDirection = direction
+# This should be called at start of action
+func lookAtTarget(targetPos:Vector3):
+	var dir = targetPos - global_position
+	look_at(global_position - dir, Vector3.UP)
+	var deg = global_rotation_degrees
+	direction = deg.y
+	deg.x = 0; deg.z = 0
+	global_rotation_degrees = deg
+#
+func lookAtTargets(targets:Array[Battler]):
+	if targets.size()==0: return
+	var pos = Vector3(0,0,0)
+	for t in targets: pos += t.global_position
+	pos /= targets.size()
+	lookAtTarget(pos)
+# Run upon end of movement
+func resetDirection():
+	direction = _oldDirection
+	var deg = Vector3(0,direction,0)
+	global_rotation_degrees = deg
 
 func moving():
 	return global_position != targetPosition
@@ -233,8 +283,8 @@ func getUp():
 	if data is Enemy:
 		var enemy = data as Enemy
 		if enemy.collapseEffect != null:
-			graphic.visible = true
-			return
+			pass
+	graphic.visible = true
 func collapse():
 	if collapsed: return
 	collapsed = true

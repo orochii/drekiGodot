@@ -202,8 +202,10 @@ func _executeAction(currentAction:BattleAction):
 	if currentAction.action != null:
 		# Resolve action cost
 		currentAction.resolveCost()
+		currentAction.battler.cacheDirection()
 		# Resolve initial targets
 		currentAction.targets = currentAction.resolveTargets()
+		currentAction.battler.lookAtTargets(currentAction.targets)
 		# Resolve starting effects
 		var startEffects:Array[BaseEffect] = currentAction.resolveActionList(0)
 		for effect in startEffects:
@@ -221,10 +223,12 @@ func _executeAction(currentAction:BattleAction):
 			# Refresh targets
 			await _waitForEffects(currentAction.targets)
 			currentAction.targets = currentAction.resolveTargets()
+			currentAction.battler.lookAtTargets(currentAction.targets)
 		
 		# Resolve counter/follow-up actions
 		for b in allBattlers:
 			for counterAction in b.currentCounterAction:
+				currentAction.battler.cacheDirection()
 				counterAction.setRepeats()
 				while counterAction.repeatAvailable():
 					var effects:Array[BaseEffect] = counterAction.resolveActionList(1)
@@ -234,13 +238,19 @@ func _executeAction(currentAction:BattleAction):
 					# Refresh targets
 					await _waitForEffects(counterAction.targets)
 					counterAction.targets = counterAction.resolveTargets()
-					
+					counterAction.battler.lookAtTargets(counterAction.targets)
+				if counterAction.anyAllyOnTargets():
+					counterAction.battler.resetDirection()
 			b.clearCounters()
 		
 		# resolve ending effects
 		var endEffects:Array[BaseEffect] = currentAction.resolveActionList(2)
 		for effect in endEffects:
 			await effect.execute(currentAction)
+		if !currentAction.battler.escaped:
+			if currentAction.anyAllyOnTargets():
+				currentAction.battler.resetDirection()
+			currentAction.battler.goToHome()
 	else:
 		pass
 	await endBattlerTurn(activeBattler)

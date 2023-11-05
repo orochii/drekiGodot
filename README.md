@@ -2,32 +2,34 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Character animations- CURRENT. Done: Move,death,standing. Pending:Status, actionSpecific(effect)
-- Scope change
+- Character animations- CURRENT. Done: Move,death,standing,actionSpecific(effect). Pending:Status
 - Implement general item/skill effects in battle
-	- Move battler (maybe split into movement types)
+	- Spawn VFX
+	- AddStatus: target, status
 	- Move battle camera
 	- ApplyPercentDamage: hp/mp, amount
-	- Show battler animation
-	- Spawn VFX
 	- Scan: target
-	- AddStatus: target, status
 	- RunEvent: evt
 	- Switch/Variable operation
-- Groups menu
+- Scope change
 - Data menu (enemies, characters, topics, journal)
 - Character status options (position, scrolls, fylgja)
 - Character skills screen: Skill check/use, learn skills.
 - Multi-message support.
+- Groups menu
+- Item synthesis
+- Fylgja stuff
 
 # DONE List
+- Effects
+	- Apply basic damage
+	- Show battler animation
+	- Move battler
 - Collapse animation
 - Counter feature (can be extended for other counters)
 - Battle end screen
 - Escape option
 - Damage popups
-- Effects
-	- Apply basic damage
 - Battle system
 	- Turn behavior
 	- Skill/Item selection

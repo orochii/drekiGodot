@@ -2,6 +2,7 @@ extends SpritesheetEntry
 class_name BattlerSpritesheetEntry
 
 @export var frames : Array[Vector2i]
+@export var events : Array[StringName] = [""]
 
 func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 	var bParent = parent as BattlerSpritesheet
@@ -24,3 +25,9 @@ func resolveFlip(target : Sprite3D):
 	if angle >= 360: angle -= 360
 	if angle < 0: angle += 360
 	return angle < 180
+
+func getFrameEvent(idx:int) -> StringName:
+	if(events.size() > idx):
+		if events[idx]==null: return &""
+		return events[idx]
+	return &""

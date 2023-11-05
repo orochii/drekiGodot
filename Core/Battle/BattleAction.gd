@@ -12,6 +12,12 @@ var targets:Array[Battler]=[]
 var repeatIdx:int = 0
 var totalRepeats:int = 0
 
+func anyAllyOnTargets():
+	for t in targets:
+		if battler.battler.isEnemy(t.battler)==false:
+			return true
+	return false
+
 func resolveCost():
 	if action is UseableSkill:
 		var skill = action as UseableSkill

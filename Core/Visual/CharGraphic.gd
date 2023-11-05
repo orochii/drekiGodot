@@ -2,6 +2,7 @@ extends Sprite3D
 class_name CharGraphic
 
 signal onFrame(ev:StringName, idx:int)
+signal onLoop(_state:StringName)
 
 @export var spritesheet : Spritesheet
 @export var state : StringName = &"base"
@@ -32,9 +33,14 @@ func _process(delta):
 func updateFrame(delta):
 	updateAngleDeform()
 	if spritesheet != null:
+		var _lastState = state
 		var s:SpritesheetEntry = spritesheet.getSheet(state)
 		if s != null:
 			updateFrameCounter(delta, s.fps, s.getTotalFrames())
+		# uh... yeah, a weird workaround for switching states before loop
+		if _lastState != state:
+			s = spritesheet.getSheet(state)
+		if s != null:
 			var newFrame = floori(frameCounter)
 			s.getFrame(self, newFrame, blinkState)
 			if(lastFrame != newFrame):
@@ -56,6 +62,10 @@ func updateAngleDeform():
 	else:
 		self.scale.y = 1
 
+func setNewState(stateName):
+	state = stateName
+	frameCounter = 0
+
 func updateFrameCounter(delta, fps : int, totalFrames : int):
 	if speed == 0:
 		frameCounter = 0
@@ -63,6 +73,7 @@ func updateFrameCounter(delta, fps : int, totalFrames : int):
 		frameCounter += delta*fps
 		while (frameCounter >= totalFrames):
 			frameCounter -= totalFrames
+			onLoop.emit(state)
 
 func updateBlink(delta):
 	if blinkRate.x > 0:
