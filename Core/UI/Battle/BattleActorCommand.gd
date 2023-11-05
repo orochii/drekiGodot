@@ -64,6 +64,7 @@ func _onBattlerReady(b:Battler):
 		readyBattlers.append(b)
 
 func _canBeCommanded(b:Battler):
+	if(b.currentAction != null): return false
 	return b.battler.inputable() && !b.battler.automatic() && !b.escaped
 
 func _setup(b:Battler):
