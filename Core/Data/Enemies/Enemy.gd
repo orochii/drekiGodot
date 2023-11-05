@@ -9,6 +9,7 @@ class_name Enemy
 
 @export_group("Flavor")
 @export var gender : Global.Gender = Global.Gender.NONE
+@export var collapseEffect : PackedScene
 
 @export_group("Features")
 @export var innateElement : Global.Element

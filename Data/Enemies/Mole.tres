@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=12 format=3 uid="uid://cn4v6tsk48ile"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=13 format=3 uid="uid://cn4v6tsk48ile"]
 
 [ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_thtna"]
+[ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_g3bf0"]
 [ext_resource type="Resource" uid="uid://ccnl1ck458bp4" path="res://Data/Items/Root.tres" id="3_lih1q"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="4_26iuy"]
 [ext_resource type="Resource" uid="uid://vdynhxx2qmk" path="res://Data/Items/Stem.tres" id="5_2tamw"]
@@ -35,6 +36,7 @@ type = "Mammal"
 description = "Moles will conquer the earth!"
 battleSprite = ExtResource("1_dqtx7")
 gender = 2
+collapseEffect = ExtResource("3_g3bf0")
 innateElement = 9
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 level = 1

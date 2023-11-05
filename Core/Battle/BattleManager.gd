@@ -141,7 +141,6 @@ func _judge():
 		else:
 			if !b.battler.isDead(): enemiesAlive += 1
 	# Debug
-	#print("allies:%d total:%d enemies:%d" % [alliesAlive,totalAllies,enemiesAlive])
 	#EBattleResult.DRAW
 	if totalAllies==0:
 		battleEnd(EBattleResult.DRAW)
@@ -170,8 +169,10 @@ func _calcAvgSpeed():
 
 func _advanceAtb(b:Battler,deltaAtb,avgSpeed):
 	await b.updateAtb(deltaAtb,avgSpeed)
+	await _waitForEffects([b])
 	if(b.isAtbFull()):
 		await b.startTurn()
+		await _waitForEffects([b])
 		waitingBattlers.erase(b)
 		readyBattlers.append(b)
 		onBattlerReady.emit(b)
@@ -195,10 +196,10 @@ func _advanceActions(b:Battler):
 		await endBattlerTurn(b)
 
 func _executeAction(currentAction:BattleAction):
+	if currentAction==null: return
 	var activeBattler = currentAction.battler
 	activeBattler.currentAction = null
 	if currentAction.action != null:
-		print("BATTLER: %s executes %s" % [activeBattler.battler.getName(), currentAction.action.name])
 		# Resolve action cost
 		currentAction.resolveCost()
 		# Resolve initial targets
@@ -218,6 +219,7 @@ func _executeAction(currentAction:BattleAction):
 					b.checkCounter(activeBattler,effect,currentAction.targets)
 			currentAction.advanceRepeat()
 			# Refresh targets
+			await _waitForEffects(currentAction.targets)
 			currentAction.targets = currentAction.resolveTargets()
 		
 		# Resolve counter/follow-up actions
@@ -230,7 +232,9 @@ func _executeAction(currentAction:BattleAction):
 						await effect.execute(counterAction)
 					counterAction.advanceRepeat()
 					# Refresh targets
+					await _waitForEffects(counterAction.targets)
 					counterAction.targets = counterAction.resolveTargets()
+					
 			b.clearCounters()
 		
 		# resolve ending effects
@@ -238,8 +242,17 @@ func _executeAction(currentAction:BattleAction):
 		for effect in endEffects:
 			await effect.execute(currentAction)
 	else:
-		print("BATTLER: %s waits." % [activeBattler.battler.getName()])
+		pass
 	await endBattlerTurn(activeBattler)
+
+func _waitForEffects(targets):
+	for t in targets:
+		if t.battler.isDead():
+			t.collapse()
+		else:
+			t.getUp()
+		while t.effectWait():
+			await get_tree().process_frame
 
 func _playBattleMusic():
 	var currentMusic:SystemAudioEntry = _resolveBattleMusic()

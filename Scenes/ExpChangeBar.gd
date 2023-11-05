@@ -10,7 +10,6 @@ class_name ExpChangeBar
 @export var upColor:Color
 
 func setup(old:float,change:float):
-	print("%f - %f" % [old,change])
 	var curr = old + change
 	if curr >= 1: # Up!
 		barOld.visible = false

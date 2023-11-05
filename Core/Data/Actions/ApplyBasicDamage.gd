@@ -45,10 +45,8 @@ func apply(user:GameBattler, target:GameBattler):
 		match type:
 			Global.EDamageType.HP:
 				target.changeHP(-eff["damage"])
-				print("Dealt %d HP damage on %s!" % [eff["damage"],target.getName()])
 			Global.EDamageType.MP:
 				target.changeMP(-eff["damage"])
-				print("Dealt %d MP damage on %s!" % [eff["damage"],target.getName()])
 	return eff
 
 # any calculation here must be deterministic

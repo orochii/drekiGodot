@@ -70,7 +70,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ojgox")
 mesh = NodePath("MeshInstance2D")
-splices = Vector2i(16, 9)
 magnitude = 5.82
 transparency = SubResource("Curve_cwtdm")
 

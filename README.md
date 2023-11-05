@@ -2,8 +2,8 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Character animations- CURRENT. Done: Move,death,standing. Pending:Status, actionSpecific(effect)
 - Scope change
-- Battle end screen
 - Implement general item/skill effects in battle
 	- Move battler (maybe split into movement types)
 	- Move battle camera
@@ -21,6 +21,9 @@ One attempt at making RPG on Godot just how I like it :)
 - Multi-message support.
 
 # DONE List
+- Collapse animation
+- Counter feature (can be extended for other counters)
+- Battle end screen
 - Escape option
 - Damage popups
 - Effects

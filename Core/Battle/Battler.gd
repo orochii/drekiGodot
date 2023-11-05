@@ -1,6 +1,7 @@
 extends Node3D
 class_name Battler
 
+const DAMAGE_POP_WAIT = 0.5
 const ATB_MAX = 1
 const DEFAULT_SPEED = 40
 const POSITION_OFFSET = Vector3(0,0,-2)
@@ -8,21 +9,26 @@ const START_OFFSET = Vector3(0,0,-20)
 
 @export var graphic:CharGraphic
 
+var overrideState:StringName = &""
 var appeared:bool = true
 var hidden:bool = false
 var escaped:bool = false
+var collapsed:bool = false
 var battler:GameBattler
 var battle:BattleManager
 var atbValue:float
 var currentAction:BattleAction = null
 var turn = 0
-
+var effectWaitTime = 0
 # Position stuff
 var moveSpeed = DEFAULT_SPEED
 var homePosition:Vector3 = Vector3(0,0,0)
 var targetPosition:Vector3 = Vector3(0,0,0)
 var _startDirection:float = 0
 var direction:float = 0
+# Counter stuff
+var currentCounters = []
+var currentCounterAction = []
 
 func setStartDirection(a:float):
 	# inst.setStartDirection(-90)
@@ -66,9 +72,20 @@ func setup(_battler:GameBattler):
 	graphic.spritesheet = _battler.getBattleGraphic()
 
 func _process(delta):
-	# TODO:
+	if effectWait():
+		effectWaitTime -= delta
+	# - Pose update
+	graphic.state = getCurrentPose()
 	# - Movement
-	global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
+	if moving():
+		var dir = targetPosition - global_position
+		look_at(global_position - dir, Vector3.UP)
+		global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
+		if !moving():
+			global_rotation_degrees = Vector3(0, direction, 0)
+
+func moving():
+	return global_position != targetPosition
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
@@ -151,9 +168,6 @@ func checkCounter(user:Battler,effect:BaseEffect,targets:Array[Battler]):
 					currentCounterAction.append(newAction)
 				currentCounters.append(counter)
 
-var currentCounters = []
-var currentCounterAction = []
-
 func pickAction():
 	var actionScript:ActionScript = battler.pickActionScript(battle)
 	if actionScript==null:
@@ -174,6 +188,7 @@ func escape():
 	escaped = true
 func damagePop(eff):
 	battle.spawnDamagePop(self,eff)
+	effectWaitTime = DAMAGE_POP_WAIT
 
 func getEnemies(state:Global.ETargetState):
 	var ary:Array[Battler] = []
@@ -211,9 +226,44 @@ func appear():
 	moveToStartPosition()
 	goToHome()
 	appeared = true
+func getUp():
+	if !collapsed: return
+	collapsed = false
+	var data = battler.getData()
+	if data is Enemy:
+		var enemy = data as Enemy
+		if enemy.collapseEffect != null:
+			graphic.visible = true
+			return
+func collapse():
+	if collapsed: return
+	collapsed = true
+	var data = battler.getData()
+	if data is Enemy:
+		var enemy = data as Enemy
+		if enemy.collapseEffect != null:
+			var eff = enemy.collapseEffect.instantiate()
+			get_parent().add_child(eff)
+			graphic.visible = false
+			eff.setup(graphic)
+			return
+
+func getCurrentPose():
+	if overrideState != &"": return overrideState
+	return getCurrentState()
+func getCurrentState():
+	if battler.isDead():
+		return &"dead"
+	# TODO: Set based on current altered status effect
+	if moving():
+		return &"moving"
+	return &"base"
 
 func cantTarget():
 	return hidden || !appeared
 
 func isHidden():
-	return !appeared || escaped
+	return !appeared || escaped || !graphic.visible
+
+func effectWait():
+	return effectWaitTime > 0

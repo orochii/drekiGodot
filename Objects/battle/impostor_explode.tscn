@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhr31iu0gt1qh"]
+
+[ext_resource type="Script" path="res://Core/Visual/ImpostorEffectExplode.gd" id="1_xxkem"]
+[ext_resource type="Shader" path="res://Core/Shaders/simpleShader.gdshader" id="2_be43k"]
+[ext_resource type="Shader" path="res://Core/Shaders/impostor_Explode.gdshader" id="3_uni7b"]
+[ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="4_d67o8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxeyd"]
+render_priority = 0
+shader = ExtResource("2_be43k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4g5fp"]
+shader = ExtResource("3_uni7b")
+shader_parameter/direction = Vector3(1, 0, 0)
+shader_parameter/spread = 0.0
+shader_parameter/flatness = 0.0
+shader_parameter/initial_linear_velocity_min = 1.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/anim_speed_min = 0.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_max = 0.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_max = 0.23
+shader_parameter/anim_offset_max = 0.435
+shader_parameter/lifetime_randomness = 2.0
+shader_parameter/emission_box_extents = Vector3(1.26, 1.26, 0)
+shader_parameter/color_value = Color(0.960784, 0.960784, 0.960784, 1)
+shader_parameter/gravity = Vector3(0, -1e-06, 0)
+shader_parameter/sprite = ExtResource("4_d67o8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xi4vg"]
+size = Vector2(0.063, 0.063)
+
+[node name="ImpostorExplode" type="Node3D" node_paths=PackedStringArray("particles")]
+script = ExtResource("1_xxkem")
+particles = NodePath("GPUParticles3D")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_rxeyd")
+gi_mode = 0
+emitting = false
+amount = 4000
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ShaderMaterial_4g5fp")
+draw_pass_1 = SubResource("QuadMesh_xi4vg")

@@ -101,11 +101,8 @@ func repositionCatSel():
 	catSel.position = pos
 
 func _onSelected(obj, item, entry):
-	print("emitted item signal received")
 	if !obj.canUse:
 		Global.Audio.playSFX("buzzer")
-		print("item can't use")
 		return
 	if onItemSelected.is_valid():
-		print("item selected for use")
 		onItemSelected.call(obj, item, entry)
