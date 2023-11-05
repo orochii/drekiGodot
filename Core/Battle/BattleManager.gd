@@ -199,20 +199,39 @@ func _executeAction(currentAction:BattleAction):
 	activeBattler.currentAction = null
 	if currentAction.action != null:
 		print("BATTLER: %s executes %s" % [activeBattler.battler.getName(), currentAction.action.name])
-		# resolve action cost
+		# Resolve action cost
 		currentAction.resolveCost()
-		# resolve starting effects
+		# Resolve initial targets
+		currentAction.targets = currentAction.resolveTargets()
+		# Resolve starting effects
 		var startEffects:Array[BaseEffect] = currentAction.resolveActionList(0)
 		for effect in startEffects:
 			await effect.execute(currentAction)
-		
-		# resolve action effects N times
+		# Resolve action effects N times
 		currentAction.setRepeats()
 		while currentAction.repeatAvailable():
 			var effects:Array[BaseEffect] = currentAction.resolveActionList(1)
 			for effect in effects:
 				await effect.execute(currentAction)
+				# Check for follow-up attacks
+				for b in allBattlers:
+					b.checkCounter(activeBattler,effect,currentAction.targets)
 			currentAction.advanceRepeat()
+			# Refresh targets
+			currentAction.targets = currentAction.resolveTargets()
+		
+		# Resolve counter/follow-up actions
+		for b in allBattlers:
+			for counterAction in b.currentCounterAction:
+				counterAction.setRepeats()
+				while counterAction.repeatAvailable():
+					var effects:Array[BaseEffect] = counterAction.resolveActionList(1)
+					for effect in effects:
+						await effect.execute(counterAction)
+					counterAction.advanceRepeat()
+					# Refresh targets
+					counterAction.targets = counterAction.resolveTargets()
+			b.clearCounters()
 		
 		# resolve ending effects
 		var endEffects:Array[BaseEffect] = currentAction.resolveActionList(2)

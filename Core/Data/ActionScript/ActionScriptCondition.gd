@@ -1,5 +1,5 @@
 extends Resource
 class_name ActionScriptCondition
 
-func evaluate():
+func evaluate(battle:BattleManager):
 	return true

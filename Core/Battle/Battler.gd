@@ -128,8 +128,34 @@ func setAction(action:Resource, scope:Global.ETargetScope, targetIdx:int):
 	currentAction.scope = scope
 	currentAction.targetIdx = targetIdx
 
+func clearCounters():
+	currentCounters.clear()
+	currentCounterAction.clear()
+func checkCounter(user:Battler,effect:BaseEffect,targets:Array[Battler]):
+	var fs = battler.getFeatures()
+	for f in fs:
+		if f is CounterFeature:
+			var counter = f as CounterFeature
+			if !currentCounters.has(counter):
+				if counter.valid(self,user,effect,targets):
+					var newAction = BattleAction.new()
+					newAction.battler = self
+					newAction.action = counter.action
+					newAction.scope = counter.action.targetScope
+					if counter.targetCounteredBattler:
+						newAction.selectSpecificTarget(user)
+					else:
+						newAction.selectRandomTarget()
+					var counterTargets = newAction.resolveTargets()
+					newAction.targets = counterTargets
+					currentCounterAction.append(newAction)
+				currentCounters.append(counter)
+
+var currentCounters = []
+var currentCounterAction = []
+
 func pickAction():
-	var actionScript:ActionScript = battler.pickActionScript()
+	var actionScript:ActionScript = battler.pickActionScript(battle)
 	if actionScript==null:
 		currentAction = BattleAction.new()
 		currentAction.battler = self

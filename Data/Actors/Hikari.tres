@@ -1,16 +1,17 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=80 format=3 uid="uid://bs77brxfkt5yg"]
+[gd_resource type="Resource" script_class="Actor" load_steps=79 format=3 uid="uid://bs77brxfkt5yg"]
 
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="1_fphf6"]
 [ext_resource type="Texture2D" uid="uid://br0sx61j1stfs" path="res://Graphics/Faces/1_pixart2.png" id="1_hbvuk"]
 [ext_resource type="Script" path="res://Core/Data/Actors/Actor.gd" id="1_oyatu"]
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearning.gd" id="2_jpdbq"]
-[ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="2_loit1"]
 [ext_resource type="Texture2D" uid="uid://dlrtaypnag7vp" path="res://Graphics/Faces/1_faceAnimated.png" id="3_2jrs3"]
 [ext_resource type="Resource" uid="uid://blr2lg8ngj1rn" path="res://Data/Skills/Passives/Trance.tres" id="3_du70q"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="3_lw1w4"]
 [ext_resource type="Resource" uid="uid://84msihrapm3r" path="res://Data/Items/Weapon/Sword.tres" id="4_e84ib"]
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearningSlot.gd" id="4_lqmfh"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="4_tif0j"]
+[ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Common/Punch.tres" id="5_6il7l"]
+[ext_resource type="Script" path="res://Core/Data/Features/CounterFeature.gd" id="5_t6d3o"]
 [ext_resource type="Resource" uid="uid://bmoebsnnnt02v" path="res://Data/Skills/Shouten Cut.tres" id="7_kdk53"]
 [ext_resource type="Resource" uid="uid://bcjmmb72ik0vj" path="res://Data/Skills/Double Attack.tres" id="7_n6i3k"]
 [ext_resource type="Resource" uid="uid://wbswo26fo6qb" path="res://Data/Skills/Pass Through.tres" id="9_4vdh6"]
@@ -35,20 +36,10 @@
 [ext_resource type="Resource" uid="uid://ccioxi607u4w" path="res://Data/Skills/Crystalize.tres" id="22_idw7a"]
 [ext_resource type="Resource" uid="uid://cx8xixtxstrjy" path="res://Data/Skills/Passives/Sturdy.tres" id="22_pmfoi"]
 
-[sub_resource type="Resource" id="Resource_juwmk"]
-script = ExtResource("2_loit1")
-element = 5
-value = 0
-
-[sub_resource type="Resource" id="Resource_0vyim"]
-script = ExtResource("2_loit1")
-element = 6
-value = 3
-
-[sub_resource type="Resource" id="Resource_vyfqr"]
-script = ExtResource("2_loit1")
-element = 10
-value = 3
+[sub_resource type="Resource" id="Resource_j2cbi"]
+script = ExtResource("5_t6d3o")
+action = ExtResource("5_6il7l")
+targetCounteredBattler = true
 
 [sub_resource type="Resource" id="Resource_anlwo"]
 script = ExtResource("2_jpdbq")
@@ -303,7 +294,7 @@ equippableFlags = Array[int]([0, 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 16])
 learningSlots = Array[ExtResource("4_lqmfh")]([SubResource("Resource_o63kf"), SubResource("Resource_rxm80"), SubResource("Resource_jsvuf"), SubResource("Resource_dptuk"), SubResource("Resource_fvlx7"), SubResource("Resource_ffvi8"), SubResource("Resource_tjliy"), SubResource("Resource_816fm"), SubResource("Resource_pgiqh"), SubResource("Resource_r0kvq"), SubResource("Resource_rxju2"), SubResource("Resource_0g3av"), SubResource("Resource_x80rf"), SubResource("Resource_ju84x"), SubResource("Resource_ytf2i"), SubResource("Resource_hpuq3"), SubResource("Resource_vjgqc"), SubResource("Resource_dyu4v")])
 defaultWeaponSkills = Array[int]([0, 1])
 innateElement = 6
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_juwmk"), SubResource("Resource_0vyim"), SubResource("Resource_vyfqr")])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_j2cbi")])
 startLevel = 1.0
 expGrowth = Vector2i(25, 50)
 mhp = Vector2i(292, 95)

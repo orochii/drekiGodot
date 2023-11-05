@@ -287,7 +287,7 @@ func isEnemy(other:GameBattler):
 
 func getActionScriptList() -> Array[ActionScript]:
 	return [ActionScript.new()]
-func pickActionScript() -> ActionScript:
+func pickActionScript(battle:BattleManager) -> ActionScript:
 	var actions = getActionScriptList()
 	if actions.size() == 0:
 		return null
@@ -296,7 +296,7 @@ func pickActionScript() -> ActionScript:
 	for a in actions:
 		var valid = true
 		for c in a.conditions:
-			if !c.evaluate():
+			if !c.evaluate(battle):
 				valid = false
 				break
 		if valid:

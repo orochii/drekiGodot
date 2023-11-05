@@ -214,7 +214,6 @@ camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
 battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/Allies")
 troop = NodePath("SubViewportContainer/SubViewport/Enemies")
-partyPositionBase = null
 partyPositionOffset = Vector3(1, 0, 4)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")

@@ -21,8 +21,7 @@ var multipleTargets:bool = false
 
 func execute(action:BattleAction):
 	multipleTargets = action.scope == Global.ETargetScope.ALL
-	var targets = action.resolveTargets()
-	for t in targets:
+	for t in action.targets:
 		var eff = apply(action.battler.battler, t.battler)
 		# Display effect- eff(damage,elementCorrection,hit)
 		t.damagePop(eff)

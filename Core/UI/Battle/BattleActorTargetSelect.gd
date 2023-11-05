@@ -129,9 +129,9 @@ func _moveCursor(dir:Vector2):
 
 func _getTargets():
 	if _item != null:
-		return _action._getTargetArray(_item.targetKind,_state)
+		return _action.getTargetArray(_item.targetKind,_state)
 	elif _skill != null:
-		return _action._getTargetArray(_skill.targetKind,_state)
+		return _action.getTargetArray(_skill.targetKind,_state)
 	else:
 		return []
 

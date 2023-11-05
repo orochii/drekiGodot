@@ -5,6 +5,8 @@ var battler:Battler
 var action:Resource #(Status, BaseSkill or BaseItem)
 var scope:Global.ETargetScope
 var targetIdx:int
+# This must be set by the effects themselves, which sounds terrible
+var targets:Array[Battler]=[]
 
 # Don't set manually (except for maybe cleave)
 var repeatIdx:int = 0
@@ -34,6 +36,27 @@ func resolveCost():
 		# reduce atb
 		battler.atbValue -= item.cpCost
 
+func selectSpecificTarget(t:Battler):
+	var targetKind = Global.ETargetKind.ENEMY
+	var targetState = Global.ETargetState.ALIVE
+	if action is Status:
+		targetKind = Global.ETargetKind.USER
+		targetState = Global.ETargetState.ANY
+	elif action is UseableSkill:
+		var sk = action as UseableSkill
+		targetKind = sk.targetKind
+		targetState = sk.targetState
+	elif action is UseableItem:
+		var it = action as UseableItem
+		targetKind = it.targetKind
+		targetState = it.targetState
+	var ary = getTargetArray(targetKind,targetState)
+	if ary.size()==0: 
+		targetIdx = 0
+	else:
+		targetIdx = ary.find(t)
+		if targetIdx==-1:
+			targetIdx = randi() % ary.size()
 func selectRandomTarget():
 	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE
@@ -48,7 +71,7 @@ func selectRandomTarget():
 		var it = action as UseableItem
 		targetKind = it.targetKind
 		targetState = it.targetState
-	var ary = _getTargetArray(targetKind,targetState)
+	var ary = getTargetArray(targetKind,targetState)
 	if ary.size()==0: 
 		targetIdx = 0
 	else:
@@ -105,19 +128,19 @@ func resolveTargets() -> Array[Battler]:
 	elif action is Status:
 		targetKind = Global.ETargetKind.USER
 		targetState = Global.ETargetState.ANY
-	var ary = _getTargetArray(targetKind,targetState)
+	var ary = getTargetArray(targetKind,targetState)
 	match scope:
 		Global.ETargetScope.ALL:
 			return ary
 		Global.ETargetScope.ONE:
 			if ary.size()==0: return []
-			return [ary[targetIdx]]
+			return [ary[targetIdx % ary.size()]]
 		_:
 			if ary.size()==0: return []
 			var rndIdx = randi() % ary.size()
 			return [ary[rndIdx]]
 
-func _getTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
+func getTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
 	# Invert kind if is i.e. confused
 	if battler.battler.hasRestriction(Global.ERestriction.AttackAlly):
 		match kind:

@@ -8,8 +8,7 @@ func execute(action:BattleAction):
 	# action.repeatIdx
 	# action.totalRepeats
 	# actions can actually never call apply if not necessary
-	#var targets = action.resolveTargets()
-	#for target in targets:
+	#for target in action.targets:
 	#	apply(action.battler.battler, target)
 	pass
 

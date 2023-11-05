@@ -2,9 +2,7 @@ extends BaseEffect
 class_name EscapeEffect
 
 func execute(action:BattleAction):
-	
-	var targets = action.resolveTargets()
-	for target in targets:
+	for target in action.targets:
 		target.escape()
 
 func calcEffect(user:GameBattler, target:GameBattler):

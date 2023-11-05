@@ -64,7 +64,7 @@ func _onBattlerReady(b:Battler):
 		readyBattlers.append(b)
 
 func _canBeCommanded(b:Battler):
-	return b.battler.inputable() && !b.battler.automatic()
+	return b.battler.inputable() && !b.battler.automatic() && !b.escaped
 
 func _setup(b:Battler):
 	currentBattler = b
