@@ -1,8 +1,34 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://bcjmmb72ik0vj"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://bcjmmb72ik0vj"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_4co8j"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_unl8g"]
 [ext_resource type="Texture2D" uid="uid://d1ohmutinogtg" path="res://Graphics/Icons/skills/DoubleAttack.png" id="2_1htvs"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_1xkfo"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_pwucx"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_tnxat"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_6xi38"]
+
+[sub_resource type="Resource" id="Resource_p4gb3"]
+script = ExtResource("1_4co8j")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+
+[sub_resource type="Resource" id="Resource_qp2xm"]
+script = ExtResource("2_1xkfo")
+state = &""
+loop = false
+waitForEnd = false
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_nwygj"]
+script = ExtResource("3_tnxat")
+visualEffectTemplate = ExtResource("4_6xi38")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_unl8g")
@@ -34,7 +60,7 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_p4gb3"), SubResource("Resource_qp2xm"), SubResource("Resource_nwygj"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Double Attack"
 description = "Performs a double attack with wielded weapons."

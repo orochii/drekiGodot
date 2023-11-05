@@ -4,7 +4,6 @@ One attempt at making RPG on Godot just how I like it :)
 # TODO List
 - Character animations- CURRENT. Done: Move,death,standing,actionSpecific(effect). Pending:Status
 - Implement general item/skill effects in battle
-	- AddStatus: target, status
 	- Move battle camera
 	- ApplyPercentDamage: hp/mp, amount
 	- Scan: target
@@ -25,6 +24,7 @@ One attempt at making RPG on Godot just how I like it :)
 	- Show battler animation
 	- Move battler
 	- Spawn VFX
+	- AddStatus: target, status
 - Collapse animation
 - Counter feature (can be extended for other counters)
 - Battle end screen

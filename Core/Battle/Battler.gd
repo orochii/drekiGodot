@@ -108,6 +108,7 @@ func _process(delta):
 		global_rotation_degrees = deg
 		global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
 		if !moving():
+			print(direction)
 			global_rotation_degrees = Vector3(0, direction, 0)
 
 # a

@@ -222,8 +222,9 @@ func _executeAction(currentAction:BattleAction):
 			currentAction.advanceRepeat()
 			# Refresh targets
 			await _waitForEffects(currentAction.targets)
-			currentAction.targets = currentAction.resolveTargets()
-			currentAction.battler.lookAtTargets(currentAction.targets)
+			if currentAction.repeatAvailable():
+				currentAction.targets = currentAction.resolveTargets()
+				currentAction.battler.lookAtTargets(currentAction.targets)
 		
 		# Resolve counter/follow-up actions
 		for b in allBattlers:

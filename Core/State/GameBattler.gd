@@ -1,6 +1,9 @@
 extends Object
 class_name GameBattler
 
+const DEATH_STATUS = "Death"
+const DRY_STATUS = "Dry"
+
 var id : StringName
 var level : int = 1
 var currHP : int
@@ -59,7 +62,7 @@ func getFeatures():
 
 func changeHP(val:int):
 	currHP = clampi(currHP + val, 0, getMaxHP())
-	var deathStatus = Global.Db.getStatus("Death")
+	var deathStatus = Global.Db.getStatus(DEATH_STATUS)
 	if currHP == 0:
 		# Add death
 		addStatus(deathStatus,true)
@@ -67,7 +70,7 @@ func changeHP(val:int):
 		removeStatus(deathStatus)
 func changeMP(val:int):
 	currMP = clampi(currMP + val, 0, getMaxHP())
-	var deathStatus = Global.Db.getStatus("Dry")
+	var deathStatus = Global.Db.getStatus(DRY_STATUS)
 	if currMP == 0:
 		# Add death
 		addStatus(deathStatus,true)
@@ -96,6 +99,10 @@ func addStatus(s:Status,force:bool=false):
 			ss.turns = 0
 			ss.stack = 1
 			states.append(ss)
+			if s.getId()==DEATH_STATUS:
+				currHP = 0
+			if s.getId()==DRY_STATUS:
+				currMP = 0
 		else: # Does have status
 			ss.stack = clampi(ss.stack+1, 1, 3)
 		for rs in s.statusRemove:
