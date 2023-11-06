@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=9 format=3 uid="uid://b4p5jkun4rwbx"]
+
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="1_gv25d"]
+[ext_resource type="Resource" uid="uid://cn4v6tsk48ile" path="res://Data/Enemies/Mole.tres" id="1_o8cnk"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_fdblg"]
+
+[sub_resource type="Resource" id="Resource_s5k2a"]
+script = ExtResource("2_fdblg")
+enemy = ExtResource("1_o8cnk")
+position = Vector3(8, 0, -3)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_yokt4"]
+script = ExtResource("2_fdblg")
+enemy = ExtResource("1_o8cnk")
+position = Vector3(0, 0, 0)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_blgtt"]
+script = ExtResource("2_fdblg")
+enemy = ExtResource("1_o8cnk")
+position = Vector3(5, 0, 5)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_tubx2"]
+script = ExtResource("2_fdblg")
+enemy = ExtResource("1_o8cnk")
+position = Vector3(-4.47, 0, -4.375)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_38ysv"]
+script = ExtResource("2_fdblg")
+enemy = ExtResource("1_o8cnk")
+position = Vector3(-6.87, 0, 3.235)
+flags = 0
+
+[resource]
+script = ExtResource("1_gv25d")
+battleMusic = Array[Resource("res://Core/Audio/SystemAudioEntry.gd")]([])
+entries = Array[ExtResource("2_fdblg")]([SubResource("Resource_s5k2a"), SubResource("Resource_yokt4"), SubResource("Resource_blgtt"), SubResource("Resource_tubx2"), SubResource("Resource_38ysv")])

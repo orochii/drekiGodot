@@ -95,6 +95,8 @@ func resolveRepeats() -> int:
 		var sk = action as UseableSkill
 		return sk.repeats
 	return 0
+func unsetRepeats():
+	repeatIdx = totalRepeats+1
 
 func resolveActionList(type:int) -> Array[BaseEffect]:
 	if action is UseableSkill:

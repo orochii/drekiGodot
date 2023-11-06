@@ -1,7 +1,7 @@
 [gd_scene load_steps=76 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
-[ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="2_b4hq5"]
+[ext_resource type="Resource" uid="uid://b4p5jkun4rwbx" path="res://Data/Troops/Moles3.tres" id="2_6q647"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 [ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
@@ -209,7 +209,7 @@ center_offset = Vector3(240, 135, 0)
 [node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
 process_mode = 3
 script = ExtResource("1_rbil0")
-testTroop = ExtResource("2_b4hq5")
+testTroop = ExtResource("2_6q647")
 camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
 battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/Allies")

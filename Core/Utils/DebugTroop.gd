@@ -28,6 +28,7 @@ func _draw():
 		draw_line(bl, br, Color.GREEN, drawScale)
 		# Draw enemy
 		for entry in battleManager.testTroop.entries:
+			if entry==null: continue
 			var enemyPos = entry.position
 			var pos = offset + Vector2(enemyPos.x, enemyPos.z) * drawScale
 			draw_line(pos, pos+Vector2(0,-drawScale), Color.PALE_VIOLET_RED, drawScale)

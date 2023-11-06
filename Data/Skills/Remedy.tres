@@ -1,8 +1,34 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://pdi1owy52v3t"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://pdi1owy52v3t"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_de575"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_erpk8"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_6sm30"]
 [ext_resource type="Texture2D" uid="uid://br0iltqouug8s" path="res://Graphics/Icons/skills/Remedy.png" id="2_7b4fi"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_wvmtl"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_6j30v"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_oiwts"]
+
+[sub_resource type="Resource" id="Resource_fbf5c"]
+script = ExtResource("1_de575")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+
+[sub_resource type="Resource" id="Resource_jurjl"]
+script = ExtResource("2_6sm30")
+state = &"skill"
+loop = false
+waitForEnd = true
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_swmid"]
+script = ExtResource("3_6j30v")
+visualEffectTemplate = ExtResource("4_oiwts")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_erpk8")
@@ -23,7 +49,7 @@ variance = 0.0
 [resource]
 script = ExtResource("2_wvmtl")
 flags = Array[int]([0, 4])
-targetKind = 1
+targetKind = 3
 targetScope = 0
 targetState = 0
 repeats = 0
@@ -34,7 +60,7 @@ cooldown = 1
 canUse = 2
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_fbf5c"), SubResource("Resource_jurjl"), SubResource("Resource_swmid"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Remedy"
 description = "Performs a double attack with wielded weapons."

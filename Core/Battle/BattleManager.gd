@@ -224,7 +224,10 @@ func _executeAction(currentAction:BattleAction):
 			await _waitForEffects(currentAction.targets)
 			if currentAction.repeatAvailable():
 				currentAction.targets = currentAction.resolveTargets()
-				currentAction.battler.lookAtTargets(currentAction.targets)
+				if currentAction.targets.size() != 0:
+					currentAction.battler.lookAtTargets(currentAction.targets)
+				else:
+					currentAction.unsetRepeats()
 		
 		# Resolve counter/follow-up actions
 		for b in allBattlers:
@@ -238,8 +241,12 @@ func _executeAction(currentAction:BattleAction):
 					counterAction.advanceRepeat()
 					# Refresh targets
 					await _waitForEffects(counterAction.targets)
-					counterAction.targets = counterAction.resolveTargets()
-					counterAction.battler.lookAtTargets(counterAction.targets)
+					if currentAction.repeatAvailable():
+						counterAction.targets = counterAction.resolveTargets()
+						if counterAction.targets.size() != 0:
+							counterAction.battler.lookAtTargets(counterAction.targets)
+						else:
+							counterAction.unsetRepeats()
 				if counterAction.anyAllyOnTargets():
 					counterAction.battler.resetDirection()
 			b.clearCounters()

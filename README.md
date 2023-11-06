@@ -25,6 +25,7 @@ One attempt at making RPG on Godot just how I like it :)
 	- Move battler
 	- Spawn VFX
 	- AddStatus: target, status
+	- Wait effect
 - Collapse animation
 - Counter feature (can be extended for other counters)
 - Battle end screen
