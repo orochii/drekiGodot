@@ -27,6 +27,7 @@ func setup(obj:Resource):
 	_skill = null
 	if obj is UseableItem:
 		_item = obj as UseableItem
+		_action.kind = _item.targetKind
 		_action.scope = _item.targetScope
 		_state = _item.targetState
 		if _item.targetKind == Global.ETargetKind.NONE:
@@ -34,6 +35,7 @@ func setup(obj:Resource):
 			return
 	elif obj is UseableSkill:
 		_skill = obj as UseableSkill
+		_action.kind = _skill.targetKind
 		_action.scope = _skill.targetScope
 		_state = _skill.targetState
 		if _skill.targetKind == Global.ETargetKind.NONE:
@@ -94,6 +96,7 @@ func _process(delta):
 		if _dirCooldown <= 0 || _lastDir != dir:
 			_dirCooldown = DIR_COOLDOWN
 			_moveCursor(dir)
+			_lastDir = dir
 		else:
 			_dirCooldown -= delta
 	else:
@@ -129,9 +132,9 @@ func _moveCursor(dir:Vector2):
 
 func _getTargets():
 	if _item != null:
-		return _action.getTargetArray(_item.targetKind,_state)
+		return _action.getTargetArray(_state)
 	elif _skill != null:
-		return _action.getTargetArray(_skill.targetKind,_state)
+		return _action.getTargetArray(_state)
 	else:
 		return []
 

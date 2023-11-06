@@ -127,13 +127,13 @@ func _on_inventory_pressed():
 func _on_wait_pressed():
 	Global.Audio.playSFX("decision")
 	#idx- 0:back 1:wait 2:forward
-	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetScope.ONE,0)
+	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetKind.USER,Global.ETargetScope.ONE,0)
 	currentBattler.setLastIndex(&"command", 2)
 	currentBattler.setLastIndex(&"wait", waitIdx)
 	_unset()
 
 func _on_escape_pressed():
-	currentBattler.setAction(Global.Db.commonActions[3],Global.ETargetScope.ONE,0)
+	currentBattler.setAction(Global.Db.commonActions[3],Global.ETargetKind.USER,Global.ETargetScope.ONE,0)
 	_unset()
 
 func _updateWaitSelection():

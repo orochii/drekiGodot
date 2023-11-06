@@ -49,7 +49,7 @@ variance = 0.0
 [resource]
 script = ExtResource("2_wvmtl")
 flags = Array[int]([0, 4])
-targetKind = 3
+targetKind = 1
 targetScope = 0
 targetState = 0
 repeats = 0

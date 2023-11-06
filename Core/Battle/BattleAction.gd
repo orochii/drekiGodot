@@ -3,6 +3,7 @@ class_name BattleAction
 
 var battler:Battler
 var action:Resource #(Status, BaseSkill or BaseItem)
+var kind:Global.ETargetKind
 var scope:Global.ETargetScope
 var targetIdx:int
 # This must be set by the effects themselves, which sounds terrible
@@ -43,20 +44,16 @@ func resolveCost():
 		battler.atbValue -= item.cpCost
 
 func selectSpecificTarget(t:Battler):
-	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE
 	if action is Status:
-		targetKind = Global.ETargetKind.USER
 		targetState = Global.ETargetState.ANY
 	elif action is UseableSkill:
 		var sk = action as UseableSkill
-		targetKind = sk.targetKind
 		targetState = sk.targetState
 	elif action is UseableItem:
 		var it = action as UseableItem
-		targetKind = it.targetKind
 		targetState = it.targetState
-	var ary = getTargetArray(targetKind,targetState)
+	var ary = getTargetArray(targetState)
 	if ary.size()==0: 
 		targetIdx = 0
 	else:
@@ -64,20 +61,16 @@ func selectSpecificTarget(t:Battler):
 		if targetIdx==-1:
 			targetIdx = randi() % ary.size()
 func selectRandomTarget():
-	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE
 	if action is Status:
-		targetKind = Global.ETargetKind.USER
 		targetState = Global.ETargetState.ANY
 	elif action is UseableSkill:
 		var sk = action as UseableSkill
-		targetKind = sk.targetKind
 		targetState = sk.targetState
 	elif action is UseableItem:
 		var it = action as UseableItem
-		targetKind = it.targetKind
 		targetState = it.targetState
-	var ary = getTargetArray(targetKind,targetState)
+	var ary = getTargetArray(targetState)
 	if ary.size()==0: 
 		targetIdx = 0
 	else:
@@ -123,20 +116,16 @@ func resolveActionList(type:int) -> Array[BaseEffect]:
 	return []
 
 func resolveTargets() -> Array[Battler]:
-	var targetKind = Global.ETargetKind.ENEMY
 	var targetState = Global.ETargetState.ALIVE
 	if action is UseableSkill:
 		var sk = action as UseableSkill
-		targetKind = sk.targetKind
 		targetState = sk.targetState
 	elif action is UseableItem:
 		var it = action as UseableItem
-		targetKind = it.targetKind
 		targetState = it.targetState
 	elif action is Status:
-		targetKind = Global.ETargetKind.USER
 		targetState = Global.ETargetState.ANY
-	var ary = getTargetArray(targetKind,targetState)
+	var ary = getTargetArray(targetState)
 	match scope:
 		Global.ETargetScope.ALL:
 			return ary
@@ -148,7 +137,7 @@ func resolveTargets() -> Array[Battler]:
 			var rndIdx = randi() % ary.size()
 			return [ary[rndIdx]]
 
-func getTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
+func getTargetArray(state:Global.ETargetState):
 	# Invert kind if is i.e. confused
 	if battler.battler.hasRestriction(Global.ERestriction.AttackAlly):
 		match kind:

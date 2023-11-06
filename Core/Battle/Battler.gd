@@ -184,14 +184,16 @@ func _executeStatusEffects(status:Status, curr:int):
 		action.battler = self
 		action.action = status
 		action.scope = Global.ETargetScope.ONE
+		action.kind = Global.ETargetKind.USER
 		action.targetIdx = 0
 		for effect in action.resolveActionList(0):
 			await effect.execute(action)
 
-func setAction(action:Resource, scope:Global.ETargetScope, targetIdx:int):
+func setAction(action:Resource, kind:Global.ETargetKind, scope:Global.ETargetScope, targetIdx:int):
 	currentAction = BattleAction.new()
 	currentAction.battler = self
 	currentAction.action = action
+	currentAction.kind = kind
 	currentAction.scope = scope
 	currentAction.targetIdx = targetIdx
 
@@ -208,6 +210,7 @@ func checkCounter(user:Battler,effect:BaseEffect,targets:Array[Battler]):
 					var newAction = BattleAction.new()
 					newAction.battler = self
 					newAction.action = counter.action
+					newAction.kind = counter.action.targetKind
 					newAction.scope = counter.action.targetScope
 					if counter.targetCounteredBattler:
 						newAction.selectSpecificTarget(user)
@@ -224,6 +227,7 @@ func pickAction():
 		currentAction = BattleAction.new()
 		currentAction.battler = self
 		currentAction.action = null
+		currentAction.kind = Global.ETargetKind.NONE
 		currentAction.scope = Global.ETargetScope.ONE
 		currentAction.targetIdx = 0
 	else:
