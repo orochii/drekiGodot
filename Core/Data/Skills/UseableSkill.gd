@@ -8,6 +8,8 @@ enum ECostType { AmountMP, PercentMP }
 
 @export_category("Target")
 @export var targetKind : Global.ETargetKind
+@export var targetCanChangeKind : bool
+@export var targetCanChangeScope : bool
 @export var targetScope : Global.ETargetScope
 @export var targetState : Global.ETargetState
 @export var repeats : int

@@ -4,9 +4,7 @@ class_name Actor
 const MAX_LEVEL : int = 255
 
 @export_group("Display")
-@export var name : String
 @export var jobName : String
-@export var description : String
 @export var faceGraphic : Texture2D
 @export var faceSmall : Texture2D
 @export var artwork : Texture2D
@@ -43,3 +41,8 @@ const MAX_LEVEL : int = 255
 
 func getId() -> StringName:
 	return StringName(self.resource_path.split("/")[-1].replace(".tres", ""))
+
+func getName():
+	return getId()
+func getDesc():
+	return getId() + "_desc"

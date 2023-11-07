@@ -20,7 +20,7 @@ func setItem(entry:ItemEntry):
 	visible = true
 	curr = entry
 	itemEntry.setup(entry.entry)
-	description.text = itemEntry.data.description
+	description.text = itemEntry.data.getDesc()
 	get_viewport().gui_release_focus()
 	refreshTargets()
 

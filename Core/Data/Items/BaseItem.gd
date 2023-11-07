@@ -2,8 +2,6 @@ extends Resource
 class_name BaseItem
 
 @export_group("Display")
-@export var name : String
-@export var description : String
 @export var icon : Texture2D
 @export var category : Global.EItemCategory
 
@@ -20,3 +18,8 @@ func getId():
 
 func isUseable(inBattle:bool):
 	return false
+
+func getName():
+	return getId()
+func getDesc():
+	return getId() + "_desc"

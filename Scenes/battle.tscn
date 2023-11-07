@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=81 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="Resource" uid="uid://b4p5jkun4rwbx" path="res://Data/Troops/Moles3.tres" id="2_6q647"]
@@ -90,6 +90,28 @@ color_ramp = SubResource("GradientTexture1D_bvn66")
 
 [sub_resource type="QuadMesh" id="QuadMesh_n4dii"]
 orientation = 1
+
+[sub_resource type="Gradient" id="Gradient_hdhs8"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dxxgv"]
+gradient = SubResource("Gradient_hdhs8")
+
+[sub_resource type="Curve" id="Curve_leunr"]
+max_value = 20.0
+_data = [Vector2(0, 0), 0.0, 2.11649, 0, 0, Vector2(1, 20), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1ay6l"]
+curve = SubResource("Curve_leunr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mo6x1"]
+direction = Vector3(0, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_1ay6l")
+color = Color(0.626857, 0.320427, 0.580975, 0.501961)
+color_ramp = SubResource("GradientTexture1D_dxxgv")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jsclg"]
 load_path = "res://.godot/imported/selectorParticle.png-c78631959bfa40a0f23dabb2a11b5256.ctex"
@@ -274,6 +296,16 @@ emitting = false
 amount = 2
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_0pev0")
+draw_pass_1 = SubResource("QuadMesh_n4dii")
+
+[node name="SelectionParticleMulti" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/SelectionParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+material_override = SubResource("StandardMaterial3D_fvfdo")
+cast_shadow = 0
+emitting = false
+amount = 2
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_mo6x1")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
 [node name="ActiveBattlerHighlight" type="Node3D" parent="SubViewportContainer/SubViewport"]
@@ -1299,7 +1331,7 @@ grow_vertical = 2
 theme = ExtResource("9_ol241")
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
 
-[node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "status", "cursor", "selector", "selectorParticles")]
+[node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "scopeLabel", "status", "cursor", "selector", "selectorParticles", "selectorParticlesMulti")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1308,10 +1340,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_xffvq")
 actorCommand = NodePath("../ActorCommand")
+scopeLabel = NodePath("TargetInfoWindow/Content/Scope")
 status = NodePath("TargetInfoWindow")
 cursor = NodePath("CursorSingle")
 selector = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles")
 selectorParticles = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticle")
+selectorParticlesMulti = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticleMulti")
 
 [node name="CursorSingle" type="AnimatedSprite2D" parent="BattleUI/ActorTargetSelect"]
 sprite_frames = SubResource("SpriteFrames_7lnuv")
@@ -1375,6 +1409,18 @@ offset_right = -8.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Scope" type="Label" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content"]
+layout_mode = 0
+offset_top = -9.0
+offset_right = 60.0
+offset_bottom = 6.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("30_q3xjd")
+text = "ONE"
+label_settings = ExtResource("31_ycsw0")
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BattleUI/ActorTargetSelect/TargetInfoWindow/Content"]
 layout_mode = 1

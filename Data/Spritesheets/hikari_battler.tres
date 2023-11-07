@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=10 format=3 uid="uid://cxf1elli7a71n"]
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=13 format=3 uid="uid://cxf1elli7a71n"]
 
 [ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="1_qlmdr"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_u0p85"]
@@ -46,9 +46,30 @@ events = Array[StringName]([&""])
 name = &"skill"
 fps = 8
 
+[sub_resource type="Resource" id="Resource_k50ay"]
+script = ExtResource("1_u0p85")
+frames = Array[Vector2i]([Vector2i(0, 9)])
+events = Array[StringName]([&""])
+name = &"status"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_7yhdq"]
+script = ExtResource("1_u0p85")
+frames = Array[Vector2i]([Vector2i(0, 9)])
+events = Array[StringName]([&""])
+name = &"lowhp"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_bjsy7"]
+script = ExtResource("1_u0p85")
+frames = Array[Vector2i]([Vector2i(2, 4)])
+events = Array[StringName]([&""])
+name = &"sleep"
+fps = 8
+
 [resource]
 script = ExtResource("1_qlmdr")
 texture = ExtResource("2_eddo4")
 cellW = 64
 cellH = 64
-collection = Array[ExtResource("1_u0p85")]([SubResource("Resource_rvl44"), SubResource("Resource_2kng3"), SubResource("Resource_iw73k"), SubResource("Resource_p70lc"), SubResource("Resource_tyxxk"), SubResource("Resource_dn6hs")])
+collection = Array[ExtResource("1_u0p85")]([SubResource("Resource_rvl44"), SubResource("Resource_2kng3"), SubResource("Resource_iw73k"), SubResource("Resource_p70lc"), SubResource("Resource_tyxxk"), SubResource("Resource_dn6hs"), SubResource("Resource_k50ay"), SubResource("Resource_7yhdq"), SubResource("Resource_bjsy7")])

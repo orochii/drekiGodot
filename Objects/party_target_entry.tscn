@@ -26,6 +26,7 @@ anchors_preset = -1
 offset_left = 8.0
 offset_right = 74.0
 offset_bottom = 15.0
+auto_translate = false
 theme = ExtResource("1_ugqnl")
 text = "WWWWWWWWWWW"
 

@@ -2,14 +2,12 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Character animations- CURRENT. Done: Move,death,standing,actionSpecific(effect). Pending:Status
 - Implement general item/skill effects in battle
 	- Move battle camera
 	- ApplyPercentDamage: hp/mp, amount
 	- Scan: target
 	- RunEvent: evt
 	- Switch/Variable operation
-- Scope change
 - Data menu (enemies, characters, topics, journal)
 - Character status options (position, scrolls, fylgja)
 - Character skills screen: Skill check/use, learn skills.
@@ -19,6 +17,9 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Character animations: Move, death, standing, actionSpecific(effect), status
+- Scope change
+- Target select kind variance and priority fix (shenanigans with changing kind skills)
 - Effects
 	- Apply basic damage
 	- Show battler animation

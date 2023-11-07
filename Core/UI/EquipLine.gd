@@ -27,7 +27,7 @@ func setup(_item:BaseItem):
 	item = _item
 	if(item != null):
 		itemIcon.texture = item.icon
-		itemName.text = item.name
+		itemName.text = item.getName()
 	else:
 		itemIcon.texture = null
 		itemName.text = ""

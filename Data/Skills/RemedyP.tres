@@ -6,20 +6,35 @@
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_xjuqi")
+type = 0
 base = 50
+atkF = 0.0
+strF = 0.0
+vitF = 0.0
+magF = 1.0
+agiF = 0.0
+pDefF = 0.0
+mDefF = 1.0
+elements = Array[int]([])
+crit = 0.04
+hit = 1.0
+variance = 0.0
 
 [resource]
 script = ExtResource("3_wjvjq")
 flags = Array[int]([0, 4])
 targetKind = 1
+targetCanChangeKind = true
+targetCanChangeScope = true
 targetScope = 0
 targetState = 0
-repeats = 1
+repeats = 0
 costType = 0
 cost = 12
 charges = 0
 cooldown = 1
 canUse = 2
+cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])

@@ -16,6 +16,7 @@ referencePosition = Vector3(0.8, 0, 0)
 selfOffset = Vector3(0.3, 0, 0)
 positionOffset = Vector3(0, 0, 0)
 waitUntilFinished = true
+setPose = true
 
 [sub_resource type="Resource" id="Resource_1xjx8"]
 script = ExtResource("1_poh21")
@@ -50,6 +51,8 @@ variance = 0.0
 script = ExtResource("3_pd7ny")
 flags = Array[int]([0, 4])
 targetKind = 2
+targetCanChangeKind = false
+targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0

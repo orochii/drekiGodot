@@ -13,7 +13,7 @@ func setup(_skill:UseableSkill):
 	skill = _skill
 	if(skill==null): return
 	itemIcon.texture = skill.icon
-	itemName.text = skill.name
+	itemName.text = skill.getName()
 
 func setEnabled(v:bool):
 	self.modulate.a = 1 if v else 0.5

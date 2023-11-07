@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=18 format=3 uid="uid://dnix2tgt2ldqq"]
+
+[ext_resource type="Texture2D" uid="uid://bp8fey2y1dlf0" path="res://Graphics/Character/minuet/minuet_charset.png" id="1_6pl2y"]
+[ext_resource type="Texture2D" uid="uid://uphl75jid746" path="res://Graphics/Character/minuet/minuet_charset_diag.png" id="2_6tqyn"]
+[ext_resource type="Texture2D" uid="uid://bshscqu6k84o3" path="res://Graphics/Character/minuet/minuet_charset_blink.png" id="3_k2kgr"]
+[ext_resource type="Texture2D" uid="uid://cq18flrjva3n2" path="res://Graphics/Character/minuet/minuet_charset_blink_diag.png" id="4_n62fn"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="5_negai"]
+[ext_resource type="Texture2D" uid="uid://dsi7588s70wsf" path="res://Graphics/Character/minuet/minuet_charset_run.png" id="6_jgpdv"]
+[ext_resource type="Texture2D" uid="uid://b2tghkdvwk4eg" path="res://Graphics/Character/minuet/minuet_charset_run_diag.png" id="7_m6ooi"]
+[ext_resource type="Texture2D" uid="uid://bei0ylxkh48vm" path="res://Graphics/Character/minuet/minuet_charset_run_blink.png" id="8_mf1xi"]
+[ext_resource type="Texture2D" uid="uid://pry8eo3vhgxi" path="res://Graphics/Character/minuet/minuet_charset_run_blink_diag.png" id="9_hv6ql"]
+[ext_resource type="Texture2D" uid="uid://cm0aswcdivqag" path="res://Graphics/Character/minuet/minuet_charset_jump.png" id="10_p5qs1"]
+[ext_resource type="Texture2D" uid="uid://c0o03gglnyr2f" path="res://Graphics/Character/minuet/minuet_charset_jump_diag.png" id="11_uy3yk"]
+[ext_resource type="Texture2D" uid="uid://40x7umr1wy07" path="res://Graphics/Character/minuet/minuet_charset_jump_blink.png" id="12_fdppl"]
+[ext_resource type="Texture2D" uid="uid://bli2x7qfr56io" path="res://Graphics/Character/minuet/minuet_charset_jump_blink_diag.png" id="13_87m77"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="14_xucgp"]
+
+[sub_resource type="Resource" id="Resource_qifak"]
+script = ExtResource("5_negai")
+base = ExtResource("1_6pl2y")
+baseDiag = ExtResource("2_6tqyn")
+blink = ExtResource("3_k2kgr")
+blinkDiag = ExtResource("4_n62fn")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+name = &"base"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_koqsd"]
+script = ExtResource("5_negai")
+base = ExtResource("6_jgpdv")
+baseDiag = ExtResource("7_m6ooi")
+blink = ExtResource("8_mf1xi")
+blinkDiag = ExtResource("9_hv6ql")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+name = &"run"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_nkpor"]
+script = ExtResource("5_negai")
+base = ExtResource("10_p5qs1")
+baseDiag = ExtResource("11_uy3yk")
+blink = ExtResource("12_fdppl")
+blinkDiag = ExtResource("13_87m77")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+name = &"jump"
+fps = 8
+
+[resource]
+script = ExtResource("14_xucgp")
+collection = Array[ExtResource("5_negai")]([SubResource("Resource_qifak"), SubResource("Resource_koqsd"), SubResource("Resource_nkpor")])

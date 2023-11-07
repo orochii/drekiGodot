@@ -2,9 +2,7 @@ extends Resource
 class_name Enemy
 
 @export_group("Display")
-@export var name : String
 @export var type : String
-@export var description : String
 @export var battleSprite : Spritesheet
 
 @export_group("Flavor")
@@ -39,3 +37,8 @@ func getId():
 	var dirlen = "res://Data/Enemies/".length()
 	var extlen = ".tres".length()
 	return resource_path.substr(dirlen, len-dirlen-extlen)
+
+func getName():
+	return getId()
+func getDesc():
+	return getId() + "_desc"

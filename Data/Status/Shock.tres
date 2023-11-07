@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://dg1frw1qc2chs"]
+
+[ext_resource type="Texture2D" uid="uid://bph3aeqnmtixq" path="res://Graphics/Icons/states/st_15.png" id="1_4sjof"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="2_5f506"]
+
+[resource]
+script = ExtResource("2_5f506")
+name = "Shock"
+description = ""
+icon = ExtResource("1_4sjof")
+displayRating = 8
+statusPose = &"shock"
+flags = 0
+restriction = 7
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+statusRemove = Array[ExtResource("2_5f506")]([])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 1.0

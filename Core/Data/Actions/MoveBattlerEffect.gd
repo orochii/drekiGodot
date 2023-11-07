@@ -9,6 +9,7 @@ const MAX_VALUE = 9999
 @export var selfOffset: Vector3 = Vector3(0.3,0,0)
 @export var positionOffset:Vector3
 @export var waitUntilFinished:bool = true
+@export var setPose:bool = true
 
 func execute(action:BattleAction):
 	match reference:
@@ -49,7 +50,7 @@ func doMove(b:Battler,localTargets:Array[Battler]):
 	var moveOffsetRotated = moveOffset.rotated(Vector3.UP,deg_to_rad(rotY))
 	var movePosition = center + moveOffsetRotated
 	# Execute movement
-	b.goToPosition(movePosition)
+	b.goToPosition(movePosition, setPose)
 	if waitUntilFinished:
 		while b.moving():
 			await b.get_tree().process_frame

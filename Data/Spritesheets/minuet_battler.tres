@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=13 format=3 uid="uid://bthi6af7k1gpu"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_dk7jn"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_o4o8g"]
+[ext_resource type="Texture2D" uid="uid://c4y3ag3fosebd" path="res://Graphics/Battler/minuet_battler.png" id="3_b0p65"]
+
+[sub_resource type="Resource" id="Resource_xxp4i"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)])
+events = Array[StringName]([&""])
+name = &"base"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_licxa"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(0, 2), Vector2i(1, 2)])
+events = Array[StringName]([&""])
+name = &"moving"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_r5ejg"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 13), Vector2i(1, 13), Vector2i(2, 13), Vector2i(3, 3)])
+events = Array[StringName]([&""])
+name = &"dead"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_ar0ej"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(3, 3), Vector2i(3, 3)])
+events = Array[StringName]([&"", &"", &"", &"end"])
+name = &"punch"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_dk7po"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 15), Vector2i(1, 15), Vector2i(2, 15), Vector2i(3, 15), Vector2i(0, 16), Vector2i(1, 16), Vector2i(2, 16), Vector2i(3, 16)])
+events = Array[StringName]([&"", &"", &"", &"", &"end"])
+name = &"kick"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_r08fn"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7), Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(0, 9), Vector2i(1, 9), Vector2i(2, 9), Vector2i(3, 9), Vector2i(0, 10)])
+events = Array[StringName]([&"", &"", &"", &"", &"", &"", &"", &"", &"", &"end"])
+name = &"skill"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_lw8bn"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(1, 10)])
+events = Array[StringName]([&""])
+name = &"status"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_rrcg0"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(1, 10)])
+events = Array[StringName]([&""])
+name = &"lowhp"
+fps = 8
+
+[sub_resource type="Resource" id="Resource_07np1"]
+script = ExtResource("1_dk7jn")
+frames = Array[Vector2i]([Vector2i(0, 5)])
+events = Array[StringName]([&""])
+name = &"sleep"
+fps = 8
+
+[resource]
+script = ExtResource("2_o4o8g")
+texture = ExtResource("3_b0p65")
+cellW = 64
+cellH = 64
+collection = Array[ExtResource("1_dk7jn")]([SubResource("Resource_xxp4i"), SubResource("Resource_licxa"), SubResource("Resource_r5ejg"), SubResource("Resource_ar0ej"), SubResource("Resource_dk7po"), SubResource("Resource_r08fn"), SubResource("Resource_lw8bn"), SubResource("Resource_rrcg0"), SubResource("Resource_07np1")])

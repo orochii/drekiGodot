@@ -1,8 +1,35 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://cfwfytlvnwfuo"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://cfwfytlvnwfuo"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_kr306"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_trhrt"]
 [ext_resource type="Texture2D" uid="uid://s3tjcwk1ymu2" path="res://Graphics/Icons/items/item_0184.png" id="1_vqft1"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_y25ie"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_30ihi"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_svuba"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_4crwe"]
+
+[sub_resource type="Resource" id="Resource_10db3"]
+script = ExtResource("1_kr306")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+setPose = true
+
+[sub_resource type="Resource" id="Resource_0jfmp"]
+script = ExtResource("2_30ihi")
+state = &"punch"
+loop = false
+waitForEnd = true
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_og3pf"]
+script = ExtResource("3_svuba")
+visualEffectTemplate = ExtResource("4_4crwe")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_8depk"]
 script = ExtResource("1_trhrt")
@@ -15,7 +42,7 @@ magF = 0.0
 agiF = 0.0
 pDefF = 1.0
 mDefF = 0.0
-elements = Array[int]([])
+elements = Array[int]([1])
 crit = 0.04
 hit = 1.0
 variance = 0.0
@@ -24,6 +51,8 @@ variance = 0.0
 script = ExtResource("1_y25ie")
 flags = Array[int]([])
 targetKind = 3
+targetCanChangeKind = false
+targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
@@ -34,8 +63,8 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_8depk")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_10db3"), SubResource("Resource_0jfmp"), SubResource("Resource_og3pf"), SubResource("Resource_8depk")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 name = "Sword"
-description = ""
+description = null
 icon = ExtResource("1_vqft1")

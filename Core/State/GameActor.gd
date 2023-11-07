@@ -17,7 +17,7 @@ func _init(_id:StringName):
 	id = _id
 	var actor:Actor = getData()
 	if (actor == null): return
-	name = actor.name
+	name = TranslationServer.translate(actor.getName())
 	level = actor.startLevel
 	currHP = getMaxHP()
 	currMP = getMaxMP()

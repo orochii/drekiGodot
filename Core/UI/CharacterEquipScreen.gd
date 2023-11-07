@@ -92,7 +92,7 @@ func refreshItem():
 	if currItem==null:
 		description.text = ""
 	else:
-		description.text = currItem.description
+		description.text = currItem.getDesc()
 
 func refreshAdds():
 	charAdds.refreshAdds(currItem, itemList.idx)

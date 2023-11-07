@@ -2,8 +2,6 @@ extends Resource
 class_name BaseSkill
 
 @export_category("Display")
-@export var name : String
-@export var description : String
 @export var icon : Texture2D
 
 func getId():
@@ -12,6 +10,11 @@ func getId():
 	var dirlen = "res://Data/Skills/".length()
 	var extlen = ".tres".length()
 	return resource_path.substr(dirlen, len-dirlen-extlen)
+
+func getName():
+	return getId()
+func getDesc():
+	return getId() + "_desc"
 
 func isUseable(inBattle:bool):
 	return false

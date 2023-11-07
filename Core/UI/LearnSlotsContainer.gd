@@ -43,10 +43,17 @@ func setup(_actor:GameActor):
 		instancedSlots.append(inst)
 	#
 	for i in instancedSlots:
+		if i.slot.learnings.size()==0: continue
 		i.slot.learnings[0].requirements
-		var req:BaseSkill = i.slot.learnings[0].skill
+		var reqs = []
+		for s in i.slot.learnings: reqs.append(s.skill)
 		for j in instancedSlots:
-			if j.slot.learnings[0].requirements.has(req):
+			if j.slot.learnings.size()==0: continue
+			var _hasReq = false
+			for s in reqs:
+				if j.slot.learnings[0].requirements.has(s):
+					_hasReq = true
+			if _hasReq:
 				var srcPos = i.position + Vector2(8,8)
 				var dstPos = j.position + Vector2(8,8)
 				var line = Line2D.new()

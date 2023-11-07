@@ -65,8 +65,14 @@ func calcEffect(user:GameBattler, target:GameBattler):
 		# Calculate defense
 		var defense = (target.getVit() * pDefF) / 2
 		defense += (target.getMag() * mDefF) / 2
-		defense += power * (target.getPhyAbs() * pDefF * 0.01)
-		defense += power * (target.getMagAbs() * mDefF * 0.01)
+		defense += power * (target.getPhyAbs() * 0.01 * pDefF)
+		defense += power * (target.getMagAbs() * 0.01 * mDefF)
+		
+		var vitDef = (target.getVit() * pDefF) / 2
+		var magDef = (target.getMag() * mDefF) / 2
+		var pAbs = power * (target.getPhyAbs() * 0.01 * pDefF)
+		var mAbs = power * (target.getMagAbs() * 0.01 * mDefF)
+		
 		# Apply defense change
 		damage -= ceil(defense)
 		if damage < 0: damage = 0
@@ -78,7 +84,7 @@ func calcEffect(user:GameBattler, target:GameBattler):
 	# TODO: Damage change features
 	# Element correction
 	var elementCorrection = target.getElementSetRate(elements)
-	damage *= elementCorrection
+	damage *= elementCorrection * 1.75
 	# Return result
 	return {
 		"damage" : roundi(damage),

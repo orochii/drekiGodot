@@ -27,6 +27,7 @@ var effectWaitTime = 0
 var moveSpeed = DEFAULT_SPEED
 var homePosition:Vector3 = Vector3(0,0,0)
 var targetPosition:Vector3 = Vector3(0,0,0)
+var _moveSetPose:bool = false
 var _startDirection:float = 0
 var _oldDirection:float = 0
 var direction:float = 0
@@ -42,12 +43,14 @@ func setStartDirection(a:float):
 func moveToPosition(pos:Vector3):
 	self.global_position = pos
 	targetPosition = pos
-func goToPosition(pos:Vector3):
+func goToPosition(pos:Vector3, setPose:bool):
 	targetPosition = pos
+	_moveSetPose = setPose
 func goToStartPosition():
 	var homePos = getHomePosition()
 	var startPos = homePos + getStartOffset()
 	targetPosition = startPos
+	_moveSetPose = true
 func moveToStartPosition():
 	var homePos = getHomePosition()
 	var startPos = homePos + getStartOffset()
@@ -135,7 +138,7 @@ func resetDirection():
 	global_rotation_degrees = deg
 
 func moving():
-	return global_position != targetPosition
+	return global_position.distance_squared_to(targetPosition) > 0.0001
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
@@ -308,9 +311,20 @@ func getCurrentPose():
 func getCurrentState():
 	if battler.isDead():
 		return &"dead"
-	# TODO: Set based on current altered status effect
-	if moving():
+	# Otherwise
+	if moving() && _moveSetPose:
 		return &"moving"
+	# TODO: Set based on current altered status effect
+	var _states = battler.getSortedStates()
+	for ss in _states:
+		var data:Status = Global.Db.getStatus(ss.id)
+		if data.statusPose != &"":
+			if graphic.spritesheet != null && graphic.spritesheet.collectionDict != null:
+				if graphic.spritesheet.collectionDict.has(data.statusPose):
+					return data.statusPose
+			return &"status"
+	if battler.currHP < battler.getMaxHP()/4:
+		return &"lowhp"
 	return &"base"
 
 func cantTarget():

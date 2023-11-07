@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveSkill" load_steps=3 format=3 uid="uid://lvkby6ptdg2h"]
+
+[ext_resource type="Texture2D" uid="uid://bb0mb0airjlbx" path="res://Graphics/Icons/skills/Concentration.png" id="1_clk8y"]
+[ext_resource type="Script" path="res://Core/Data/Skills/PassiveSkill.gd" id="2_kpws8"]
+
+[resource]
+script = ExtResource("2_kpws8")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+name = "Air Juggling"
+description = "Upgrades single-target techniques. Ups evasion against single-target techniques."
+icon = ExtResource("1_clk8y")

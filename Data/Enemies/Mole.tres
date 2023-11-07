@@ -31,9 +31,7 @@ rate = 0.325
 
 [resource]
 script = ExtResource("1_i0uq7")
-name = "Mole"
 type = "Mammal"
-description = "Moles will conquer the earth!"
 battleSprite = ExtResource("1_dqtx7")
 gender = 2
 collapseEffect = ExtResource("3_g3bf0")

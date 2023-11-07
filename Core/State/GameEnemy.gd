@@ -10,7 +10,7 @@ func _init(_id:StringName):
 
 func getName():
 	var enemy:Enemy = getData()
-	return enemy.name
+	return enemy.getName()
 
 func getFeatures():
 	var enemy:Enemy = getData()

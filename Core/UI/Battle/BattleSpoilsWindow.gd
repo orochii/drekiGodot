@@ -14,7 +14,7 @@ func setup(treasures):
 	for item in _treasures:
 		var itemData:BaseItem = item as BaseItem
 		var inst = entryTemplate.instantiate()
-		inst.setup(itemData.name, itemData.icon)
+		inst.setup(itemData.getName(), itemData.icon)
 		_entries.append(inst)
 		container.add_child(inst)
 	UIUtils.setGridNeighbors(_entries,2)
@@ -31,4 +31,4 @@ func _process(delta):
 		_refreshHelp(_treasures[idx])
 
 func _refreshHelp(item):
-	helpText.text = item.description
+	helpText.text = item.getDesc()

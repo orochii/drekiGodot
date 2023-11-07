@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://ba1emoas4gohe"]
+
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_f6pm0"]
+[ext_resource type="Texture2D" uid="uid://csindu2oe118i" path="res://Graphics/Icons/skills/AireBall.png" id="1_iosev"]
+
+[resource]
+script = ExtResource("1_f6pm0")
+flags = Array[int]([])
+targetKind = 0
+targetCanChangeKind = false
+targetCanChangeScope = false
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+cpCost = 0.6
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = ""
+description = ""
+icon = ExtResource("1_iosev")

@@ -74,6 +74,7 @@ layout_mode = 0
 offset_left = 48.0
 offset_right = 120.0
 offset_bottom = 16.0
+auto_translate = false
 theme = ExtResource("5_n350p")
 text = "Hikari"
 vertical_alignment = 1

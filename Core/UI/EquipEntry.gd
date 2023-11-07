@@ -37,7 +37,7 @@ func _refresh():
 	itemNum.text = "%d"%entry.amount
 	if(data==null): return
 	itemIcon.texture = data.icon
-	itemName.text = data.name
+	itemName.text = data.getName()
 	#
 
 func _on_pressed():

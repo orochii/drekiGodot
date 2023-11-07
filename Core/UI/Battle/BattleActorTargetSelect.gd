@@ -5,21 +5,26 @@ const DIR_COOLDOWN = 0.2
 
 @export var actorCommand:BattleActorCommand
 @export_group("Members")
+@export var scopeLabel:Label
 @export var status:BattleTargetInfoWindow
 @export var cursor:AnimatedSprite2D
 @export var selector:Node3D
 @export var selectorParticles:GPUParticles3D
+@export var selectorParticlesMulti:GPUParticles3D
 
 var _dirCooldown:float = 0
 var _lastDir:Vector2
+var _canChangeScope = false
 
 var _action:BattleAction
 var _currentTarget:Battler
 var _item:UseableItem
 var _skill:UseableSkill
 var _state:Global.ETargetState
+var _currentScope:Global.ETargetScope = Global.ETargetScope.ONE
 
 func setup(obj:Resource):
+	_canChangeScope = false
 	_action = BattleAction.new()
 	_action.battler = actorCommand.currentBattler
 	_action.action = obj
@@ -29,6 +34,7 @@ func setup(obj:Resource):
 		_item = obj as UseableItem
 		_action.kind = _item.targetKind
 		_action.scope = _item.targetScope
+		_currentScope = _action.scope
 		_state = _item.targetState
 		if _item.targetKind == Global.ETargetKind.NONE:
 			select()
@@ -37,6 +43,8 @@ func setup(obj:Resource):
 		_skill = obj as UseableSkill
 		_action.kind = _skill.targetKind
 		_action.scope = _skill.targetScope
+		_currentScope = _action.scope
+		_canChangeScope = _skill.targetCanChangeScope
 		_state = _skill.targetState
 		if _skill.targetKind == Global.ETargetKind.NONE:
 			select()
@@ -49,6 +57,16 @@ func setup(obj:Resource):
 	visible = true
 
 func select():
+	if _currentScope == Global.ETargetScope.ALL:
+		match _action.kind:
+			Global.ETargetKind.ALLY:
+				if _action.battler.battler.isEnemy(_currentTarget.battler):
+					_action.kind = Global.ETargetKind.ENEMY
+			Global.ETargetKind.ENEMY:
+				if !_action.battler.battler.isEnemy(_currentTarget.battler):
+					_action.kind = Global.ETargetKind.ALLY
+		pass
+	_action.scope = _currentScope
 	_action.targetIdx = _getTargets().find(_currentTarget)
 	_action.battler.currentAction = _action
 	_action = null
@@ -65,6 +83,7 @@ func goBack():
 func close():
 	visible = false
 	selectorParticles.emitting = false
+	selectorParticlesMulti.emitting = false
 
 func _ready():
 	cursor.play(&"default")
@@ -72,6 +91,14 @@ func _ready():
 
 func _process(delta):
 	if(!visible): return
+	#
+	match _currentScope:
+		Global.ETargetScope.ONE:
+			scopeLabel.text = "ONE"
+		Global.ETargetScope.ALL:
+			scopeLabel.text = "ALL"
+		Global.ETargetScope.RANDOM:
+			scopeLabel.text = "RANDOM"
 	# Can pay cost?
 	if !_action.battler.battler.canUse(_action.action):
 		goBack()
@@ -80,6 +107,16 @@ func _process(delta):
 	if _currentTarget != null:
 		if _isCurrentTargetValid()==false:
 			_selectTarget(0)
+			return
+	# Change scope
+	if _canChangeScope:
+		if Input.is_action_just_pressed("cycle_left") || Input.is_action_just_pressed("cycle_right"):
+			match _currentScope:
+				Global.ETargetScope.ALL:
+					_currentScope = Global.ETargetScope.ONE
+				Global.ETargetScope.ONE:
+					_currentScope = Global.ETargetScope.ALL
+			selectorParticlesMulti.emitting = selectorParticles.emitting &&_currentScope==Global.ETargetScope.ALL
 	# Cancel
 	if Input.is_action_just_pressed("action_cancel"):
 		Global.Audio.playSFX("cancel")
@@ -155,11 +192,13 @@ func _refreshTarget():
 	if _currentTarget==null:
 		cursor.visible = false
 		selectorParticles.emitting = false
+		selectorParticlesMulti.emitting = false
 		status.setup(null)
 	else:
 		cursor.visible = true
 		selector.global_position = _currentTarget.homePosition + Vector3(0,0,-0.3)
 		selectorParticles.emitting = true
+		selectorParticlesMulti.emitting = selectorParticles.emitting &&_currentScope==Global.ETargetScope.ALL
 		var pos = actorCommand.battle.posToScreen(_currentTarget.homePosition)
 		pos.x = roundi(pos.x)
 		pos.y = roundi(pos.y) - _currentTarget.getScreenSize().y

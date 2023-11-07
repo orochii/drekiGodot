@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Status" load_steps=3 format=3 uid="uid://cpcnxtvcdjlau"]
+
+[ext_resource type="Texture2D" uid="uid://b8j4vclsam4ok" path="res://Graphics/Icons/states/st_16.png" id="1_j5vfp"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="1_my8dt"]
+
+[resource]
+script = ExtResource("1_my8dt")
+name = "Sleep"
+description = ""
+icon = ExtResource("1_j5vfp")
+displayRating = 8
+statusPose = &"sleep"
+flags = 8
+restriction = 7
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+statusRemove = Array[ExtResource("1_my8dt")]([])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 1.0
+releaseOnTurnsElapsed = 2
+releaseOnTurnsElapsedRate = 0.5

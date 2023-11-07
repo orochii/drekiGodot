@@ -138,6 +138,21 @@ func resolveTargets() -> Array[Battler]:
 			return [ary[rndIdx]]
 
 func getTargetArray(state:Global.ETargetState):
+	var _originalTargets = _innerGetTargetArray(kind,state)
+	if scope == Global.ETargetScope.ONE:
+		if action is UseableSkill:
+			var _skill = action as UseableSkill
+			if _skill.targetCanChangeKind:
+				match kind:
+					Global.ETargetKind.ALLY:
+						var _newTargets = _innerGetTargetArray(Global.ETargetKind.ENEMY,state)
+						_originalTargets.append_array(_newTargets)
+					Global.ETargetKind.ENEMY:
+						var _newTargets = _innerGetTargetArray(Global.ETargetKind.ALLY,state)
+						_originalTargets.append_array(_newTargets)
+	return _originalTargets
+
+func _innerGetTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
 	# Invert kind if is i.e. confused
 	if battler.battler.hasRestriction(Global.ERestriction.AttackAlly):
 		match kind:

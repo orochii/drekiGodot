@@ -1,7 +1,34 @@
-[gd_resource type="Resource" script_class="UseableItem" load_steps=3 format=3 uid="uid://dm2ofvb0qvmel"]
+[gd_resource type="Resource" script_class="UseableItem" load_steps=10 format=3 uid="uid://dm2ofvb0qvmel"]
 
 [ext_resource type="Texture2D" uid="uid://of6fawoxwj6d" path="res://Graphics/Icons/items/item_0001.png" id="1_op27r"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_qncmu"]
 [ext_resource type="Script" path="res://Core/Data/Items/UseableItem.gd" id="1_woia0"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="2_2f3xb"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="2_kq587"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="3_4kggd"]
+
+[sub_resource type="Resource" id="Resource_ega2g"]
+script = ExtResource("1_qncmu")
+state = &"item"
+loop = false
+waitForEnd = true
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_p5sy2"]
+script = ExtResource("2_2f3xb")
+visualEffectTemplate = ExtResource("3_4kggd")
+onePerEachTarget = false
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_2qq6p"]
+script = ExtResource("2_kq587")
+base = 1
+type = 0
+referenceBattler = 1
+percent = -0.3
+crit = 0.0
+hit = 1.0
+variance = 0.0
 
 [resource]
 script = ExtResource("1_woia0")
@@ -12,10 +39,8 @@ spendOnUseChance = 1.0
 cpCost = 0.6
 canUse = 2
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_ega2g"), SubResource("Resource_p5sy2"), SubResource("Resource_2qq6p")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Drench"
-description = "Heals 30% of your maximum LP."
 icon = ExtResource("1_op27r")
 category = 0
 price = 0

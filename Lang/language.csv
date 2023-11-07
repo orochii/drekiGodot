@@ -5,6 +5,9 @@ Group,Group,Grupo
 System,System,Sistema
 Data,Data,Datos
 Help,Help,Ayuda
+Upgrade,Upgrade,Mejora
+Kind,Kind,Tipo
+Order,Order,Ordenar
 ---,---,---
 Lv,Lv,Nv
 NEXT,NEXT,SIG.
@@ -12,7 +15,9 @@ LP,LP,LP
 MP,MP,MP
 Continue,Continue,Continuar
 New,New,Nuevo
+Save,Save,Guardar
 Load,Load,Cargar
+To title,To title,Ir a título
 save_help,Select a slot where you want to save the game.,Selecciona una ranura donde quieres guardar el juego.
 load_help,Select a slot with a game you want to load.,Selecciona una ranura con el juego que quieres cargar.
 Config,Config,Opciones
@@ -66,8 +71,8 @@ Background Opacity,Background Opacity,Opacidad de fondo
 Background Opacity_help,Adjusts the opacity for the menu background.,Ajusta la opacidad del fondo del menú.
 Shadow Style,Shadow Style,Estilo de sombra
 Shadow Style_help,Sets the battler's shadow style.,Configura el estilo de las sombras del combatiente.
-Gamepad Button Icons,Controller Button Icons,Estilo de íconos de controlador
-Gamepad Button Icons_help,Select the style used for the controller icons.,Selecciona el estilo de los iconos para el controlador.
+Gamepad Button Icons,Button Icons,Estilo de íconos
+Gamepad Button Icons_help,Select the style used for the button icons.,Selecciona el estilo de los iconos para botones.
 Windowed,Windowed,Ventana
 Fullscreen,Fullscreen,Pantalla completa
 White,White,Claro
@@ -105,3 +110,205 @@ cam_left,Camera Left,Cámara izquierda
 cam_left_help,Rotate camera towards the left direction.,Rota la cámara en dirección izquierda.
 cam_right,Camera Right,Cámara derecha
 cam_right_help,Rotate camera towards the right direction.,Rota la cámara en dirección derecha.
+,,
+Hikari,Hikari,Hikari
+Hikari_desc,,
+Minuet,Minuet,Minuet
+Minuet_desc,,
+RedWyvern,?????,?????
+RedWyvern_desc,,
+Militia,Militia,Milicia
+Red Wyvern,Red Wyvern,Wyvern Rojo
+Light Mage,Light Mage,Maga Luz
+,,
+Mole,Mole,Topo
+,,
+,,
+Drench,Drench,Poción
+Drench_desc,Recovers 30% of max LP.,Recupera 30% del LP máximo.
+GreatDrench,Great Drench,Gran poción
+GreatDrench_desc,Recovers 60% of max LP.,Restaura 60% del LP máximo.
+Tonic,Tonic,Tónico
+Tonic_desc,Recovers 30% of max MP.,Recobra 30% del MP máximo.
+Mid Tonic,Mid Tonic,Tónico Medio
+Mid Tonic_desc,Recovers 60% of max MP.,Recupera 60% del MP máximo.
+Ether,Ether,Éter
+Ether_desc,Restores 50% of both max LP and MP.,Recupera un 50% del LP y MP máximos.
+Elixir,Elixir,Elíxir
+Elixir_desc,Restores all uses for techniques on a single ally.,Restaura todos los usos en las habilidades de un aliado.
+Lunar Teardrop,Lunar Teardrop,Lágrima Lunar
+Lunar Teardrop_desc,"Restores all LP and MP to the group, resets all skill uses. Can't be used in battle.","Recupera todos los LP y MP al grupo, restaura usos de habilidad. Sólo fuera de batalla."
+Lifesaver S,Lifesaver S,Salvavidas S
+Lifesaver S_desc,Revives and restores the group by 256LP and 128MP.,Revive y recupera al grupo por 256LP y 128MP.
+Lifesaver M,Lifesaver M,Salvavidas M
+Lifesaver M_desc,Revives and restores 1024LP and 256MP to the group.,Revive y restaura 1024LP y 256MP al grupo.
+Lifesaver L,Lifesaver L,Salvavidas L
+Lifesaver L_desc,Revives and restores 4096LP and 512MP to the group.,Revive y restaura 4096 LP y 512 MP del grupo.
+Phoenix Feather,Phoenix Feather,Pluma fénix
+Phoenix Feather_desc,Revives one ally with 1/4 of its full LP.,Revive con 25% LP a un aliado.
+Phoenix Tail,Phoenix Tail,Cola fénix
+Phoenix Tail_desc,Ressurects an ally with full LP.,Revive con todo el LP a un aliado.
+Antidote,Antidote,Antídoto
+Antidote_desc,Removes progressive damage altered states.,Remueve estados alterados de daño progresivo.
+Bandage,Bandage,Vendaje
+Bandage_desc,Helps stop bleedings.,Ayuda a detener hemorragias.
+Root,Root,Raíz
+Root_desc,Removes poisoning. Sells for some cash.,Remueve venenos. Se vende por algo de dinero.
+Stem,Stem,Tallo
+Stem_desc,Restores burns. Sells for some cash.,Cura quemaduras. Se vende por algo de dinero.
+Eldritch Watch,Eldritch Watch,Reloj misterioso
+Eldritch Watch_desc,Removes dimensional damage. Somehow.,Remueve daño dimensional. De alguna manera.
+Thaw,Thaw,Deshielo
+Thaw_desc,Removes certain afflictions.,Recupera de ciertas enfermedades.
+Panacea,Panacea,Panacea
+Panacea_desc,"Removes any illness, except for progressive damage.","Remueve cualquier padecimiento, excepto daño progresivo."
+Weapon/Short Bow,Short Bow,Arco corto
+Weapon/Short Bow_desc,Basic ranged weapon.,Arma básica de rango.
+Weapon/Leather Gloves,Leather Gloves,Guantes de cuero
+Weapon/Leather Gloves_desc,"Great comfortability, allow for sucessive fast punches.","De gran comfortabilidad, permiten múltiples golpes rápidos."
+Weapon/Short Sword,Short Sword,Espada corta
+Weapon/Short Sword_desc,A short-edged sword.,Una espada de filo corto.
+Weapon/Sword,Sword,Espada
+Weapon/Sword_desc,Made out of hard metal and a medium-sized edge.,Hecha de metal y un filo medio.
+,,
+Common/Bite,Bite,Mordisco
+Common/Bite_desc,Basic attack.,Ataque básico.
+Common/Claw,Claw,Garra
+Common/Claw_desc,Basic attack.,Ataque básico.
+Common/Escape,Escape,Escape
+Common/Escape_desc,,
+Common/Kick,Kick,Patada
+Common/Kick_desc,Basic attack.,Ataque básico.
+Common/Move Back,Move Back,Retroceder
+Common/Move Back_desc,,
+Common/Move Forward,Move Forward,Avanzar
+Common/Move Forward_desc,,
+Common/Punch,Punch,Puño
+Common/Punch_desc,Basic attack.,Ataque básico.
+Common/Wait,Wait,Espera
+Common/Wait_desc,,
+,,
+Passives/Trance,Trance,Trance
+Passives/Trance_desc,Upgrades single-target techniques. Ups evasion against single-target techniques.,Mejora técnicas de un sólo objetivo. Probabilidad de evadir técnicas de un sólo objetivo.
+Passives/Elemental Bender,Elemental Bender,Dominador elemental
+Passives/Elemental Bender_desc,Reduces the effect of enemy elemental resistances.,Disminuye efecto de resistencias elementales enemigas.
+,,
+Passives/Counterattack,Counterattack,Contraataque
+Passives/Counterattack_desc,Counters all physical damage with a basic physical attack.,Probabilidad de contraatacar movimientos físicos.
+Passives/Air Juggling,Air Juggling,Malabarista aéreo
+Passives/Air Juggling_desc,Improves chances of hitting aerial enemies.,Mejora las probabilidades de golpear enemigos aéreos.
+Passives/Cost Reduce,Cost Reduce,Reducción de costos
+Passives/Cost Reduce_desc,Reduced MP Costs by a 1/6.,Costos de MP reducidos en 1/6.
+Passives/Element Affinity,Element Affinity,Afinidad de Elemento
+Passives/Element Affinity_desc,Partial element resistances become full element resistances.,Resistencias parciales se convierten en resistencias completas.
+Passives/Alchemist,Alchemist,Alquimista
+Passives/Alchemist_desc,Item effects are doubled.,Los efectos de objetos son dobles.
+Passives/Mana Flow,Mana Flow,Flujo de Mana
+Passives/Mana Flow_desc,"Skills cost 1.5x MP, power is raised by 25%.","Técnicas cuestan 1.5x MP, pero su poder aumenta en un 25%."
+Passives/Concentration,Concentration,Concentración
+Passives/Concentration_desc,Ups evasion by 5%.,Aumenta evasión un 5%.
+Passives/Weakness Policy,Weakness Policy,Seguro debilidad
+Passives/Weakness Policy_desc,Raises attack and intelligence after being hit by super effective attacks.,Aumenta el ataque e inteligencia tras ser golpeado por un golpe super efectivo.
+Passives/Sturdy,Sturdy,Robusto
+Passives/Sturdy_desc,Survives from one-hit KO if HP is completely full.,Sobrevive golpes fulminantes si el LP está al máximo.
+Passives/Elemental Bonus,Elemental Bonus,Bono elemental
+Passives/Elemental Bonus_desc,Raises power to any element the user is resistant to.,Aumenta el poder de todo elemento que el usuario resista.
+Passives/Infinity,Infinity,Infinito
+Passives/Infinity_desc,All techniques cost 0. Max MP is 1.,Todas las técnicas cuestan 0. El MP Máximo es 1.
+Passives/Sheer Force,Sheer Force,Fuerza Bruta
+Passives/Sheer Force_desc,"Physical moves have improved damage, but lowers their accuracy.","Movimientos físicos tienen daño mejorado, pero baja su precisión."
+Passives/Provoke,Provoke,Provocar
+Passives/Provoke_desc,Raises the chance of being targetted by enemies.,Aumenta la probabilidad de ser objetivo de ataques enemigos.
+Passives/Focused Force,Focused Force,Fuerza Centrada
+Passives/Focused Force_desc,"Physical moves have less damage, but makes them rarely miss.","Ataques físicos hacen menos daño, pero rara vez fallan."
+Passives/Wolf's Reflexes,Wolf's Reflexes,Reflejos de Lobo
+Passives/Wolf's Reflexes_desc,Ups the chance of evading physical attacks.,Aumenta probabilidad de evadir ataques físicos.
+Passives/Owl's Wisdom,Owl's Wisdom,Sabiduría de Búho
+Passives/Owl's Wisdom_desc,Ups the chance of evading magical attacks.,Aumenta probabilidad de evadir ataques mágicos.
+Passives/Barter,Barter,Trueque
+Passives/Barter_desc,Gets discounts from shops. Raises selling prices.,Obtiene uentos de tiendas. Aumenta precios de venta.
+Passives/Gale Wing,Gale Wing,Ala de gala
+Passives/Gale Wing_desc,Raises speed and evasion when under Hurricane weather.,Aumenta velocidad y evasión si el clima es Huracán.
+Passives/Elemental Sensitivity,Elemental Sensitivity,Sensibilidad Elemental
+Passives/Elemental Sensitivity_desc,Effects of element affinity are doubled.,Dobla efectos de afinidad elemental.
+Passives/Weak Guard,Weak Guard,Guardia Frágil
+Passives/Weak Guard_desc,Defense is reduced after each physical damage.,Disminuye la defensa tras cada ataque físico.
+Passives/Glass Cannon,Glass Cannon,Cañón de vidrio
+Passives/Glass Cannon_desc,"Intelligence is doubled, defense drops to one.","Dobla la inteligencia, disminuye defensa a 1."
+Passives/Sinergy,Sinergy,Sinergía
+Passives/Sinergy_desc,Allied attacks are buffed when used in consecution.,Mejora ataques de aliados si actúan en consecución.
+Passives/Last Stand,Last Stand,Última Resistencia
+Passives/Last Stand_desc,All defenses are doubled when HP is low.,Dobla las defensas cuando el LP está bajo.
+,,
+Aire Ball,Aire Ball,Bola de Aire
+Aire Ball_desc,,
+Anti,Anti,Anti
+Anti_desc,,
+Esna,Esna,Esna
+Esna_desc,,
+Crystalize,Crystalize,Cristalizar
+Crystalize_desc,,
+Cutting Wind,Cutting Wind,Viento cortante
+Cutting Wind_desc,,
+Double Attack,Double Attack,Ataque doble
+Double Attack_desc,,
+Earthquake,Earthquake,Terremoto
+Earthquake_desc,,
+Ice Star,Ice Star,Estrella de hielo
+Ice Star_desc,,
+Ignite,Ignite,Encender
+Ignite_desc,,
+Jolt,Jolt,Sacudida
+Jolt_desc,,
+Lightning,Lightning,Relámpago
+Lightning_desc,,
+Mental Absorb,Mental Absorb,Absorción mental
+Mental Absorb_desc,,
+Meteor Strike,Meteor Strike,Impacto meteoro
+Meteor Strike_desc,,
+Nova,Nova,Nova
+Nova_desc,,
+Pass Through,Pass Through,Embestida
+Pass Through_desc,"Dashes forward through the enemy. Might shock, flips the enemy.",Daño físico de golpe a un enemigo. Causa shock y voltea al enemigo.
+Projectile Rain,Projectile Rain,Lluvia de proyectiles
+Projectile Rain_desc,,
+Ra Thunder,Ra Thunder,Trueno Ra
+Ra Thunder_desc,,
+Ragna Edge,Ragna Edge,Filo Ragna
+Ragna Edge_desc,,
+Remedy,Remedy,Remedio
+Remedy_desc,,
+RemedyP,Remedy+,Remedio+
+RemedyP_desc,,
+RemedyPP,Remedy++,Remedio++
+RemedyPP_desc,,
+Scan,Scan,Escaneo
+Scan_desc,,
+Scrape,Scrape,Raspar
+Scrape_desc,,
+Shouten Cut,Shouten Cut,Corte Shouten
+Shouten Cut_desc,,
+Snowball,Snowball,Bola de nieve
+Snowball_desc,,
+Snowstorm,Snowstorm,Tormenta de nieve
+Snowstorm_desc,,
+Suplex,Suplex,Súplex
+Suplex_desc,,"Daño brutal físico de golpe a un enemigo. Causa shock y voltea al enemigo, derriba objetivos voladores."
+Swirl,Swirl,Remolino
+Swirl_desc,Causes vertigo to all foes.,
+Thunder Lance,Thunder Lance,Lanza de trueno
+Thunder Lance_desc,,
+Thunder Wave,Thunder Wave,Onda trueno
+Thunder Wave_desc,,
+,,
+Comet Punch,Comet Punch,Golpe cometa
+Comet Punch_desc,LIMIT. Freezing fast punch.,LÍMITE. Golpe rápido congelante.
+Shooting Star,Shooting Star,Estrella Fugaz
+Shooting Star_desc,LIMIT. Makes a celestial body fall from the sky over the target.,LÍMITE. Hace caer un cuerpo celeste sobre un enemigo.
+Pearl Wind,Pearl Wind,Viento Perla
+Pearl Wind_desc,LIMIT. Drains life of all enemies.,LÍMITE. Drena vida de los enemigos.
+,,
+Absolute Zero,Absolute Zero,Cero Absoluto
+Absolute Zero_desc,,
+Supernova,Supernova,Supernova
+Supernova_desc,,

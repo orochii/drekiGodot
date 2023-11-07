@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://csb4ruwjh754k"]
+
+[ext_resource type="Texture2D" uid="uid://dbgtiqblg6vpq" path="res://Graphics/Icons/skills/Ignite.png" id="1_fvv8j"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_ki7yn"]
+
+[resource]
+script = ExtResource("1_ki7yn")
+flags = Array[int]([])
+targetKind = 0
+targetCanChangeKind = false
+targetCanChangeScope = false
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+cpCost = 0.6
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+name = ""
+description = ""
+icon = ExtResource("1_fvv8j")
