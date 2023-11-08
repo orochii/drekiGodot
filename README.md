@@ -4,7 +4,6 @@ One attempt at making RPG on Godot just how I like it :)
 # TODO List
 - Implement general item/skill effects in battle
 	- Move battle camera
-	- ApplyPercentDamage: hp/mp, amount
 	- Scan: target
 	- RunEvent: evt
 	- Switch/Variable operation
@@ -27,6 +26,7 @@ One attempt at making RPG on Godot just how I like it :)
 	- Spawn VFX
 	- AddStatus: target, status
 	- Wait effect
+	- ApplyPercentDamage: hp/mp, amount
 - Collapse animation
 - Counter feature (can be extended for other counters)
 - Battle end screen

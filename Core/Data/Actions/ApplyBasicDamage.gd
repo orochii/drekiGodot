@@ -84,7 +84,7 @@ func calcEffect(user:GameBattler, target:GameBattler):
 	# TODO: Damage change features
 	# Element correction
 	var elementCorrection = target.getElementSetRate(elements)
-	damage *= elementCorrection * 1.75
+	damage *= elementCorrection * 1.75 # Oh yes magical number!
 	# Return result
 	return {
 		"damage" : roundi(damage),

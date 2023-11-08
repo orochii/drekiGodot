@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://wvctddsd21hk"]
+[gd_scene load_steps=10 format=3 uid="uid://wvctddsd21hk"]
 
 [ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_b2f6x"]
 [ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="2_xv8kg"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_r8px5"]
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="4_nra88"]
+[ext_resource type="Script" path="res://Core/Battle/WeaponSprite.gd" id="5_stcdt"]
+[ext_resource type="Shader" path="res://Core/Shaders/billboardRotate.gdshader" id="5_tg3hn"]
+[ext_resource type="Texture2D" uid="uid://ck3cmvqqc3a8v" path="res://Graphics/Weapon/weapon_001.png" id="6_d482y"]
+[ext_resource type="Script" path="res://Core/Visual/RotatingSprite3D.gd" id="7_nvndh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i521e"]
+render_priority = 0
+shader = ExtResource("5_tg3hn")
+shader_parameter/albedo_color = Vector4(1, 1, 1, 1)
+shader_parameter/flip_h = false
+shader_parameter/scale = 1.0
+shader_parameter/rotation = 0.0
+shader_parameter/tex = ExtResource("6_d482y")
 
 [node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_b2f6x")
 graphic = NodePath("Graphic")
 
@@ -18,5 +31,20 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_xv8kg")
 region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
 script = ExtResource("3_r8px5")
 spritesheet = ExtResource("4_nra88")
+
+[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_stcdt")
+sprite = NodePath("Sprite")
+gripOffset = Vector2i(0, 2)
+
+[node name="Sprite" type="Sprite3D" parent="Weapon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0, 0)
+material_override = SubResource("ShaderMaterial_i521e")
+offset = Vector2(0, 2)
+pixel_size = 0.0625
+texture_filter = 0
+texture = ExtResource("6_d482y")
+script = ExtResource("7_nvndh")

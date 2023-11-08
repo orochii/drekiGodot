@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_y25ie"]
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_30ihi"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_svuba"]
-[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_4crwe"]
+[ext_resource type="PackedScene" uid="uid://w4qixntss7po" path="res://Objects/vfx/vfx_slash_1.tscn" id="4_dgddr"]
 
 [sub_resource type="Resource" id="Resource_10db3"]
 script = ExtResource("1_kr306")
@@ -27,7 +27,7 @@ applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_og3pf"]
 script = ExtResource("3_svuba")
-visualEffectTemplate = ExtResource("4_4crwe")
+visualEffectTemplate = ExtResource("4_dgddr")
 onePerEachTarget = false
 waitMode = 1
 
@@ -65,6 +65,4 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_10db3"), SubResource("Resource_0jfmp"), SubResource("Resource_og3pf"), SubResource("Resource_8depk")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Sword"
-description = null
 icon = ExtResource("1_vqft1")

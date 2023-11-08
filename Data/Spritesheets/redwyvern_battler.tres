@@ -28,7 +28,7 @@ fps = 8
 [sub_resource type="Resource" id="Resource_lix8s"]
 script = ExtResource("1_si1yl")
 frames = Array[Vector2i]([Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(0, 5)])
-events = Array[StringName]([&""])
+events = Array[StringName]([&"", &"", &"", &"", &"end"])
 name = &"punch"
 fps = 8
 

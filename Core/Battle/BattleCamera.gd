@@ -1,6 +1,7 @@
 extends SubViewport
 class_name BattleCamera
 
+@export var pivot:Node3D
 @export var camera:Camera3D
 
 func _ready():
@@ -15,7 +16,10 @@ func _exit_tree():
 		Global.Config.onScreenSizeChange.disconnect(updateScreenSize)
 
 func _process(delta):
-	pass
+	if Input.is_action_pressed("cam_left"):
+		pivot.global_rotation_degrees.y += delta * 60
+	elif Input.is_action_pressed("cam_right"):
+		pivot.global_rotation_degrees.y -= delta * 60
 
 func updateScreenSize(newSize:Vector2i):
 	size = newSize

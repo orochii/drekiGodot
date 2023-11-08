@@ -253,12 +253,13 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("camera")]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("pivot", "camera")]
 own_world_3d = true
 handle_input_locally = false
 size = Vector2i(480, 270)
 render_target_update_mode = 4
 script = ExtResource("4_ivj8n")
+pivot = NodePath("Scenario/Camera")
 camera = NodePath("Scenario/Camera/Camera3D")
 
 [node name="Scenario" type="Node3D" parent="SubViewportContainer/SubViewport"]

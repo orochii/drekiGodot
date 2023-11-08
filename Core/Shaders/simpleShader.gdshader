@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode cull_disabled,unshaded;
 
-uniform sampler2D baseTexture;
+uniform sampler2D baseTexture:source_color,filter_nearest;
 uniform bool billboard;
 
 void vertex() {

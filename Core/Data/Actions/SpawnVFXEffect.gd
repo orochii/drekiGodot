@@ -27,7 +27,7 @@ func execute(action:BattleAction):
 		var eff:VisualEffect = visualEffectTemplate.instantiate()
 		var graphicTargets:Array[Node3D] = []
 		for t in action.targets: graphicTargets.append(t.graphic)
-		eff.setup(action.battler.graphic, graphicTargets)
+		eff.setup(action.battler, graphicTargets)
 		if waitMode != 0:
 			# wait until effect is done
 			while shouldWait(eff):

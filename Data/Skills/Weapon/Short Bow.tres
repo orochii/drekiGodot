@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bcpmc3ntwwk8q" path="res://Graphics/Icons/items/item_0245.png" id="1_y5h0i"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="2_gs4l4"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_ocnp6"]
-[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="3_6btcf"]
+[ext_resource type="PackedScene" uid="uid://b13crbwy0h3he" path="res://Objects/vfx/vfx_arrow.tscn" id="3_85mfy"]
 
 [sub_resource type="Resource" id="Resource_6ffu1"]
 script = ExtResource("1_dhmkl")
@@ -16,7 +16,7 @@ applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_xfcla"]
 script = ExtResource("2_gs4l4")
-visualEffectTemplate = ExtResource("3_6btcf")
+visualEffectTemplate = ExtResource("3_85mfy")
 onePerEachTarget = false
 waitMode = 1
 
