@@ -16,6 +16,7 @@ shader_parameter/albedo_color = Vector4(1, 1, 1, 1)
 shader_parameter/flip_h = false
 shader_parameter/scale = 1.0
 shader_parameter/rotation = 0.0
+shader_parameter/yOnly = true
 shader_parameter/tex = ExtResource("6_d482y")
 
 [node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic")]
@@ -41,7 +42,7 @@ sprite = NodePath("Sprite")
 gripOffset = Vector2i(0, 2)
 
 [node name="Sprite" type="Sprite3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 material_override = SubResource("ShaderMaterial_i521e")
 offset = Vector2(0, 2)
 pixel_size = 0.0625
