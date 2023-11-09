@@ -10,6 +10,7 @@ const POSITION_OFFSET = Vector3(0,0,-2)
 const START_OFFSET = Vector3(0,0,-20)
 
 @export var graphic:CharGraphic
+@export var weapon:WeaponSprite
 
 var overrideState:StringName = &""
 var overrideLoop:bool = false
@@ -79,6 +80,7 @@ func getSize() -> Vector2:
 func setup(_battler:GameBattler):
 	battler = _battler
 	graphic.spritesheet = _battler.getBattleGraphic()
+	weapon.camOverride = battle.camera
 
 func _ready():
 	graphic.onLoop.connect(_onGraphicLoop)
@@ -94,8 +96,21 @@ func _onGraphicLoop(_state:StringName):
 		overrideState = &""
 		graphic.setNewState(getCurrentPose())
 func _onGraphicFrameEvent(ev:StringName, idx:int):
+	updateWeaponSprite(idx)
 	if ev==&"end":
 		onAnimationWaitEnd.emit(getCurrentPose())
+
+func updateWeaponSprite(idx):
+	var s = graphic.getCurrentSheet()
+	if s is BattlerSpritesheetEntry:
+		var bse = s as BattlerSpritesheetEntry
+		if -1 < idx && idx < bse.weaponPosition.size():
+			var posData = bse.weaponPosition[idx]
+			weapon.visible = true
+			weapon.refreshValues(Vector2i(posData.x, posData.y), posData.z, graphic.flip_h)
+			print("WORK: x%d y%d z%d" % [posData.x, posData.y, posData.z])
+		else:
+			weapon.visible = false
 
 func _process(delta):
 	if effectWait():
@@ -309,6 +324,7 @@ func getCurrentPose():
 	if overrideState != &"": return overrideState
 	return getCurrentState()
 func getCurrentState():
+	if battler==null: return &"base"
 	if battler.isDead():
 		return &"dead"
 	# Otherwise

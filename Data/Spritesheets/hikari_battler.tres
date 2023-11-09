@@ -8,6 +8,7 @@
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
 
@@ -15,6 +16,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(0, 2), Vector2i(1, 2)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"moving"
 fps = 8
 
@@ -22,6 +24,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 12), Vector2i(1, 12), Vector2i(2, 12), Vector2i(3, 12)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"dead"
 fps = 8
 
@@ -29,6 +32,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(0, 4)])
 events = Array[StringName]([&"", &"", &"end", &"", &""])
+weaponPosition = Array[Vector3i]([Vector3i(9, 37, 20), Vector3i(24, 31, -10), Vector3i(30, 31, -50), Vector3i(30, 31, -95), Vector3i(30, 31, -100)])
 name = &"punch"
 fps = 8
 
@@ -36,6 +40,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7), Vector2i(3, 7), Vector2i(3, 7)])
 events = Array[StringName]([&"", &"", &"", &"end"])
+weaponPosition = Array[Vector3i]([])
 name = &"kick"
 fps = 8
 
@@ -43,6 +48,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 6), Vector2i(0, 6), Vector2i(0, 6), Vector2i(0, 6), Vector2i(0, 6), Vector2i(0, 6), Vector2i(0, 14), Vector2i(1, 14)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"skill"
 fps = 8
 
@@ -50,6 +56,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 9)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"status"
 fps = 8
 
@@ -57,6 +64,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(0, 9)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"lowhp"
 fps = 8
 
@@ -64,6 +72,7 @@ fps = 8
 script = ExtResource("1_u0p85")
 frames = Array[Vector2i]([Vector2i(2, 4)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"sleep"
 fps = 8
 

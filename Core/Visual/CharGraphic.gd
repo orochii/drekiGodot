@@ -30,24 +30,25 @@ func _process(delta):
 			var size = 1 - (shadow.position.y / raycast.target_position.y)
 			shadow.scale = Vector3.ONE * size
 
+func getCurrentSheet():
+	return spritesheet.getSheet(state)
 func updateFrame(delta):
 	updateAngleDeform()
 	if spritesheet != null:
 		var _lastState = state
-		var s:SpritesheetEntry = spritesheet.getSheet(state)
+		var s:SpritesheetEntry = getCurrentSheet()
 		if s != null:
 			updateFrameCounter(delta, s.fps, s.getTotalFrames())
 		# uh... yeah, a weird workaround for switching states before loop
 		if _lastState != state:
-			s = spritesheet.getSheet(state)
+			s = getCurrentSheet()
 		if s != null:
 			var newFrame = floori(frameCounter)
 			s.getFrame(self, newFrame, blinkState)
 			if(lastFrame != newFrame):
 				# emit frame change if spritesheet says so
 				var ev:StringName = s.getFrameEvent(newFrame)
-				if ev != &"":
-					onFrame.emit(ev,newFrame)
+				onFrame.emit(ev,newFrame)
 			lastFrame = newFrame
 	else:
 		texture = null

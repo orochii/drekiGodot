@@ -3,6 +3,7 @@ class_name BattlerSpritesheetEntry
 
 @export var frames : Array[Vector2i]
 @export var events : Array[StringName] = [""]
+@export var weaponPosition : Array[Vector3i] = []
 
 func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 	var bParent = parent as BattlerSpritesheet
