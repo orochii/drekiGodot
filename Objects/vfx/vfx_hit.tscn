@@ -85,7 +85,6 @@ shader_parameter/particles_anim_h_frames = 5
 shader_parameter/particles_anim_v_frames = 5
 shader_parameter/particles_start_frame = 0
 shader_parameter/particles_end_frame = 4
-shader_parameter/frame_array = PackedVector2Array(0, 0, 0, 0, 0, 0)
 shader_parameter/particles_anim_loop = false
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)

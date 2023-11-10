@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://duyatlpiav1kr"]
+[gd_scene load_steps=36 format=3 uid="uid://duyatlpiav1kr"]
 
 [ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="2_i1q3m"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_coqbl"]
@@ -18,7 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://be6jnb3dco7mm" path="res://Graphics/Weapon/weapon_103.png" id="14_k6q8t"]
 [ext_resource type="Script" path="res://Core/Visual/RotatingSprite3D.gd" id="15_otauh"]
 [ext_resource type="Script" path="res://Core/Utils/SimpleCamRotate.gd" id="17_3u8uq"]
+[ext_resource type="Shader" path="res://Core/Shaders/animatedParticle_shader.gdshader" id="19_dw2q4"]
 [ext_resource type="PackedScene" uid="uid://cmku0jn6bxrv0" path="res://Objects/vfx/vfx_hit.tscn" id="19_pfsnd"]
+[ext_resource type="Texture2D" uid="uid://dlfiddaxi54u4" path="res://Graphics/Animations/remedy.png" id="20_1r48h"]
+[ext_resource type="Texture2D" uid="uid://dsse60dmc3jvv" path="res://Graphics/Animations/remedy2.png" id="22_13g26"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i521e"]
 render_priority = 0
@@ -30,6 +33,105 @@ shader_parameter/scale = 1.0
 shader_parameter/rotation = -1.74533
 shader_parameter/yOnly = true
 shader_parameter/tex = ExtResource("14_k6q8t")
+
+[sub_resource type="Gradient" id="Gradient_4coxn"]
+offsets = PackedFloat32Array(0, 0.453608, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mxjr7"]
+gradient = SubResource("Gradient_4coxn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdi42"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 6.0
+initial_velocity_max = 6.0
+scale_min = 3.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_mxjr7")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5tvxx"]
+render_priority = 0
+shader = ExtResource("19_dw2q4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/particles_anim_h_frames = 5
+shader_parameter/particles_anim_v_frames = 2
+shader_parameter/particles_start_frame = 3
+shader_parameter/particles_end_frame = 4
+shader_parameter/useBillboard = true
+shader_parameter/particles_anim_loop = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("20_1r48h")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ly7qi"]
+material = SubResource("ShaderMaterial_5tvxx")
+size = Vector2(6, 6)
+
+[sub_resource type="Gradient" id="Gradient_cd17j"]
+offsets = PackedFloat32Array(0, 0.453608, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qo1p5"]
+gradient = SubResource("Gradient_cd17j")
+
+[sub_resource type="Curve" id="Curve_qu2w3"]
+_data = [Vector2(0, 0), 0.0, 2.42327, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l2vft"]
+curve = SubResource("Curve_qu2w3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_74a0i"]
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_l2vft")
+color_ramp = SubResource("GradientTexture1D_qo1p5")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j0dyu"]
+render_priority = 0
+shader = ExtResource("19_dw2q4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/particles_anim_h_frames = 5
+shader_parameter/particles_anim_v_frames = 2
+shader_parameter/particles_start_frame = 5
+shader_parameter/particles_end_frame = 7
+shader_parameter/useBillboard = false
+shader_parameter/particles_anim_loop = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("22_13g26")
+
+[sub_resource type="QuadMesh" id="QuadMesh_v3ngi"]
+material = SubResource("ShaderMaterial_j0dyu")
+size = Vector2(6, 6)
+orientation = 1
 
 [node name="Node3D" type="Node3D"]
 
@@ -46,10 +148,10 @@ script = ExtResource("3_ds0un")
 impostorTemplate = ExtResource("3_coqbl")
 
 [node name="Battler" parent="." instance=ExtResource("10_b2k3e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.25832, 0, 0.272487)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.4844, 0, 0.272487)
 
 [node name="BattlerTest" type="Node3D" parent="." node_paths=PackedStringArray("battler", "graphic", "weapon")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.86057, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 26.6033, 0, 0)
 script = ExtResource("9_5p1js")
 battler = NodePath("../Battler")
 graphic = NodePath("Graphic")
@@ -104,3 +206,21 @@ visible = false
 visible = false
 
 [node name="vfx_hit" parent="." instance=ExtResource("19_pfsnd")]
+
+[node name="vfx_heal" type="Node3D" parent="."]
+script = ExtResource("5_co06i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="vfx_heal"]
+script = ExtResource("6_5t23l")
+
+[node name="Beams" type="GPUParticles3D" parent="vfx_heal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45256, 3.83747, 0)
+process_material = SubResource("ParticleProcessMaterial_rdi42")
+draw_pass_1 = SubResource("QuadMesh_ly7qi")
+
+[node name="Waves" type="GPUParticles3D" parent="vfx_heal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45256, -1.70324, 0)
+amount = 2
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_74a0i")
+draw_pass_1 = SubResource("QuadMesh_v3ngi")
