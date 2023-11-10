@@ -342,3 +342,6 @@ func canUse(action:Resource):
 	else:
 		return false
 	return true
+
+func getDefaultSkill(i):
+	return Global.Db.defaultAttackSkills[0] as UseableSkill

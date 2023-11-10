@@ -91,6 +91,7 @@ func _ready():
 
 func _process(delta):
 	if(!visible): return
+	if actorCommand.battle.configMenu.visible: return
 	#
 	match _currentScope:
 		Global.ETargetScope.ONE:

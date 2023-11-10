@@ -34,6 +34,7 @@ func close():
 
 func _process(delta):
 	if !visible: return
+	if actorCommand.battle.configMenu.visible: return
 	_refreshHelp()
 	# TODO: Category change, equip left/right
 	if Input.is_action_just_pressed("cycle_left"):

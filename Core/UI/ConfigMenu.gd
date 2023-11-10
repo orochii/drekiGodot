@@ -67,6 +67,7 @@ func open(fromMenu):
 		await get_tree().create_timer(0.05).timeout
 	Global.cacheScreenshot()
 	self.fromMenu = fromMenu
+	applyFilter(category)
 	visible = true
 	categoryButtons[0].grab_focus()
 

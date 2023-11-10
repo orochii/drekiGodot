@@ -57,6 +57,10 @@ func getName():
 func getPosition() -> int:
 	return position
 
+func getDefaultSkill(i):
+	var idx = getData().defaultWeaponSkills[i]
+	return Global.Db.defaultAttackSkills[idx] as UseableSkill
+
 func getSkills():
 	var skills = []
 	var _slotData:Array[SlotData] = Global.Db.equipSlots
@@ -65,8 +69,7 @@ func getSkills():
 		if _slotData[i].kind==Global.EquipSlot.ARMS:
 			var e = equips[i]
 			if(e == null):
-				var idx = getData().defaultWeaponSkills[i]
-				var skill = Global.Db.defaultAttackSkills[idx] as UseableSkill
+				var skill = getDefaultSkill(i)
 				skills.append(skill)
 			else:
 				var item = Global.Db.getItem(e) as EquipItem

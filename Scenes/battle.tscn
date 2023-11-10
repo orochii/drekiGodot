@@ -1665,6 +1665,7 @@ Second line
 Third line doesn't fit whoop :C"
 
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
+process_priority = -128
 visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]

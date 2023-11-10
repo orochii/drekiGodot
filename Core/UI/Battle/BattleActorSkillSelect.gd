@@ -34,6 +34,7 @@ func close():
 
 func _process(delta):
 	if !visible: return
+	if actorCommand.battle.configMenu.visible: return
 	_refreshHelp()
 	if Input.is_action_just_pressed("action_cancel"):
 		_goBack()
