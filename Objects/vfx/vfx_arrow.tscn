@@ -90,4 +90,5 @@ transform = Transform3D(1, 0, 0, 0, 0.938189, -0.346123, 0, 0.346123, 0.938189, 
 flip_h = true
 pixel_size = 0.0625
 axis = 0
+texture_filter = 0
 texture = ExtResource("3_4435w")

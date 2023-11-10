@@ -100,6 +100,18 @@ func _onGraphicFrameEvent(ev:StringName, idx:int):
 	if ev==&"end":
 		onAnimationWaitEnd.emit(getCurrentPose())
 
+func setWeaponIndex(idx:int):
+	if battler is GameActor:
+		var actor = battler as GameActor
+		actor.currWeapon = idx
+		var realIdx = actor.getCurrWeaponIdx()
+		var equip = actor.getEquip(realIdx)
+		# Set weapon sprite
+		if equip != null:
+			weapon.setSprite(equip.weaponSprite, equip.gripOffset)
+		else:
+			weapon.setSprite(null, Vector2i(0,0))
+
 func updateWeaponSprite(idx):
 	var s = graphic.getCurrentSheet()
 	if s is BattlerSpritesheetEntry:

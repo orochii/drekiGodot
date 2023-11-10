@@ -89,4 +89,5 @@ func _refreshHelp(force=false):
 func _onItemSelected(obj, item, entry):
 	Global.Audio.playSFX("decision")
 	battler().setLastIndex(&"item", itemList.getListIndex())
+	battler().setWeaponIndex(-1)
 	actorCommand.targetSelect.setup(item)

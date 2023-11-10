@@ -8,6 +8,7 @@
 script = ExtResource("1_vv6ce")
 frames = Array[Vector2i]([Vector2i(0, 0)])
 events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
 

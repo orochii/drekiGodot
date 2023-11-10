@@ -6,7 +6,7 @@
 
 [sub_resource type="Animation" id="Animation_fm0mv"]
 resource_name = "standby"
-length = 0.3
+length = 0.4
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -52,7 +52,7 @@ tracks/3/path = NodePath(".:queueForDeletion")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -108,15 +108,14 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i5k3r")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 15.0
+"speed": 32.0
 }]
 
 [node name="vfx_slash1" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6887, 0, 0)
 script = ExtResource("1_eq5yj")
-positionYOffset = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -126,6 +125,7 @@ script = ExtResource("2_bf08y")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 0)
+sorting_offset = 2.0
 pixel_size = 0.0625
-billboard = 1
+no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_f8s0l")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://wvctddsd21hk"]
+[gd_scene load_steps=9 format=3 uid="uid://wvctddsd21hk"]
 
 [ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_b2f6x"]
 [ext_resource type="Texture2D" uid="uid://dvybyaykp5jh5" path="res://Graphics/Battler/hikari_battler.png" id="2_wuj0w"]
@@ -6,7 +6,6 @@
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="4_nra88"]
 [ext_resource type="Script" path="res://Core/Battle/WeaponSprite.gd" id="5_stcdt"]
 [ext_resource type="Shader" path="res://Core/Shaders/billboardRotate.gdshader" id="5_tg3hn"]
-[ext_resource type="Texture2D" uid="uid://be6jnb3dco7mm" path="res://Graphics/Weapon/weapon_103.png" id="7_4v2qi"]
 [ext_resource type="Script" path="res://Core/Visual/RotatingSprite3D.gd" id="7_nvndh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i521e"]
@@ -18,7 +17,6 @@ shader_parameter/raw_offset = Vector2(0, 0)
 shader_parameter/scale = 1.0
 shader_parameter/rotation = 0.0
 shader_parameter/yOnly = true
-shader_parameter/tex = ExtResource("7_4v2qi")
 
 [node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic", "weapon")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
@@ -50,5 +48,4 @@ material_override = SubResource("ShaderMaterial_i521e")
 offset = Vector2(0, 32)
 pixel_size = 0.0625
 texture_filter = 0
-texture = ExtResource("7_4v2qi")
 script = ExtResource("7_nvndh")

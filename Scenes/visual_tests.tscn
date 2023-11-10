@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://duyatlpiav1kr"]
+[gd_scene load_steps=21 format=3 uid="uid://duyatlpiav1kr"]
 
 [ext_resource type="Texture2D" uid="uid://b7k0qrir3j21p" path="res://Graphics/Battler/mole.png" id="2_i1q3m"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_coqbl"]
@@ -18,15 +18,16 @@
 [ext_resource type="Texture2D" uid="uid://be6jnb3dco7mm" path="res://Graphics/Weapon/weapon_103.png" id="14_k6q8t"]
 [ext_resource type="Script" path="res://Core/Visual/RotatingSprite3D.gd" id="15_otauh"]
 [ext_resource type="Script" path="res://Core/Utils/SimpleCamRotate.gd" id="17_3u8uq"]
+[ext_resource type="PackedScene" uid="uid://cmku0jn6bxrv0" path="res://Objects/vfx/vfx_hit.tscn" id="19_pfsnd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i521e"]
 render_priority = 0
 shader = ExtResource("13_da8uq")
 shader_parameter/albedo_color = Vector4(1, 1, 1, 1)
 shader_parameter/flip_h = false
-shader_parameter/raw_offset = Vector2(0, 0)
+shader_parameter/raw_offset = Vector2(-1.875, -1.9375)
 shader_parameter/scale = 1.0
-shader_parameter/rotation = 0.0
+shader_parameter/rotation = -1.74533
 shader_parameter/yOnly = true
 shader_parameter/tex = ExtResource("14_k6q8t")
 
@@ -43,23 +44,6 @@ pixel_size = 0.0625
 texture = ExtResource("2_i1q3m")
 script = ExtResource("3_ds0un")
 impostorTemplate = ExtResource("3_coqbl")
-
-[node name="vfx_template" type="Node3D" parent="."]
-visible = false
-script = ExtResource("5_co06i")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="vfx_template"]
-script = ExtResource("6_5t23l")
-
-[node name="vfxTest" parent="." instance=ExtResource("4_yghwq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2329, 0, 0)
-visible = false
-
-[node name="vfx_slash1" parent="." instance=ExtResource("7_nhpl1")]
-visible = false
-
-[node name="vfx_arrow" parent="." instance=ExtResource("8_c8kvd")]
-visible = false
 
 [node name="Battler" parent="." instance=ExtResource("10_b2k3e")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.25832, 0, 0.272487)
@@ -101,3 +85,22 @@ texture = ExtResource("14_k6q8t")
 script = ExtResource("15_otauh")
 rotationZ = -1.74533
 rawOffset = Vector2i(-30, -31)
+
+[node name="vfx_template" type="Node3D" parent="."]
+visible = false
+script = ExtResource("5_co06i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="vfx_template"]
+script = ExtResource("6_5t23l")
+
+[node name="vfxTest" parent="." instance=ExtResource("4_yghwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2329, 0, 0)
+visible = false
+
+[node name="vfx_slash1" parent="." instance=ExtResource("7_nhpl1")]
+visible = false
+
+[node name="vfx_arrow" parent="." instance=ExtResource("8_c8kvd")]
+visible = false
+
+[node name="vfx_hit" parent="." instance=ExtResource("19_pfsnd")]

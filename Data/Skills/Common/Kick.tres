@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://h46wxkm1b4ce" path="res://Graphics/Icons/items/item_0270.png" id="2_5sdet"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_6sy4v"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_7moge"]
-[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_bav01"]
+[ext_resource type="PackedScene" uid="uid://cmku0jn6bxrv0" path="res://Objects/vfx/vfx_hit.tscn" id="4_i07sa"]
 
 [sub_resource type="Resource" id="Resource_w6ctq"]
 script = ExtResource("1_p8kwa")
@@ -27,7 +27,7 @@ applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_fcl6m"]
 script = ExtResource("3_6sy4v")
-visualEffectTemplate = ExtResource("4_bav01")
+visualEffectTemplate = ExtResource("4_i07sa")
 onePerEachTarget = false
 waitMode = 1
 
@@ -65,6 +65,4 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_w6ctq"), SubResource("Resource_36ur8"), SubResource("Resource_fcl6m"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Kick"
-description = "Basic attack."
 icon = ExtResource("2_5sdet")

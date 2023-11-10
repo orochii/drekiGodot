@@ -117,8 +117,16 @@ func _learn(learning:SkillLearning):
 	return true
 
 func getCurrWeaponIdx():
-	if currWeapon<0: return 0
+	if currWeapon<0: return getDefaultWeaponIdx()
+	var _slotsData = Global.Db.equipSlots
+	
+	if currWeapon >= _slotsData.size(): return getDefaultWeaponIdx()
+	if _slotsData[currWeapon].kind != Global.EquipSlot.ARMS: 
+		return getDefaultWeaponIdx()
 	return currWeapon
+
+func getDefaultWeaponIdx():
+	return 0
 
 func getFeatures():
 	var actor:Actor = getData()

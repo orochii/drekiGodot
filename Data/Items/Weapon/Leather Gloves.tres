@@ -1,17 +1,18 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=4 format=3 uid="uid://dwgtijudr5fnt"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://dwgtijudr5fnt"]
 
 [ext_resource type="Texture2D" uid="uid://bgla0n3vp4j61" path="res://Graphics/Icons/items/item_0265.png" id="1_bev8u"]
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="2_il6p5"]
 [ext_resource type="Resource" uid="uid://dfjpyyp1jb8de" path="res://Data/Skills/Weapon/Leather Gloves.tres" id="3_gsos7"]
+[ext_resource type="Texture2D" uid="uid://c5jlcuqbaxvwv" path="res://Graphics/Weapon/weapon_092.png" id="4_6ygom"]
 
 [resource]
 script = ExtResource("2_il6p5")
+weaponSprite = ExtResource("4_6ygom")
+gripOffset = Vector2i(0, 0)
 slot = 0
 flags = Array[int]([8])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 skill = ExtResource("3_gsos7")
-name = "Leather Gloves"
-description = "Great comfortability, allow for sucessive fast punches."
 icon = ExtResource("1_bev8u")
 category = 3
 price = 0

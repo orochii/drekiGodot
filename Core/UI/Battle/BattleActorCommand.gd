@@ -115,17 +115,20 @@ func positionCursor(focused:Node):
 	cursor.visible = found
 
 func _on_action_pressed():
+	currentBattler.setWeaponIndex(-1)
 	Global.Audio.playSFX("decision")
 	currentBattler.setLastIndex(&"command", 0)
 	skillSelect.open()
 
 func _on_inventory_pressed():
+	currentBattler.setWeaponIndex(-1)
 	Global.Audio.playSFX("decision")
 	currentBattler.setLastIndex(&"command", 1)
 	itemSelect.open()
 
 func _on_wait_pressed():
 	Global.Audio.playSFX("decision")
+	currentBattler.setWeaponIndex(-1)
 	#idx- 0:back 1:wait 2:forward
 	currentBattler.setAction(Global.Db.commonActions[waitIdx],Global.ETargetKind.USER,Global.ETargetScope.ONE,0)
 	currentBattler.setLastIndex(&"command", 2)
@@ -133,6 +136,7 @@ func _on_wait_pressed():
 	_unset()
 
 func _on_escape_pressed():
+	currentBattler.setWeaponIndex(-1)
 	currentBattler.setAction(Global.Db.commonActions[3],Global.ETargetKind.USER,Global.ETargetScope.ONE,0)
 	_unset()
 

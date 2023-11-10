@@ -44,6 +44,7 @@ func battlerEscape(b:Battler):
 
 func endBattlerTurn(b:Battler):
 	await b.endTurn()
+	b.setWeaponIndex(-1)
 	readyBattlers.erase(b)
 	actionBattlers.erase(b)
 	waitingBattlers.append(b)
@@ -249,6 +250,7 @@ func _executeAction(currentAction:BattleAction):
 							counterAction.unsetRepeats()
 				if counterAction.anyAllyOnTargets():
 					counterAction.battler.resetDirection()
+				b.setWeaponIndex(-1)
 			b.clearCounters()
 		
 		# resolve ending effects

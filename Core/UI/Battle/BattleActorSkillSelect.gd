@@ -55,5 +55,7 @@ func _refreshHelp(force=false):
 
 func _onSkillSelected(entry,skill):
 	Global.Audio.playSFX("decision")
-	battler().setLastIndex(&"skill", skillList.getListIndex())
+	var idx = skillList.getListIndex()
+	battler().setLastIndex(&"skill", idx)
+	battler().setWeaponIndex(idx)
 	actorCommand.targetSelect.setup(skill)

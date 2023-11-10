@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=3 uid="uid://cmku0jn6bxrv0"]
+
+[ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_n8rxp"]
+[ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="2_xrmjp"]
+[ext_resource type="Shader" path="res://Core/Shaders/animatedParticle_shader.gdshader" id="3_2i15m"]
+[ext_resource type="Texture2D" uid="uid://bs5cduy8cc6x" path="res://Graphics/Animations/2003shock.png" id="4_cctkm"]
+
+[sub_resource type="Animation" id="Animation_ay5rl"]
+resource_name = "standby"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:done")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:queueForDeletion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles3D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_buxip"]
+_data = {
+"standby": SubResource("Animation_ay5rl")
+}
+
+[sub_resource type="Gradient" id="Gradient_om7lk"]
+offsets = PackedFloat32Array(0.667, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g2tg3"]
+gradient = SubResource("Gradient_om7lk")
+
+[sub_resource type="Curve" id="Curve_nd167"]
+min_value = 0.5
+max_value = 2.0
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ounrs"]
+curve = SubResource("Curve_nd167")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aduj6"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ounrs")
+color_ramp = SubResource("GradientTexture1D_g2tg3")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kkh82"]
+render_priority = 0
+shader = ExtResource("3_2i15m")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/particles_anim_h_frames = 5
+shader_parameter/particles_anim_v_frames = 5
+shader_parameter/particles_start_frame = 0
+shader_parameter/particles_end_frame = 4
+shader_parameter/frame_array = PackedVector2Array(0, 0, 0, 0, 0, 0)
+shader_parameter/particles_anim_loop = false
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("4_cctkm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dlvx1"]
+material = SubResource("ShaderMaterial_kkh82")
+size = Vector2(6, 6)
+
+[node name="vfx_hit" type="Node3D"]
+script = ExtResource("1_n8rxp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_buxip")
+}
+script = ExtResource("2_xrmjp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_aduj6")
+draw_pass_1 = SubResource("QuadMesh_dlvx1")

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=7 format=3 uid="uid://b7ly33v8vnbqs"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=8 format=3 uid="uid://b7ly33v8vnbqs"]
 
 [ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_0o8fy"]
 [ext_resource type="Texture2D" uid="uid://bcpmc3ntwwk8q" path="res://Graphics/Icons/items/item_0245.png" id="1_ioq0r"]
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="2_qeskq"]
 [ext_resource type="Resource" uid="uid://bg617ojy3hhbx" path="res://Data/Skills/Weapon/Short Bow.tres" id="3_8l4jb"]
+[ext_resource type="Texture2D" uid="uid://c84ud0ix5545g" path="res://Graphics/Weapon/weapon_071.png" id="5_le4r5"]
 
 [sub_resource type="Resource" id="Resource_7i8e3"]
 script = ExtResource("1_0o8fy")
@@ -19,6 +20,8 @@ amount = -2
 
 [resource]
 script = ExtResource("2_qeskq")
+weaponSprite = ExtResource("5_le4r5")
+gripOffset = Vector2i(0, 0)
 slot = 0
 flags = Array[int]([6])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_7i8e3"), SubResource("Resource_va4sw")])
