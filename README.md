@@ -2,6 +2,9 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Implement item/skill use in party menu
+- Skill tree learning
+- Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
 	- Move battle camera
 	- Scan: target
