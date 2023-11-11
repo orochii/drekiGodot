@@ -1,7 +1,7 @@
 extends Button
 class_name ItemEntry
 
-signal itemSelected(obj:ItemEntry,skill:UseableItem,entry:GameInventoryEntry)
+signal itemSelected(obj:ItemEntry,item:BaseItem,entry:GameInventoryEntry)
 
 @export var itemIcon : NinePatchRect
 @export var itemName : Label
@@ -37,4 +37,5 @@ func _refresh():
 	itemName.text = data.getName()
 
 func _on_pressed():
+	print("Item use")
 	itemSelected.emit(self,data,entry)

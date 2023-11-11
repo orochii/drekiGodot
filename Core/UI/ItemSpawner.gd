@@ -52,6 +52,7 @@ func showTask(payload):
 		var inst:ItemEntry = itemEntryTemplate.instantiate()
 		inst.setup(i)
 		inst.itemSelected.connect(_onSelected)
+		inst.setEnabled(false)
 		container.add_child(inst)
 		itemEntries.append(inst)
 	applyFilter(Global.EItemCategory.MEDICINE)
@@ -103,6 +104,7 @@ func moveRight():
 func showUse(item):
 	useScreen.setItem(item)
 
-func _onSelected(itemEntry, item):
+func _onSelected(obj:ItemEntry,item:BaseItem,entry:GameInventoryEntry):
+	print("Item use 2")
 	Global.Audio.playSFX("decision")
-	showUse(itemEntry)
+	showUse(obj)
