@@ -1,4 +1,5 @@
 extends Node
+class_name ItemSpawner
 
 @export var parentScreen : MenuScreen
 @export var scroll : ScrollContainer
@@ -43,9 +44,12 @@ func _process(delta):
 		positionCursor(focused)
 
 func showTask(payload):
+	refresh()
+
+func refresh(curr=null):
+	var _oldidx = filteredEntries.find(curr)
 	if itemEntries != null:
-		for c in itemEntries:
-			c.queue_free()
+		for c in itemEntries: c.queue_free()
 	itemEntries.clear()
 	var items : Array = Global.State.party.inventory
 	for i in items:
@@ -56,6 +60,11 @@ func showTask(payload):
 		container.add_child(inst)
 		itemEntries.append(inst)
 	applyFilter(Global.EItemCategory.MEDICINE)
+	if(_oldidx >= 0 && _oldidx < filteredEntries.size()): 
+		return filteredEntries[_oldidx]
+	elif filteredEntries.size() != 0:
+		return filteredEntries[0]
+	else: return null
 
 func hideTask():
 	cursor.visible = false

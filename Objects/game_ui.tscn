@@ -1963,7 +1963,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemEntry", "description", "container", "cursor")]
+[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemSpawner", "itemEntry", "description", "container", "cursor")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1979,6 +1979,7 @@ grow_vertical = 2
 texture = ExtResource("20_hpgcr")
 script = ExtResource("21_0ut3w")
 parentScreen = NodePath("../..")
+itemSpawner = NodePath("../../ItemSpawner")
 partyTargetTemplate = ExtResource("22_1mtvs")
 itemEntry = NodePath("Content/ItemEntry")
 description = NodePath("Content/RichTextLabel")

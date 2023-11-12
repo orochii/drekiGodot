@@ -2,6 +2,7 @@ extends NinePatchRect
 class_name ItemUseSubscreen
 
 @export var parentScreen : MenuScreen
+@export var itemSpawner : ItemSpawner
 @export var partyTargetTemplate : PackedScene
 @export var itemEntry : ItemEntry
 @export var description : RichTextLabel
@@ -55,6 +56,11 @@ func refreshTargets():
 			targetList.append(inst)
 
 func onItemUsed(target):
+	# check if you got enough items
+	var count = Global.State.party.itemCount(itemEntry.data.getId())
+	if count <= 0:
+		Global.Audio.playSFX("buzzer")
+		return
 	# Set targets, depends on if we're on single scope or multiple scope.
 	if itemEntry.data is UseableItem:
 		var effective = false
@@ -67,7 +73,13 @@ func onItemUsed(target):
 				if result.has("effective"):
 					effective = effective || result["effective"]
 		if effective:
-			# Take item, refresh targets
+			# Take item
+			var r = randf()
+			if (r < item.spendOnUseChance):
+				Global.State.party.loseItem(item.getId(), 1)
+				itemEntry._refresh()
+				curr = itemSpawner.refresh(curr)
+			# Refresh targets
 			for t in targets:
 				t.refreshUse()
 				print(t.actor.getName())
