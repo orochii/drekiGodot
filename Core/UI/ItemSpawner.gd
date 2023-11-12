@@ -105,6 +105,5 @@ func showUse(item):
 	useScreen.setItem(item)
 
 func _onSelected(obj:ItemEntry,item:BaseItem,entry:GameInventoryEntry):
-	print("Item use 2")
 	Global.Audio.playSFX("decision")
 	showUse(obj)

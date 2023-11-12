@@ -279,7 +279,7 @@ func getEnemies(state:Global.ETargetState):
 	for b in battle.allBattlers:
 		if battler.isEnemy(b.battler): 
 			if b.cantTarget(): continue
-			if _stateConditionMet(b,state): ary.append(b)
+			if b.stateConditionMet(state): ary.append(b)
 	return ary
 
 func getAllies(state:Global.ETargetState):
@@ -287,14 +287,14 @@ func getAllies(state:Global.ETargetState):
 	for b in battle.allBattlers:
 		if !battler.isEnemy(b.battler): 
 			if b.cantTarget(): continue
-			if _stateConditionMet(b,state): ary.append(b)
+			if b.stateConditionMet(state): ary.append(b)
 	return ary
 
 func getAll(state:Global.ETargetState):
 	var ary:Array[Battler] = []
 	for b in battle.allBattlers:
 		if b.cantTarget(): continue
-		if _stateConditionMet(b,state): ary.append(b)
+		if b.stateConditionMet(state): ary.append(b)
 	return ary
 
 func getLastIndex(tag:StringName):
@@ -302,9 +302,8 @@ func getLastIndex(tag:StringName):
 func setLastIndex(tag:StringName,value):
 	battler.setLastIndex(tag,value)
 
-func _stateConditionMet(b:Battler,state:Global.ETargetState):
-	if state==Global.ETargetState.ANY: return true
-	return (state==Global.ETargetState.DEAD) == b.battler.isDead()
+func stateConditionMet(state:Global.ETargetState):
+	return battler.stateConditionMet(state)
 
 func appear():
 	moveToStartPosition()

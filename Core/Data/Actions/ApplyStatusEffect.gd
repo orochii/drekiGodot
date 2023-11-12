@@ -12,12 +12,13 @@ func execute(action:BattleAction):
 # Data change
 func apply(user:GameBattler, target:GameBattler):
 	var eff = calcEffect(user,target)
+	eff["effective"] = true
 	if eff.has("statusAdd"):
 		for s in eff["statusAdd"]:
-			target.addStatus(s)
+			eff["effective"] = eff["effective"] || target.addStatus(s)
 	elif eff.has("statusRemove"):
 		for s in eff["statusRemove"]:
-			target.removeStatus(s)
+			eff["effective"] = eff["effective"] || target.removeStatus(s)
 
 func calcEffect(user:GameBattler, target:GameBattler):
 	# any calculation here must be deterministic

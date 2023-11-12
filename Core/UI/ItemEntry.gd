@@ -37,5 +37,4 @@ func _refresh():
 	itemName.text = data.getName()
 
 func _on_pressed():
-	print("Item use")
 	itemSelected.emit(self,data,entry)
