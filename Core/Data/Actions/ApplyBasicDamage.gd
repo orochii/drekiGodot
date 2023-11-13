@@ -30,6 +30,7 @@ func execute(action:BattleAction):
 func apply(user:GameBattler, target:GameBattler):
 	var eff = calcEffect(user,target)
 	# Do hit
+	eff["effective"] = true
 	var r = randf()
 	eff["hit"] = r < hit
 	if eff["hit"]:
@@ -44,9 +45,13 @@ func apply(user:GameBattler, target:GameBattler):
 		# Apply effect
 		match type:
 			Global.EDamageType.HP:
+				var _oldval = target.currHP
 				target.changeHP(-eff["damage"])
+				eff["effective"] = _oldval != target.currHP
 			Global.EDamageType.MP:
+				var _oldval = target.currMP
 				target.changeMP(-eff["damage"])
+				eff["effective"] = _oldval != target.currMP
 	return eff
 
 # any calculation here must be deterministic

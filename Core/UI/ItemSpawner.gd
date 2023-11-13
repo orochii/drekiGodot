@@ -1,4 +1,5 @@
 extends Node
+class_name ItemSpawner
 
 @export var parentScreen : MenuScreen
 @export var scroll : ScrollContainer
@@ -43,18 +44,27 @@ func _process(delta):
 		positionCursor(focused)
 
 func showTask(payload):
+	refresh()
+
+func refresh(curr=null):
+	var _oldidx = filteredEntries.find(curr)
 	if itemEntries != null:
-		for c in itemEntries:
-			c.queue_free()
+		for c in itemEntries: c.queue_free()
 	itemEntries.clear()
 	var items : Array = Global.State.party.inventory
 	for i in items:
 		var inst:ItemEntry = itemEntryTemplate.instantiate()
 		inst.setup(i)
 		inst.itemSelected.connect(_onSelected)
+		inst.setEnabled(false)
 		container.add_child(inst)
 		itemEntries.append(inst)
 	applyFilter(Global.EItemCategory.MEDICINE)
+	if(_oldidx >= 0 && _oldidx < filteredEntries.size()): 
+		return filteredEntries[_oldidx]
+	elif filteredEntries.size() != 0:
+		return filteredEntries[0]
+	else: return null
 
 func hideTask():
 	cursor.visible = false
@@ -103,6 +113,6 @@ func moveRight():
 func showUse(item):
 	useScreen.setItem(item)
 
-func _onSelected(itemEntry, item):
+func _onSelected(obj:ItemEntry,item:BaseItem,entry:GameInventoryEntry):
 	Global.Audio.playSFX("decision")
-	showUse(itemEntry)
+	showUse(obj)

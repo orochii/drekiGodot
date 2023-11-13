@@ -2,6 +2,9 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Implement skill use in party menu
+- Skill tree learning
+- Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
 	- Move battle camera
 	- Scan: target
@@ -16,6 +19,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Item use in party menu
 - Character animations: Move, death, standing, actionSpecific(effect), status
 - Scope change
 - Target select kind variance and priority fix (shenanigans with changing kind skills)

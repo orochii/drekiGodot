@@ -113,3 +113,5 @@ offset_bottom = 16.0
 theme = ExtResource("1_ugqnl")
 text = "Can Equip"
 horizontal_alignment = 2
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

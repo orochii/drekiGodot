@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
 [ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_jvixt"]
 [ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="4_7e7g2"]
-[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/pixmall.ttf" id="5_m5poo"]
+[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/Pixmall.ttf" id="5_m5poo"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="6_n043t"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="7_jt7fy"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="8_c65gf"]
@@ -1963,7 +1963,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemEntry", "description", "container", "cursor")]
+[node name="ItemUse" type="NinePatchRect" parent="PartyMenu/InventoryScreen/Control" node_paths=PackedStringArray("parentScreen", "itemSpawner", "itemEntry", "description", "container", "cursor")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1979,6 +1979,7 @@ grow_vertical = 2
 texture = ExtResource("20_hpgcr")
 script = ExtResource("21_0ut3w")
 parentScreen = NodePath("../..")
+itemSpawner = NodePath("../../ItemSpawner")
 partyTargetTemplate = ExtResource("22_1mtvs")
 itemEntry = NodePath("Content/ItemEntry")
 description = NodePath("Content/RichTextLabel")

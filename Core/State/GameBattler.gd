@@ -107,11 +107,14 @@ func addStatus(s:Status,force:bool=false):
 			ss.stack = clampi(ss.stack+1, 1, 3)
 		for rs in s.statusRemove:
 			removeStatus(rs)
+	return true
 
 func removeStatus(s:Status):
 	var ss = hasStatus(s)
 	if ss != null:
 		states.erase(ss)
+		return true
+	return false
 
 func getStatusRate(s:Status):
 	var rate = 1.0
@@ -345,3 +348,7 @@ func canUse(action:Resource):
 
 func getDefaultSkill(i):
 	return Global.Db.defaultAttackSkills[0] as UseableSkill
+
+func stateConditionMet(state:Global.ETargetState):
+	if state==Global.ETargetState.ANY: return true
+	return (state==Global.ETargetState.DEAD) == isDead()
