@@ -55,6 +55,4 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_kjqbs"), SubResource("Resource_dmveq"), SubResource("Resource_dhgcc"), SubResource("Resource_kbris")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = null
-description = null
 icon = ExtResource("1_s84s5")

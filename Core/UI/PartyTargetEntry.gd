@@ -6,8 +6,8 @@ class_name PartyTargetEntry
 @export var nameText:Label
 @export var lpText:Label
 @export var mpText:Label
-@export var status1:NinePatchRect
-@export var status2:NinePatchRect
+@export var statusIcons:Array[NinePatchRect]
+@export var useEffect:GPUParticles2D
 @export_group("Can Equip")
 @export var canEquip:Control
 @export var equipLabel:Label
@@ -25,8 +25,14 @@ func refreshUse():
 	nameText.text = actor.getName()
 	lpText.text = "%d" % actor.currHP
 	mpText.text = "%d" % actor.currMP
-	status1.texture = null
-	status2.texture = null
+	var ary:Array[StatusState] = actor.getSortedStates()
+	for i in range(statusIcons.size()):
+		var si = statusIcons[i]
+		if i < ary.size():
+			var status = Global.Db.getStatus(ary[i].id)
+			si.texture = status.icon
+		else:
+			si.texture = null
 
 func setupEquip(id:StringName,data:BaseItem):
 	canUse.visible=false
@@ -44,3 +50,7 @@ func _on_pressed():
 	# Call use from parent (to support multitarget uses).
 	if onPressed.is_valid():
 		onPressed.call(self)
+
+func triggerUseEffect():
+	if useEffect != null:
+		useEffect.emitting = true

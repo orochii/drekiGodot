@@ -33,17 +33,20 @@ func doMove(b:Battler,localTargets:Array[Battler]):
 		center += pos
 	center /= localTargets.size()
 	# Get radius and height
+	var selfTargetting = localTargets.has(b)
 	var radius = 0
 	var height:float = 0
-	for t in localTargets:
-		var pos = t.homePosition
-		var size = t.getSize()
-		var dst = center.distance_to(pos) + (size.x / 2)
-		if radius < dst: radius = dst
-		if height < size.y: height = size.y
+	if !selfTargetting:
+		for t in localTargets:
+			var pos = t.homePosition
+			var size = t.getSize()
+			var dst = center.distance_to(pos) + (size.x / 2)
+			if radius < dst: radius = dst
+			if height < size.y: height = size.y
 	# Calc self offset
 	var selfSize = b.getSize()
 	var offset = Vector3(selfSize.x,selfSize.y,selfSize.x) * selfOffset
+	if selfTargetting: offset = Vector3.ZERO
 	# Calculate position
 	var moveOffset = Vector3(radius,height,radius) * referencePosition + offset + positionOffset
 	var rotY = b.direction + 90

@@ -291,9 +291,7 @@ learnings = Array[ExtResource("5_cbpvi")]([SubResource("Resource_d36xy")])
 
 [resource]
 script = ExtResource("1_xusyc")
-name = "Minuet"
 jobName = "Light Mage"
-description = "?"
 faceGraphic = ExtResource("3_cxotl")
 faceSmall = ExtResource("4_nb3ig")
 artwork = ExtResource("1_0r8yn")

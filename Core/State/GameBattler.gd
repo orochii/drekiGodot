@@ -346,6 +346,28 @@ func canUse(action:Resource):
 		return false
 	return true
 
+func resolveSkillCost(skill,battle=true):
+	# take off MP
+	var cost = skill.getMPCost(self)
+	self.changeMP(-cost)
+	# set cooldown
+	var skId = skill.getId()
+	if battle:
+		if skill.cooldown != 0:
+			self.setSkillCooldown(skId, skill.cooldown+1)
+	# add spent charge
+	if skill.charges != 0:
+		self.addSkillChargesSpent(skId)
+	return true
+
+func resolveItemCost(item):
+	# remove 1 of item on chance
+	var r = randf()
+	if (r < item.spendOnUseChance):
+		Global.State.party.loseItem(item.getId(), 1)
+		return true
+	return false
+
 func getDefaultSkill(i):
 	return Global.Db.defaultAttackSkills[0] as UseableSkill
 

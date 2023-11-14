@@ -147,6 +147,12 @@ func _next():
 			endBattle()
 
 func endBattle():
+	# restore party's cooldowns
+	var members = Global.State.party.members
+	for m in members:
+		var actor = Global.State.getActor(m)
+		actor.resetSkillCooldowns()
+	# Restore BGM, exit from battle
 	Global.Audio.restoreBGM(&"prebattle")
 	Global.Scene.endBattle()
 	if(test): Global.Scene.quit()

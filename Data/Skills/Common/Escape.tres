@@ -24,5 +24,3 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_4ob3n")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Escape"
-description = ""

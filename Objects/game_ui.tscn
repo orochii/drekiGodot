@@ -1,10 +1,10 @@
-[gd_scene load_steps=73 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=78 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
 [ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_jvixt"]
 [ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="4_7e7g2"]
-[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/Pixmall.ttf" id="5_m5poo"]
+[ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/pixmall.ttf" id="5_m5poo"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="6_n043t"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="7_jt7fy"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="8_c65gf"]
@@ -66,6 +66,11 @@
 [ext_resource type="Script" path="res://Core/UI/SkillList.gd" id="49_v0hn6"]
 [ext_resource type="PackedScene" uid="uid://cuqdikr3niocv" path="res://Objects/skill_entry.tscn" id="50_hg110"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="51_d771a"]
+[ext_resource type="Texture2D" uid="uid://dwkl0auppquhq" path="res://Graphics/Icons/skills/Swirl.png" id="53_ulb51"]
+[ext_resource type="Script" path="res://Core/UI/SkillInfo.gd" id="53_yapl8"]
+[ext_resource type="Texture2D" uid="uid://brn18hxlwd7m8" path="res://Graphics/System/turn_icon.png" id="54_1xxfo"]
+[ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="55_2j7gp"]
+[ext_resource type="Script" path="res://Core/UI/SkillTarget.gd" id="57_oprof"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
@@ -395,6 +400,7 @@ text = "System"
 vertical_alignment = 1
 
 [node name="MainScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasks")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1521,7 +1527,6 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="CharacterSkillsScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1534,12 +1539,13 @@ rightText = "PC"
 extraText = "Status"
 tasks = [NodePath("SkillsScreen")]
 
-[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("charStats", "slotsContainer", "skillList", "listSpawner")]
+[node name="SkillsScreen" type="Node" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("charStats", "slotsContainer", "skillList", "listSpawner", "skillTargetWindow")]
 script = ExtResource("26_s2kf0")
 charStats = NodePath("../Background/Container/StatsContainer")
 slotsContainer = NodePath("../Background/Container/SlotsContainer")
 skillList = NodePath("../SkillList")
 listSpawner = NodePath("../../MainScreen/SpawnParty")
+skillTargetWindow = NodePath("../SkillUse")
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen"]
 layout_mode = 1
@@ -1896,6 +1902,234 @@ frame = 6
 frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
+[node name="SkillUse" type="VBoxContainer" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("container", "actorStats", "skillInfo", "targetsWindow", "menuScreen", "cursor")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -74.0
+offset_right = 104.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("57_oprof")
+partyTargetTemplate = ExtResource("22_1mtvs")
+container = NodePath("Target/Container")
+actorStats = NodePath("../Background/Container/StatsContainer")
+skillInfo = NodePath("SkillInfo")
+targetsWindow = NodePath("Target")
+menuScreen = NodePath("..")
+cursor = NodePath("Cursor")
+
+[node name="SkillInfo" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillUse" node_paths=PackedStringArray("skillIcon", "skillName", "skillDesc", "skillCost", "turnIcon", "turnLabel", "chargeIcon", "chargeLabel")]
+custom_minimum_size = Vector2(208, 96)
+layout_mode = 2
+script = ExtResource("53_yapl8")
+skillIcon = NodePath("Container/Icon")
+skillName = NodePath("Container/Name")
+skillDesc = NodePath("Container/HelpText")
+skillCost = NodePath("Container/CostNum")
+turnIcon = NodePath("Container/UseRestrictions/TurnIcon")
+turnLabel = NodePath("Container/UseRestrictions/TurnNum")
+chargeIcon = NodePath("Container/UseRestrictions/ChargeIcon")
+chargeLabel = NodePath("Container/UseRestrictions/ChargeNum")
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("53_ulb51")
+
+[node name="Name" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 20.0
+offset_right = -44.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme = ExtResource("11_hotyh")
+text = "Skill name"
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 16.0
+grow_horizontal = 0
+theme = ExtResource("11_hotyh")
+text = "MP"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="CostNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 16.0
+grow_horizontal = 0
+theme = ExtResource("11_hotyh")
+text = "8888"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HelpText" type="RichTextLabel" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("11_hotyh")
+text = "About three lines of text go here. :)
+Uhhh yeah and so here's more text, just to uh check that things look okay or something idk. oh actually 4 lines? ok..."
+
+[node name="UseRestrictions" type="HBoxContainer" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 2
+
+[node name="TurnIcon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("54_1xxfo")
+
+[node name="TurnNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88"
+vertical_alignment = 1
+
+[node name="ChargeIcon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("55_2j7gp")
+
+[node name="ChargeNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillUse/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88/88"
+vertical_alignment = 1
+
+[node name="Target" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillUse"]
+custom_minimum_size = Vector2(208, 64)
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/Target"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillUse/Target"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="VBoxContainer" parent="PartyMenu/CharacterSkillsScreen/SkillUse/Target"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/SkillUse"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
+
 [node name="InventoryScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 visible = false
 layout_mode = 1
@@ -2008,10 +2242,7 @@ offset_bottom = 32.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PartyMenu/InventoryScreen/Control/ItemUse/Content"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 32.0
-offset_right = 188.0
-offset_bottom = 80.0
+offset_right = 1.0
 theme = ExtResource("11_hotyh")
 text = "About three lines of text go here. :)
 Uhhh yeah and so here's more text, just to uh check that things look okay or something idk. oh actually 4 lines? ok..."

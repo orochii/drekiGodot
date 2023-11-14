@@ -270,9 +270,7 @@ learnings = Array[ExtResource("2_jpdbq")]([SubResource("Resource_l3owq")])
 
 [resource]
 script = ExtResource("1_oyatu")
-name = "Hikari"
 jobName = "Militia"
-description = "This is a test."
 faceGraphic = ExtResource("3_2jrs3")
 faceSmall = ExtResource("4_tif0j")
 artwork = ExtResource("1_hbvuk")

@@ -24,9 +24,7 @@ value = 3
 
 [resource]
 script = ExtResource("1_ga2pu")
-name = "?????"
 jobName = "Red Wyvern"
-description = "A cute fluffy red wyvern. Not really a reptile, apparently."
 faceGraphic = ExtResource("2_ycywp")
 faceSmall = ExtResource("3_6l6n3")
 artwork = ExtResource("1_8y0px")

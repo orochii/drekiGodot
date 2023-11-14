@@ -84,6 +84,4 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_60trr"), SubResource("Resource_pvhit"), SubResource("Resource_2aw57"), SubResource("Resource_jexpn"), SubResource("Resource_moql1"), SubResource("Resource_2tu5n"), SubResource("Resource_n2iji")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Shouten Cut"
-description = "asdasdasd"
 icon = ExtResource("1_6obqo")

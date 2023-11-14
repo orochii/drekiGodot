@@ -5,6 +5,7 @@ class_name CharacterActionsScreen
 @export var slotsContainer:LearnSlotsContainer
 @export var skillList:SkillList
 @export var listSpawner:PartyListSpawner
+@export var skillTargetWindow : SkillTarget
 
 var currIdx:int = 0
 var toFocus = null
@@ -18,6 +19,7 @@ func showTask(payload):
 	charStats.setup(actor)
 	slotsContainer.setup(actor)
 	skillList.setup(actor)
+	skillList.onSkillSelected = _onSkillSelected
 	toFocus = skillList.getFirst()
 func setFocus():
 	if(toFocus != null):
@@ -31,6 +33,7 @@ func reset():
 func _process(delta):
 	if(get_parent().visible==false): return
 	if(get_parent().active==false): return
+	if(skillTargetWindow.visible==true): return
 	if(slotsContainer.active): return
 	if(Input.is_action_just_pressed("action_menu")):
 		setSkillList(false)
@@ -75,3 +78,13 @@ func setSkillList(v:bool):
 		skillList.setListIndex(_oldListIdx)
 
 var _oldListIdx = -1
+
+func getActor():
+	var members = Global.State.party.members
+	return Global.State.getActor(members[currIdx])
+
+func _onSkillSelected(entry,skill):
+	Global.Audio.playSFX("decision")
+	print("Skill selected")
+	# open target list
+	skillTargetWindow.open(getActor(), skill)

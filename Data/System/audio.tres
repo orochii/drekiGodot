@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AudioData" load_steps=29 format=3 uid="uid://c0ykl7muh1eoh"]
+[gd_resource type="Resource" script_class="AudioData" load_steps=30 format=3 uid="uid://c0ykl7muh1eoh"]
 
 [ext_resource type="Script" path="res://Core/Audio/AudioData.gd" id="1_djncj"]
 [ext_resource type="AudioStream" uid="uid://lvdlu5oe5wrm" path="res://Audio/SFX/foot/foot_moving0.ogg" id="1_lj0py"]
@@ -97,9 +97,16 @@ stream = ExtResource("9_d6xdj")
 volume = 1.0
 pitch = 1.0
 
+[sub_resource type="Resource" id="Resource_571d7"]
+script = ExtResource("2_c0kmo")
+name = &"item"
+stream = ExtResource("8_b0sg2")
+volume = 1.0
+pitch = 1.0
+
 [resource]
 script = ExtResource("1_djncj")
 loops = Array[Resource("res://Core/Audio/LoopData.gd")]([])
-systemSFX = Array[ExtResource("2_c0kmo")]([SubResource("Resource_p62hq"), SubResource("Resource_griox"), SubResource("Resource_lbqx6"), SubResource("Resource_t6rok"), SubResource("Resource_3mbp2"), SubResource("Resource_ypw3a"), SubResource("Resource_0x0di"), SubResource("Resource_yel7k"), SubResource("Resource_ryy3b")])
+systemSFX = Array[ExtResource("2_c0kmo")]([SubResource("Resource_p62hq"), SubResource("Resource_griox"), SubResource("Resource_lbqx6"), SubResource("Resource_t6rok"), SubResource("Resource_3mbp2"), SubResource("Resource_ypw3a"), SubResource("Resource_0x0di"), SubResource("Resource_yel7k"), SubResource("Resource_ryy3b"), SubResource("Resource_571d7")])
 events = Array[ExtResource("5_pevc5")]([SubResource("Resource_65yqc"), SubResource("Resource_xpip1")])
 defaultBattleMusic = Array[ExtResource("2_c0kmo")]([SubResource("Resource_dv6ya")])

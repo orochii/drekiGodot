@@ -77,13 +77,13 @@ func onItemUsed(target):
 			var r = randf()
 			if (r < item.spendOnUseChance):
 				Global.State.party.loseItem(item.getId(), 1)
-				itemEntry._refresh()
-				curr = itemSpawner.refresh(curr)
+			itemEntry._refresh()
+			curr = itemSpawner.refresh(curr)
 			# Refresh targets
 			for t in targets:
 				t.refreshUse()
-				print(t.actor.getName())
-			Global.Audio.playSFX("decision")
+				t.triggerUseEffect()
+			Global.Audio.playSFX("item")
 			return
 	# Can't use, do buzzer
 	Global.Audio.playSFX("buzzer")

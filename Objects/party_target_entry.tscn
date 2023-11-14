@@ -1,12 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4ki7k7i1fuaa"]
+[gd_scene load_steps=9 format=3 uid="uid://d4ki7k7i1fuaa"]
 
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_ugqnl"]
 [ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="2_1x444"]
 [ext_resource type="Script" path="res://Core/UI/PartyTargetEntry.gd" id="2_vgv60"]
 [ext_resource type="Texture2D" uid="uid://ci5xpins1ibs6" path="res://Graphics/Icons/states/st_74.png" id="3_oisvo"]
+[ext_resource type="Shader" path="res://Core/Shaders/canvasAnimatedParticle.gdshader" id="5_wqgxb"]
+[ext_resource type="Texture2D" uid="uid://dlfiddaxi54u4" path="res://Graphics/Animations/remedy.png" id="6_kpdff"]
 
-[node name="PartyTargetEntry" type="Button" node_paths=PackedStringArray("canUse", "nameText", "lpText", "mpText", "status1", "status2", "canEquip", "equipLabel")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_28fqi"]
+shader = ExtResource("5_wqgxb")
+shader_parameter/particles_anim_h_frames = 5
+shader_parameter/particles_anim_v_frames = 2
+shader_parameter/particles_start_frame = 4
+shader_parameter/particles_end_frame = 10
+shader_parameter/particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eimb6"]
+lifetime_randomness = 0.4
+emission_shape = 3
+emission_box_extents = Vector3(40, 8, 1)
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.2
+scale_max = 0.2
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="PartyTargetEntry" type="Button" node_paths=PackedStringArray("canUse", "nameText", "lpText", "mpText", "statusIcons", "useEffect", "canEquip", "equipLabel")]
 custom_minimum_size = Vector2(0, 16)
+offset_right = 192.0
+offset_bottom = 16.0
 mouse_filter = 2
 theme = ExtResource("1_ugqnl")
 flat = true
@@ -15,8 +41,8 @@ canUse = NodePath("CanUse")
 nameText = NodePath("Name")
 lpText = NodePath("CanUse/LPNum")
 mpText = NodePath("CanUse/MPNum")
-status1 = NodePath("CanUse/State1")
-status2 = NodePath("CanUse/State2")
+statusIcons = [NodePath("CanUse/State1"), NodePath("CanUse/State2")]
+useEffect = NodePath("GPUParticles2D")
 canEquip = NodePath("CanEquip")
 equipLabel = NodePath("CanEquip/EquipPermitLabel")
 
@@ -35,7 +61,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.0
+offset_left = 72.0
 offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -113,5 +139,14 @@ offset_bottom = 16.0
 theme = ExtResource("1_ugqnl")
 text = "Can Equip"
 horizontal_alignment = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_28fqi")
+position = Vector2(40, 8)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_eimb6")
+texture = ExtResource("6_kpdff")
+one_shot = true
+explosiveness = 0.5
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

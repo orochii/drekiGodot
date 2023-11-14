@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://br0iltqouug8s" path="res://Graphics/Icons/skills/Remedy.png" id="2_7b4fi"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_wvmtl"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_6j30v"]
-[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_oiwts"]
+[ext_resource type="PackedScene" uid="uid://bij2e3o0vqc5m" path="res://Objects/vfx/vfx_heal.tscn" id="4_vevig"]
 
 [sub_resource type="Resource" id="Resource_fbf5c"]
 script = ExtResource("1_de575")
@@ -27,8 +27,8 @@ applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_swmid"]
 script = ExtResource("3_6j30v")
-visualEffectTemplate = ExtResource("4_oiwts")
-onePerEachTarget = false
+visualEffectTemplate = ExtResource("4_vevig")
+onePerEachTarget = true
 waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
@@ -65,6 +65,4 @@ cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_fbf5c"), SubResource("Resource_jurjl"), SubResource("Resource_swmid"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Remedy"
-description = "Performs a double attack with wielded weapons."
 icon = ExtResource("2_7b4fi")
