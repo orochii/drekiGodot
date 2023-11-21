@@ -1,0 +1,145 @@
+[gd_scene load_steps=21 format=3 uid="uid://bqs4xtme1qlon"]
+
+[ext_resource type="PackedScene" uid="uid://chat1kimhb3q4" path="res://Graphics/Scenario/training_cave.tscn" id="1_41wp3"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_hleji"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="2_7gw3m"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_4gsvf"]
+[ext_resource type="Shader" path="res://Core/Shaders/LavaShader.gdshader" id="4_li1ve"]
+[ext_resource type="Script" path="res://Core/Scenario/DamagingArea.gd" id="4_ms3im"]
+[ext_resource type="PackedScene" uid="uid://hqmmrbvtf25v" path="res://Objects/vfx/vfx_smoke.tscn" id="5_dspwj"]
+[ext_resource type="Texture2D" uid="uid://djm53uvsgqktv" path="res://Graphics/Particle/smoke.png" id="7_gmwfp"]
+
+[sub_resource type="Gradient" id="Gradient_jtayj"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.401575, 0.433071, 1)
+colors = PackedColorArray(0.47, 0.123767, 0.0705, 1, 0.898817, 0.27984, 0.0134592, 1, 0.498572, 0.134166, 0.0666993, 1, 1, 0.316667, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l4hx6"]
+gradient = SubResource("Gradient_jtayj")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d1goe"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rmug1"]
+seamless = true
+noise = SubResource("FastNoiseLite_d1goe")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ywivv"]
+render_priority = 0
+shader = ExtResource("4_li1ve")
+shader_parameter/albedo = Color(0.470588, 0.12549, 0.0705882, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/emission = Color(0.713726, 0.494118, 0.227451, 1)
+shader_parameter/emission_energy = 0.05
+shader_parameter/uv1_scale = Vector3(10, 8, 0.2)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/timeScale = 0.05
+shader_parameter/heightScale = 0.25
+shader_parameter/noise = SubResource("NoiseTexture2D_rmug1")
+shader_parameter/gradient = SubResource("GradientTexture1D_l4hx6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vyf4t"]
+material = SubResource("ShaderMaterial_ywivv")
+size = Vector2(200, 200)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x1gde"]
+size = Vector3(200, 10, 200)
+
+[sub_resource type="Gradient" id="Gradient_lpgl6"]
+offsets = PackedFloat32Array(0, 0.203252, 1)
+colors = PackedColorArray(0.929103, 0.676525, 0.86867, 0.87451, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kvms6"]
+gradient = SubResource("Gradient_lpgl6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ugcbh"]
+direction = Vector3(0, 0, 1)
+spread = 15.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+color_ramp = SubResource("GradientTexture1D_kvms6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6xba"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_gmwfp")
+emission_enabled = true
+emission = Color(0.694118, 0.505882, 0.207843, 1)
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7mlmv"]
+material = SubResource("StandardMaterial3D_t6xba")
+size = Vector2(0.5, 0.5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GameUI" parent="." instance=ExtResource("1_hleji")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_7gw3m")]
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 2.10779, 0)
+target = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("3_4gsvf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.673633, 0.692079, 0.351616)
+
+[node name="lava" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.459534, -0.125367, 7.3526)
+mesh = SubResource("PlaneMesh_vyf4t")
+
+[node name="Area3D" type="Area3D" parent="lava"]
+gravity = 0.0
+script = ExtResource("4_ms3im")
+respawnPosition = Vector3(-0.673633, 0.692079, 0.351616)
+damageParticlesTemplate = ExtResource("5_dspwj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lava/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("BoxShape3D_x1gde")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0349344, -0.99939, 0, 0.99939, -0.0349344, 0, -7.51254, 0)
+light_color = Color(1, 0.317647, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 6.21333, 8.93891)
+light_color = Color(0.94902, 0.890196, 0.745098, 1)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.27092, 0.962602, 0, -0.962602, 0.27092, 0, 19.1885, 3.71986)
+light_energy = 3.287
+shadow_enabled = true
+spot_range = 39.3507
+spot_angle = 14.9465
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.27092, 0.962602, 0, -0.962602, 0.27092, -1.71418, 2.07371, 10.1792)
+light_color = Color(0.792157, 0.584314, 0.34902, 1)
+shadow_enabled = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0443592, -0.157611)
+amount = 32
+visibility_aabb = AABB(-7.57959, -8.23223, -6.89408, 15.1592, 16.4645, 13.7882)
+process_material = SubResource("ParticleProcessMaterial_ugcbh")
+draw_pass_1 = SubResource("QuadMesh_7mlmv")
+
+[node name="trainingCave" parent="." instance=ExtResource("1_41wp3")]
+
+[connection signal="body_entered" from="lava/Area3D" to="lava/Area3D" method="_on_body_entered"]

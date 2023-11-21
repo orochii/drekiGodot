@@ -11,13 +11,13 @@
 [ext_resource type="Resource" uid="uid://cd571o5wvubcl" path="res://Data/Skills/Common/Move Forward.tres" id="3_4vm70"]
 [ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Common/Bite.tres" id="3_7dnsd"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]
-[ext_resource type="PackedScene" uid="uid://bdtixu1gjo24t" path="res://Scenes/test.tscn" id="4_d28sx"]
 [ext_resource type="Resource" uid="uid://3ft3ynrhkjkr" path="res://Data/Actors/RedWyvern.tres" id="4_ihar5"]
 [ext_resource type="Resource" uid="uid://ck06xhgmploxa" path="res://Data/Skills/Common/Escape.tres" id="5_df0cy"]
 [ext_resource type="Resource" uid="uid://br46b7nriekaj" path="res://Data/Skills/Common/Claw.tres" id="8_ubclu"]
 [ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="11_eq8wb"]
 [ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="12_8a6ld"]
 [ext_resource type="Resource" uid="uid://cx8t4uvns1a6l" path="res://Data/Actors/Minuet.tres" id="17_kpieu"]
+[ext_resource type="PackedScene" uid="uid://bqs4xtme1qlon" path="res://Scenes/training_cave.tscn" id="18_m80qw"]
 
 [sub_resource type="Resource" id="Resource_ldt41"]
 script = ExtResource("1_g4sgc")
@@ -28,7 +28,7 @@ aspectRatio = Vector2i(12, 9)
 [sub_resource type="Resource" id="Resource_j61gb"]
 script = ExtResource("1_g4sgc")
 displayName = "16:9"
-resolution = Vector2i(480, 270)
+resolution = Vector2i(426, 240)
 aspectRatio = Vector2i(16, 9)
 
 [sub_resource type="Resource" id="Resource_64mun"]
@@ -214,7 +214,7 @@ relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_6ax2f"), SubRe
 [resource]
 script = ExtResource("1_37k5x")
 startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf"), ExtResource("17_kpieu"), ExtResource("4_ihar5")])
-startingScene = ExtResource("4_d28sx")
+startingScene = ExtResource("18_m80qw")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
 defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd"), ExtResource("8_ubclu")])

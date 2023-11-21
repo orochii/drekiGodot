@@ -249,7 +249,7 @@ func checkCounter(user:Battler,effect:BaseEffect,targets:Array[Battler]):
 					var counterTargets = newAction.resolveTargets()
 					newAction.targets = counterTargets
 					currentCounterAction.append(newAction)
-				currentCounters.append(counter)
+					currentCounters.append(counter)
 
 func pickAction():
 	var actionScript:ActionScript = battler.pickActionScript(battle)

@@ -14,11 +14,14 @@ const GRAVITY : float = 98*2
 @export var soundEmitter : AudioStreamPlayer3D
 @export var stepEventOverride : StringName = &""
 
+var forcedMove = false
+var lastGroundedPosition = Vector3.ZERO
 var target_velocity = Vector3.ZERO
 var grounded : bool = false
 var collision : bool = true
 
 func _ready():
+	lastGroundedPosition = global_position
 	graphic.onFrame.connect(playStep)
 
 func setMove(direction : Vector3):
@@ -35,19 +38,22 @@ func jump():
 		playJump()
 
 func _physics_process(delta):
+	if forcedMove:
+		return
+	
 	grounded = is_on_floor()
 	if not grounded: # If in the air, fall towards the floor. Literally gravity
 		target_velocity.y = target_velocity.y - (GRAVITY * delta)
 	else:
 		if target_velocity.y < 0: target_velocity.y = 0
-	
 	velocity = target_velocity
 	if graphic != null:
 		graphic.speed = velocity.length() / AVG_SPEED
 		graphic.state = getCurrentState()
-	#if(raycast != null):
-	#	var c = raycast.get_collider()
-	#	if c != null:
+	if(raycast != null):
+		var c = raycast.get_collider()
+		if c != null:
+			lastGroundedPosition = global_position
 	#		var mesh:MeshInstance3D = c.get_parent()
 	#		#mesh.material
 	move_and_slide()

@@ -7,6 +7,7 @@ class_name VisualEffect
 @export_group("Target Position")
 @export var targetPositionYOffset:float = 0
 @export var targetVerticalOffset:float = 0.5
+@export var followTargets:bool = false
 @export_group("Behavior")
 @export_range(0,1) var positionLerpValue:float = 1
 @export var done:bool = false
@@ -14,13 +15,17 @@ class_name VisualEffect
 
 var userPos:Vector3
 var targetPos:Vector3
+var _targets = null
 
 func _process(delta):
+	if _targets != null:
+		targetPos = getAvgPosition(_targets) + Vector3(0, targetPositionYOffset, 0)
 	self.global_position = getLerpedPosition()
 	if queueForDeletion:
 		queue_free()
 
 func setup(user:Node3D, targets:Array):
+	if followTargets: _targets = targets
 	user.get_parent().add_child(self)
 	userPos = user.global_position
 	if user is Battler:

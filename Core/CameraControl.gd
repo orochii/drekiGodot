@@ -25,7 +25,7 @@ func _process(delta):
 	_cr.z = moveTowardsAngle(_cr.z, currRotation.z, rotationSpeed * delta)
 	global_rotation_degrees = _cr
 	if (_cr == currRotation):
-		var axis = getHorz()
+		var axis = roundf(getHorz())
 		if axis != 0:
 			rotateTowardsY(_cr.y + (axis * 45))
 

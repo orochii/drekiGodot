@@ -29,7 +29,7 @@ func _process(delta):
 	if inputDelay > 0:
 		inputDelay -= delta
 		return
-	var v = Input.get_axis("ui_down","ui_up")
+	var v = roundf(Input.get_axis("ui_down","ui_up"))
 	index = index - v
 	if index != currPos:
 		inputDelay = 0.25

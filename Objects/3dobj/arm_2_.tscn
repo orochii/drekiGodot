@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds2udv7gy8v57"]
+
+[ext_resource type="Script" path="res://Objects/3dobj/CharModel.gd" id="1_xna6o"]
+[ext_resource type="PackedScene" uid="uid://vkcurxxtnqnr" path="res://Graphics/Models/arm_2.glb" id="2_vr5bx"]
+[ext_resource type="Script" path="res://Core/Utils/SimpleCamRotate.gd" id="3_80l1w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_am8q8"]
+radius = 6.13
+height = 40.0
+
+[node name="arm_2_" type="CharacterBody3D" node_paths=PackedStringArray("model")]
+script = ExtResource("1_xna6o")
+model = NodePath("arm_2")
+
+[node name="arm_2" parent="." instance=ExtResource("2_vr5bx")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+shape = SubResource("CapsuleShape3D_am8q8")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("3_80l1w")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.948782, 0.315931, 0, -0.315931, 0.948782, 0, 47.1515, 49.0043)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.141444, -0.935806, 0.322895, 0.890121, 0.262966, 0.372202, -0.433219, 0.23477, 0.870175, 12.5145, 43.5496, 75.3283)

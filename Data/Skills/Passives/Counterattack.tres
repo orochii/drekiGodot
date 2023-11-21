@@ -1,11 +1,16 @@
-[gd_resource type="Resource" script_class="PassiveSkill" load_steps=3 format=3 uid="uid://cx4ivcd7c7v0w"]
+[gd_resource type="Resource" script_class="PassiveSkill" load_steps=6 format=3 uid="uid://cx4ivcd7c7v0w"]
 
+[ext_resource type="Resource" uid="uid://csue8tocbn3tj" path="res://Data/Skills/Common/Punch.tres" id="1_l2cwg"]
 [ext_resource type="Texture2D" uid="uid://dyh6682f15ivg" path="res://Graphics/Icons/skills/CounterattackP.png" id="1_tw6fx"]
+[ext_resource type="Script" path="res://Core/Data/Features/CounterFeature.gd" id="2_4jmvp"]
 [ext_resource type="Script" path="res://Core/Data/Skills/PassiveSkill.gd" id="2_ssh27"]
+
+[sub_resource type="Resource" id="Resource_6kej7"]
+script = ExtResource("2_4jmvp")
+action = ExtResource("1_l2cwg")
+targetCounteredBattler = true
 
 [resource]
 script = ExtResource("2_ssh27")
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
-name = "Counterattack"
-description = "Upgrades single-target techniques. Ups evasion against single-target techniques."
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_6kej7")])
 icon = ExtResource("1_tw6fx")

@@ -48,6 +48,7 @@ shadow = NodePath("../Shadow")
 raycast = NodePath("../RayCast3D")
 
 [node name="Shadow" type="Sprite3D" parent="."]
+visible = false
 pixel_size = 0.0625
 axis = 1
 billboard = 2

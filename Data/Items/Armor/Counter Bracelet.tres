@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EquipItem" load_steps=6 format=3 uid="uid://cjhfw7evb7a02"]
+
+[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Common/Kick.tres" id="1_s61d2"]
+[ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="1_yh6ba"]
+[ext_resource type="Script" path="res://Core/Data/Features/CounterFeature.gd" id="2_omkfm"]
+[ext_resource type="Texture2D" uid="uid://ddiq2kuayavti" path="res://Graphics/Icons/items/item_0292.png" id="3_u7uku"]
+
+[sub_resource type="Resource" id="Resource_tcfsn"]
+script = ExtResource("2_omkfm")
+action = ExtResource("1_s61d2")
+targetCounteredBattler = true
+
+[resource]
+script = ExtResource("1_yh6ba")
+gripOffset = Vector2i(0, 0)
+slot = 3
+flags = Array[int]([9])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_tcfsn")])
+icon = ExtResource("3_u7uku")
+category = 3
+price = 0
+canSell = true

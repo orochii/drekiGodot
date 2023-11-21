@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bdtixu1gjo24t"]
+[gd_scene load_steps=31 format=3 uid="uid://bdtixu1gjo24t"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_2u3d2"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_w01y2"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://Events/EnemyEncounter.gd" id="23_kxm76"]
 [ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/mole_map.tres" id="23_ulfwv"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="24_76ror"]
+[ext_resource type="PackedScene" uid="uid://ds2udv7gy8v57" path="res://Objects/3dobj/arm_2_.tscn" id="25_vsk4p"]
 
 [sub_resource type="Resource" id="Resource_5nxel"]
 script = ExtResource("2_ggrum")
@@ -196,3 +197,6 @@ target_position = Vector3(0, -10, 0)
 script = ExtResource("23_kxm76")
 troop = ExtResource("24_76ror")
 graphic = ExtResource("23_ulfwv")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("25_vsk4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.214, 0, 30.2479)

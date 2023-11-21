@@ -2,7 +2,7 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Implement skill use in party menu
+- Make a new first map (I guess training cave?).
 - Skill tree learning
 - Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
@@ -19,6 +19,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Implement skill use in party menu
 - Item use in party menu
 - Character animations: Move, death, standing, actionSpecific(effect), status
 - Scope change

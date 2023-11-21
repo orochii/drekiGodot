@@ -31,7 +31,7 @@ visualEffectTemplate = ExtResource("4_8yexy")
 onePerEachTarget = false
 waitMode = 1
 
-[sub_resource type="Resource" id="Resource_yq3tp"]
+[sub_resource type="Resource" id="Resource_80et6"]
 script = ExtResource("1_dmyps")
 type = 0
 base = 1
@@ -63,6 +63,6 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_84xlu"), SubResource("Resource_iev4r"), SubResource("Resource_kl02w"), SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_84xlu"), SubResource("Resource_iev4r"), SubResource("Resource_kl02w"), SubResource("Resource_80et6")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("2_k5uof")
