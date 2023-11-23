@@ -28,5 +28,16 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"ground": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/ground_glow.tres"
+},
+"rocks": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/rock_glow.tres"
+}
+}
+}
 gltf/embedded_image_handling=1

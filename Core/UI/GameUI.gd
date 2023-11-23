@@ -5,6 +5,7 @@ class_name GameUI
 @export var Party : PartyMenu
 @export var File : FileMenu
 @export var Config : ConfigMenu
+@export var compass:Node3D
 
 var currLang = "en"
 
@@ -13,6 +14,9 @@ func _init():
 
 func _process(delta):
 	Global.State.playTime += delta
+	if compass != null:
+		var cam = get_viewport().get_camera_3d()
+		compass.global_rotation = cam.global_rotation
 
 func busy():
 	if Global.Scene.transferring: return true

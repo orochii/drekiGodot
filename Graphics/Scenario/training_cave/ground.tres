@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dlactssxl8g0y"]
+
+[ext_resource type="Texture2D" uid="uid://dp8r42mrddd56" path="res://Graphics/Scenario/trainingCave_lavacave_tex1.png" id="1_37glk"]
+
+[resource]
+resource_name = "ground"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_37glk")
+texture_filter = 2

@@ -2,7 +2,7 @@ extends Resource
 class_name SpritesheetEntry
 
 @export var name : StringName
-@export var fps : int = 8
+@export var fps : int = 12
 
 var parent : Spritesheet
 

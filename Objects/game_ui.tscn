@@ -1,8 +1,10 @@
-[gd_scene load_steps=78 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=82 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
+[ext_resource type="Texture2D" uid="uid://brk5l5yd3u66j" path="res://Graphics/System/compass.png" id="2_el63w"]
 [ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_jvixt"]
+[ext_resource type="Texture2D" uid="uid://dx1w4rsw8tmn3" path="res://Graphics/System/compass_1.png" id="3_wf77i"]
 [ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="4_7e7g2"]
 [ext_resource type="FontFile" uid="uid://d2bnshyiq6ed2" path="res://Fonts/pixmall.ttf" id="5_m5poo"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="6_n043t"]
@@ -72,6 +74,16 @@
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="55_2j7gp"]
 [ext_resource type="Script" path="res://Core/UI/SkillTarget.gd" id="57_oprof"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4etw"]
+transparency = 1
+albedo_texture = ExtResource("2_el63w")
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_hwp7l"]
+material = SubResource("StandardMaterial3D_m4etw")
+size = Vector2(2, 2)
+orientation = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslo1"]
 atlas = ExtResource("7_jt7fy")
@@ -170,7 +182,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config", "compass")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -183,6 +195,82 @@ Message = NodePath("MessageBox")
 Party = NodePath("PartyMenu")
 File = NodePath("FileMenu")
 Config = NodePath("ConfigScreen")
+compass = NodePath("HUD/SubViewportContainer/SubViewport/Compass")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SubViewport" type="SubViewport" parent="HUD/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(64, 64)
+render_target_update_mode = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HUD/SubViewportContainer/SubViewport"]
+mesh = SubResource("QuadMesh_hwp7l")
+
+[node name="N" type="Sprite3D" parent="HUD/SubViewportContainer/SubViewport/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+offset = Vector2(0, 4)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_wf77i")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="W" type="Sprite3D" parent="HUD/SubViewportContainer/SubViewport/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+offset = Vector2(0, 4)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_wf77i")
+region_enabled = true
+region_rect = Rect2(8, 8, 8, 8)
+
+[node name="E" type="Sprite3D" parent="HUD/SubViewportContainer/SubViewport/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+offset = Vector2(0, 4)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_wf77i")
+region_enabled = true
+region_rect = Rect2(0, 8, 8, 8)
+
+[node name="S" type="Sprite3D" parent="HUD/SubViewportContainer/SubViewport/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+offset = Vector2(0, 4)
+pixel_size = 0.0625
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_wf77i")
+region_enabled = true
+region_rect = Rect2(8, 0, 8, 8)
+
+[node name="Compass" type="Node3D" parent="HUD/SubViewportContainer/SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="HUD/SubViewportContainer/SubViewport/Compass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
 visible = false
@@ -285,6 +373,7 @@ script = ExtResource("8_c65gf")
 
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

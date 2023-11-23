@@ -15,6 +15,7 @@ radius = 0.49
 floor_max_angle = 1.0472
 floor_snap_length = 0.5
 script = ExtResource("1_hti21")
+speed = 10.0
 graphic = NodePath("Graphic")
 collider = NodePath("CollisionShape3D")
 raycast = NodePath("RayCast3D")

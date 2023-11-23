@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://k8jx7lp1k54s"]
+
+[ext_resource type="Shader" path="res://Core/Shaders/textureGlow.gdshader" id="1_emb8p"]
+
+[resource]
+resource_name = "ground"
+render_priority = 0
+shader = ExtResource("1_emb8p")
+shader_parameter/albedo = Color(0.564706, 0.654902, 0.576471, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/baseHeight = 0.0
+shader_parameter/fadeDistance = 0.2
+shader_parameter/customEmission = true
+shader_parameter/emissionColor = Color(1, 0.533333, 0, 1)

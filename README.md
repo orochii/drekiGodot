@@ -3,6 +3,10 @@ One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
 - Make a new first map (I guess training cave?).
+	- To fix/improve:
+		- Details in ground.
+		- Apply emission shader to missing sections, improve look of brown rocks.
+		- Fix south entrance/exit.
 - Skill tree learning
 - Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
@@ -19,6 +23,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Added compass.
 - Implement skill use in party menu
 - Item use in party menu
 - Character animations: Move, death, standing, actionSpecific(effect), status
