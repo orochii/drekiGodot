@@ -58,7 +58,6 @@ texture_filter = 0
 texture = ExtResource("5_artf2")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-target_position = Vector3(0, -10, 0)
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)

@@ -22,7 +22,7 @@ var collision : bool = true
 
 func _ready():
 	lastGroundedPosition = global_position
-	graphic.onFrame.connect(playStep)
+	if graphic != null: graphic.onFrame.connect(playStep)
 
 func setMove(direction : Vector3):
 	if direction != Vector3.ZERO:
@@ -51,9 +51,14 @@ func _physics_process(delta):
 		graphic.speed = velocity.length() / AVG_SPEED
 		graphic.state = getCurrentState()
 	if(raycast != null):
+		# filter out any positions with weird elevations (up to a certain degree)
 		var c = raycast.get_collider()
 		if c != null:
-			lastGroundedPosition = global_position
+			var n = raycast.get_collision_normal()
+			var deg = rad_to_deg(n.angle_to(Vector3.UP))
+			print("floorAngle:%f" % deg)
+			if deg < 45.0:
+				lastGroundedPosition = global_position
 	#		var mesh:MeshInstance3D = c.get_parent()
 	#		#mesh.material
 	move_and_slide()

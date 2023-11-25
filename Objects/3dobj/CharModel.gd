@@ -1,19 +1,20 @@
 extends Node3D
+class_name CharModel
 
 @export var model:Node3D
+@export var anims:Array[StringName] = [&"Standing",&"Run"]
 
 var animation:AnimationPlayer
 var blend:float = 0.8
 
 func _ready():
 	# I really don't like to do things through names but this will do for now.
+	if model==null: model = self
 	animation = model.get_node("AnimationPlayer")
-	animation.play("Standing")
+	if animation != null: animation.play(anims[0])
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var axis = Input.get_vector("move_left", "move_right", "move_down", "move_up")
-	if axis != Vector2.ZERO:
-		animation.play("Run",blend)
-	else:
-		animation.play("Standing",blend)
+	pass
+
+func setPose(id:int,blend:float=-1):
+	if animation != null: animation.play(anims[id],blend)

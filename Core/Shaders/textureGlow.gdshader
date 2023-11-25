@@ -34,6 +34,8 @@ void vertex() {
 }
 
 void fragment() {
+	vec3 VERTEX_WORLD = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).rgb;
+	float h = VERTEX_WORLD.y;
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	albedo_tex *= COLOR;
@@ -44,7 +46,7 @@ void fragment() {
 	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
 	ROUGHNESS = roughness_tex * roughness;
 	SPECULAR = specular;
-	float delta = abs(height-baseHeight);
+	float delta = abs(h-baseHeight);
 	float i = 1.0 - invLerp(0.0, fadeDistance, delta);
 	if (customEmission) {
 		EMISSION = emissionColor.rgb * i;

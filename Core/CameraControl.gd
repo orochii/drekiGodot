@@ -1,12 +1,18 @@
 extends Node3D
+class_name CameraControl
 
 @export var target : Node3D
 @export var camera : Camera3D
 @export var rotationSpeed : float = 60
 
+var origTarget : Node3D
+var lastTarget : Node3D
 var currRotation : Vector3
 
 func _ready():
+	origTarget = target
+	lastTarget = target
+	Global.Camera = self
 	if(target != null): position = target.position
 	currRotation = global_rotation_degrees
 	var window = get_window()
@@ -17,8 +23,32 @@ func _enter_tree():
 func _exit_tree():
 	Global.Config.onScreenSizeChange.disconnect(updateScreenSize)
 
+var _panPerc:float = 0.0
+var _panTime:float = 0.0
+var _panStartPos:Vector3 = Vector3(0,0,0)
+
+func panTowards(newTarget:Node3D, time:float):
+	if newTarget != lastTarget:
+		lastTarget = target
+		target = newTarget
+	_panTime = time
+	_panPerc = 0.0
+	_panStartPos = lastTarget.global_position
+func resetTarget(time:float):
+	panTowards(origTarget,time)
+func isPanning():
+	return lastTarget != target
+
 func _process(delta):
-	if(target != null): position = target.position
+	if(target != null): 
+		if lastTarget==target:
+			global_position = target.global_position
+		else:
+			global_position = lerp(_panStartPos, target.global_position, _panPerc)
+			_panPerc += delta / _panTime
+			if _panPerc >= 1:
+				lastTarget = target
+	#
 	var _cr = global_rotation_degrees
 	_cr.x = moveTowardsAngle(_cr.x, currRotation.x, rotationSpeed * delta)
 	_cr.y = moveTowardsAngle(_cr.y, currRotation.y, rotationSpeed * delta)

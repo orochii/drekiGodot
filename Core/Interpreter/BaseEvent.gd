@@ -29,3 +29,6 @@ func execute():
 
 func _run():
 	pass
+
+func setup(immediate:bool=false):
+	pass

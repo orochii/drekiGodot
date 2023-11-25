@@ -48,6 +48,7 @@ enum EStatusActivation {
 	MILLISECONDS
 }
 
+var Camera : CameraControl
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database

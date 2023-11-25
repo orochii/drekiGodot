@@ -9,14 +9,14 @@ func _ready():
 	# Register to switch/variable change signal
 	Global.State.onSwitchChange.connect(_onSwitchChange)
 	Global.State.onVariableChange.connect(_onVariableChange)
-	refreshPage()
+	refreshPage(true)
 
 func _exit_tree():
 	# Unregister to signals
 	Global.State.onSwitchChange.disconnect(_onSwitchChange)
 	Global.State.onVariableChange.disconnect(_onVariableChange)
 
-func refreshPage():
+func refreshPage(immediate:bool=false):
 	currentEvent = null
 	for i in range(pages.size()-1, -1, -1):
 		var p = pages[i]
@@ -26,12 +26,14 @@ func refreshPage():
 	# Disable all pages
 	for p in pages:
 		if(p != null): p.visible = currentEvent==p
+	# Setup current event
+	if currentEvent != null: currentEvent.setup(immediate)
 	# Setup page (visuals, etc)
 	if currentEvent != null:
-		self.graphic.spritesheet = currentEvent.graphic
+		if graphic != null: self.graphic.spritesheet = currentEvent.graphic
 		self.setCollision(currentEvent.collision)
 	else:
-		self.graphic.spritesheet = null
+		if graphic != null: self.graphic.spritesheet = null
 		self.setCollision(false)
 
 func _onSwitchChange(id:int, v:bool):
