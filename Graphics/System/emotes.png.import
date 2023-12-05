@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diiwu6l1fj6vf"
-path="res://.godot/imported/trainingCave_lavacave_tex2_1.png-e3fe330c06b3104ede97db45fef05e53.ctex"
+uid="uid://bwl32bu88vhqt"
+path="res://.godot/imported/emotes.png-f50ce615ce0c25c27158342c0c702117.ctex"
 metadata={
 "vram_texture": false
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://Graphics/Scenario/trainingCave_lavacave_tex2_1.png"
-dest_files=["res://.godot/imported/trainingCave_lavacave_tex2_1.png-e3fe330c06b3104ede97db45fef05e53.ctex"]
+source_file="res://Graphics/System/emotes.png"
+dest_files=["res://.godot/imported/emotes.png-f50ce615ce0c25c27158342c0c702117.ctex"]
 
 [params]
 

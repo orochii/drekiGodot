@@ -1,7 +1,7 @@
 extends BaseEvent
 
 func _run():
-	var p = get_node("/root/Node3D/Player")
+	var p = getPlayer()
 	await Global.UI.Message.showText(p, 2, "Longest speaker name everrrrrr", "hello world!")
 	#await Global.Ev.wait(0.5)
 	await Global.UI.Message.showText(p, 8, "", "second text? make it very loooooong for testing :O")

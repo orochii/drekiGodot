@@ -2,18 +2,21 @@ extends Character
 class_name Player
 
 var closeEvents : Array
+var customMove:bool = false
 
 func _ready():
+	Global.Player = self
 	super._ready()
 
 func _process(delta):
-	var direction = Vector3.ZERO
-	direction.x = getHorz()
-	direction.z = getVert()
-	var cam = get_viewport().get_camera_3d()
-	if (cam != null):
-		direction = direction.rotated(Vector3.UP, cam.global_rotation.y)
-	setMove(direction)
+	if !customMove:
+		var direction = Vector3.ZERO
+		direction.x = getHorz()
+		direction.z = getVert()
+		var cam = get_viewport().get_camera_3d()
+		if (cam != null):
+			direction = direction.rotated(Vector3.UP, cam.global_rotation.y)
+		setMove(direction)
 	if getJump(): jump()
 	if getInteract(): interact()
 	
@@ -62,10 +65,12 @@ func interact():
 			closestDst = dst
 	if closestEv != null: closestEv.onInteract()
 
+# ========
+# Interact
+# ========
 func _on_area_3d_area_entered(area: Area3D):
 	if area is Trigger:
 		var trigger = area as Trigger
-		trigger.onTouch()
 		if !closeEvents.has(trigger): closeEvents.append(trigger)
 
 func _on_area_3d_area_exited(area: Area3D):
@@ -76,10 +81,22 @@ func _on_area_3d_area_exited(area: Area3D):
 func _on_area_3d_body_entered(body: Node3D):
 	if body is NPC:
 		var npc = body as NPC
-		npc.onTouch()
 		if !closeEvents.has(npc): closeEvents.append(npc)
 
 func _on_area_3d_body_exited(body: Node3D):
 	if body is NPC:
 		var npc = body as NPC
 		if closeEvents.has(npc): closeEvents.erase(npc)
+
+# =============
+# Touch/Collide
+# =============
+func _on_touch_area_entered(area):
+	if area is Trigger:
+		var trigger = area as Trigger
+		trigger.onTouch()
+
+func _on_touch_body_entered(body):
+	if body is NPC:
+		var npc = body as NPC
+		npc.onTouch()

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dcp8pupvyw5r"
-path="res://.godot/imported/trainingCave.glb-20bbc36cbb51dcffbac960f1f05996e5.scn"
+path="res://.godot/imported/trainingCave.glb-326b6f4ebf9408ebad93eb6e89cfcbb6.scn"
 
 [deps]
 
-source_file="res://Graphics/Scenario/trainingCave.glb"
-dest_files=["res://.godot/imported/trainingCave.glb-20bbc36cbb51dcffbac960f1f05996e5.scn"]
+source_file="res://Graphics/Scenario/training_cave/trainingCave.glb"
+dest_files=["res://.godot/imported/trainingCave.glb-326b6f4ebf9408ebad93eb6e89cfcbb6.scn"]
 
 [params]
 
@@ -33,6 +33,10 @@ _subresources={
 "ground": {
 "use_external/enabled": true,
 "use_external/path": "res://Graphics/Scenario/training_cave/ground_glow.tres"
+},
+"ground_ill": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/ground_glow2.tres"
 },
 "rocks": {
 "use_external/enabled": true,

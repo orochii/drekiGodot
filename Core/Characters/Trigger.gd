@@ -3,8 +3,11 @@ class_name Trigger
 
 @export var pages : Array[BaseEvent]
 var currentEvent : BaseEvent
+var localVars : Dictionary = {}
+var localVarKey : String
 
 func _ready():
+	localVarKey = createLocalVarKey()
 	# Register to switch/variable change signal
 	Global.State.onSwitchChange.connect(_onSwitchChange)
 	Global.State.onVariableChange.connect(_onVariableChange)
@@ -26,19 +29,37 @@ func refreshPage(immediate:bool=false):
 	for p in pages:
 		if(p != null): p.visible = currentEvent==p
 	# Setup current event
-	if currentEvent != null: currentEvent.setup(immediate)
+	if currentEvent != null:
+		currentEvent.setup(immediate)
+		if currentEvent.activation==BaseEvent.EActivation.AUTOSTART: currentEvent.execute()
+		if currentEvent.activation==BaseEvent.EActivation.PARALLEL: currentEvent.execute()
 
 func _onSwitchChange(id:int, v:bool):
 	refreshPage()
 func _onVariableChange(id:int, v:int):
 	refreshPage()
 
+func isEventRunning():
+	if currentEvent != null:
+		return currentEvent.running
+	return false
+
 func onInteract():
-	if (currentEvent != null):
+	if (currentEvent != null && isEventRunning()==false):
 		if currentEvent.activation == BaseEvent.EActivation.INTERACT:
 			currentEvent.execute()
 
 func onTouch():
-	if (currentEvent != null):
+	if (currentEvent != null && isEventRunning()==false):
 		if currentEvent.activation == BaseEvent.EActivation.PLAYER_TOUCH:
 			currentEvent.execute()
+
+func getLocalVar(name:StringName):
+	return Global.State.getLocalVar(localVarKey,name)
+
+func setLocalVar(name:StringName, val:bool):
+	Global.State.setLocalVar(localVarKey,name,val)
+	refreshPage()
+
+func createLocalVarKey():
+	return Global.State.lastSceneName + ":" + self.get_path().get_concatenated_names()

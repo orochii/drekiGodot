@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dm8p7gyt6ktub"]
 
 [ext_resource type="Shader" path="res://Core/Shaders/textureGlow.gdshader" id="1_iopb8"]
-[ext_resource type="Texture2D" uid="uid://dp8r42mrddd56" path="res://Graphics/Scenario/trainingCave_lavacave_tex1.png" id="1_n7rrs"]
+[ext_resource type="Texture2D" uid="uid://dp8r42mrddd56" path="res://Graphics/Scenario/training_cave/trainingCave_lavacave_tex1.png" id="1_n7rrs"]
 
 [resource]
 resource_name = "ground"
@@ -18,7 +18,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/baseHeight = 0.0
-shader_parameter/fadeDistance = 0.5
+shader_parameter/fadeDistance = 0.3
 shader_parameter/customEmission = false
 shader_parameter/emissionColor = null
 shader_parameter/texture_albedo = ExtResource("1_n7rrs")

@@ -46,6 +46,6 @@ mag = 5
 agi = 10
 actions = Array[ExtResource("1_thtna")]([SubResource("Resource_2t7cd")])
 rewardExp = 5
-rewardApp = 0
+rewardApp = 4
 rewardGold = 3
 rewardTreasure = Array[ExtResource("4_26iuy")]([SubResource("Resource_f8mbg"), SubResource("Resource_bvv6b"), SubResource("Resource_pyeb4")])

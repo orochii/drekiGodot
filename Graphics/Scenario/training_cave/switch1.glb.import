@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dexhf4bhggpe3"
-path="res://.godot/imported/switch1.glb-9e0b88f6ea462ec8d0ab561b7ac99885.scn"
+path="res://.godot/imported/switch1.glb-115551eeab95dd23720d662d3f2d7f7e.scn"
 
 [deps]
 
-source_file="res://Graphics/Scenario/switch1.glb"
-dest_files=["res://.godot/imported/switch1.glb-9e0b88f6ea462ec8d0ab561b7ac99885.scn"]
+source_file="res://Graphics/Scenario/training_cave/switch1.glb"
+dest_files=["res://.godot/imported/switch1.glb-115551eeab95dd23720d662d3f2d7f7e.scn"]
 
 [params]
 

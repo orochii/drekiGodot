@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://c265ubj8cuc1v"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://c265ubj8cuc1v"]
 
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="1_t2gev"]
 [ext_resource type="StyleBox" uid="uid://d2v3m8nwbfgyt" path="res://Themes/sb_grabber.tres" id="2_5l3wa"]
@@ -15,6 +15,16 @@
 bg_color = Color(0.74902, 0.87451, 0.996078, 0.12549)
 border_width_right = 2
 border_color = Color(0.827451, 0.784314, 0.368627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_npeyr"]
+bg_color = Color(0.0117188, 0.0117188, 0.0117188, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.429688, 0.441406, 0.28125, 1)
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4p75u"]
 bg_color = Color(0.827451, 0.784314, 0.368627, 1)
@@ -50,6 +60,7 @@ Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/font_sizes/font_size = 8
 Button/fonts/font = ExtResource("1_t2gev")
 Button/styles/focus = SubResource("StyleBoxFlat_inlgl")
+Button/styles/normal = SubResource("StyleBoxFlat_npeyr")
 HSlider/icons/grabber = ExtResource("2_bqr5a")
 HSlider/icons/grabber_disabled = ExtResource("2_bqr5a")
 HSlider/icons/grabber_highlight = ExtResource("2_bqr5a")

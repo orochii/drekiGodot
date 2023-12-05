@@ -1,5 +1,5 @@
 extends Resource
 class_name EventPageCondition
 
-func check() -> bool:
+func check(ev:BaseEvent) -> bool:
 	return true

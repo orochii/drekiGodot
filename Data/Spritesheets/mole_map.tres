@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=5 format=3 uid="uid://b5bnbbj55fnq5"]
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=6 format=3 uid="uid://b5bnbbj55fnq5"]
 
+[ext_resource type="Texture2D" uid="uid://c7m4da16vctxm" path="res://Graphics/Character/_ENEMY/enemy1_mole.png" id="1_bqieb"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="1_dmpav"]
-[ext_resource type="Texture2D" uid="uid://cabknkb816wlt" path="res://Graphics/Character/_ENEMY/enemy1_charset (1).png" id="1_shnsi"]
+[ext_resource type="Texture2D" uid="uid://cmva4iqtid3pe" path="res://Graphics/Character/_ENEMY/enemy1_mole_diag.png" id="2_hkhgp"]
 [ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="2_nmosl"]
 
 [sub_resource type="Resource" id="Resource_b6bv3"]
 script = ExtResource("2_nmosl")
-base = ExtResource("1_shnsi")
+base = ExtResource("1_bqieb")
+baseDiag = ExtResource("2_hkhgp")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"

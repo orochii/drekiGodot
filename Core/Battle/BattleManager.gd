@@ -52,6 +52,7 @@ func endBattlerTurn(b:Battler):
 func battleEnd(result:EBattleResult):
 	battleResult = result
 	battleEndWindow.execute(result)
+	Global.Scene.battleResult = result
 
 func spawnDamagePop(b:Battler,eff:Dictionary):
 	var pop = damagePopupTemplate.instantiate()

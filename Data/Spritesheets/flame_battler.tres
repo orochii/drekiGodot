@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=5 format=3 uid="uid://b8uf6vq6tosjn"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_pbu5q"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_lophh"]
+[ext_resource type="Texture2D" uid="uid://cghtynl4w82y0" path="res://Graphics/Battler/fire.png" id="3_1xuu2"]
+
+[sub_resource type="Resource" id="Resource_ad8nh"]
+script = ExtResource("1_pbu5q")
+frames = Array[Vector2i]([Vector2i(0, 0)])
+events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
+name = &"base"
+fps = 8
+
+[resource]
+script = ExtResource("2_lophh")
+texture = ExtResource("3_1xuu2")
+cellW = 0
+cellH = 0
+collection = Array[ExtResource("1_pbu5q")]([SubResource("Resource_ad8nh")])

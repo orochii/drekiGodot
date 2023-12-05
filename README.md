@@ -2,6 +2,7 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Choice box.
 - Make a new first map (I guess training cave?).
 	- To fix/improve:
 		- Details in ground.

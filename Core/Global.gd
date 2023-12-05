@@ -52,6 +52,7 @@ var Camera : CameraControl
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
+var Player : Player = null
 var Config : ConfigManager
 var Audio : AudioManager
 var State : GameState
@@ -90,7 +91,12 @@ func saveExt() -> String:
 func saveFilename(name:String) -> String:
 	return savePath() + name + saveExt()
 
-func getSaveList():
+func makeSaveFile(name:String):
+	DirAccess.make_dir_absolute(savePath() + "%s/"%name)
+func getSaveFileList():
+	return DirAccess.get_directories_at(savePath())
+
+func getSaveSlotList():
 	var allFiles = DirAccess.get_files_at(savePath())
 	var filtered = []
 	for f in allFiles:

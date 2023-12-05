@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bf4egoj1ne8fb"
+path="res://.godot/imported/In the Dark.ogg-0ff170ef2df6282d53dabad2fe710a72.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/BGM/In the Dark.ogg"
+dest_files=["res://.godot/imported/In the Dark.ogg-0ff170ef2df6282d53dabad2fe710a72.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

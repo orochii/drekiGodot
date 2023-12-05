@@ -1,8 +1,8 @@
 [gd_scene load_steps=81 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
-[ext_resource type="Resource" uid="uid://b4p5jkun4rwbx" path="res://Data/Troops/Moles3.tres" id="2_6q647"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
+[ext_resource type="Resource" uid="uid://qd4xcgjjmsfk" path="res://Data/Troops/FlameAndMoles.tres" id="2_cj0ch"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 [ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
 [ext_resource type="PackedScene" uid="uid://c8uj28jhk2jv4" path="res://Objects/battle/damage_popup.tscn" id="4_jmik8"]
@@ -231,7 +231,7 @@ center_offset = Vector3(240, 135, 0)
 [node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
 process_mode = 3
 script = ExtResource("1_rbil0")
-testTroop = ExtResource("2_6q647")
+testTroop = ExtResource("2_cj0ch")
 camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
 battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/Allies")
@@ -256,7 +256,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("pivot", "camera")]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(480, 270)
+size = Vector2i(320, 240)
 render_target_update_mode = 4
 script = ExtResource("4_ivj8n")
 pivot = NodePath("Scenario/Camera")

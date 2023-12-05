@@ -21,6 +21,7 @@ var currentScene : Node = null
 var pausingEntities = []
 var transitioning = false
 var battleInstance:BattleManager = null
+var battleResult:BattleManager.EBattleResult
 
 func _ready():
 	cover.visible = true
@@ -43,6 +44,7 @@ func transfer(newMap):
 	fadeOut(TRANSFER_FADE_LEN)
 	await onFadeEnd
 	if newMap != "":
+		Global.State.lastSceneName = newMap
 		# Unload map
 		var scene : Node3D = Global.getSceneRoot()
 		scene.get_parent().remove_child(scene)
@@ -52,7 +54,6 @@ func transfer(newMap):
 		var i = newScene.instantiate()
 		get_tree().root.add_child(i)
 		currentScene = i
-		Global.State.lastSceneName = newMap
 	# Update characters
 	Global.State._deserializeCharacters()
 	askUnpause(self)

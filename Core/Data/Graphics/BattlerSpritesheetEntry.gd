@@ -10,10 +10,14 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 	if bParent != null:
 		var f = frames[frame]
 		target.texture = bParent.texture
-		target.region_rect.position = Vector2(f.x * bParent.cellW, f.y * bParent.cellH)
-		target.region_rect.size = Vector2(bParent.cellW, bParent.cellH)
+		if bParent.cellW==0 || bParent.cellH==0:
+			target.region_rect.position = Vector2(0, 0)
+			target.region_rect.size = Vector2(target.texture.get_width(), target.texture.get_height())
+		else:
+			target.region_rect.position = Vector2(f.x * bParent.cellW, f.y * bParent.cellH)
+			target.region_rect.size = Vector2(bParent.cellW, bParent.cellH)
 		#target.position.y = (bParent.cellH * 0.5) * target.pixel_size
-		target.offset.y = (bParent.cellH * 0.5)
+		target.offset.y = (target.region_rect.size.y * 0.5)
 	target.flip_h = resolveFlip(target)
 
 func getTotalFrames():

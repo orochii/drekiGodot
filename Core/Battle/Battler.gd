@@ -73,9 +73,9 @@ func getStartOffset():
 func getScreenPosition():
 	return battle.posToScreen(self.global_position)
 func getScreenSize() -> Vector2:
-	return graphic.region_rect.size
+	return graphic.getScreenSize()
 func getSize() -> Vector2:
-	return getScreenSize() * graphic.pixel_size
+	return graphic.getSize()
 
 func setup(_battler:GameBattler):
 	battler = _battler

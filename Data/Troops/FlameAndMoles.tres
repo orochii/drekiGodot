@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=8 format=3 uid="uid://qd4xcgjjmsfk"]
+
+[ext_resource type="Resource" uid="uid://cn4v6tsk48ile" path="res://Data/Enemies/Mole.tres" id="1_fhjs2"]
+[ext_resource type="Resource" uid="uid://ckwh1pmm5yrxt" path="res://Data/Enemies/Flame.tres" id="1_pe4s6"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_kmr1l"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="3_ocjo4"]
+
+[sub_resource type="Resource" id="Resource_bxg00"]
+script = ExtResource("2_kmr1l")
+enemy = ExtResource("1_pe4s6")
+position = Vector3(-2.04, 0, -3.7)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_1g55t"]
+script = ExtResource("2_kmr1l")
+enemy = ExtResource("1_fhjs2")
+position = Vector3(-4.715, 0, 0)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_q20po"]
+script = ExtResource("2_kmr1l")
+enemy = ExtResource("1_fhjs2")
+position = Vector3(-3.515, 0, 4.285)
+flags = 0
+
+[resource]
+script = ExtResource("3_ocjo4")
+battleMusic = Array[Resource("res://Core/Audio/SystemAudioEntry.gd")]([])
+entries = Array[ExtResource("2_kmr1l")]([SubResource("Resource_bxg00"), SubResource("Resource_1g55t"), SubResource("Resource_q20po")])

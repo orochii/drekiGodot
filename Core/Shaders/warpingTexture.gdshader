@@ -7,13 +7,14 @@ uniform float displacement;
 uniform float timeScale;
 uniform float textureScale = 1.0;
 uniform float emissionEnergy = 0.2;
+uniform float selfTime = 0.0;
 
 varying vec2 currCoord;
 
 void vertex() {
 	currCoord = vec2(VERTEX.x, VERTEX.z);
-	vec4 c1 = texture(noiseTexture, UV + (vec2(TIME,TIME)*timeScale));
-	vec4 c2 = texture(noiseTexture, UV + (vec2(TIME,TIME)*-timeScale));
+	vec4 c1 = texture(noiseTexture, UV + (vec2(selfTime,selfTime)*timeScale));
+	vec4 c2 = texture(noiseTexture, UV + (vec2(selfTime,selfTime)*-timeScale));
 	VERTEX.x += c1.r * displacement;
 	VERTEX.z += c2.r * displacement;
 }

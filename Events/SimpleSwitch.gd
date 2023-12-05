@@ -3,6 +3,7 @@ extends BaseEvent
 @export var switchId:int
 @export var deactivateOnEnabled:bool
 @export var model:CharModel
+@export var sound:AudioStreamPlayer3D
 @export var blendTime:float = 0.6
 @export var waitTime:float = 0.6
 @export var elevator:Node
@@ -13,8 +14,14 @@ extends BaseEvent
 func _run():
 	var switch = Global.State.getSwitch(switchId)
 	if deactivateOnEnabled && switch: return
+	# Animate player
+	var p = getPlayer()
+	p.state = &"push"
 	# Move the thing!
 	if model != null: model.setPose(!switch,blendTime)
+	if sound != null: sound.play()
+	await get_tree().create_timer(blendTime).timeout
+	p.state = &"base"
 	await get_tree().create_timer(waitTime).timeout
 	# Pan towards node
 	Global.Camera.panTowards(camPosition,panningTime)

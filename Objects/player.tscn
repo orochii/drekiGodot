@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpxohgu0qmlrt"]
+[gd_scene load_steps=9 format=3 uid="uid://dpxohgu0qmlrt"]
 
 [ext_resource type="Script" path="res://Core/Characters/Player.gd" id="1_hti21"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="2_mdew4"]
@@ -10,6 +10,11 @@
 radius = 0.49
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w1xeb"]
+size = Vector3(0.702, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpbfm"]
+radius = 0.6
+height = 2.2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("graphic", "collider", "raycast", "soundEmitter")]
 floor_max_angle = 1.0472
@@ -25,14 +30,22 @@ soundEmitter = NodePath("AudioStreamPlayer3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_6ybgd")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Interact" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_w1xeb")
+
+[node name="Touch" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Touch"]
+shape = SubResource("CapsuleShape3D_rpbfm")
 
 [node name="Graphic" type="Sprite3D" parent="." node_paths=PackedStringArray("shadow", "raycast")]
 offset = Vector2(0, 16)
@@ -59,16 +72,14 @@ texture = ExtResource("5_artf2")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
-[node name="AudioListener3D" type="AudioListener3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
-current = true
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
 max_polyphony = 40
 bus = &"SFX"
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
-[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="area_entered" from="Interact" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Interact" to="." method="_on_area_3d_area_exited"]
+[connection signal="body_entered" from="Interact" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Interact" to="." method="_on_area_3d_body_exited"]
+[connection signal="area_entered" from="Touch" to="." method="_on_touch_area_entered"]
+[connection signal="body_entered" from="Touch" to="." method="_on_touch_body_entered"]

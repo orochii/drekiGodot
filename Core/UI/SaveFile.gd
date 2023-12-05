@@ -17,7 +17,7 @@ var screenshot:Texture2D = null
 
 func setup(slot:String,idx:int):
 	# Slot info
-	slotName.text = slot
+	slotName.text = "" #slot
 	slotNum.text = "%d" % idx
 	# Load screenshot
 	screenshot = Global.loadGameScreenshot(slot)

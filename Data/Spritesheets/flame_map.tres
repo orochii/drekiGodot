@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=5 format=3 uid="uid://dglkm1fxd86ew"]
+
+[ext_resource type="Texture2D" uid="uid://ckw7yiil5en8i" path="res://Graphics/Character/_ENEMY/enemy1_flame.png" id="1_a0a48"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="3_bk41d"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="4_imqpm"]
+
+[sub_resource type="Resource" id="Resource_b6bv3"]
+script = ExtResource("3_bk41d")
+base = ExtResource("1_a0a48")
+baseDiag = ExtResource("1_a0a48")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+name = &"base"
+fps = 8
+
+[resource]
+script = ExtResource("4_imqpm")
+collection = Array[ExtResource("3_bk41d")]([SubResource("Resource_b6bv3")])

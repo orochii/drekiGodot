@@ -88,3 +88,8 @@ func updateBlink(delta):
 	else:
 		blinkCounter = 0
 		blinkState = false
+
+func getScreenSize() -> Vector2:
+	return region_rect.size
+func getSize() -> Vector2:
+	return getScreenSize() * pixel_size

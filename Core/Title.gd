@@ -10,7 +10,7 @@ func _ready():
 	Global.Audio.stopBGM()
 	# 
 	buttons[0].visible = Global.saveExist("autosave")
-	buttons[2].visible = Global.getSaveList().size() != 0
+	buttons[2].visible = Global.getSaveFileList().size() != 0
 	buttons[4].visible = false
 	await get_tree().create_timer(1).timeout
 	#
@@ -31,6 +31,7 @@ func _on_continue_pressed():
 	Global.Audio.playSFX("load")
 	Global.loadGame("autosave")
 func _on_new_pressed():
+	get_viewport().gui_release_focus()
 	Global.Audio.playSFX("decision")
 	Global.newGame()
 	Global.Scene.transfer(Global.Db.startingScene.resource_path)

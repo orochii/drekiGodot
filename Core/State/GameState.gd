@@ -14,6 +14,7 @@ var party : GameParty
 # switches/variables
 var switches : Array = []
 var variables : Array = []
+var localVars : Dictionary = {}
 # map state
 var _characters = null
 var lastSceneName : String = ""
@@ -55,6 +56,15 @@ func setVariable(id:int,v:int):
 	if prevVal != v:
 		onVariableChange.emit(id,v)
 
+func getLocalVar(key:String, name:StringName):
+	var fullKey = "%s;;%s" % [key, name]
+	if localVars.has(fullKey):
+		return localVars[fullKey]
+	return false
+func setLocalVar(key:String, name:StringName, val:bool):
+	var fullKey = "%s;;%s" % [key, name]
+	localVars[fullKey] = val
+
 func getActor(id:StringName) -> GameActor:
 	for a in actors:
 		if (a.id == id):
@@ -70,6 +80,7 @@ func _serialize():
 		"party" : party._serialize(),
 		"switches" : switches,
 		"variables" : variables,
+		"localVars" : localVars,
 		"characters" : _serializeCharacters(),
 		"lastSceneName" : lastSceneName,
 		#
@@ -95,7 +106,8 @@ func _serializeCharacters():
 				"posz" : n.global_position.z,
 				"rotx" : n.global_rotation.x,
 				"roty" : n.global_rotation.y,
-				"rotz" : n.global_rotation.z
+				"rotz" : n.global_rotation.z,
+				"erased" : n.erased,
 			}
 	return dict
 
@@ -127,8 +139,6 @@ func _deserializeCharacters():
 	var scene : Node3D = Global.getSceneRoot()
 	for n in scene.get_children():
 		if n is Character:
-			if n is NPC:
-				n.refreshPage()
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
 				var e = _characters[path]
@@ -137,6 +147,15 @@ func _deserializeCharacters():
 				n.global_position = pos
 				n.global_rotation = rot
 				n.target_velocity = Vector3.ZERO
+				if e.has("erased"): n.setErased(e["erased"])
+			if n is NPC:
+				n.refreshPage()
+		if n is Trigger:
+			var path = "/"+n.get_path().get_concatenated_names()
+			if _characters.has(path):
+				var e = _characters[path]
+				#if e.has("localVars"): n.localVars = e["localVars"]
+			n.refreshPage()
 	_characters = null
 
 func getSaveTimestamp():

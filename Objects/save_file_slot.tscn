@@ -1,0 +1,35 @@
+[gd_scene load_steps=13 format=3 uid="uid://i2w0y6djlarx"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_h6vyg"]
+[ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="2_6x1ga"]
+[ext_resource type="Script" path="res://Core/UI/SaveSlotEntry.gd" id="2_mqgfu"]
+[ext_resource type="Texture2D" uid="uid://v5ecdcisyhpu" path="res://Graphics/Faces/2_face2.png" id="4_pqlvn"]
+[ext_resource type="Texture2D" uid="uid://d1kn7s7me3c0p" path="res://Graphics/Faces/7_face2.png" id="5_tdp2w"]
+[ext_resource type="Texture2D" uid="uid://b400qct61hrs0" path="res://Graphics/Faces/3_face2.png" id="6_xy56i"]
+[ext_resource type="Texture2D" uid="uid://cs5y06afjbl18" path="res://Graphics/Faces/4_face2.png" id="7_83c8y"]
+[ext_resource type="Texture2D" uid="uid://bsw72cnkiidcb" path="res://Graphics/Faces/5_face2.png" id="8_aewal"]
+[ext_resource type="Texture2D" uid="uid://n3gj0lhimmfr" path="res://Graphics/Faces/42_face2.png" id="9_yji31"]
+[ext_resource type="Texture2D" uid="uid://3des4hisymi1" path="res://Graphics/Faces/25_face2.png" id="10_rc6hw"]
+[ext_resource type="Texture2D" uid="uid://cfctwp80jinrb" path="res://Graphics/Faces/40_face2.png" id="11_u42yf"]
+[ext_resource type="Texture2D" uid="uid://csako76a71o1c" path="res://Graphics/Faces/6_face2.png" id="12_vy721"]
+
+[node name="SaveFileSlot" type="Button" node_paths=PackedStringArray("slotImg")]
+custom_minimum_size = Vector2(24, 26)
+theme = ExtResource("1_h6vyg")
+script = ExtResource("2_mqgfu")
+slotImg = NodePath("NinePatchRect")
+slotTextures = Array[Texture]([ExtResource("2_6x1ga"), ExtResource("4_pqlvn"), ExtResource("5_tdp2w"), ExtResource("6_xy56i"), ExtResource("7_83c8y"), ExtResource("8_aewal"), ExtResource("9_yji31"), ExtResource("10_rc6hw"), ExtResource("11_u42yf"), ExtResource("12_vy721")])
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x1ga")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
