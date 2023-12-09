@@ -91,6 +91,20 @@ func saveExt() -> String:
 func saveFilename(name:String) -> String:
 	return savePath() + name + saveExt()
 
+func deleteSaveFile(name:String):
+	var path = savePath() + "%s/" % name
+	# Delete all files inside
+	var files = DirAccess.get_files_at(path)
+	for f in files:
+		print(f)
+		DirAccess.remove_absolute(path+f)
+	# Now delete folder
+	DirAccess.remove_absolute(path)
+func deleteSaveFileSlot(name:String):
+	var path = savePath() + name
+	DirAccess.remove_absolute(path + saveExt())
+	DirAccess.remove_absolute(path + ".png")
+
 func makeSaveFile(name:String):
 	DirAccess.make_dir_absolute(savePath() + "%s/"%name)
 func getSaveFileList():

@@ -274,7 +274,6 @@ region_rect = Rect2(8, 0, 8, 8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "tailSprite")]
-visible = false
 texture_filter = 1
 layout_mode = 1
 offset_left = 21.0
@@ -2753,6 +2752,7 @@ grow_vertical = 0
 texture = ExtResource("11_eyxf8")
 
 [node name="FileMenu" parent="." instance=ExtResource("51_d771a")]
+visible = false
 layout_mode = 1
 
 [node name="ConfigScreen" parent="." instance=ExtResource("67_jr4cg")]

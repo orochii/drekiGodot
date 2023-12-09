@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://boft533utr21y"]
+[gd_scene load_steps=31 format=3 uid="uid://boft533utr21y"]
 
 [ext_resource type="Script" path="res://Core/UI/FileMenu.gd" id="1_naewe"]
 [ext_resource type="PackedScene" uid="uid://cou580ktucklw" path="res://Objects/save_file_info.tscn" id="2_5u522"]
@@ -8,13 +8,63 @@
 [ext_resource type="Texture2D" uid="uid://6v57tdch0cl6" path="res://Graphics/System/save_back.png" id="4_nj5pu"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="5_r0ay0"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="6_0xuob"]
+[ext_resource type="Script" path="res://Core/UI/ZigzagContainer.gd" id="8_6y13t"]
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="8_kfowc"]
 [ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="9_gttal"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="11_2p1xu"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="12_nj6g7"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="13_yjfso"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="14_e4ooq"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="15_4akpx"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="16_qn2ev"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="17_7m6r3"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="18_i3mdk"]
+[ext_resource type="Texture2D" uid="uid://cmi8ub087ulgx" path="res://Graphics/System/naming/2023-12-04_004515_112.png" id="20_a6t8k"]
+[ext_resource type="Script" path="res://Core/UI/Popups/NamingPopup.gd" id="20_ihfgk"]
+[ext_resource type="LabelSettings" uid="uid://biojqnkspoymr" path="res://Themes/labelsetting_NamingThing.tres" id="21_a5ko7"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="22_s1p7l"]
+[ext_resource type="Script" path="res://Core/UI/VisualKeyboard.gd" id="23_thl46"]
+[ext_resource type="Script" path="res://Core/UI/SlantedGridContainer.gd" id="23_vfvgf"]
+[ext_resource type="PackedScene" uid="uid://ckhmli28qyd7g" path="res://Objects/ui/key_button.tscn" id="24_q4th3"]
+[ext_resource type="PackedScene" uid="uid://dk12umrn3vh6y" path="res://Objects/ui/option_button.tscn" id="27_b10o7"]
+[ext_resource type="Script" path="res://Core/UI/Popups/SelectPopup.gd" id="27_tnfq7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7gdel"]
 shader = ExtResource("3_fhxyn")
 
-[node name="FileMenu" type="Control" node_paths=PackedStringArray("helpText", "screenshotBack", "fileContainer", "slotContainer", "savefileInfo")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_p37s6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_2p1xu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_nj6g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_yjfso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_e4ooq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_4akpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_qn2ev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_7m6r3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_i3mdk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="FileMenu" type="Control" node_paths=PackedStringArray("helpText", "screenshotBack", "fileContainer", "slotContainer", "savefileInfo", "cursor", "namingPopup", "selectPopup", "currFolderLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +78,12 @@ savefileTemplate = ExtResource("2_b433w")
 saveslotTemplate = ExtResource("3_lr55q")
 fileContainer = NodePath("VBoxContainer/HBoxContainer/SaveFiles/ScrollContainer/FileContainer")
 slotContainer = NodePath("VBoxContainer/HBoxContainer/SaveSlots/SlotContainer")
+maxSlotsPerFile = 21
 savefileInfo = NodePath("VBoxContainer/HBoxContainer/SaveSlots/SaveSlotInfo/SaveFileInfo")
+cursor = NodePath("Cursor")
+namingPopup = NodePath("NamingPopup")
+selectPopup = NodePath("SelectPopup")
+currFolderLabel = NodePath("Label")
 
 [node name="ScreenshotBack" type="NinePatchRect" parent="."]
 modulate = Color(0.501961, 0.501961, 0.501961, 1)
@@ -120,7 +175,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="SaveFiles" type="Control" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
 
 [node name="Back" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/SaveFiles"]
@@ -177,12 +232,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SlotContainer" type="HFlowContainer" parent="VBoxContainer/HBoxContainer/SaveSlots"]
-custom_minimum_size = Vector2(0, 64)
+[node name="SlotContainer" type="Container" parent="VBoxContainer/HBoxContainer/SaveSlots"]
+custom_minimum_size = Vector2(164, 64)
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_right = 95.0
+offset_bottom = 64.0
 grow_horizontal = 2
+script = ExtResource("8_6y13t")
 
 [node name="SaveSlotInfo" type="Control" parent="VBoxContainer/HBoxContainer/SaveSlots"]
 custom_minimum_size = Vector2(0, 64)
@@ -252,7 +312,20 @@ theme = ExtResource("6_0xuob")
 text = "Delete"
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 204.0
+offset_right = 292.0
+offset_bottom = 227.0
+
+[node name="Cursor" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_p37s6")
+offset = Vector2(-16, -6)
+
+[node name="NamingPopup" type="Control" parent="." node_paths=PackedStringArray("nameLabel", "keyboard")]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -261,8 +334,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("20_ihfgk")
+nameLabel = NodePath("NameEntry/VBoxContainer/NameValue")
+keyboard = NodePath("Keyboard")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="NamingPopup"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -271,7 +347,214 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.627451)
 
-[node name="Window" type="Control" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="NamingPopup"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_a6t8k")
+
+[node name="NameEntry" type="HBoxContainer" parent="NamingPopup"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 144.0
+offset_right = 216.0
+offset_bottom = 173.305
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="NamingPopup/NameEntry"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("6_0xuob")
+text = "N"
+label_settings = ExtResource("21_a5ko7")
+uppercase = true
+
+[node name="Label2" type="Label" parent="NamingPopup/NameEntry"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("22_s1p7l")
+text = "ame"
+label_settings = ExtResource("21_a5ko7")
+uppercase = true
+
+[node name="VBoxContainer" type="Control" parent="NamingPopup/NameEntry"]
+layout_mode = 2
+
+[node name="NameValue" type="Label" parent="NamingPopup/NameEntry/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+offset_top = 4.0
+offset_right = 92.0
+offset_bottom = 19.0
+theme = ExtResource("6_0xuob")
+text = "  Hikari"
+vertical_alignment = 2
+
+[node name="Label4" type="Label" parent="NamingPopup/NameEntry/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+offset_top = 15.0
+offset_right = 92.0
+offset_bottom = 28.0
+theme = ExtResource("22_s1p7l")
+text = "-----------------------"
+label_settings = ExtResource("21_a5ko7")
+
+[node name="ButtonLegends" type="VBoxContainer" parent="NamingPopup"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -76.0
+offset_right = 44.0
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Capitals" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="NamingPopup/ButtonLegends/Capitals"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_menu"
+
+[node name="LeftLabel" type="Label" parent="NamingPopup/ButtonLegends/Capitals"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 57.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Capitals"
+vertical_alignment = 1
+
+[node name="Delete" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="NamingPopup/ButtonLegends/Delete"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_cancel"
+
+[node name="LeftLabel" type="Label" parent="NamingPopup/ButtonLegends/Delete"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 50.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Delete"
+vertical_alignment = 1
+
+[node name="Default" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="NamingPopup/ButtonLegends/Default"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_select"
+
+[node name="LeftLabel" type="Label" parent="NamingPopup/ButtonLegends/Default"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 53.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Default"
+vertical_alignment = 1
+
+[node name="Finish" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="NamingPopup/ButtonLegends/Finish"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_start"
+
+[node name="LeftLabel" type="Label" parent="NamingPopup/ButtonLegends/Finish"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 50.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Finish"
+vertical_alignment = 1
+
+[node name="LowerMargin" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="Keyboard" type="Control" parent="NamingPopup" node_paths=PackedStringArray("container", "cursor")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("23_thl46")
+container = NodePath("KeyContainer")
+keyTemplate = ExtResource("24_q4th3")
+keyboardConfig = Array[StringName]([&"º", &"1", &"2", &"3", &"4", &"5", &"6", &"7", &"8", &"9", &"0", &"\'", &"¡", &"BACK", &"TAB", &"TAB", &"q", &"w", &"e", &"r", &"t", &"y", &"u", &"i", &"o", &"p", &"`", &"+", &"CASE", &"CASE", &"a", &"s", &"d", &"f", &"g", &"h", &"j", &"k", &"l", &"ñ", &"´", &"ç", &"IME", &"IME", &"SHFT", &"z", &"x", &"c", &"v", &"b", &"n", &"m", &",", &".", &"-", &" ", &"ENTER"])
+keyboardConfigUpper = Array[StringName]([&"º", &"!", &"\"", &"·", &"$", &"%", &"&", &"/", &"(", &")", &"=", &"?", &"¿", &"BACK", &"TAB", &"TAB", &"Q", &"W", &"E", &"R", &"T", &"Y", &"U", &"I", &"O", &"P", &"^", &"*", &"CASE", &"CASE", &"A", &"S", &"D", &"F", &"G", &"H", &"J", &"K", &"L", &"Ñ", &"¨", &"Ç", &"IME", &"IME", &"SHFT", &"Z", &"X", &"C", &"V", &"B", &"N", &"M", &";", &":", &"_", &" ", &"ENTER"])
+cursor = NodePath("../Cursor")
+
+[node name="KeyContainer" type="Container" parent="NamingPopup/Keyboard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_right = 0.6
+offset_left = -88.0
+offset_right = 80.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("23_vfvgf")
+offset = -4
+
+[node name="Cursor" type="AnimatedSprite2D" parent="NamingPopup"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_p37s6")
+offset = Vector2(-16, -6)
+
+[node name="SelectPopup" type="Control" parent="." node_paths=PackedStringArray("window", "container", "messageLabel")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("27_tnfq7")
+window = NodePath("Window")
+container = NodePath("Window/Contents")
+messageLabel = NodePath("Window/Contents/Label")
+optionTemplate = ExtResource("27_b10o7")
+
+[node name="ColorRect" type="ColorRect" parent="SelectPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.627451)
+
+[node name="Window" type="Control" parent="SelectPopup"]
 z_index = 1
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 1
@@ -279,10 +562,14 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -32.0
+offset_right = -16.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Back" type="NinePatchRect" parent="Control/Window"]
+[node name="Back" type="NinePatchRect" parent="SelectPopup/Window"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -296,7 +583,7 @@ grow_vertical = 2
 texture = ExtResource("5_r0ay0")
 region_rect = Rect2(0, 0, 64, 64)
 
-[node name="Borders" type="NinePatchRect" parent="Control/Window"]
+[node name="Borders" type="NinePatchRect" parent="SelectPopup/Window"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,37 +598,24 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="Contents" type="Control" parent="Control/Window"]
+[node name="Contents" type="VBoxContainer" parent="SelectPopup/Window"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -12.0
+offset_bottom = 15.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Control/Window/Contents"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="SelectPopup/Window/Contents"]
+layout_mode = 2
 theme = ExtResource("6_0xuob")
-text = "Please input a name"
+text = "Delete folder [some folder name]?"
 
-[node name="LineEdit" type="LineEdit" parent="Control/Window/Contents"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_0xuob")
-text = "new"
+[node name="Cursor" type="AnimatedSprite2D" parent="SelectPopup/Window"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_p37s6")
+offset = Vector2(-16, -6)

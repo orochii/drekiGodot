@@ -1,26 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://i2w0y6djlarx"]
+[gd_scene load_steps=4 format=3 uid="uid://i2w0y6djlarx"]
 
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_h6vyg"]
-[ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="2_6x1ga"]
 [ext_resource type="Script" path="res://Core/UI/SaveSlotEntry.gd" id="2_mqgfu"]
-[ext_resource type="Texture2D" uid="uid://v5ecdcisyhpu" path="res://Graphics/Faces/2_face2.png" id="4_pqlvn"]
-[ext_resource type="Texture2D" uid="uid://d1kn7s7me3c0p" path="res://Graphics/Faces/7_face2.png" id="5_tdp2w"]
-[ext_resource type="Texture2D" uid="uid://b400qct61hrs0" path="res://Graphics/Faces/3_face2.png" id="6_xy56i"]
-[ext_resource type="Texture2D" uid="uid://cs5y06afjbl18" path="res://Graphics/Faces/4_face2.png" id="7_83c8y"]
-[ext_resource type="Texture2D" uid="uid://bsw72cnkiidcb" path="res://Graphics/Faces/5_face2.png" id="8_aewal"]
-[ext_resource type="Texture2D" uid="uid://n3gj0lhimmfr" path="res://Graphics/Faces/42_face2.png" id="9_yji31"]
-[ext_resource type="Texture2D" uid="uid://3des4hisymi1" path="res://Graphics/Faces/25_face2.png" id="10_rc6hw"]
-[ext_resource type="Texture2D" uid="uid://cfctwp80jinrb" path="res://Graphics/Faces/40_face2.png" id="11_u42yf"]
-[ext_resource type="Texture2D" uid="uid://csako76a71o1c" path="res://Graphics/Faces/6_face2.png" id="12_vy721"]
+[ext_resource type="Texture2D" uid="uid://cw4m7woo3o5ms" path="res://Graphics/System/save_slots_icons.png" id="3_v1ool"]
 
-[node name="SaveFileSlot" type="Button" node_paths=PackedStringArray("slotImg")]
+[node name="SaveFileSlot" type="TextureButton" node_paths=PackedStringArray("slotImg", "selected")]
 custom_minimum_size = Vector2(24, 26)
 theme = ExtResource("1_h6vyg")
 script = ExtResource("2_mqgfu")
 slotImg = NodePath("NinePatchRect")
-slotTextures = Array[Texture]([ExtResource("2_6x1ga"), ExtResource("4_pqlvn"), ExtResource("5_tdp2w"), ExtResource("6_xy56i"), ExtResource("7_83c8y"), ExtResource("8_aewal"), ExtResource("9_yji31"), ExtResource("10_rc6hw"), ExtResource("11_u42yf"), ExtResource("12_vy721")])
+selected = NodePath("Selected")
+textureSlots = 10
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
 anchors_preset = 8
@@ -30,6 +23,24 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6x1ga")
+texture = ExtResource("3_v1ool")
+region_rect = Rect2(0, 0, 24, 24)
 
+[node name="Selected" type="NinePatchRect" parent="."]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_v1ool")
+region_rect = Rect2(24, 0, 24, 24)
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

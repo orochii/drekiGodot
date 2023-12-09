@@ -18,6 +18,8 @@ var messageSkin : int = 0
 var backOpacity : int = 8
 var battleShadows : int = 2
 var gamepadButtons : int = 0
+#
+var lastSavefile:String = ""
 
 func _init():
 	loadConfig()
@@ -77,6 +79,9 @@ func serialize() -> Dictionary:
 			"BGSVolume" : Global.Audio.getBGSVol(),
 			"AmbVolume" : Global.Audio.getAmbVol(),
 			"SFXVolume" : Global.Audio.getSFXVol()
+		},
+		"other":{
+			"lastSavefile" : lastSavefile
 		}
 	}
 	return data
@@ -108,6 +113,9 @@ func deserialize(data : Dictionary):
 		if(audio.has("BGSVolume")): Global.Audio.setBGSVol(audio["BGSVolume"])
 		if(audio.has("AmbVolume")): Global.Audio.setAmbVol(audio["AmbVolume"])
 		if(audio.has("SFXVolume")): Global.Audio.setSFXVol(audio["SFXVolume"])
+	if data.has("other"):
+		var other = data["other"]
+		if other.has("lastSavefile"): lastSavefile = other["lastSavefile"]
 	refreshLanguage()
 	refreshScreenSize()
 

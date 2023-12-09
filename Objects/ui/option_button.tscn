@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk12umrn3vh6y"]
+
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="1_n4sa1"]
+[ext_resource type="Script" path="res://Core/UI/Popups/OptionButton.gd" id="2_gomsq"]
+
+[node name="Button" type="Button" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(0, 16)
+theme = ExtResource("1_n4sa1")
+flat = true
+script = ExtResource("2_gomsq")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 12.0
+text = "Yes"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

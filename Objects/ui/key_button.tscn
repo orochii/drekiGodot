@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckhmli28qyd7g"]
+
+[ext_resource type="Script" path="res://Core/UI/Popups/KeyButton.gd" id="1_hjkba"]
+[ext_resource type="Texture2D" uid="uid://c0a1rcnghs1p0" path="res://Graphics/System/naming/keyButton.png" id="2_e1n8i"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="3_gpxsj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gb1yg"]
+font_size = 8
+font_color = Color(0.25, 0.25, 0.25, 1)
+
+[node name="KeyButton" type="TextureButton" node_paths=PackedStringArray("btnTexture", "label")]
+custom_minimum_size = Vector2(12, 12)
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("1_hjkba")
+btnTexture = NodePath("NinePatchRect")
+label = NodePath("Label")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+texture = ExtResource("2_e1n8i")
+patch_margin_left = 2
+patch_margin_top = 4
+patch_margin_right = 2
+patch_margin_bottom = 4
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -7.5
+offset_right = 6.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_gpxsj")
+text = "º"
+label_settings = SubResource("LabelSettings_gb1yg")
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
