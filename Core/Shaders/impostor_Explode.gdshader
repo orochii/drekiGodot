@@ -32,7 +32,7 @@ uniform float lifetime_randomness;
 uniform vec3 emission_box_extents;
 uniform vec4 color_value : source_color;
 uniform vec3 gravity;
-uniform sampler2D sprite;
+uniform sampler2D sprite : source_color;
 
 float rand_from_seed(inout uint seed) {
 	int k;
