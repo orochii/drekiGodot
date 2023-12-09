@@ -6,12 +6,15 @@ const POS_MARGIN = 32
 
 @export var messageText : RichTextLabel
 @export var speakerText : RichTextLabel
+@export var container : Container
 @export var messageSpeed : float = 20.0
 @export var textMarginTop : float = 4
 @export var textMarginBottom : float = 8
 @export var textMarginLeft : float = 4
 @export var textMarginRight : float = 4
 @export var tailSprite : Sprite2D
+@export var optionTemplate : PackedScene
+@export var cursor:AnimatedSprite2D
 
 var textBoxPosition = 8
 
@@ -21,9 +24,22 @@ signal onMessageEnd()
 var targetPosition : Node3D
 var visibleChars : float = 0
 var totalChars : int = 0
+var options : Array = []
+var optionsVarId : int = 0
+var optionsCancelIdx : int = -1
 
 func _ready():
 	visible = false
+
+func setOptions(varId:int, optionsList:Array, cancelOption:int=-1):
+	optionsVarId = varId
+	optionsCancelIdx = cancelOption
+	for i in range(optionsList.size()):
+		var inst = optionTemplate.instantiate()
+		inst.setup(i, optionsList[i])
+		container.add_child(inst)
+		options.append(inst)
+	UIUtils.setVNeighbors(options)
 
 func showText(targetNode:Node3D, textPos:int, speaker:String, message:String):
 	await onMessageReady
@@ -42,17 +58,51 @@ func showText(targetNode:Node3D, textPos:int, speaker:String, message:String):
 func _process(delta):
 	if visible:
 		refreshPosition()
-		messageText.visible_characters = roundi(visibleChars)
-		visibleChars += delta * messageSpeed
-		if visibleChars > totalChars:
-			visibleChars = totalChars
-		if Input.is_action_just_pressed("action_ok"):
+		
+		var focused = get_viewport().gui_get_focus_owner()
+		if options.has(focused):
+			positionCursor(focused)
+		else:
+			cursor.visible = false
+		
+		if visibleChars < totalChars:
+			messageText.visible_characters = roundi(visibleChars)
+			visibleChars += delta * messageSpeed
+			if visibleChars > totalChars:
+				visibleChars = totalChars
+				if options.size() != 0:
+						options[0].grab_focus()
+		var _closeAction = 0
+		if Input.is_action_just_pressed("action_ok"): _closeAction = 1
+		if Input.is_action_just_pressed("action_cancel"): _closeAction = 2
+		if _closeAction != 0:
 			if visibleChars == totalChars:
-				visible = false
-				onMessageEnd.emit()
-				Global.Audio.playSFX("decision")
+				var shouldClose = false
+				if _closeAction==1:
+					if options.size() != 0:
+						if options.has(focused):
+							# set variable
+							var val = options.find(focused)
+							Global.State.setVariable(optionsVarId, val)
+					shouldClose = true
+					Global.Audio.playSFX("decision")
+				if _closeAction==2:
+					if options.size() != 0:
+						if optionsCancelIdx != -1:
+							# set variable
+							Global.State.setVariable(optionsVarId, optionsCancelIdx)
+							shouldClose = true
+							Global.Audio.playSFX("cancel")
+				if shouldClose:
+					visible = false
+					onMessageEnd.emit()
+					for o in options:
+						o.queue_free()
+					options.clear()
 			else:
 				visibleChars = totalChars
+				if options.size() != 0:
+					options[0].grab_focus()
 	else:
 		onMessageReady.emit()
 
@@ -60,14 +110,11 @@ func busy():
 	return visible
 
 func resizeWindow():
-	messageText.update_minimum_size()
-	speakerText.update_minimum_size()
-	var minSize = messageText.get_minimum_size()
-	var spkMinSize = speakerText.get_minimum_size()
-	if (minSize.x < spkMinSize.x): minSize.x = spkMinSize.x
-	if (minSize.y < spkMinSize.y): minSize.y = spkMinSize.y
-	messageText.position = Vector2(textMarginLeft, textMarginTop)
-	self.size = (minSize + messageText.position + Vector2(textMarginRight,textMarginBottom))
+	container.position = Vector2(textMarginLeft, textMarginTop)
+	container.update_minimum_size()
+	container.size = container.get_minimum_size()
+	self.size = (container.get_minimum_size() + container.position + Vector2(textMarginRight,textMarginBottom))
+	#self.size = container.get_minimum_size()
 
 func refreshPosition():
 	if targetPosition != null:
@@ -198,3 +245,10 @@ func placeTail(dir,pos,targetPos,boxSize,nodeH):
 			tailSprite.rotation_degrees = 0
 			tailSprite.flip_h = false
 			tailSprite.flip_v = false
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(2,8)
+	else:
+		cursor.visible = false

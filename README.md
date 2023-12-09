@@ -2,7 +2,6 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
-- Choice box. 
 - Skill tree learning
 - Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
@@ -19,6 +18,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Choice box. 
 - Redone save/load screen.
 - Chaser enemies.
 - Make a new first map (I guess training cave?).

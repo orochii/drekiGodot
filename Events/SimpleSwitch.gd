@@ -16,6 +16,14 @@ func _run():
 	if deactivateOnEnabled && switch: return
 	# Animate player
 	var p = getPlayer()
+	
+	# Show confirm window
+	Global.UI.Message.setOptions(0, ["Yes","No"], 1)
+	await get_tree().process_frame
+	await Global.UI.Message.showText(p, 8, "", "Operate switch?")
+	if Global.State.getVariable(0) != 0:
+		return
+	
 	p.state = &"push"
 	# Move the thing!
 	if model != null: model.setPose(!switch,blendTime)

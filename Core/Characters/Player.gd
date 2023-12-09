@@ -20,7 +20,7 @@ func _process(delta):
 	if getJump(): jump()
 	if getInteract(): interact()
 	
-	if canMove() && Input.is_action_just_pressed("action_menu"):
+	if self.grounded && canMove() && Input.is_action_just_pressed("action_menu"):
 		Global.Audio.playSFX("decision")
 		Global.cacheScreenshot()
 		Global.UI.Party.open()
@@ -46,6 +46,7 @@ func getDash():
 	return Input.is_action_pressed("action_run")
 
 func canMove():
+	if forcedMove: return false
 	if Global.Ev.isBusy(): return false
 	if Global.UI.busy(): return false
 	return true

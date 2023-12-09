@@ -5,6 +5,7 @@ class_name SelectPopup
 @export var container:Container
 @export var messageLabel:Label
 @export var optionTemplate:PackedScene
+@export var cursor:AnimatedSprite2D
 
 var last_focus = null
 var onSubmit:Callable
@@ -42,3 +43,17 @@ func onSelect(index):
 	for o in op:
 		o.queue_free()
 	op.clear()
+
+func _process(delta):
+	var focused = get_viewport().gui_get_focus_owner()
+	if op.has(focused):
+		positionCursor(focused)
+	else:
+		cursor.visible = false
+
+func positionCursor(focused):
+	if(focused != null):
+		cursor.visible = true
+		cursor.global_position = focused.global_position + Vector2(2,8)
+	else:
+		cursor.visible = false
