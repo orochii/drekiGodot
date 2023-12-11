@@ -17,13 +17,11 @@ shader_parameter/particles_anim_loop = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eimb6"]
 lifetime_randomness = 0.4
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(40, 8, 1)
-particle_flag_disable_z = true
 spread = 180.0
 gravity = Vector3(0, 0, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 scale_min = 0.2
 scale_max = 0.2
 anim_speed_min = 1.0

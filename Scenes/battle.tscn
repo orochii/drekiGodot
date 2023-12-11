@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
 [ext_resource type="Resource" uid="uid://qd4xcgjjmsfk" path="res://Data/Troops/FlameAndMoles.tres" id="2_cj0ch"]
+[ext_resource type="PackedScene" uid="uid://by5j1sllxtvax" path="res://Objects/battle/battlebacks/lava_cave_battleback.tscn" id="3_w2r5x"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 [ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
 [ext_resource type="PackedScene" uid="uid://c8uj28jhk2jv4" path="res://Objects/battle/damage_popup.tscn" id="4_jmik8"]
@@ -57,8 +58,6 @@
 [ext_resource type="Texture2D" uid="uid://doapoqrfhbxcx" path="res://Graphics/_REF_/2023-11-04_132134_197.png" id="53_wcvq8"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleSpoilsWindow.gd" id="54_e0w84"]
 [ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="55_1qadm"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvfdo"]
 transparency = 1
@@ -228,14 +227,17 @@ animations = [{
 size = Vector2(320, -240)
 center_offset = Vector3(240, 135, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_cj0ch")
-camera = NodePath("SubViewportContainer/SubViewport/Scenario/Camera/Camera3D")
+testBack = ExtResource("3_w2r5x")
+scenarioContainer = NodePath("SubViewportContainer/SubViewport/ScenarioContainer")
+battleObjContainer = NodePath("SubViewportContainer/SubViewport/BattleContainer")
+camera = NodePath("SubViewportContainer/SubViewport/BattleContainer/Camera/Camera3D")
 battlerTemplate = ExtResource("2_bnp7f")
-party = NodePath("SubViewportContainer/SubViewport/Allies")
-troop = NodePath("SubViewportContainer/SubViewport/Enemies")
+party = NodePath("SubViewportContainer/SubViewport/BattleContainer/Allies")
+troop = NodePath("SubViewportContainer/SubViewport/BattleContainer/Enemies")
 partyPositionOffset = Vector3(1, 0, 4)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")
@@ -254,42 +256,39 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("pivot", "camera")]
-own_world_3d = true
 handle_input_locally = false
 size = Vector2i(320, 240)
 render_target_update_mode = 4
 script = ExtResource("4_ivj8n")
-pivot = NodePath("Scenario/Camera")
-camera = NodePath("Scenario/Camera/Camera3D")
+pivot = NodePath("BattleContainer/Camera")
+camera = NodePath("BattleContainer/Camera/Camera3D")
 
-[node name="Scenario" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="ScenarioContainer" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Scenario"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-mesh = SubResource("PlaneMesh_f7xr6")
+[node name="BattleContainer" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="Camera" type="Node3D" parent="SubViewportContainer/SubViewport/Scenario"]
+[node name="Camera" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 transform = Transform3D(1, 0, 0, 0, 0.866024, 0.499999, 0, -0.499999, 0.866024, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Scenario/Camera"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/BattleContainer/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
 current = true
 fov = 20.0
 size = 16.875
 
-[node name="Allies" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="Allies" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 
-[node name="Enemies" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="Enemies" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 
-[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport/Enemies" node_paths=PackedStringArray("battleManager")]
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport/BattleContainer/Enemies" node_paths=PackedStringArray("battleManager")]
 script = ExtResource("4_bpma2")
-battleManager = NodePath("../../../..")
+battleManager = NodePath("../../../../..")
 drawOffset = Vector2(12, 12)
 drawScale = 5.0
 
-[node name="SelectionParticles" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="SelectionParticles" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 
-[node name="SelectionParticle" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/SelectionParticles"]
+[node name="SelectionParticle" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/BattleContainer/SelectionParticles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 material_override = SubResource("StandardMaterial3D_fvfdo")
 cast_shadow = 0
@@ -299,7 +298,7 @@ lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_0pev0")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
-[node name="SelectionParticleMulti" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/SelectionParticles"]
+[node name="SelectionParticleMulti" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/BattleContainer/SelectionParticles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 material_override = SubResource("StandardMaterial3D_fvfdo")
 cast_shadow = 0
@@ -309,9 +308,9 @@ lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_mo6x1")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
-[node name="ActiveBattlerHighlight" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="ActiveBattlerHighlight" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 
-[node name="ActiveBattlerParticles" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/ActiveBattlerHighlight"]
+[node name="ActiveBattlerParticles" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/BattleContainer/ActiveBattlerHighlight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 material_override = SubResource("StandardMaterial3D_hessc")
 cast_shadow = 0
@@ -385,8 +384,8 @@ battle = NodePath("../..")
 skillSelect = NodePath("../ActorSkillSelect")
 itemSelect = NodePath("../ActorItemSelect")
 targetSelect = NodePath("../ActorTargetSelect")
-highlight = NodePath("../../SubViewportContainer/SubViewport/ActiveBattlerHighlight")
-highlightParticles = NodePath("../../SubViewportContainer/SubViewport/ActiveBattlerHighlight/ActiveBattlerParticles")
+highlight = NodePath("../../SubViewportContainer/SubViewport/BattleContainer/ActiveBattlerHighlight")
+highlightParticles = NodePath("../../SubViewportContainer/SubViewport/BattleContainer/ActiveBattlerHighlight/ActiveBattlerParticles")
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
 cursor = NodePath("AnimatedSprite2D")
@@ -1344,9 +1343,9 @@ actorCommand = NodePath("../ActorCommand")
 scopeLabel = NodePath("TargetInfoWindow/Content/Scope")
 status = NodePath("TargetInfoWindow")
 cursor = NodePath("CursorSingle")
-selector = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles")
-selectorParticles = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticle")
-selectorParticlesMulti = NodePath("../../SubViewportContainer/SubViewport/SelectionParticles/SelectionParticleMulti")
+selector = NodePath("../../SubViewportContainer/SubViewport/BattleContainer/SelectionParticles")
+selectorParticles = NodePath("../../SubViewportContainer/SubViewport/BattleContainer/SelectionParticles/SelectionParticle")
+selectorParticlesMulti = NodePath("../../SubViewportContainer/SubViewport/BattleContainer/SelectionParticles/SelectionParticleMulti")
 
 [node name="CursorSingle" type="AnimatedSprite2D" parent="BattleUI/ActorTargetSelect"]
 sprite_frames = SubResource("SpriteFrames_7lnuv")

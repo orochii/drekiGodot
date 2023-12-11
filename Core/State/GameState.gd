@@ -22,6 +22,7 @@ var lastSceneName : String = ""
 var playTime:float = 0
 var stepsTaken:int = 0
 var currentTroop:EnemyTroop = null
+var currentBattleback:String = ""
 # Screenshot differentiator helper (why time doesn't have millis? :C)
 var lastTime = null
 var count = 0

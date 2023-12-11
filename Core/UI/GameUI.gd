@@ -14,8 +14,10 @@ var debugVisible:bool = true
 func _init():
 	Global.UI = self
 	perfLabel = Label.new()
-	perfLabel.scale = Vector2.ONE*0.5
 	add_child(perfLabel)
+	perfLabel.scale = Vector2.ONE*0.5
+	perfLabel.z_as_relative = false
+	perfLabel.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
 
 func _process(delta):
 	Global.State.playTime += delta

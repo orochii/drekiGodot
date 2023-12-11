@@ -18,6 +18,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Battle backgrounds.
 - Choice box. 
 - Redone save/load screen.
 - Chaser enemies.

@@ -68,6 +68,7 @@ func transfer(newMap):
 func callBattle(troop:EnemyTroop):
 	breakScreenTransition()
 	await get_tree().process_frame
+	currentScene.visible = false
 	Global.State.currentTroop = troop
 	battleInstance = battleSceneTemplate.instantiate()
 	Global.get_parent().add_child(battleInstance)
@@ -82,6 +83,7 @@ func endBattle():
 	fadeOut(TRANSFER_FADE_LEN)
 	await onFadeEnd
 	battleInstance.queue_free()
+	currentScene.visible = true
 	askUnpause(battleInstance)
 	battleInstance = null
 	fadeIn(TRANSFER_FADE_LEN)

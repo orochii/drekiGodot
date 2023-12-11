@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://by5j1sllxtvax"]
+
+[ext_resource type="PackedScene" uid="uid://chat1kimhb3q4" path="res://Graphics/Scenario/training_cave/training_cave.tscn" id="1_77f30"]
+[ext_resource type="Script" path="res://Core/Battle/Battleback.gd" id="1_hp2yq"]
+[ext_resource type="Shader" path="res://Core/Shaders/warpingTexture.gdshader" id="2_57vta"]
+[ext_resource type="Texture2D" uid="uid://cprphpxjeqc4s" path="res://Graphics/Particle/lavatexture.png" id="3_im6xx"]
+[ext_resource type="Script" path="res://Core/Scenario/PausableTimeMaterialController.gd" id="4_xpctg"]
+[ext_resource type="Shader" path="res://Core/Shaders/animatedParticle_shader.gdshader" id="5_x5jfl"]
+[ext_resource type="Texture2D" uid="uid://dd73gnfw2cdpr" path="res://Graphics/Particle/lavaSmall.png" id="6_vjwo1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f7xr6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_udcss"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a8d73"]
+noise = SubResource("FastNoiseLite_udcss")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qcyit"]
+render_priority = 0
+shader = ExtResource("2_57vta")
+shader_parameter/displacement = 1.0
+shader_parameter/timeScale = 0.02
+shader_parameter/textureScale = 0.5
+shader_parameter/emissionEnergy = 0.2
+shader_parameter/selfTime = 0.0
+shader_parameter/albedoTexture = ExtResource("3_im6xx")
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_a8d73")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lap4q"]
+material = SubResource("ShaderMaterial_qcyit")
+size = Vector2(200, 200)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jl16d"]
+emission_shape = 3
+emission_box_extents = Vector3(40, 0, 70)
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1c1oy"]
+render_priority = 0
+shader = ExtResource("5_x5jfl")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/particles_anim_h_frames = 2
+shader_parameter/particles_anim_v_frames = 2
+shader_parameter/particles_start_frame = 0
+shader_parameter/particles_end_frame = 4
+shader_parameter/useBillboard = false
+shader_parameter/particles_anim_loop = false
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("6_vjwo1")
+
+[sub_resource type="QuadMesh" id="QuadMesh_db3vr"]
+material = SubResource("ShaderMaterial_1c1oy")
+orientation = 1
+
+[node name="LavaCaveBattleback" type="Node3D" node_paths=PackedStringArray("basePlane")]
+script = ExtResource("1_hp2yq")
+basePlane = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.902211, 0)
+visible = false
+mesh = SubResource("PlaneMesh_f7xr6")
+skeleton = NodePath("../..")
+
+[node name="trainingCave" parent="." instance=ExtResource("1_77f30")]
+transform = Transform3D(1.94645, 0, -0.459726, 0, 2, 0, 0.459726, 0, 1.94645, 6.20739, 0, -99.3191)
+
+[node name="lava" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.93776, 0, -0.49508, 0, 2, 0, 0.49508, 0, 1.93776, -0.640723, 0, -85.6101)
+mesh = SubResource("PlaneMesh_lap4q")
+skeleton = NodePath("")
+script = ExtResource("4_xpctg")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="lava"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02382, 0.137906, 35.1105)
+amount = 48
+visibility_aabb = AABB(-25.945, -4, -66.3699, 51.89, 8, 132.74)
+process_material = SubResource("ParticleProcessMaterial_jl16d")
+draw_pass_1 = SubResource("QuadMesh_db3vr")

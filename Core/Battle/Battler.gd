@@ -42,7 +42,7 @@ func setStartDirection(a:float):
 	direction = a
 	global_rotation_degrees = Vector3(0, direction, 0)
 func moveToPosition(pos:Vector3):
-	self.global_position = pos
+	self.position = pos
 	targetPosition = pos
 func goToPosition(pos:Vector3, setPose:bool):
 	targetPosition = pos
@@ -131,12 +131,12 @@ func _process(delta):
 	graphic.state = getCurrentPose()
 	# - Movement
 	if moving():
-		var dir = targetPosition - global_position
-		look_at(global_position - dir, Vector3.UP)
+		var dir = targetPosition - position
+		look_at(position - dir, Vector3.UP)
 		var deg = global_rotation_degrees
 		deg.x = 0; deg.z = 0
 		global_rotation_degrees = deg
-		global_position = global_position.move_toward(targetPosition, moveSpeed*delta)
+		position = position.move_toward(targetPosition, moveSpeed*delta)
 		if !moving():
 			global_rotation_degrees = Vector3(0, direction, 0)
 
@@ -145,8 +145,8 @@ func cacheDirection():
 	_oldDirection = direction
 # This should be called at start of action
 func lookAtTarget(targetPos:Vector3):
-	var dir = targetPos - global_position
-	look_at(global_position - dir, Vector3.UP)
+	var dir = targetPos - position
+	look_at(position - dir, Vector3.UP)
 	var deg = global_rotation_degrees
 	direction = deg.y
 	deg.x = 0; deg.z = 0
@@ -155,7 +155,7 @@ func lookAtTarget(targetPos:Vector3):
 func lookAtTargets(targets:Array[Battler]):
 	if targets.size()==0: return
 	var pos = Vector3(0,0,0)
-	for t in targets: pos += t.global_position
+	for t in targets: pos += t.position
 	pos /= targets.size()
 	lookAtTarget(pos)
 # Run upon end of movement
@@ -165,7 +165,7 @@ func resetDirection():
 	global_rotation_degrees = deg
 
 func moving():
-	return global_position.distance_squared_to(targetPosition) > 0.0001
+	return position.distance_squared_to(targetPosition) > 0.0001
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()

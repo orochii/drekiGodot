@@ -9,6 +9,9 @@ const START_DELAY = 1.5
 signal onBattlerReady(battler:Battler)
 
 @export var testTroop:EnemyTroop
+@export var testBack:PackedScene
+@export var scenarioContainer:Node3D
+@export var battleObjContainer:Node3D
 @export var camera:Camera3D
 @export var battlerTemplate:PackedScene
 @export var party:Node
@@ -23,6 +26,7 @@ signal onBattlerReady(battler:Battler)
 @export var configMenu:ConfigMenu
 @export var battleEndWindow:BattleEnd
 
+var currentBattleback:Node3D
 var _start = false
 var battleResult:EBattleResult = EBattleResult.NONE
 var waitingCount:float = 0.0
@@ -79,11 +83,15 @@ func _ready():
 	Global.Audio.rememberBGM(&"prebattle")
 	_playBattleMusic()
 	# Create scenario
-	# TODO
+	if Global.State.currentBattleback != "":
+		var res:PackedScene = load(Global.State.currentBattleback)
+		currentBattleback = res.instantiate()
+		scenarioContainer.add_child(currentBattleback)
+		battleObjContainer.position = currentBattleback.basePlane.position
 	# Create battlers
 	_createTroop()
 	_createParty()
-	# 
+	# Append all battlers to the waiting list
 	waitingBattlers.append_array(allBattlers)
 	# Add a small wait to the start
 	if(Global.Scene.transitioning):
@@ -350,3 +358,5 @@ func _prepareTest():
 		var idLen = s.length() - pathLen - 5
 		var itemId = s.substr(pathLen, idLen)
 		Global.State.party.gainItem(itemId,GameParty.MAX_ITEMS)
+	# Set current battleback
+	Global.State.currentBattleback = testBack.resource_path
