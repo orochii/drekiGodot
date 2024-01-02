@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="BigMapSpritesheet" load_steps=11 format=3 uid="uid://b7as2m5nbgwus"]
+
+[ext_resource type="Texture2D" uid="uid://drdwfs5emfh5k" path="res://Graphics/Character/hikari/hikari_bigchar_idle.png" id="1_ee6s4"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BigMapSpritesheet.gd" id="1_svil6"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BigMapSpritesheetEntry.gd" id="2_nbq4j"]
+[ext_resource type="Texture2D" uid="uid://bi7ud6emxn2n4" path="res://Graphics/Character/hikari/hikari_bigchar.png" id="3_h8vhg"]
+[ext_resource type="Texture2D" uid="uid://chdbflfyojvgi" path="res://Graphics/Character/hikari/hikari_bigchar_run.png" id="4_7mutd"]
+[ext_resource type="Texture2D" uid="uid://ci3oyuqumur70" path="res://Graphics/Character/hikari/hikari_bigchar_jump.png" id="5_sb08g"]
+
+[sub_resource type="Resource" id="Resource_hbw7m"]
+script = ExtResource("2_nbq4j")
+base = ExtResource("1_ee6s4")
+totalFrames = 1
+shortMode = true
+events = Array[StringName]([&"", &"", &"step", &"", &"", &"step"])
+name = &"base_idle"
+fps = 12
+
+[sub_resource type="Resource" id="Resource_g6trc"]
+script = ExtResource("2_nbq4j")
+base = ExtResource("3_h8vhg")
+totalFrames = 6
+shortMode = true
+events = Array[StringName]([&"", &"", &"step", &"", &"", &"step"])
+name = &"base"
+fps = 12
+
+[sub_resource type="Resource" id="Resource_mkn28"]
+script = ExtResource("2_nbq4j")
+base = ExtResource("4_7mutd")
+totalFrames = 6
+shortMode = true
+events = Array[StringName]([&"", &"", &"step", &"", &"", &"step"])
+name = &"run"
+fps = 12
+
+[sub_resource type="Resource" id="Resource_np3g4"]
+script = ExtResource("2_nbq4j")
+base = ExtResource("5_sb08g")
+totalFrames = 1
+shortMode = true
+events = Array[StringName]([&"", &"", &"step", &"", &"", &"step"])
+name = &"jump"
+fps = 12
+
+[resource]
+script = ExtResource("1_svil6")
+collection = Array[ExtResource("2_nbq4j")]([SubResource("Resource_hbw7m"), SubResource("Resource_g6trc"), SubResource("Resource_mkn28"), SubResource("Resource_np3g4")])

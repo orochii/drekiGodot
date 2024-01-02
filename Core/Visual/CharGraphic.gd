@@ -21,7 +21,7 @@ func _ready():
 
 func _process(delta):
 	var dts = delta * speed
-	updateFrame(dts)
+	updateFrame(dts,delta)
 	updateBlink(delta)
 	if(raycast != null):
 		if raycast.is_colliding():
@@ -31,14 +31,19 @@ func _process(delta):
 			shadow.scale = Vector3.ONE * size
 
 func getCurrentSheet():
+	if speed==0 && hasIdle():
+		return spritesheet.getSheet(state+"_idle")
 	return spritesheet.getSheet(state)
-func updateFrame(delta):
+func updateFrame(delta,deltaUnscaled):
 	updateAngleDeform()
 	if spritesheet != null:
 		var _lastState = state
 		var s:SpritesheetEntry = getCurrentSheet()
 		if s != null:
-			updateFrameCounter(delta, s.fps, s.getTotalFrames())
+			if speed==0:
+				updateFrameCounter(deltaUnscaled, s.fps, s.getTotalFrames())
+			else:
+				updateFrameCounter(delta, s.fps, s.getTotalFrames())
 		# uh... yeah, a weird workaround for switching states before loop
 		if _lastState != state:
 			s = getCurrentSheet()
@@ -63,12 +68,15 @@ func updateAngleDeform():
 	else:
 		self.scale.y = 1
 
+func hasIdle():
+	return spritesheet.getSheet(state+"_idle") != null
+
 func setNewState(stateName):
 	state = stateName
 	frameCounter = 0
 
 func updateFrameCounter(delta, fps : int, totalFrames : int):
-	if speed == 0:
+	if speed == 0 && !hasIdle():
 		frameCounter = 0
 	else:
 		frameCounter += delta*fps

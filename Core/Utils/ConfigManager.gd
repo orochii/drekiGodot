@@ -47,7 +47,7 @@ func exist():
 func configPath() -> String:
 	return "user://"
 func configFilename() -> String:
-	return configPath() + "config.dat"
+	return configPath() + "config.data"
 
 func serialize() -> Dictionary:
 	var data = {

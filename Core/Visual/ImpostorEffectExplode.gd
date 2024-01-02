@@ -3,6 +3,7 @@ extends Node3D
 @export var testRun:bool
 @export var particles:GPUParticles3D
 var run:bool = false
+var timer:float = 0
 
 func _ready():
 	if testRun:
@@ -33,4 +34,9 @@ func setup(target:Sprite3D):
 func _process(delta):
 	if !run: return
 	if particles.emitting: return
+	
+	if timer < (particles.lifetime + 0.5):
+		timer += delta
+		return
+	
 	queue_free()

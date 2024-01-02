@@ -65,6 +65,7 @@ func _init():
 	DirAccess.make_dir_absolute(snapPath())
 	Scene = scene.instantiate()
 	add_child(Scene)
+	print("LOAD Database")
 	Db = load("res://Data/database.tres")
 	Ev = Interpreter.new()
 	Audio = AudioManager.new()

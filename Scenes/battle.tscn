@@ -268,7 +268,7 @@ camera = NodePath("BattleContainer/Camera/Camera3D")
 [node name="BattleContainer" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="Camera" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
-transform = Transform3D(1, 0, 0, 0, 0.866024, 0.499999, 0, -0.499999, 0.866024, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.965924, 0.258819, 0, -0.258819, 0.965924, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/BattleContainer/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)

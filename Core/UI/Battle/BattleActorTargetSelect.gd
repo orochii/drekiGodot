@@ -109,6 +109,8 @@ func _process(delta):
 		if _isCurrentTargetValid()==false:
 			_selectTarget(0)
 			return
+		else:
+			repositionCursor()
 	# Change scope
 	if _canChangeScope:
 		if Input.is_action_just_pressed("cycle_left") || Input.is_action_just_pressed("cycle_right"):
@@ -200,12 +202,15 @@ func _refreshTarget():
 		selector.global_position = _currentTarget.homePosition + Vector3(0,0,-0.3)
 		selectorParticles.emitting = true
 		selectorParticlesMulti.emitting = selectorParticles.emitting &&_currentScope==Global.ETargetScope.ALL
-		var pos = actorCommand.battle.posToScreen(_currentTarget.homePosition)
-		pos.x = roundi(pos.x)
-		pos.y = roundi(pos.y) - _currentTarget.getScreenSize().y
-		pos.y = maxi(pos.y, 16)
-		cursor.position = pos
+		repositionCursor()
 		status.setup(_currentTarget)
+
+func repositionCursor():
+	var pos = actorCommand.battle.posToScreen(_currentTarget.homePosition)
+	pos.x = roundi(pos.x)
+	pos.y = roundi(pos.y) - _currentTarget.getScreenSize().y
+	pos.y = maxi(pos.y, 16)
+	cursor.position = pos
 
 func _isCurrentTargetValid():
 	if _currentTarget == null: return false

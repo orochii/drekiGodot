@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearning.gd" id="2_jpdbq"]
 [ext_resource type="Texture2D" uid="uid://dlrtaypnag7vp" path="res://Graphics/Faces/1_faceAnimated.png" id="3_2jrs3"]
 [ext_resource type="Resource" uid="uid://blr2lg8ngj1rn" path="res://Data/Skills/Passives/Trance.tres" id="3_du70q"]
-[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="3_lw1w4"]
 [ext_resource type="Resource" uid="uid://84msihrapm3r" path="res://Data/Items/Weapon/Sword.tres" id="4_e84ib"]
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearningSlot.gd" id="4_lqmfh"]
 [ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="4_tif0j"]
@@ -33,6 +32,7 @@
 [ext_resource type="Resource" uid="uid://b42adf5xgbq8f" path="res://Data/Skills/Ice Star.tres" id="21_y2j4w"]
 [ext_resource type="Resource" uid="uid://ccioxi607u4w" path="res://Data/Skills/Crystalize.tres" id="22_idw7a"]
 [ext_resource type="Resource" uid="uid://cx8xixtxstrjy" path="res://Data/Skills/Passives/Sturdy.tres" id="22_pmfoi"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="31_yt4fg"]
 
 [sub_resource type="Resource" id="Resource_anlwo"]
 script = ExtResource("2_jpdbq")
@@ -274,7 +274,7 @@ jobName = "Militia"
 faceGraphic = ExtResource("3_2jrs3")
 faceSmall = ExtResource("4_tif0j")
 artwork = ExtResource("1_hbvuk")
-mapSprite = ExtResource("3_lw1w4")
+mapSprite = ExtResource("31_yt4fg")
 battleSprite = ExtResource("1_fphf6")
 gender = 1
 birthday = 15

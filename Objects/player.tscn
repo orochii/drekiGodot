@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Core/Characters/Player.gd" id="1_hti21"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="2_mdew4"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_2qdqi"]
-[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="4_qm423"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="4_7q4nm"]
 [ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="5_artf2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ybgd"]
@@ -57,7 +57,7 @@ texture = ExtResource("2_mdew4")
 region_enabled = true
 region_rect = Rect2(0, 0, 24, 32)
 script = ExtResource("3_2qdqi")
-spritesheet = ExtResource("4_qm423")
+spritesheet = ExtResource("4_7q4nm")
 shadow = NodePath("../Shadow")
 raycast = NodePath("../RayCast3D")
 

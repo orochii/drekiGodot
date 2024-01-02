@@ -7,6 +7,12 @@ var members : Array
 var inventory : Array[GameInventoryEntry]
 var gold : int
 
+func getMember(i:int):
+	if i >= members.size() || i < 0: return null
+	var id = members[i]
+	var actor = Global.State.getActor(id)
+	return actor
+
 func gainItem(id:StringName,n:int):
 	if(n<=0): return
 	for e in inventory:

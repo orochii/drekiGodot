@@ -253,6 +253,8 @@ func getData():
 func getInnateElement():
 	return getData().innateElement
 
+func getGraphic():
+	return getData().mapSprite
 func getBattleGraphic():
 	return getData().battleSprite
 func getSmallFace():

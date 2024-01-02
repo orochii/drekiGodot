@@ -6,7 +6,12 @@ var customMove:bool = false
 
 func _ready():
 	Global.Player = self
+	refreshGraphic()
 	super._ready()
+
+func refreshGraphic():
+	var actor = Global.State.party.getMember(0)
+	graphic.spritesheet = actor.getGraphic()
 
 func _process(delta):
 	if !customMove:
