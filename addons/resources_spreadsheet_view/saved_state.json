@@ -1,0 +1,59 @@
+{
+  "hidden_columns": {
+    "res://Data/Actors/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Enemies/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Items/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Items/Armor/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Skills/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Spritesheets/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Status/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/System/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Troops/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    }
+  },
+  "recent_paths": [
+    "res://Data/Items/Armor/",
+    "res://Data/Items/",
+    "res://Data/Enemies/",
+    "res://Data/Actors/",
+    "res://Data/Skills/",
+    "res://Data/Spritesheets/",
+    "res://Data/Status/",
+    "res://Data/Troops/",
+    "res://Data/System/"
+  ],
+  "table_functions": {
+    "filter": [
+      "return true"
+    ],
+    "process": [
+      "return value"
+    ]
+  }
+}

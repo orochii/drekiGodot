@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://gwk8x1xdmuo1"]
+
+[ext_resource type="Texture2D" uid="uid://bm7ivuu6ekg37" path="res://Graphics/Scenario/props/fence.png" id="1_6hde7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ukej8"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_6hde7")
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_5qnbd"]
+material = SubResource("StandardMaterial3D_ukej8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plqmt"]
+size = Vector3(3, 0.952, 0.4)
+
+[node name="fence" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.371914, 0)
+mesh = SubResource("QuadMesh_5qnbd")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.98544, 0.371914, 0)
+mesh = SubResource("QuadMesh_5qnbd")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0015, 0.371914, 0)
+mesh = SubResource("QuadMesh_5qnbd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.403246, 0)
+shape = SubResource("BoxShape3D_plqmt")

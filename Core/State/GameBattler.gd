@@ -306,7 +306,7 @@ func pickActionScript(battle:BattleManager) -> ActionScript:
 	for a in actions:
 		var valid = true
 		for c in a.conditions:
-			if !c.evaluate(battle):
+			if !c.evaluate(self,battle):
 				valid = false
 				break
 		if valid:

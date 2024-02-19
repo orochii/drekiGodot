@@ -18,6 +18,8 @@ var localVars : Dictionary = {}
 # map state
 var _characters = null
 var lastSceneName : String = ""
+var targetGate : int = -1
+var cameraAngle : float = 0
 # system state
 var playTime:float = 0
 var stepsTaken:int = 0
@@ -84,6 +86,7 @@ func _serialize():
 		"localVars" : localVars,
 		"characters" : _serializeCharacters(),
 		"lastSceneName" : lastSceneName,
+		"cameraAngle" : Global.Camera.currRotation.y,
 		#
 		"playTime" : playTime,
 		"stepsTaken" : stepsTaken,

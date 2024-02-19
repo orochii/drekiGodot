@@ -15,6 +15,8 @@ func _ready():
 	Global.Camera = self
 	if(target != null): position = target.position
 	currRotation = global_rotation_degrees
+	currRotation.y = Global.State.cameraAngle
+	global_rotation_degrees = currRotation
 	var window = get_window()
 	updateScreenSize(window.content_scale_size)
 

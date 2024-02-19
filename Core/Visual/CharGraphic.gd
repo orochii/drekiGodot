@@ -41,7 +41,11 @@ func updateFrame(delta,deltaUnscaled):
 		var s:SpritesheetEntry = getCurrentSheet()
 		if s != null:
 			if speed==0:
-				updateFrameCounter(deltaUnscaled, s.fps, s.getTotalFrames())
+				var dd = deltaUnscaled * s.idleSpeed
+				if dd == 0:
+					frameCounter = 0
+				else:
+					updateFrameCounter(dd, s.fps, s.getTotalFrames())
 			else:
 				updateFrameCounter(delta, s.fps, s.getTotalFrames())
 		# uh... yeah, a weird workaround for switching states before loop

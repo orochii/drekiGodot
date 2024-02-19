@@ -3,6 +3,7 @@ class_name SpritesheetEntry
 
 @export var name : StringName
 @export var fps : int = 12
+@export var idleSpeed : float = 0
 
 var parent : Spritesheet
 

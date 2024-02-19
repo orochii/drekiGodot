@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://4jobrteyxhty"]
+
+[ext_resource type="Texture2D" uid="uid://dc0lux6cigrwo" path="res://Graphics/Scenario/props/big_tree.png" id="1_5ftwy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6eplu"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_5ftwy")
+proximity_fade_distance = 5.0
+distance_fade_min_distance = 1.0
+distance_fade_max_distance = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_k0m6s"]
+material = SubResource("StandardMaterial3D_6eplu")
+size = Vector2(4.5, 5.25)
+center_offset = Vector3(0, 1.65, 0)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_htdkq"]
+radius = 1.8296
+height = 5.83023
+
+[node name="big_tree" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.267027, 0)
+mesh = SubResource("QuadMesh_k0m6s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.267027, 0)
+mesh = SubResource("QuadMesh_k0m6s")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.267027, 0)
+mesh = SubResource("QuadMesh_k0m6s")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 0.267027, 0)
+mesh = SubResource("QuadMesh_k0m6s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847092, 0)
+shape = SubResource("CapsuleShape3D_htdkq")

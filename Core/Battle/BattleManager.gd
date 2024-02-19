@@ -63,6 +63,10 @@ func spawnDamagePop(b:Battler,eff:Dictionary):
 	pop.setup(b,eff)
 	damagePopupContainer.add_child(pop)
 
+func findBattler(battler:GameBattler):
+	for b in allBattlers:
+		if b.battler == battler: return b
+	return null
 func findPartyBattler(actor):
 	for b in partyBattlers:
 		if b.battler == actor: return b

@@ -8,6 +8,7 @@
 script = ExtResource("2_ykagv")
 base = ExtResource("1_2awv2")
 totalFrames = 4
+idleSpeed = 0.0
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"
 fps = 8

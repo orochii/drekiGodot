@@ -15,7 +15,7 @@
 [ext_resource type="Resource" uid="uid://br46b7nriekaj" path="res://Data/Skills/Common/Claw.tres" id="8_ubclu"]
 [ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="11_eq8wb"]
 [ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="12_8a6ld"]
-[ext_resource type="PackedScene" uid="uid://bqs4xtme1qlon" path="res://Scenes/training_cave.tscn" id="18_m80qw"]
+[ext_resource type="PackedScene" uid="uid://bqs4xtme1qlon" path="res://Maps/training_cave.tscn" id="16_25lfw"]
 
 [sub_resource type="Resource" id="Resource_ldt41"]
 script = ExtResource("1_g4sgc")
@@ -212,7 +212,7 @@ relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_6ax2f"), SubRe
 [resource]
 script = ExtResource("1_37k5x")
 startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf")])
-startingScene = ExtResource("18_m80qw")
+startingScene = ExtResource("16_25lfw")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
 defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd"), ExtResource("8_ubclu")])

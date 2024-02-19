@@ -1,16 +1,30 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=9 format=3 uid="uid://ckwh1pmm5yrxt"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=14 format=3 uid="uid://ckwh1pmm5yrxt"]
 
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_bsfhi"]
 [ext_resource type="Resource" uid="uid://b8uf6vq6tosjn" path="res://Data/Spritesheets/flame_battler.tres" id="2_f7fwu"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript_Skill.gd" id="2_n0uyx"]
+[ext_resource type="Resource" uid="uid://ci3paygfjrydc" path="res://Data/Skills/Fire.tres" id="2_t8wvo"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_o8yew"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScriptCondition_Turn.gd" id="3_o747h"]
 [ext_resource type="Resource" uid="uid://baped7344522u" path="res://Data/Items/Thaw.tres" id="4_ushoi"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="5_uvhk4"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="8_2tkp2"]
 
-[sub_resource type="Resource" id="Resource_mwgu2"]
+[sub_resource type="Resource" id="Resource_omx5s"]
 script = ExtResource("1_bsfhi")
 priority = 5
 conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_6x6kw"]
+script = ExtResource("3_o747h")
+turnStart = 3
+turnInterval = 2
+
+[sub_resource type="Resource" id="Resource_addlv"]
+script = ExtResource("2_n0uyx")
+actions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("2_t8wvo")])
+priority = 10
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([SubResource("Resource_6x6kw")])
 
 [sub_resource type="Resource" id="Resource_jkll2"]
 script = ExtResource("5_uvhk4")
@@ -32,7 +46,7 @@ str = 32
 vit = 40
 mag = 10
 agi = 7
-actions = Array[ExtResource("1_bsfhi")]([SubResource("Resource_mwgu2")])
+actions = Array[ExtResource("1_bsfhi")]([SubResource("Resource_omx5s"), SubResource("Resource_addlv")])
 rewardExp = 8
 rewardApp = 5
 rewardGold = 8
