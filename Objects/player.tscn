@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpxohgu0qmlrt"]
+[gd_scene load_steps=11 format=3 uid="uid://dpxohgu0qmlrt"]
 
 [ext_resource type="Script" path="res://Core/Characters/Player.gd" id="1_hti21"]
+[ext_resource type="Shader" path="res://Core/Shaders/outlineOverlay.gdshader" id="2_1gxkr"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="2_mdew4"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_2qdqi"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="4_7q4nm"]
@@ -15,6 +16,13 @@ size = Vector3(0.702, 1, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpbfm"]
 radius = 0.6
 height = 2.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3vnx"]
+render_priority = 127
+shader = ExtResource("2_1gxkr")
+shader_parameter/color = Color(0.4, 0.572549, 0.729412, 1)
+shader_parameter/yScale = 1.0
+shader_parameter/texture = ExtResource("2_mdew4")
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("graphic", "collider", "raycast", "soundEmitter")]
 floor_max_angle = 1.0472
@@ -48,6 +56,7 @@ collision_mask = 3
 shape = SubResource("CapsuleShape3D_rpbfm")
 
 [node name="Graphic" type="Sprite3D" parent="." node_paths=PackedStringArray("shadow", "raycast")]
+material_overlay = SubResource("ShaderMaterial_v3vnx")
 offset = Vector2(0, 16)
 pixel_size = 0.0625
 billboard = 2
@@ -60,6 +69,7 @@ script = ExtResource("3_2qdqi")
 spritesheet = ExtResource("4_7q4nm")
 shadow = NodePath("../Shadow")
 raycast = NodePath("../RayCast3D")
+useOverlay = true
 
 [node name="Shadow" type="Sprite3D" parent="."]
 visible = false

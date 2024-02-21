@@ -11,6 +11,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_2kng3"]
 script = ExtResource("1_u0p85")
@@ -19,6 +20,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"moving"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_iw73k"]
 script = ExtResource("1_u0p85")
@@ -27,6 +29,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"dead"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_p70lc"]
 script = ExtResource("1_u0p85")
@@ -35,6 +38,7 @@ events = Array[StringName]([&"", &"", &"end", &"", &""])
 weaponPosition = Array[Vector3i]([Vector3i(9, 37, 20), Vector3i(24, 31, -10), Vector3i(30, 31, -50), Vector3i(30, 31, -95), Vector3i(30, 31, -100)])
 name = &"punch"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_tyxxk"]
 script = ExtResource("1_u0p85")
@@ -43,6 +47,7 @@ events = Array[StringName]([&"", &"", &"", &"end"])
 weaponPosition = Array[Vector3i]([])
 name = &"kick"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_dn6hs"]
 script = ExtResource("1_u0p85")
@@ -51,6 +56,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"skill"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_k50ay"]
 script = ExtResource("1_u0p85")
@@ -59,6 +65,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"status"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_7yhdq"]
 script = ExtResource("1_u0p85")
@@ -67,6 +74,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"lowhp"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_bjsy7"]
 script = ExtResource("1_u0p85")
@@ -75,6 +83,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"sleep"
 fps = 8
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("1_qlmdr")

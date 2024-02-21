@@ -26,6 +26,7 @@ totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"
 fps = 12
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_jgvgh"]
 script = ExtResource("5_h53qo")
@@ -37,6 +38,7 @@ totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"jump"
 fps = 12
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_a8o7e"]
 script = ExtResource("5_h53qo")
@@ -48,6 +50,7 @@ totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"run"
 fps = 12
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_rioj8"]
 script = ExtResource("5_h53qo")
@@ -56,6 +59,7 @@ totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"push"
 fps = 12
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("6_l16xs")

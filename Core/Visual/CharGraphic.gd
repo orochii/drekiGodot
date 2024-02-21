@@ -9,6 +9,7 @@ signal onLoop(_state:StringName)
 @export var shadow : Sprite3D
 @export var raycast : RayCast3D
 @export var blinkRate = Vector2(2.5, 0.2)
+@export var useOverlay : bool = false
 
 var speed : float = 1
 var blinkCounter : float = 0
@@ -21,6 +22,7 @@ func _ready():
 
 func _process(delta):
 	var dts = delta * speed
+	updateOverlay()
 	updateFrame(dts,delta)
 	updateBlink(delta)
 	if(raycast != null):
@@ -29,6 +31,13 @@ func _process(delta):
 			shadow.global_position.y = pos.y
 			var size = 1 - (shadow.position.y / raycast.target_position.y)
 			shadow.scale = Vector3.ONE * size
+
+func updateOverlay():
+	if useOverlay:
+		var sm = material_overlay as ShaderMaterial
+		if (sm == null): return
+		sm.set_shader_parameter("texture", texture)
+		#sm.set_shader_parameter("yScale", scale.y)
 
 func getCurrentSheet():
 	if speed==0 && hasIdle():

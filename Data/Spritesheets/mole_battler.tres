@@ -11,6 +11,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("1_32l75")

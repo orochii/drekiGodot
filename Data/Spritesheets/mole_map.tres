@@ -13,6 +13,7 @@ totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 name = &"base"
 fps = 8
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("1_dmpav")
