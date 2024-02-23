@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://da5bq3pri04kx"]
+[gd_scene load_steps=10 format=3 uid="uid://da5bq3pri04kx"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_7ef4d"]
 [ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard.tscn" id="1_41gtu"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="2_3ba42"]
 [ext_resource type="Script" path="res://Core/Characters/PlayerWorldmap.gd" id="4_1owuk"]
 [ext_resource type="Script" path="res://Core/CameraWorldmap.gd" id="4_buto5"]
-[ext_resource type="Shader" path="res://Core/Shaders/outlineOverlay.gdshader" id="5_hdugh"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="6_hs7vt"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="7_md2ey"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="8_kw7wr"]
@@ -13,23 +12,11 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w7pnj"]
 radius = 0.49
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3vnx"]
-render_priority = 127
-shader = ExtResource("5_hdugh")
-shader_parameter/color = Color(0.4, 0.572549, 0.729412, 1)
-shader_parameter/yScale = 1.0
-shader_parameter/texture = ExtResource("6_hs7vt")
-
-[sub_resource type="BoxMesh" id="BoxMesh_6k8fd"]
-size = Vector3(0.5, 5, 0.5)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_addub"]
-
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7ef4d")
 
 [node name="midgard" parent="." instance=ExtResource("1_41gtu")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.628058, 0, -0.778166, 0, 1, 0, 0.778166, 0, 0.628058, 0, 0, 0)
@@ -37,9 +24,11 @@ shadow_enabled = true
 
 [node name="GameUI" parent="." instance=ExtResource("2_3ba42")]
 
-[node name="CameraWorldmap" type="Node3D" parent="."]
+[node name="CameraWorldmap" type="Node3D" parent="." node_paths=PackedStringArray("target", "pivot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 script = ExtResource("4_buto5")
+target = NodePath("../PlayerWorldmap")
+pivot = NodePath("Pivot")
 
 [node name="Pivot" type="Node3D" parent="CameraWorldmap"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -55,7 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 current = true
 
 [node name="PlayerWorldmap" type="CharacterBody3D" parent="." node_paths=PackedStringArray("refBody", "cast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001, 20, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001, 100, 0)
 script = ExtResource("4_1owuk")
 refBody = NodePath("../midgard")
 cast = NodePath("RayCast3D")
@@ -65,10 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_w7pnj")
 
 [node name="Graphic" type="Sprite3D" parent="PlayerWorldmap"]
-material_overlay = SubResource("ShaderMaterial_v3vnx")
 offset = Vector2(0, 16)
 pixel_size = 0.0625
-billboard = 2
+billboard = 1
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("6_hs7vt")
@@ -76,16 +64,9 @@ region_enabled = true
 region_rect = Rect2(0, 0, 24, 32)
 script = ExtResource("7_md2ey")
 spritesheet = ExtResource("8_kw7wr")
-useOverlay = true
+scaleYBillboard = false
 
 [node name="RayCast3D" type="RayCast3D" parent="PlayerWorldmap"]
-target_position = Vector3(0, -0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, -1.5, 0)
 hit_from_inside = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerWorldmap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
-mesh = SubResource("BoxMesh_6k8fd")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PlayerWorldmap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0269, 0)
-mesh = SubResource("CapsuleMesh_addub")

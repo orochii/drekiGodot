@@ -4,7 +4,7 @@ extends CharacterBody3D
 @export var cast : RayCast3D
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 10.0
 const GRAVITY = 98.0
 
 var gravityVelocity : Vector3
@@ -19,6 +19,9 @@ func alignWithBody():
 	var gravityDirection = (global_position - refBody.global_position).normalized()
 	global_transform = align_with_y(global_transform, gravityDirection)
 
+func get_dash():
+	return Input.is_action_pressed("action_run")
+
 func get_inputdir():
 	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
@@ -27,45 +30,41 @@ func _ready():
 
 func _process(delta):
 	alignWithBody()
-	if Input.is_action_just_pressed("action_ok"):
-		_dirIdx = (_dirIdx+1) % 6
-	var dir = get_inputdir()
-	if dir:
-		global_position += Vector3(dir.x,0,dir.y) * delta
 
 func _physics_process(delta):
-	return
 	# Get direction towards "center"
 	var gravityDirection = (global_position - refBody.global_position).normalized()
 	
 	# Add the gravity.
-	currentNormal = cast.get_collision_normal()
-	
 	if not cast.is_colliding():
-		print("Not colliding")
 		gravityVelocity -= gravityDirection * GRAVITY * delta
 	else:
+		gravityVelocity = Vector3.ZERO
 		# Handle jump. # No jump for now, probably never in worldmap cuz yes.
 		if Input.is_action_just_pressed("action_extra"):
-			print("JUMP?")
-			gravityVelocity = gravityDirection
+			gravityVelocity = gravityDirection * JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if input_dir:
-		var up = -transform.basis.y
-		var left = -transform.basis.x
-		movementVelocity = ((up * input_dir.y) - (left * input_dir.x)).normalized() * SPEED
+		var f = global_transform.basis.z
+		var r = transform.basis.x
+		movementVelocity = (f*input_dir.y + r*input_dir.x).normalized() * get_speed()
+		print(movementVelocity)
 	else:
 		movementVelocity.x = move_toward(movementVelocity.x, 0, SPEED)
 		movementVelocity.y = move_toward(movementVelocity.y, 0, SPEED)
 		movementVelocity.z = move_toward(movementVelocity.z, 0, SPEED)
 	
 	velocity = gravityVelocity + movementVelocity
-	print(velocity)
 	
 	move_and_slide()
+
+func get_speed():
+	if get_dash():
+		return SPEED * 4
+	return SPEED
 
 func align_with_y(xform, new_y):
 	xform.basis.y = new_y

@@ -10,6 +10,7 @@ signal onLoop(_state:StringName)
 @export var raycast : RayCast3D
 @export var blinkRate = Vector2(2.5, 0.2)
 @export var useOverlay : bool = false
+@export var scaleYBillboard : bool = true
 
 var speed : float = 1
 var blinkCounter : float = 0
@@ -44,7 +45,7 @@ func getCurrentSheet():
 		return spritesheet.getSheet(state+"_idle")
 	return spritesheet.getSheet(state)
 func updateFrame(delta,deltaUnscaled):
-	updateAngleDeform()
+	if(scaleYBillboard): updateAngleDeform()
 	if spritesheet != null:
 		var _lastState = state
 		var s:SpritesheetEntry = getCurrentSheet()

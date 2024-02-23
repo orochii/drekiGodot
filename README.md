@@ -16,8 +16,11 @@ One attempt at making RPG on Godot just how I like it :)
 - Groups menu
 - Item synthesis
 - Fylgja stuff
+- Worldmap: fix graphic orientation, it should follow the pivot in this case I guess? See if can reconcile these two things.
+- Worldmap: fix movement direction, make it depend on camera's orientation.
 
 # DONE List
+- Base for worldmap character/camera (different from regular).
 - Battle backgrounds.
 - Choice box. 
 - Redone save/load screen.
