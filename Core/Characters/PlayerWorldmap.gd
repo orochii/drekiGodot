@@ -1,21 +1,53 @@
-extends CharacterBody3D
+extends RigidBody3D
 
 @export var refBody : Node3D
 @export var cast : RayCast3D
 
-const SPEED = 5.0
+const SPEED_FORCE = 150.0
+const DASH_FORCE_MULT = 1.5
+const MAX_WALK_SPEED = 20.0
+const MAX_DASH_SPEED = 30.0
 const JUMP_VELOCITY = 10.0
 const GRAVITY = 98.0
 
 var gravityVelocity : Vector3
 var movementVelocity : Vector3
-var currentNormal : Vector3
+var moveNode : Node3D
 
-var _dirIdx = 0
-var DIRECTIONS = [Vector3.UP, Vector3.DOWN, Vector3.LEFT, Vector3.RIGHT, Vector3.FORWARD, Vector3.BACK]
+func _ready():
+	alignWithBody()
+	moveNode = $MoveNode
+
+func _integrate_forces(state):
+	alignWithBody()
+	# Get direction towards "center"
+	var gravityDirection = (global_position - refBody.global_position).normalized()
+	var normalDir = -gravityDirection
+	var g = -gravityDirection * state.step * GRAVITY
+	state.linear_velocity += g
+	if cast.is_colliding():
+		normalDir = cast.get_collision_normal()
+		if normalDir.dot(gravityDirection) >= 0.0:
+			normalDir = normalDir * -1
+	moveNode.global_transform = align_with_y(moveNode.global_transform, -normalDir)
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if input_dir:
+		var f = moveNode.global_transform.basis.z
+		var r = moveNode.global_transform.basis.x
+		var move = (f*input_dir.y + r*input_dir.x).normalized() * get_speed()
+		if state.linear_velocity.length_squared() < get_maxspeed()*get_maxspeed():
+			state.apply_force(move)
+		#movementVelocity = move
+	#else:
+	#	movementVelocity.x = move_toward(movementVelocity.x, 0, SPEED)
+	#	movementVelocity.y = move_toward(movementVelocity.y, 0, SPEED)
+	#	movementVelocity.z = move_toward(movementVelocity.z, 0, SPEED)
+	
+	#state.linear_velocity = gravityVelocity + movementVelocity
 
 func alignWithBody():
-	#look_at(refBody.global_position, Vector3.UP)
 	var gravityDirection = (global_position - refBody.global_position).normalized()
 	global_transform = align_with_y(global_transform, gravityDirection)
 
@@ -25,46 +57,14 @@ func get_dash():
 func get_inputdir():
 	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
-func _ready():
-	alignWithBody()
-
-func _process(delta):
-	alignWithBody()
-
-func _physics_process(delta):
-	# Get direction towards "center"
-	var gravityDirection = (global_position - refBody.global_position).normalized()
-	
-	# Add the gravity.
-	if not cast.is_colliding():
-		gravityVelocity -= gravityDirection * GRAVITY * delta
-	else:
-		gravityVelocity = Vector3.ZERO
-		# Handle jump. # No jump for now, probably never in worldmap cuz yes.
-		if Input.is_action_just_pressed("action_extra"):
-			gravityVelocity = gravityDirection * JUMP_VELOCITY
-	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if input_dir:
-		var f = global_transform.basis.z
-		var r = transform.basis.x
-		movementVelocity = (f*input_dir.y + r*input_dir.x).normalized() * get_speed()
-		print(movementVelocity)
-	else:
-		movementVelocity.x = move_toward(movementVelocity.x, 0, SPEED)
-		movementVelocity.y = move_toward(movementVelocity.y, 0, SPEED)
-		movementVelocity.z = move_toward(movementVelocity.z, 0, SPEED)
-	
-	velocity = gravityVelocity + movementVelocity
-	
-	move_and_slide()
-
 func get_speed():
 	if get_dash():
-		return SPEED * 4
-	return SPEED
+		return SPEED_FORCE * DASH_FORCE_MULT
+	return SPEED_FORCE
+func get_maxspeed():
+	if get_dash():
+		return MAX_DASH_SPEED
+	return MAX_WALK_SPEED
 
 func align_with_y(xform, new_y):
 	xform.basis.y = new_y

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://da5bq3pri04kx"]
+[gd_scene load_steps=11 format=3 uid="uid://da5bq3pri04kx"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_7ef4d"]
 [ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard.tscn" id="1_41gtu"]
@@ -10,13 +10,17 @@
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="8_kw7wr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w7pnj"]
-radius = 0.49
+radius = 0.7
+height = 3.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_iydr2"]
+size = Vector3(1, 2, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7ef4d")
 
 [node name="midgard" parent="." instance=ExtResource("1_41gtu")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.628058, 0, -0.778166, 0, 1, 0, 0.778166, 0, 0.628058, 0, 0, 0)
@@ -41,22 +45,28 @@ size = 16.875
 
 [node name="AudioListener3D" type="AudioListener3D" parent="CameraWorldmap/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-current = true
 
-[node name="PlayerWorldmap" type="CharacterBody3D" parent="." node_paths=PackedStringArray("refBody", "cast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001, 100, 0)
+[node name="PlayerWorldmap" type="RigidBody3D" parent="." node_paths=PackedStringArray("refBody", "cast")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.8229, 121.929, 136.289)
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = true
+linear_damp = 1.0
 script = ExtResource("4_1owuk")
 refBody = NodePath("../midgard")
-cast = NodePath("RayCast3D")
+cast = NodePath("CollisionShape3D/RayCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerWorldmap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_w7pnj")
+
+[node name="RayCast3D" type="RayCast3D" parent="PlayerWorldmap/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -2, 0)
 
 [node name="Graphic" type="Sprite3D" parent="PlayerWorldmap"]
 offset = Vector2(0, 16)
 pixel_size = 0.0625
-billboard = 1
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("6_hs7vt")
@@ -66,7 +76,8 @@ script = ExtResource("7_md2ey")
 spritesheet = ExtResource("8_kw7wr")
 scaleYBillboard = false
 
-[node name="RayCast3D" type="RayCast3D" parent="PlayerWorldmap"]
+[node name="MoveNode" type="Node3D" parent="PlayerWorldmap"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerWorldmap/MoveNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(0, -1.5, 0)
-hit_from_inside = true
+mesh = SubResource("PrismMesh_iydr2")
