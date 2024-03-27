@@ -12,8 +12,13 @@ func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
 	var step : float = 90.0 if !hasDiag else 45.0
 	var angle : float = target.global_rotation_degrees.y + 180 #+ (step/2)
-	var cam = target.get_viewport().get_camera_3d()
-	if (cam != null): angle -= cam.global_rotation_degrees.y
+	var yRefNode = target.get("yRefNode")
+	if yRefNode != null:
+		angle = -target.rotation_degrees.y - 90
+		angle -= yRefNode.rotation_degrees.y
+	else:
+		var cam = target.get_viewport().get_camera_3d()
+		if (cam != null): angle -= cam.global_rotation_degrees.y
 	if angle >= 360: angle -= 360
 	if angle < 0: angle += 360
 	var dir : int = roundi(angle / step)
@@ -49,7 +54,7 @@ func _resolveRow(hasDiag : bool, dir : int, blinkState : bool):
 			6:
 				texture = _resolveBlink(base,blink,blinkState)
 				row = 2
-			7:
+			_:
 				texture = _resolveBlink(baseDiag,blinkDiag,blinkState)
 				row = 3
 	else:
@@ -61,7 +66,7 @@ func _resolveRow(hasDiag : bool, dir : int, blinkState : bool):
 				row = 1
 			2:
 				row = 0
-			3:
+			_:
 				row = 2
 	return {
 		&"row" : row,

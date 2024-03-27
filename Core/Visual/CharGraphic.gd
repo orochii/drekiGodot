@@ -11,6 +11,7 @@ signal onLoop(_state:StringName)
 @export var blinkRate = Vector2(2.5, 0.2)
 @export var useOverlay : bool = false
 @export var scaleYBillboard : bool = true
+@export var yRefNode : Node3D
 
 var speed : float = 1
 var blinkCounter : float = 0

@@ -2,6 +2,8 @@ extends RigidBody3D
 
 @export var refBody : Node3D
 @export var cast : RayCast3D
+@export var graphicNode : CharGraphic
+@export var yRefNode : Node3D
 
 const SPEED_FORCE = 150.0
 const DASH_FORCE_MULT = 1.5
@@ -34,6 +36,10 @@ func _integrate_forces(state):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if input_dir:
+		# rotate
+		input_dir = input_dir.rotated(-yRefNode.rotation.y)
+		graphicNode.rotation_degrees.y = rad_to_deg(input_dir.angle())
+		#
 		var f = moveNode.global_transform.basis.z
 		var r = moveNode.global_transform.basis.x
 		var move = (f*input_dir.y + r*input_dir.x).normalized() * get_speed()

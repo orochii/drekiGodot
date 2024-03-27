@@ -31,6 +31,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7gdel"]
 shader = ExtResource("3_fhxyn")
+shader_parameter/fakeEffect = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p37s6"]
 animations = [{

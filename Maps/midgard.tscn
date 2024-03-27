@@ -19,12 +19,16 @@ size = Vector3(1, 2, 1)
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7ef4d")
 
-[node name="midgard" parent="." instance=ExtResource("1_41gtu")]
+[node name="Midgard" type="Node3D" parent="."]
+
+[node name="midgard" parent="Midgard" instance=ExtResource("1_41gtu")]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.628058, 0, -0.778166, 0, 1, 0, 0.778166, 0, 0.628058, 0, 0, 0)
-shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 200.0
+sky_mode = 1
 
 [node name="GameUI" parent="." instance=ExtResource("2_3ba42")]
 
@@ -46,15 +50,17 @@ size = 16.875
 [node name="AudioListener3D" type="AudioListener3D" parent="CameraWorldmap/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="PlayerWorldmap" type="RigidBody3D" parent="." node_paths=PackedStringArray("refBody", "cast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.8229, 121.929, 136.289)
+[node name="PlayerWorldmap" type="RigidBody3D" parent="." node_paths=PackedStringArray("refBody", "cast", "graphicNode", "yRefNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.484, 58.7254, 153.465)
 gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = true
 linear_damp = 1.0
 script = ExtResource("4_1owuk")
-refBody = NodePath("../midgard")
+refBody = NodePath("../Midgard")
 cast = NodePath("CollisionShape3D/RayCast3D")
+graphicNode = NodePath("Graphic")
+yRefNode = NodePath("../CameraWorldmap/Pivot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerWorldmap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -64,9 +70,10 @@ shape = SubResource("CapsuleShape3D_w7pnj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 target_position = Vector3(0, -2, 0)
 
-[node name="Graphic" type="Sprite3D" parent="PlayerWorldmap"]
+[node name="Graphic" type="Sprite3D" parent="PlayerWorldmap" node_paths=PackedStringArray("yRefNode")]
 offset = Vector2(0, 16)
 pixel_size = 0.0625
+billboard = 1
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("6_hs7vt")
@@ -75,9 +82,11 @@ region_rect = Rect2(0, 0, 24, 32)
 script = ExtResource("7_md2ey")
 spritesheet = ExtResource("8_kw7wr")
 scaleYBillboard = false
+yRefNode = NodePath("../../CameraWorldmap/Pivot")
 
 [node name="MoveNode" type="Node3D" parent="PlayerWorldmap"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerWorldmap/MoveNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("PrismMesh_iydr2")

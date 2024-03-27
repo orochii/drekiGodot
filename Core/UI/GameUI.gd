@@ -9,15 +9,31 @@ class_name GameUI
 
 var currLang = "en"
 var perfLabel:Label = null
+var colorShader:ColorRect = null
 var debugVisible:bool = true
 
 func _init():
 	Global.UI = self
+	# Create perf label
 	perfLabel = Label.new()
 	add_child(perfLabel)
 	perfLabel.scale = Vector2.ONE*0.5
 	perfLabel.z_as_relative = false
-	perfLabel.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
+	perfLabel.z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
+
+func _ready():
+	# Create color shader
+	colorShader = ColorRect.new()
+	add_child(colorShader)
+	colorShader.layout_mode = 1
+	colorShader.set_anchors_preset(PRESET_FULL_RECT, true)
+	colorShader.z_as_relative = true
+	colorShader.z_index = 202	#RenderingServer.CANVAS_ITEM_Z_MAX
+	#colorShader.color = Color.WHITE
+	var m = ShaderMaterial.new()
+	m.shader = load("res://Core/Shaders/sh16bppfilter.gdshader")
+	colorShader.material = m
+	colorShader.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _process(delta):
 	Global.State.playTime += delta
