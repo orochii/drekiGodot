@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdr3wpbfjf3g5"]
+
+[ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_l4ppn"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_xhnjk"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="2_k178l"]
+[ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_l4opk"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_osv2s"]
+[ext_resource type="AudioStream" uid="uid://km1338hqvgmf" path="res://Audio/BGM/Demise Inside the Fog.ogg" id="3_yemio"]
+[ext_resource type="PackedScene" uid="uid://b7yhdsrr8st8c" path="res://Graphics/Scenario/fierro/fierro.tscn" id="7_pxu0i"]
+
+[sub_resource type="Resource" id="Resource_5ubeo"]
+script = ExtResource("2_l4opk")
+name = &""
+stream = ExtResource("3_yemio")
+volume = 1.0
+pitch = 1.0
+
+[node name="Fierro" type="Node3D"]
+script = ExtResource("1_l4ppn")
+music = SubResource("Resource_5ubeo")
+
+[node name="GameUI" parent="." instance=ExtResource("1_xhnjk")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_k178l")]
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 12.0197, -0.350279, 121.016)
+target = NodePath("../Player")
+
+[node name="Node3D" type="Node3D" parent="Camera/Camera3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="AudioListener3D" parent="Camera" index="1"]
+current = false
+
+[node name="Player" parent="." instance=ExtResource("3_osv2s")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.492332, 0.870407, 0, -0.870407, 0.492332, 0, 77.4825, 172.399)
+shadow_enabled = true
+
+[node name="fierro" parent="." instance=ExtResource("7_pxu0i")]
+
+[editable path="Camera"]

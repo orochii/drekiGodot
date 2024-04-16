@@ -1,0 +1,44 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bn6hi0h5sj5o4"]
+
+[ext_resource type="Shader" path="res://Core/Shaders/midgard_water.gdshader" id="1_q5fj6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a747b"]
+noise_type = 2
+seed = 80
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qkh1o"]
+seamless = true
+noise = SubResource("FastNoiseLite_a747b")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tecwo"]
+noise_type = 4
+seed = 135
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vq5rw"]
+seamless = true
+noise = SubResource("FastNoiseLite_tecwo")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x1fou"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gno8i"]
+seamless = true
+noise = SubResource("FastNoiseLite_x1fou")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_q5fj6")
+shader_parameter/mainColor1 = Color(0.0396, 0.35992, 0.44, 1)
+shader_parameter/mainColor2 = Color(0.1739, 0.41078, 0.47, 1)
+shader_parameter/detailColor = Color(0.282754, 0.617493, 0.701966, 1)
+shader_parameter/fresnelColor = Color(0.898039, 0.964706, 0.984314, 1)
+shader_parameter/colorSteps = 16.0
+shader_parameter/magnitude = 0.001
+shader_parameter/timeScale = 0.002
+shader_parameter/edge_scale = 0.0
+shader_parameter/near = 0.5
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(0.623529, 0.780392, 0.988235, 1)
+shader_parameter/mainTex = SubResource("NoiseTexture2D_gno8i")
+shader_parameter/detailTex1 = SubResource("NoiseTexture2D_qkh1o")
+shader_parameter/detailTex2 = SubResource("NoiseTexture2D_vq5rw")

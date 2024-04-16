@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://da5bq3pri04kx"]
+[gd_scene load_steps=12 format=3 uid="uid://da5bq3pri04kx"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_7ef4d"]
-[ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard.tscn" id="1_41gtu"]
+[ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard/midgard.tscn" id="1_41gtu"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="2_3ba42"]
 [ext_resource type="Script" path="res://Core/Characters/PlayerWorldmap.gd" id="4_1owuk"]
 [ext_resource type="Script" path="res://Core/CameraWorldmap.gd" id="4_buto5"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="6_hs7vt"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="7_md2ey"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="8_kw7wr"]
+
+[sub_resource type="SphereOccluder3D" id="SphereOccluder3D_hu25x"]
+radius = 200.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w7pnj"]
 radius = 0.7
@@ -19,13 +22,15 @@ size = Vector3(1, 2, 1)
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_7ef4d")
 
-[node name="Midgard" type="Node3D" parent="."]
+[node name="Midgard" type="OccluderInstance3D" parent="."]
+occluder = SubResource("SphereOccluder3D_hu25x")
 
 [node name="midgard" parent="Midgard" instance=ExtResource("1_41gtu")]
 transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.628058, 0, -0.778166, 0, 1, 0, 0.778166, 0, 0.628058, 0, 0, 0)
+shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 200.0
 sky_mode = 1
@@ -81,7 +86,6 @@ region_enabled = true
 region_rect = Rect2(0, 0, 24, 32)
 script = ExtResource("7_md2ey")
 spritesheet = ExtResource("8_kw7wr")
-scaleYBillboard = false
 yRefNode = NodePath("../../CameraWorldmap/Pivot")
 
 [node name="MoveNode" type="Node3D" parent="PlayerWorldmap"]

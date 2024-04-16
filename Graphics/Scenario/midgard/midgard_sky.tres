@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://ckraugh81sdm8"]
+
+[ext_resource type="Shader" path="res://Core/Shaders/midgard_sky.gdshader" id="1_w3xj1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fvdl3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_80la3"]
+seamless = true
+noise = SubResource("FastNoiseLite_fvdl3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gp1py"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iyga1"]
+seamless = true
+noise = SubResource("FastNoiseLite_gp1py")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_w3xj1")
+shader_parameter/shadeSteps = 12.0
+shader_parameter/uvScale = 4.0
+shader_parameter/timeScale = 0.005
+shader_parameter/cloudTexture1 = SubResource("NoiseTexture2D_80la3")
+shader_parameter/cloudTexture2 = SubResource("NoiseTexture2D_iyga1")

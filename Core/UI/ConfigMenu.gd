@@ -154,6 +154,10 @@ func generateOptions():
 	screenMode.setVariable(Global.Config, "screenMode")
 	screenMode.setup("Screen Mode", {true:"Fullscreen",false:"Windowed"})
 	screenMode.onValueChange = Global.Config.refreshScreenSize
+	var fpsLimit:DropdownOption = createDropdown()
+	fpsLimit.setVariable(Global.Config, "fpsLimit")
+	fpsLimit.setup("FPS Limit", {0:"Unlimited",15:"Fourth",20:"Third",30:"Half"})
+	fpsLimit.onValueChange = Global.Config.refreshFps
 	var messageSkin:DropdownOption = createDropdown()
 	messageSkin.setVariable(Global.Config, "messageSkin")
 	messageSkin.setup("Message Skin", {0:"White",1:"Dark"})

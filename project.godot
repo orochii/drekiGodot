@@ -24,6 +24,7 @@ config/name="Drekirokr"
 run/main_scene="res://Scenes/title.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "Forward Plus")
+run/max_fps=30
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
@@ -192,3 +193,7 @@ sys_config={
 
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://Lang/language.en.translation", "res://Lang/language.es.translation")
+
+[rendering]
+
+occlusion_culling/use_occlusion_culling=true

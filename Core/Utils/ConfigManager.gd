@@ -14,6 +14,7 @@ var language : String = "en"
 var screenResolution : int = 0
 var screenScale : int = 2
 var screenMode : bool = false
+var fpsLimit : int = 30
 var messageSkin : int = 0
 var backOpacity : int = 8
 var battleShadows : int = 2
@@ -67,6 +68,7 @@ func serialize() -> Dictionary:
 			"ScreenResolution" : screenResolution,
 			"ScreenScale" : screenScale, 
 			"ScreenMode" : screenMode, 
+			"FpsLimit": fpsLimit,
 			"MessageSkin" : messageSkin, 
 			"BackOpacity" : backOpacity, 
 			"BattleShadows" : battleShadows, 
@@ -102,6 +104,7 @@ func deserialize(data : Dictionary):
 		if(graphics.has("ScreenResolution")): screenResolution = graphics["ScreenResolution"]
 		if(graphics.has("ScreenScale")): screenScale = graphics["ScreenScale"]
 		if(graphics.has("ScreenMode")): screenMode = graphics["ScreenMode"]
+		if(graphics.has("FpsLimit")): fpsLimit = graphics["FpsLimit"]
 		if(graphics.has("MessageSkin")): messageSkin = graphics["MessageSkin"]
 		if(graphics.has("BackOpacity")): backOpacity = graphics["BackOpacity"]
 		if(graphics.has("BattleShadows")): battleShadows = graphics["BattleShadows"]
@@ -118,6 +121,7 @@ func deserialize(data : Dictionary):
 		if other.has("lastSavefile"): lastSavefile = other["lastSavefile"]
 	refreshLanguage()
 	refreshScreenSize()
+	refreshFps()
 
 func refreshLanguage():
 	TranslationServer.set_locale(language)
@@ -135,6 +139,9 @@ func refreshScreenSize():
 		window.mode = Window.MODE_WINDOWED
 		window.size = window.content_scale_size * screenScale
 		centerWindow()
+
+func refreshFps():
+	Engine.max_fps = fpsLimit
 
 func currentScreenResolution():
 	var _screenSize:ScreenResolution = Global.Db.availableScreenResolutions[0]

@@ -43,7 +43,7 @@
 [ext_resource type="Resource" uid="uid://qd4xcgjjmsfk" path="res://Data/Troops/FlameAndMoles.tres" id="41_atp3b"]
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="42_stjiw"]
 [ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="43_wkg22"]
-[ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard.tscn" id="44_vicoc"]
+[ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard/midgard.tscn" id="44_vicoc"]
 
 [sub_resource type="Resource" id="Resource_tgb2r"]
 script = ExtResource("2_3ad45")
