@@ -1,0 +1,128 @@
+[gd_scene load_steps=16 format=3 uid="uid://lywdqxc41tu5"]
+
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="1_5ca5e"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_75wr8"]
+[ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_gfrpm"]
+[ext_resource type="Script" path="res://Core/Scenario/FloorGate.gd" id="1_m0mqj"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_wkcnp"]
+[ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="2_6aas7"]
+[ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_evalp"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_c406r"]
+[ext_resource type="PackedScene" uid="uid://bjsjho5g8vh61" path="res://Graphics/Scenario/fierro/insides/house_3_in.tscn" id="4_njroh"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_ma4ru"]
+
+[sub_resource type="Resource" id="Resource_cd3ls"]
+script = ExtResource("2_evalp")
+name = &""
+volume = 1.0
+pitch = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajnhg"]
+size = Vector3(1, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_67eoc"]
+size = Vector3(4, 2, 5.748)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qj25k"]
+size = Vector3(2, 2, 4)
+
+[sub_resource type="Environment" id="Environment_8s182"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[node name="fierroInn" type="Node3D" node_paths=PackedStringArray("gates")]
+script = ExtResource("1_gfrpm")
+music = SubResource("Resource_cd3ls")
+gates = [NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right")]
+
+[node name="Gates" type="Node" parent="."]
+
+[node name="GateToINN_left" type="Node3D" parent="Gates"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.5, 0, 6.5)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToINN_left" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("1_5ca5e")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToINN_left/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ajnhg")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToINN_left/Trigger"]
+script = ExtResource("2_6aas7")
+nextScene = "fierro"
+targetGate = 2
+activation = 1
+
+[node name="GateToINN_right" type="Node3D" parent="Gates"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.5, 0, 9.5)
+
+[node name="Trigger2" type="Area3D" parent="Gates/GateToINN_right" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.38419e-07, 0, -1)
+script = ExtResource("1_5ca5e")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToINN_right/Trigger2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ajnhg")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToINN_right/Trigger2"]
+script = ExtResource("2_6aas7")
+nextScene = "fierro"
+targetGate = 3
+activation = 1
+
+[node name="FloorGates" type="Node" parent="."]
+
+[node name="Floor1" type="Area3D" parent="FloorGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+script = ExtResource("1_m0mqj")
+layers = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorGates/Floor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.874023)
+shape = SubResource("BoxShape3D_67eoc")
+
+[node name="Floor2" type="Area3D" parent="FloorGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 0)
+script = ExtResource("1_m0mqj")
+layers = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorGates/Floor2"]
+shape = SubResource("BoxShape3D_qj25k")
+
+[node name="GameUI" parent="." instance=ExtResource("1_75wr8")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_wkcnp")]
+target = NodePath("../Player")
+interior = true
+
+[node name="Player" parent="." instance=ExtResource("3_c406r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.38062)
+
+[node name="house3_in" parent="." instance=ExtResource("4_njroh")]
+
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.6
+script = ExtResource("5_ma4ru")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_8s182")
+
+[connection signal="body_entered" from="FloorGates/Floor1" to="FloorGates/Floor1" method="_on_body_entered"]
+[connection signal="body_entered" from="FloorGates/Floor2" to="FloorGates/Floor2" method="_on_body_entered"]

@@ -5,12 +5,11 @@ class_name GameUI
 @export var Party : PartyMenu
 @export var File : FileMenu
 @export var Config : ConfigMenu
-@export var compass:Node3D
 
 var currLang = "en"
 var perfLabel:Label = null
 var colorShader:ColorRect = null
-var debugVisible:bool = true
+var debugVisible:bool = false
 
 func _init():
 	Global.UI = self
@@ -37,9 +36,6 @@ func _ready():
 
 func _process(delta):
 	Global.State.playTime += delta
-	if compass != null:
-		var cam = get_viewport().get_camera_3d()
-		compass.global_rotation = cam.global_rotation
 	perfLabel.visible = debugVisible
 	if debugVisible:
 		refreshPerformanceLabel()

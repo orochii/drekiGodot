@@ -4,6 +4,7 @@ const COMPRESSION = FileAccess.COMPRESSION_GZIP
 # Camera stuff
 const PIXEL_SIZE = 0.0625
 const PIXEL_FOV = 0.07407407407407407407407407407407
+const GAME_TIME_SCALE = 100
 
 enum Gender { MALE, FEMALE, NONE }
 enum Month { 
@@ -52,7 +53,7 @@ var Camera : CameraControl
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
-var Player : Player = null
+var Player = null
 var Config : ConfigManager
 var Audio : AudioManager
 var State : GameState

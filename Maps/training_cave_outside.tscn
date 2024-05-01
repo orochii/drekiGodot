@@ -1,17 +1,29 @@
-[gd_scene load_steps=16 format=3 uid="uid://c7w47r48xsgy3"]
+[gd_scene load_steps=18 format=3 uid="uid://c7w47r48xsgy3"]
 
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_8wvrl"]
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_syo5w"]
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="2_b1gub"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_3psrr"]
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="4_u3ahi"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_2tbp5"]
 [ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="5_50e2j"]
 [ext_resource type="PackedScene" uid="uid://6es0txl3h67" path="res://Graphics/Scenario/training_cave_outside/training_cave_outside.tscn" id="6_5j2qb"]
-[ext_resource type="PackedScene" uid="uid://ds0gkjp6aldox" path="res://Graphics/Scenario/props/tree.tscn" id="7_utn3w"]
+[ext_resource type="PackedScene" uid="uid://dpet3hrafel25" path="res://Graphics/Scenario/props/tree.tscn" id="7_utn3w"]
 [ext_resource type="PackedScene" uid="uid://4jobrteyxhty" path="res://Graphics/Scenario/props/big_tree.tscn" id="8_yiytt"]
 [ext_resource type="PackedScene" uid="uid://lb5uf4j1hlll" path="res://Graphics/Scenario/props/tall_tree.tscn" id="9_mq14e"]
-[ext_resource type="PackedScene" uid="uid://bnn5r4kmdqotd" path="res://Graphics/Scenario/props/tree2.tscn" id="10_chru8"]
 [ext_resource type="PackedScene" uid="uid://gwk8x1xdmuo1" path="res://Graphics/Scenario/props/fence.tscn" id="11_pvlq6"]
+[ext_resource type="PackedScene" uid="uid://dso02jstwyowg" path="res://Graphics/Scenario/props/tree_2.tscn" id="13_to31d"]
+
+[sub_resource type="Environment" id="Environment_g2gr2"]
+ambient_light_source = 2
+ambient_light_color = Color(0.258824, 0.258824, 0.258824, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pm2r"]
 size = Vector3(5.95551, 4.82303, 4.7568)
@@ -46,9 +58,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
 [node name="Player" parent="." instance=ExtResource("3_3psrr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0197, -0.350279, 121.016)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.492332, 0.870407, 0, -0.870407, 0.492332, 0, 77.4825, 172.399)
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot" node_paths=PackedStringArray("rotatingObject", "environment")]
+transform = Transform3D(1, 0, 0, 0, 0.492424, 0.870356, 0, -0.870356, 0.492424, 0, 0, 0)
 shadow_enabled = true
+script = ExtResource("5_2tbp5")
+rotatingObject = NodePath("..")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+environment = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_g2gr2")
 
 [node name="TriggerToCave" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
 transform = Transform3D(0.764427, 0, 0.644711, 0, 1, 0, -0.644711, 0, 0.764427, 6.78727, 0, 113.484)
@@ -80,13 +103,20 @@ nextScene = "training_cave"
 targetGate = 1
 activation = 1
 
-[node name="TriggerToTown" type="Area3D" parent="."]
+[node name="TriggerToTown" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.1885, 0, 177.38)
 script = ExtResource("4_u3ahi")
+pages = [NodePath("Page1")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerToTown"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0366211, 1.01974, 1.01013)
 shape = SubResource("BoxShape3D_nm4r8")
+
+[node name="Page1" type="Node3D" parent="TriggerToTown"]
+script = ExtResource("5_50e2j")
+nextScene = "fierro"
+targetGate = 0
+activation = 1
 
 [node name="trainingCaveOutside" parent="." instance=ExtResource("6_5j2qb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115723, 0, 3.66809)
@@ -95,13 +125,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115723, 0, 3.66809)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115723, 0, 3.66809)
 
 [node name="tree" parent="trees" instance=ExtResource("7_utn3w")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 46.9595, -3.29527, 120.343)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 48.5357, -3.29527, 118.403)
 
 [node name="tree4" parent="trees" instance=ExtResource("7_utn3w")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 44.6954, -3.29527, 119.01)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 45.6048, -3.29527, 116.858)
 
 [node name="tree2" parent="trees" instance=ExtResource("7_utn3w")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 42.3092, -1.40135, 119.219)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 43.1276, -1.40135, 118.764)
 
 [node name="tree3" parent="trees" instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, -1.48909e-05, 0.00438843, 1.15669e-05, 2, 0.00151492, -0.00438844, -0.00151489, 1.99999, 36.9045, -0.786362, 113.496)
@@ -116,7 +146,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 49.8884, -2.06273, 125.323)
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 20.3716, -2.03069, 122.571)
 
 [node name="tree6" parent="trees" instance=ExtResource("9_mq14e")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -22.2172, -1.02733, 142.268)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -24.3564, -1.02733, 145.684)
 
 [node name="tree7" parent="trees" instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -16.3468, -1.166, 140.915)
@@ -136,12 +166,6 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -16.1317, -0.615585, 143.74)
 [node name="tree12" parent="trees" instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18.2577, -0.514511, 138.705)
 
-[node name="tree13" parent="trees" instance=ExtResource("10_chru8")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18.7612, -1.26817, 142.062)
-
-[node name="tree15" parent="trees" instance=ExtResource("10_chru8")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.07835, -1.33641, 138.657)
-
 [node name="tree16" parent="trees" instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.63219, -0.260117, 133.619)
 
@@ -153,9 +177,6 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -17.2955, 9.24147, 127.353)
 
 [node name="tree18" parent="trees" instance=ExtResource("9_mq14e")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -24.1723, 9.1277, 129.59)
-
-[node name="tree19" parent="trees" instance=ExtResource("10_chru8")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -22.8326, 8.96132, 126.593)
 
 [node name="tree20" parent="trees" instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -24.3486, 8.69691, 123.914)
@@ -200,5 +221,14 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 21.6703, -3.48363, 150.957)
 
 [node name="tree3" parent="." instance=ExtResource("7_utn3w")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 31.6242, -4.2683, 158.186)
+
+[node name="tree_2" parent="." instance=ExtResource("13_to31d")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.22452, -1.45543, 142.666)
+
+[node name="tree_3" parent="." instance=ExtResource("13_to31d")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -20.6927, -1.15782, 145.739)
+
+[node name="tree_4" parent="." instance=ExtResource("13_to31d")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -22.0832, 8.99086, 130.166)
 
 [editable path="Camera"]

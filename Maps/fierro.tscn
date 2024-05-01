@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdr3wpbfjf3g5"]
+[gd_scene load_steps=16 format=3 uid="uid://cdr3wpbfjf3g5"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_l4ppn"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_xhnjk"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_l4opk"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_osv2s"]
 [ext_resource type="AudioStream" uid="uid://km1338hqvgmf" path="res://Audio/BGM/Demise Inside the Fog.ogg" id="3_yemio"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="7_57kch"]
 [ext_resource type="PackedScene" uid="uid://b7yhdsrr8st8c" path="res://Graphics/Scenario/fierro/fierro.tscn" id="7_pxu0i"]
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="19_86h2y"]
+[ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="20_0a84q"]
 
 [sub_resource type="Resource" id="Resource_5ubeo"]
 script = ExtResource("2_l4opk")
@@ -15,28 +18,133 @@ stream = ExtResource("3_yemio")
 volume = 1.0
 pitch = 1.0
 
-[node name="Fierro" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xvju0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ldyj4"]
+size = Vector3(8.18753, 19.8603, 6.01391)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_truiy"]
+size = Vector3(64.3506, 23.3708, 11.8316)
+
+[sub_resource type="Environment" id="Environment_be2nc"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[node name="Fierro" type="Node3D" node_paths=PackedStringArray("gates")]
 script = ExtResource("1_l4ppn")
 music = SubResource("Resource_5ubeo")
+gates = [NodePath("Gates/GateToCave"), NodePath("Gates/GateWorldmap"), NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right")]
+
+[node name="Gates" type="Node" parent="."]
+
+[node name="GateWorldmap" type="Node3D" parent="Gates"]
+transform = Transform3D(-0.995726, 0, 0.0923531, 0, 1, 0, -0.0923531, 0, -0.995726, -1.75216, -10.254, 45.3831)
+
+[node name="GateToCave" type="Node3D" parent="Gates"]
+transform = Transform3D(0.879133, 0, -0.476575, 0, 1, 0, 0.476575, 0, 0.879133, -9.07414, -3.07051, -18.2249)
+
+[node name="GateToINN_left" type="Node3D" parent="Gates"]
+transform = Transform3D(0.937634, 0, -0.347623, 0, 1, 0, 0.347623, 0, 0.937634, -15.0587, -5.41798, 17.8854)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToINN_left" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64374, -1.24587)
+script = ExtResource("19_86h2y")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToINN_left/Trigger"]
+shape = SubResource("BoxShape3D_xvju0")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToINN_left/Trigger"]
+script = ExtResource("20_0a84q")
+nextScene = "fierro_inn"
+targetGate = 0
+activation = 1
+
+[node name="GateToINN_right" type="Node3D" parent="Gates"]
+transform = Transform3D(0.937634, 0, -0.347623, 0, 1, 0, 0.347623, 0, 0.937634, -6.64202, -5.18104, 23.9135)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToINN_right" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64374, -1.24587)
+script = ExtResource("19_86h2y")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToINN_right/Trigger"]
+shape = SubResource("BoxShape3D_xvju0")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToINN_right/Trigger"]
+script = ExtResource("20_0a84q")
+nextScene = "fierro_inn"
+targetGate = 1
+activation = 1
 
 [node name="GameUI" parent="." instance=ExtResource("1_xhnjk")]
 
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_k178l")]
-transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 12.0197, -0.350279, 121.016)
+transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, -1.082, 0)
 target = NodePath("../Player")
+
+[node name="Camera3D" parent="Camera" index="0"]
+fov = 37.8493
 
 [node name="Node3D" type="Node3D" parent="Camera/Camera3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
 
-[node name="AudioListener3D" parent="Camera" index="1"]
-current = false
-
 [node name="Player" parent="." instance=ExtResource("3_osv2s")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.492332, 0.870407, 0, -0.870407, 0.492332, 0, 77.4825, 172.399)
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.08197, 0)
 
 [node name="fierro" parent="." instance=ExtResource("7_pxu0i")]
+
+[node name="TriggerToCave" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+transform = Transform3D(0.93004, 0, -0.367459, 0, 1, 0, 0.367459, 0, 0.93004, -5.10489, 0, -25.9606)
+script = ExtResource("19_86h2y")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerToCave"]
+transform = Transform3D(1, 0, -2.38419e-07, 0, 1, 0, 2.38419e-07, 0, 1, -0.218184, 2.77509, 1.67176)
+shape = SubResource("BoxShape3D_ldyj4")
+
+[node name="Page1" type="Node3D" parent="TriggerToCave"]
+script = ExtResource("20_0a84q")
+nextScene = "training_cave_outside"
+targetGate = 1
+activation = 1
+
+[node name="TriggerToWorldmap" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+transform = Transform3D(0.999767, 0, -0.0215706, 0, 1, 0, 0.0215706, 0, 0.999767, 0.108681, 0, 53.1393)
+script = ExtResource("19_86h2y")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerToWorldmap"]
+transform = Transform3D(1, 0, -2.90567e-07, 0, 1, 0, 2.90567e-07, 0, 1, 3.09366, -5.12347, 7.79711)
+shape = SubResource("BoxShape3D_truiy")
+
+[node name="Page1" type="Node3D" parent="TriggerToWorldmap"]
+script = ExtResource("20_0a84q")
+nextScene = "midgard"
+targetGate = 0
+activation = 1
+
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot" node_paths=PackedStringArray("rotatingObject", "environment")]
+transform = Transform3D(1, 0, 0, 0, 0.492423, 0.870356, 0, -0.870355, 0.492424, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.6
+script = ExtResource("7_57kch")
+rotatingObject = NodePath("..")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+environment = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_be2nc")
 
 [editable path="Camera"]

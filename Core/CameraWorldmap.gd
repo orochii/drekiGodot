@@ -1,14 +1,19 @@
 extends Node3D
 
+const GAME_TIME_SCALE = 600
+
 @export var target : Node3D
 @export var pivot : Node3D
+@export var shaderQuad : MeshInstance3D
 
 func _ready():
+	shaderQuad.visible = true
 	if target != null:
 		global_position = target.global_position
 		align_with_target()
 
 func _process(delta):
+	Global.State.advanceTime(delta * GAME_TIME_SCALE * Global.GAME_TIME_SCALE)
 	if target != null:
 		global_position = target.global_position
 		#global_rotation_degrees = target.transform.basis.y

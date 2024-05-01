@@ -1,11 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://dh3e8psdme8d3"]
+[gd_scene load_steps=5 format=3 uid="uid://dh3e8psdme8d3"]
 
 [ext_resource type="Script" path="res://Core/CameraControl.gd" id="1_wbsge"]
+[ext_resource type="Shader" path="res://Core/Shaders/psx_camera_shader.gdshader" id="2_qwfgo"]
 
-[node name="Camera" type="Node3D" node_paths=PackedStringArray("camera")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3yvg"]
+render_priority = 0
+shader = ExtResource("2_qwfgo")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = Color(1, 1, 1, 1)
+shader_parameter/noise_color = Color(1, 1, 1, 1)
+shader_parameter/fog_distance = 650.0
+shader_parameter/fog_fade_range = 600.0
+shader_parameter/enable_noise = false
+shader_parameter/noise_time_fac = 4.0
+shader_parameter/enable_color_limitation = false
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = false
+shader_parameter/dither_strength = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_w855s"]
+material = SubResource("ShaderMaterial_k3yvg")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="Camera" type="Node3D" node_paths=PackedStringArray("camera", "shaderQuad")]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 0, 0)
 script = ExtResource("1_wbsge")
 camera = NodePath("Camera3D")
+shaderQuad = NodePath("Camera3D/MeshInstance3D")
 rotationSpeed = 180.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -14,6 +36,10 @@ current = true
 fov = 20.0
 size = 16.875
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.72205e-06, -1.07238)
+visible = false
+mesh = SubResource("QuadMesh_w855s")
+
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-current = true

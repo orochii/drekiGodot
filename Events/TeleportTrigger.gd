@@ -5,7 +5,8 @@ extends BaseEvent
 
 func _run():
 	print(nextScene)
-	Global.State.cameraAngle = Global.Camera.currRotation.y
+	if Global.Camera != null:
+		Global.State.cameraAngle = Global.Camera.currRotation.y
 	Global.State.targetGate = targetGate
 	Global.Scene.transfer(fullname())
 	pass

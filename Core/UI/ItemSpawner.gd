@@ -51,7 +51,8 @@ func refresh(curr=null):
 	if itemEntries != null:
 		for c in itemEntries: c.queue_free()
 	itemEntries.clear()
-	var items : Array = Global.State.party.inventory
+	var items : Array = Array(Global.State.party.inventory)
+	items.sort_custom(sortItems)
 	for i in items:
 		var inst:ItemEntry = itemEntryTemplate.instantiate()
 		inst.setup(i)
@@ -65,6 +66,17 @@ func refresh(curr=null):
 	elif filteredEntries.size() != 0:
 		return filteredEntries[0]
 	else: return null
+
+func sortItems(a:GameInventoryEntry, b:GameInventoryEntry): #ascending
+	var aItem = Global.Db.getItem(a.id)
+	var bItem = Global.Db.getItem(b.id)
+	if aItem.category == bItem.category:
+		var aName = TranslationServer.translate(aItem.getName())
+		var bName = TranslationServer.translate(bItem.getName())
+		return aName.nocasecmp_to(bName) < 0
+	if aItem.category < bItem.category:
+		return true
+	return false
 
 func hideTask():
 	cursor.visible = false

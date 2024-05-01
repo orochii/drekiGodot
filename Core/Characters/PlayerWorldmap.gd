@@ -1,4 +1,5 @@
 extends RigidBody3D
+class_name PlayerWorldmap
 
 @export var refBody : Node3D
 @export var cast : RayCast3D
@@ -17,6 +18,7 @@ var movementVelocity : Vector3
 var moveNode : Node3D
 
 func _ready():
+	Global.Player = self
 	alignWithBody()
 	moveNode = $MoveNode
 
@@ -77,3 +79,16 @@ func align_with_y(xform, new_y):
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis = xform.basis.orthonormalized()
 	return xform
+
+# =============
+# Touch/Collide
+# =============
+func _on_touch_area_entered(area):
+	if area is Trigger:
+		var trigger = area as Trigger
+		trigger.onTouch()
+
+func _on_body_entered(body):
+	if body is NPC:
+		var npc = body as NPC
+		npc.onTouch()

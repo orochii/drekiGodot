@@ -7,4 +7,5 @@ class_name SystemAudioEntry
 @export_range(0.5,1.5,0.1) var pitch : float = 1.0
 
 func getStreamName():
+	if stream==null: return ""
 	return stream.resource_path

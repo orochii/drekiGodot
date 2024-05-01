@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://l3o1lrgc6lob"]
+[gd_scene load_steps=14 format=3 uid="uid://l3o1lrgc6lob"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_f3bs7"]
 [ext_resource type="Script" path="res://Core/Title.gd" id="2_8inx2"]
-[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="3_lh7mr"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="3_n8usv"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="3_o4r6j"]
-[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="4_dm2ak"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="4_dm2ak"]
 [ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="5_k1iyk"]
 [ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="6_w5hhb"]
 [ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="7_c1qe2"]
@@ -18,7 +17,7 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_lh7mr")
+"texture": ExtResource("4_dm2ak")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_dm2ak")

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://duxg5wuyiqcli"]
+
+[ext_resource type="Texture2D" uid="uid://lccu55ixxexg" path="res://Graphics/Scenario/props/tree_tall_3d_tree_tall_texture.png" id="1_ika75"]
+
+[resource]
+resource_name = "treemat_tall"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_ika75")
+texture_filter = 2

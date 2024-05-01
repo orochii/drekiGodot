@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cwf7yyg47tegf"]
+
+[ext_resource type="Texture2D" uid="uid://d0coy6mnmeaat" path="res://Graphics/Scenario/midgard/midgard_minimap_map_3.png" id="1_0y5x2"]
+
+[resource]
+resource_name = "Material.001"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_0y5x2")
+texture_filter = 2

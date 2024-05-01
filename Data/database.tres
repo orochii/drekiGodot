@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Database" load_steps=58 format=3 uid="uid://ylmo0lr3g7vk"]
+[gd_resource type="Resource" script_class="Database" load_steps=59 format=3 uid="uid://ylmo0lr3g7vk"]
 
 [ext_resource type="Script" path="res://Core/Data/Database.gd" id="1_37k5x"]
 [ext_resource type="Resource" uid="uid://ct23pva1ttabn" path="res://Data/System/icons.tres" id="1_emmqo"]
@@ -15,7 +15,11 @@
 [ext_resource type="Resource" uid="uid://br46b7nriekaj" path="res://Data/Skills/Common/Claw.tres" id="8_ubclu"]
 [ext_resource type="Script" path="res://Core/Data/InnateElementRelation.gd" id="11_eq8wb"]
 [ext_resource type="Script" path="res://Core/Data/InnateElement.gd" id="12_8a6ld"]
-[ext_resource type="PackedScene" uid="uid://cdr3wpbfjf3g5" path="res://Maps/fierro.tscn" id="16_mm5ys"]
+[ext_resource type="PackedScene" uid="uid://lywdqxc41tu5" path="res://Maps/fierro_inn.tscn" id="16_r0xui"]
+
+[sub_resource type="Gradient" id="Gradient_oafen"]
+offsets = PackedFloat32Array(0.0620155, 0.333, 0.5, 0.625, 0.75, 0.935401)
+colors = PackedColorArray(0.184314, 0.2, 0.396078, 1, 0.156861, 0.371434, 0.472777, 1, 0.431721, 0.591306, 0.516366, 1, 0.417257, 0.316878, 0.0453993, 1, 0.151426, 0.345734, 0.45017, 1, 0.184314, 0.2, 0.396078, 1)
 
 [sub_resource type="Resource" id="Resource_ldt41"]
 script = ExtResource("1_g4sgc")
@@ -230,7 +234,7 @@ relations = Array[ExtResource("11_eq8wb")]([SubResource("Resource_6ax2f"), SubRe
 [resource]
 script = ExtResource("1_37k5x")
 startingParty = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("3_pbtyf")])
-startingScene = ExtResource("16_mm5ys")
+startingScene = ExtResource("16_r0xui")
 equipSlots = Array[ExtResource("1_nydlf")]([SubResource("Resource_64mun"), SubResource("Resource_m1ilq"), SubResource("Resource_nm1d8"), SubResource("Resource_0l026"), SubResource("Resource_15u35"), SubResource("Resource_mpb48")])
 iconLibrary = ExtResource("1_emmqo")
 defaultAttackSkills = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_kftcr"), ExtResource("2_7uveh"), ExtResource("3_7dnsd"), ExtResource("8_ubclu")])
@@ -240,3 +244,4 @@ ignoreButtonForRebind = Array[int]([])
 ignoreAxisForRebind = Array[int]([0, 1])
 innateElementRelations = Array[ExtResource("12_8a6ld")]([SubResource("Resource_cnnp2"), SubResource("Resource_k6f7v"), SubResource("Resource_jdrt3"), SubResource("Resource_rs42m"), SubResource("Resource_g3rr3"), SubResource("Resource_e1sm4"), SubResource("Resource_oup8f"), SubResource("Resource_1pi4w")])
 availableScreenResolutions = Array[ExtResource("1_g4sgc")]([SubResource("Resource_ldt41"), SubResource("Resource_j61gb"), SubResource("Resource_1ifrn"), SubResource("Resource_i7lih"), SubResource("Resource_hohcr")])
+ambientLightDayConfiguration = SubResource("Gradient_oafen")

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://fixvtu0tt8m1"]
+
+[ext_resource type="Texture2D" uid="uid://derm0pg8j0rob" path="res://Graphics/Scenario/props/z_posters.png" id="1_2kih4"]
+[ext_resource type="Texture2D" uid="uid://mg6ndd32ath1" path="res://Graphics/Scenario/props/sign_shop_z_posters.png" id="1_p4spb"]
+
+[resource]
+resource_name = "z_signs"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_2kih4")
+emission_texture = ExtResource("1_p4spb")
+texture_filter = 0

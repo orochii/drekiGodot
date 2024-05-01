@@ -1,6 +1,8 @@
 extends Character
 class_name Player
 
+const GAME_TIME_SCALE = 10
+
 var closeEvents : Array
 var customMove:bool = false
 
@@ -14,6 +16,8 @@ func refreshGraphic():
 	graphic.spritesheet = actor.getGraphic()
 
 func _process(delta):
+	Global.State.advanceTime(delta * GAME_TIME_SCALE * Global.GAME_TIME_SCALE)
+	
 	if !customMove:
 		var direction = Vector3.ZERO
 		direction.x = getHorz()

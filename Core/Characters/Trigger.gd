@@ -22,7 +22,7 @@ func refreshPage(immediate:bool=false):
 	currentEvent = null
 	for i in range(pages.size()-1, -1, -1):
 		var p = pages[i]
-		if p.check():
+		if p != null && p.check():
 			currentEvent = p
 			break
 	# Disable all pages
@@ -63,3 +63,9 @@ func setLocalVar(name:StringName, val:bool):
 
 func createLocalVarKey():
 	return Global.State.lastSceneName + ":" + self.get_path().get_concatenated_names()
+
+
+func _on_body_entered(body):
+	if body is PlayerWorldmap:
+		var p = body as PlayerWorldmap
+		p._on_touch_area_entered(self)
