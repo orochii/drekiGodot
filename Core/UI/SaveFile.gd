@@ -24,7 +24,9 @@ func setup(slot:String,idx:int):
 	# Read data
 	var data:Dictionary = Global.readGame(slot)
 	if(data.has("party")):
-		var party = data["party"]["members"]
+		var currParty = 0
+		if data["party"].has("currentParty"): currParty = data["party"]["currentParty"]
+		var party = data["party"]["members"][currParty]
 		var members = []
 		for p in party:
 			for m in data["actors"]:

@@ -11,6 +11,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_licxa"]
 script = ExtResource("1_dk7jn")
@@ -19,6 +20,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"moving"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_r5ejg"]
 script = ExtResource("1_dk7jn")
@@ -27,6 +29,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"dead"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_ar0ej"]
 script = ExtResource("1_dk7jn")
@@ -35,6 +38,7 @@ events = Array[StringName]([&"", &"", &"", &"end"])
 weaponPosition = Array[Vector3i]([Vector3i(2, 24, -135), Vector3i(13, 31, -45), Vector3i(20, 33, -90), Vector3i(21, 33, -92), Vector3i(21, 33, -94), Vector3i(21, 33, -95)])
 name = &"punch"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_dk7po"]
 script = ExtResource("1_dk7jn")
@@ -43,6 +47,7 @@ events = Array[StringName]([&"", &"", &"", &"", &"end"])
 weaponPosition = Array[Vector3i]([])
 name = &"kick"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_r08fn"]
 script = ExtResource("1_dk7jn")
@@ -51,6 +56,7 @@ events = Array[StringName]([&"", &"", &"", &"", &"", &"", &"", &"", &"", &"end"]
 weaponPosition = Array[Vector3i]([])
 name = &"skill"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_lw8bn"]
 script = ExtResource("1_dk7jn")
@@ -59,6 +65,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"status"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_rrcg0"]
 script = ExtResource("1_dk7jn")
@@ -67,6 +74,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"lowhp"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_07np1"]
 script = ExtResource("1_dk7jn")
@@ -75,6 +83,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"sleep"
 fps = 8
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("2_o4o8g")

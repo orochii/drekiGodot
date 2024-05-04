@@ -199,14 +199,14 @@ func _refreshTarget():
 		status.setup(null)
 	else:
 		cursor.visible = true
-		selector.global_position = _currentTarget.homePosition + Vector3(0,0,-0.3)
+		selector.global_position = _currentTarget.getGlobalHomePosition() + Vector3(0,0,-0.3)
 		selectorParticles.emitting = true
 		selectorParticlesMulti.emitting = selectorParticles.emitting &&_currentScope==Global.ETargetScope.ALL
 		repositionCursor()
 		status.setup(_currentTarget)
 
 func repositionCursor():
-	var pos = actorCommand.battle.posToScreen(_currentTarget.homePosition)
+	var pos = actorCommand.battle.posToScreen(_currentTarget.getGlobalHomePosition()) #getGlobalHomePosition()
 	pos.x = roundi(pos.x)
 	pos.y = roundi(pos.y) - _currentTarget.getScreenSize().y
 	pos.y = maxi(pos.y, 16)

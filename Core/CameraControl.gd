@@ -103,4 +103,8 @@ func updateScreenSize(newSize:Vector2i):
 	camera.fov = newSize.y * Global.PIXEL_FOV
 
 func setLayers(l:int):
+	print(l)
 	camera.cull_mask = l
+
+func getLayers():
+	return camera.cull_mask

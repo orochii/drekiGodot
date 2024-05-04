@@ -5,11 +5,14 @@ const GAME_TIME_SCALE = 10
 
 var closeEvents : Array
 var customMove:bool = false
+var isReady = false
 
 func _ready():
 	Global.Player = self
 	refreshGraphic()
 	super._ready()
+	await get_tree().process_frame
+	isReady = true
 
 func refreshGraphic():
 	var actor = Global.State.party.getMember(0)
@@ -102,11 +105,13 @@ func _on_area_3d_body_exited(body: Node3D):
 # Touch/Collide
 # =============
 func _on_touch_area_entered(area):
+	if !isReady: return
 	if area is Trigger:
 		var trigger = area as Trigger
 		trigger.onTouch()
 
 func _on_touch_body_entered(body):
+	if !isReady: return
 	if body is NPC:
 		var npc = body as NPC
 		npc.onTouch()

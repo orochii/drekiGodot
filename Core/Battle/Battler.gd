@@ -11,6 +11,7 @@ const START_OFFSET = Vector3(0,0,-20)
 
 @export var graphic:CharGraphic
 @export var weapon:WeaponSprite
+@export var scaler:Node3D
 
 var overrideState:StringName = &""
 var overrideLoop:bool = false
@@ -37,10 +38,9 @@ var currentCounters = []
 var currentCounterAction = []
 
 func setStartDirection(a:float):
-	# inst.setStartDirection(-90)
 	_startDirection = a
 	direction = a
-	global_rotation_degrees = Vector3(0, direction, 0)
+	rotation_degrees = Vector3(0, direction, 0)
 func moveToPosition(pos:Vector3):
 	self.position = pos
 	targetPosition = pos
@@ -66,6 +66,10 @@ func getHomePosition():
 	var d = deg_to_rad(_startDirection)
 	var rotOffset = offset.rotated(Vector3(0,1,0),d)
 	return homePosition + rotOffset
+func getGlobalHomePosition():
+	var p = get_parent() as Node3D
+	var rot = Quaternion.from_euler(p.global_rotation)
+	return p.global_position + (rot * homePosition)
 func getStartOffset():
 	var d = deg_to_rad(_startDirection)
 	return START_OFFSET.rotated(Vector3(0,1,0),d)
@@ -75,7 +79,7 @@ func getScreenPosition():
 func getScreenSize() -> Vector2:
 	return graphic.getScreenSize()
 func getSize() -> Vector2:
-	return graphic.getSize()
+	return graphic.getSize() * Vector2(scaler.scale.x, scaler.scale.y)
 
 func setup(_battler:GameBattler):
 	battler = _battler
@@ -133,36 +137,36 @@ func _process(delta):
 	if moving():
 		var dir = targetPosition - position
 		look_at(position - dir, Vector3.UP)
-		var deg = global_rotation_degrees
+		var deg = rotation_degrees
 		deg.x = 0; deg.z = 0
-		global_rotation_degrees = deg
+		rotation_degrees = deg
 		position = position.move_toward(targetPosition, moveSpeed*delta)
 		if !moving():
-			global_rotation_degrees = Vector3(0, direction, 0)
+			rotation_degrees = Vector3(0, direction, 0)
 
 # a
 func cacheDirection():
 	_oldDirection = direction
 # This should be called at start of action
 func lookAtTarget(targetPos:Vector3):
-	var dir = targetPos - position
-	look_at(position - dir, Vector3.UP)
-	var deg = global_rotation_degrees
+	var dir = targetPos - global_position
+	look_at(global_position - dir, Vector3.UP)
+	var deg = rotation_degrees
 	direction = deg.y
 	deg.x = 0; deg.z = 0
-	global_rotation_degrees = deg
+	rotation_degrees = deg
 #
 func lookAtTargets(targets:Array[Battler]):
 	if targets.size()==0: return
 	var pos = Vector3(0,0,0)
-	for t in targets: pos += t.position
+	for t in targets: pos += t.global_position
 	pos /= targets.size()
 	lookAtTarget(pos)
 # Run upon end of movement
 func resetDirection():
 	direction = _oldDirection
 	var deg = Vector3(0,direction,0)
-	global_rotation_degrees = deg
+	rotation_degrees = deg
 
 func moving():
 	return position.distance_squared_to(targetPosition) > 0.0001

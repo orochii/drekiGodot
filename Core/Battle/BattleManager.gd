@@ -5,6 +5,7 @@ enum EBattleResult {
 	NONE, WIN, LOSE, DRAW
 }
 const START_DELAY = 1.5
+const USE_SCENARIO = false
 
 signal onBattlerReady(battler:Battler)
 
@@ -87,11 +88,17 @@ func _ready():
 	Global.Audio.rememberBGM(&"prebattle")
 	_playBattleMusic()
 	# Create scenario
-	if Global.State.currentBattleback != "":
-		var res:PackedScene = load(Global.State.currentBattleback)
-		currentBattleback = res.instantiate()
-		scenarioContainer.add_child(currentBattleback)
-		battleObjContainer.position = currentBattleback.basePlane.position
+	if USE_SCENARIO == true:
+		if Global.State.currentBattleback != "":
+			var res:PackedScene = load(Global.State.currentBattleback)
+			currentBattleback = res.instantiate()
+			scenarioContainer.add_child(currentBattleback)
+			battleObjContainer.position = currentBattleback.basePlane.position
+	else:
+		var pos = Global.Map.getNearestBattlePosition()
+		battleObjContainer.global_position = pos.global_position
+		battleObjContainer.global_rotation = pos.global_rotation
+		print(pos.global_rotation_degrees)
 	# Create battlers
 	_createTroop()
 	_createParty()
@@ -302,7 +309,7 @@ func _resolveBattleMusic() -> SystemAudioEntry:
 	return null
 
 func _createParty():
-	var members : Array = Global.State.party.members
+	var members : Array = Global.State.party.getMembers()
 	var startingPosition = partyPositionBase - (partyPositionOffset * (members.size()-1) / 2)
 	for i in range(members.size()):
 		var m = members[i]

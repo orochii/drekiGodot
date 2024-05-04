@@ -59,6 +59,7 @@ var Audio : AudioManager
 var State : GameState
 var Scene : SceneManager
 var Inputs : InputManager
+var Map : MapManager
 var scene = preload("res://Objects/scene_manager.tscn")
 
 func _init():

@@ -2,6 +2,7 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # TODO List
+- Redo battlebacks/position/camera, set to use close locations, add starting rotation for camera/battleground. Target icon currently ignores world rotation, what is it using for position? isn't it using global? o.o
 - Skill tree learning
 - Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
@@ -18,6 +19,9 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Floor layering
+- Health mini-huds
+- Multi-party support
 - Worldmap: fix graphic orientation, it should follow the pivot in this case I guess? See if can reconcile these two things.
 - Worldmap: fix movement direction, make it depend on camera's orientation.
 - Base for worldmap character/camera (different from regular).

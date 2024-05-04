@@ -11,6 +11,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"base"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_81rtn"]
 script = ExtResource("1_si1yl")
@@ -19,6 +20,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"moving"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_clfwp"]
 script = ExtResource("1_si1yl")
@@ -27,6 +29,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"dead"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_lix8s"]
 script = ExtResource("1_si1yl")
@@ -35,6 +38,7 @@ events = Array[StringName]([&"", &"", &"", &"", &"end"])
 weaponPosition = Array[Vector3i]([])
 name = &"punch"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_hrhkk"]
 script = ExtResource("1_si1yl")
@@ -43,6 +47,7 @@ events = Array[StringName]([&"", &"", &"", &"", &"end"])
 weaponPosition = Array[Vector3i]([])
 name = &"kick"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_geagc"]
 script = ExtResource("1_si1yl")
@@ -51,6 +56,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"skill"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_np17a"]
 script = ExtResource("1_si1yl")
@@ -59,6 +65,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"status"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_erca0"]
 script = ExtResource("1_si1yl")
@@ -67,6 +74,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"lowhp"
 fps = 8
+idleSpeed = 0.0
 
 [sub_resource type="Resource" id="Resource_sxigm"]
 script = ExtResource("1_si1yl")
@@ -75,6 +83,7 @@ events = Array[StringName]([&""])
 weaponPosition = Array[Vector3i]([])
 name = &"sleep"
 fps = 8
+idleSpeed = 0.0
 
 [resource]
 script = ExtResource("2_xqu7o")

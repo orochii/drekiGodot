@@ -14,7 +14,7 @@ func showTask(payload):
 	if(payload != null):
 		currIdx = payload[0]
 		if(listSpawner != null): listSpawner.reposition(currIdx)
-	var members = Global.State.party.members
+	var members = Global.State.party.getMembers()
 	var actor = Global.State.getActor(members[currIdx])
 	charStats.setup(actor)
 	slotsContainer.setup(actor)
@@ -48,12 +48,12 @@ func _process(delta):
 		get_parent().get_parent().setScreen(1,[currIdx])
 		return
 	if(cycleLeft()):
-		var size = Global.State.party.members.size()
+		var size = Global.State.party.getMembers().size()
 		var newIdx = (currIdx + size - 1) % size
 		get_parent().get_parent().setScreen(3,[newIdx])
 		return
 	if(cycleRight()):
-		var size = Global.State.party.members.size()
+		var size = Global.State.party.getMembers().size()
 		var newIdx = (currIdx + size + 1) % size
 		get_parent().get_parent().setScreen(3,[newIdx])
 		return
@@ -80,7 +80,7 @@ func setSkillList(v:bool):
 var _oldListIdx = -1
 
 func getActor():
-	var members = Global.State.party.members
+	var members = Global.State.party.getMembers()
 	return Global.State.getActor(members[currIdx])
 
 func _onSkillSelected(entry,skill):

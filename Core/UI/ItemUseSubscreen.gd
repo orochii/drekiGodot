@@ -36,7 +36,7 @@ func refreshTargets():
 	targetList.clear()
 	
 	if curr.canUse:
-		var members : Array = Global.State.party.members
+		var members : Array = Global.State.party.getMembers()
 		for i in range(members.size()):
 			var m = members[i]
 			var inst = partyTargetTemplate.instantiate()
@@ -47,7 +47,7 @@ func refreshTargets():
 		UIUtils.setVNeighbors(targetList)
 		if targetList.size() != 0: targetList[0].grab_focus()
 	elif itemEntry.data is EquipItem:
-		var members : Array = Global.State.party.members
+		var members : Array = Global.State.party.getMembers()
 		for i in range(members.size()):
 			var m = members[i]
 			var inst:PartyTargetEntry = partyTargetTemplate.instantiate()

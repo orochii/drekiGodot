@@ -18,13 +18,17 @@ shader_parameter/scale = 1.0
 shader_parameter/rotation = 0.0
 shader_parameter/yOnly = true
 
-[node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic", "weapon")]
+[node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic", "weapon", "scaler")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_b2f6x")
-graphic = NodePath("Graphic")
-weapon = NodePath("Weapon")
+graphic = NodePath("Scale/Graphic")
+weapon = NodePath("Scale/Weapon")
+scaler = NodePath("Scale")
 
-[node name="Graphic" type="Sprite3D" parent="."]
+[node name="Scale" type="Node3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Graphic" type="Sprite3D" parent="Scale"]
 offset = Vector2(0, 32)
 pixel_size = 0.0625
 billboard = 2
@@ -36,16 +40,16 @@ region_rect = Rect2(0, 256, 64, 64)
 script = ExtResource("3_r8px5")
 spritesheet = ExtResource("4_nra88")
 
-[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("sprite")]
+[node name="Weapon" type="Node3D" parent="Scale" node_paths=PackedStringArray("sprite")]
 script = ExtResource("5_stcdt")
 sprite = NodePath("Sprite")
 gripOffset = Vector2i(0, 32)
 
-[node name="Sprite" type="Sprite3D" parent="Weapon"]
+[node name="Sprite" type="Sprite3D" parent="Scale/Weapon"]
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 material_override = SubResource("ShaderMaterial_i521e")
 offset = Vector2(0, 32)
-pixel_size = 0.0625
+pixel_size = 0.0313
 texture_filter = 0
 script = ExtResource("7_nvndh")

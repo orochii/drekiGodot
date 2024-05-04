@@ -7,19 +7,19 @@
 [sub_resource type="Resource" id="Resource_s5k2a"]
 script = ExtResource("2_fdblg")
 enemy = ExtResource("1_o8cnk")
-position = Vector3(-2, 0, -3)
+position = Vector3(-1, 0, -1.5)
 flags = 0
 
 [sub_resource type="Resource" id="Resource_yokt4"]
 script = ExtResource("2_fdblg")
 enemy = ExtResource("1_o8cnk")
-position = Vector3(-5, 0, 0)
+position = Vector3(-2.5, 0, 0)
 flags = 0
 
 [sub_resource type="Resource" id="Resource_blgtt"]
 script = ExtResource("2_fdblg")
 enemy = ExtResource("1_o8cnk")
-position = Vector3(-3, 0, 5)
+position = Vector3(-1.5, 0, 2.5)
 flags = 0
 
 [resource]

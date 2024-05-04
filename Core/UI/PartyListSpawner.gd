@@ -20,7 +20,7 @@ func showTask(payload):
 		for c in spawnedMembers:
 			c.queue_free()
 	spawnedMembers.clear()
-	var members : Array = Global.State.party.members
+	var members : Array = Global.State.party.getMembers()
 	for i in range(members.size()):
 		var m = members[i]
 		var actor = Global.State.getActor(m)

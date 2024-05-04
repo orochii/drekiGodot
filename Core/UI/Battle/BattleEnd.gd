@@ -52,7 +52,7 @@ func execute(result):
 				totalActorTurns += b.turn
 		# Iterate through party members
 		var partyData = []
-		var members : Array = Global.State.party.members
+		var members : Array = Global.State.party.getMembers()
 		for i in range(members.size()):
 			battleBonuses[i] = []
 			var m = members[i]
@@ -148,7 +148,7 @@ func _next():
 
 func endBattle():
 	# restore party's cooldowns
-	var members = Global.State.party.members
+	var members = Global.State.party.getMembers()
 	for m in members:
 		var actor = Global.State.getActor(m)
 		actor.resetSkillCooldowns()

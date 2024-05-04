@@ -144,15 +144,16 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
-[node name="Blocker" parent="GameUI" index="6"]
-visible = false
+[node name="HealthDisplay" parent="GameUI/HUD" index="2"]
+anchors_preset = 2
 
-[node name="CameraWorldmap" type="Node3D" parent="." node_paths=PackedStringArray("target", "pivot", "shaderQuad")]
+[node name="CameraWorldmap" type="Node3D" parent="." node_paths=PackedStringArray("target", "pivot", "shaderQuad", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 script = ExtResource("4_buto5")
 target = NodePath("../PlayerWorldmap")
 pivot = NodePath("Pivot")
 shaderQuad = NodePath("Pivot/Camera3D/MeshInstance3D")
+camera = NodePath("Pivot/Camera3D")
 
 [node name="Pivot" type="Node3D" parent="CameraWorldmap"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)

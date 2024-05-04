@@ -372,6 +372,9 @@ collision_mask = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_010/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_rkejb")
 
+[node name="Cube_012" parent="." index="15"]
+visible = false
+
 [node name="Plane_010" type="MeshInstance3D" parent="Plane_010" index="0"]
 transform = Transform3D(-1.9695, 0, -2.26297, 0, 3, 0, 2.26297, 0, -1.9695, 3.26439, -2.40744, -33.8551)
 mesh = SubResource("ArrayMesh_v8fad")

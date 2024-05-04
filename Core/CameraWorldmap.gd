@@ -5,6 +5,7 @@ const GAME_TIME_SCALE = 600
 @export var target : Node3D
 @export var pivot : Node3D
 @export var shaderQuad : MeshInstance3D
+@export var camera : Camera3D
 
 func _ready():
 	shaderQuad.visible = true
@@ -34,3 +35,6 @@ func align_with_y(xform, new_y):
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis = xform.basis.orthonormalized()
 	return xform
+
+func getLayers():
+	return camera.cull_mask

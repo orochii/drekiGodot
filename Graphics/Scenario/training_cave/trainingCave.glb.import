@@ -31,6 +31,10 @@ animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={
 "materials": {
+"blackness": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/blackness.tres"
+},
 "ground": {
 "use_external/enabled": true,
 "use_external/path": "res://Graphics/Scenario/training_cave/ground_glow.tres"

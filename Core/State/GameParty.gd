@@ -1,15 +1,24 @@
 extends Object
 class_name GameParty
 
+const MAX_PARTY_SIZE = 3
 const MAX_ITEMS = 99
 
 var members : Array
+var currentParty : int = 0
+var reserve : Array
 var inventory : Array[GameInventoryEntry]
 var gold : int
 
+func getMembers():
+	if members.size() <= currentParty:
+		for i in range(members.size(), currentParty+1):
+			members.append([])
+	return members[currentParty]
+
 func getMember(i:int):
-	if i >= members.size() || i < 0: return null
-	var id = members[i]
+	if i >= getMembers().size() || i < 0: return null
+	var id = getMembers()[i]
 	var actor = Global.State.getActor(id)
 	return actor
 
@@ -42,11 +51,44 @@ func itemCount(id:StringName):
 			return e.amount
 	return 0
 
+func addMember(dataActor):
+	var id = dataActor.getId()
+	var gameActor = Global.State.getActor(id)
+	if !getMembers().has(id) && !reserve.has(id):
+		if getMembers().size() < MAX_PARTY_SIZE:
+			getMembers().append(id)
+		else:
+			reserve.append(id)
+
+func removeMember(dataActor,completely=false):
+	var id = dataActor.getId()
+	if getMembers().has(id):
+		getMembers().erase(id)
+		reserve.append(id)
+	if completely:
+		reserve.erase(id)
+
+func swapMember(idx1:int,type1:int,idx2:int,type2:int):
+	# Make references
+	var actors_array1 = reserve if type1==-1 else members[type1]
+	var actors_array2 = reserve if type2==-1 else members[type2]
+	var affected_actors = [null,null]
+	if idx1 < actors_array1.size(): affected_actors[0] = actors_array1[idx1]
+	if idx2 < actors_array2.size(): affected_actors[1] = actors_array2[idx2]
+	# Make changes, remove nils
+	actors_array1[idx1] = affected_actors[1]
+	actors_array2[idx2] = affected_actors[0]
+	actors_array1.erase(null)
+	actors_array2.erase(null)
+
+func checkSwap():
+	pass
+
 func _init():
 	members = []
 	for a in Global.Db.startingParty:
 		var id = a.getId()
-		members.append(id)
+		getMembers().append(id)
 		var actor = Global.State.getActor(id)
 	inventory = []
 	gold = 0
@@ -54,6 +96,8 @@ func _init():
 func _serialize():
 	var savedata = {
 		"members" : members,
+		"currentParty" : currentParty,
+		"reserve" : reserve,
 		"inventory" : _serializeInventory(),
 		"gold" : gold
 	}

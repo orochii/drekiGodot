@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=91 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -12,7 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://dk12umrn3vh6y" path="res://Objects/ui/option_button.tscn" id="6_ftogh"]
 [ext_resource type="FontFile" uid="uid://y57orpqdumtx" path="res://Fonts/orofonsmall.ttf" id="6_n043t"]
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="7_jt7fy"]
+[ext_resource type="Script" path="res://Core/UI/HUDPartyHealth.gd" id="7_nct8h"]
+[ext_resource type="Texture2D" uid="uid://df70qbisuydps" path="res://Graphics/Faces/1_face2.png" id="7_yic7s"]
+[ext_resource type="Script" path="res://Core/UI/HUDPartyHealthLine.gd" id="8_6tabn"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="8_c65gf"]
+[ext_resource type="Texture2D" uid="uid://266w7nwewg81" path="res://Graphics/System/battle/HP_T.png" id="8_witl0"]
+[ext_resource type="Texture2D" uid="uid://c5ns4ml14vhcg" path="res://Graphics/System/battle/HP_Bar.PNG" id="9_gxwc3"]
 [ext_resource type="Texture2D" uid="uid://bnelmn054ans7" path="res://Graphics/System/partyMenu/back_menu1.png" id="9_jr1t3"]
 [ext_resource type="Script" path="res://Core/UI/PartyMenu.gd" id="9_pch2v"]
 [ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="9_wa60k"]
@@ -363,6 +368,195 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HealthDisplay" type="Control" parent="HUD"]
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -8.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="Control" parent="HUD/HealthDisplay" node_paths=PackedStringArray("anchorRef", "lines")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("7_nct8h")
+anchorRef = NodePath("AnchorRef")
+openOffset = Vector2i(0, 24)
+closedOffset = Vector2i(-30, 16)
+lines = [NodePath("CharacterHealth"), NodePath("CharacterHealth2"), NodePath("CharacterHealth3")]
+
+[node name="AnchorRef" type="Control" parent="HUD/HealthDisplay/VBoxContainer"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="CharacterHealth" type="Control" parent="HUD/HealthDisplay/VBoxContainer" node_paths=PackedStringArray("faceImg", "hpBar", "nameLabel")]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 24.0
+script = ExtResource("8_6tabn")
+faceImg = NodePath("FaceImg")
+hpBar = NodePath("NinePatchRect/HPBar")
+nameLabel = NodePath("NameLabel")
+
+[node name="FaceImg" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -24.0
+offset_right = 21.0
+grow_vertical = 0
+texture = ExtResource("7_yic7s")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 0
+offset_left = 21.0
+offset_right = 69.0
+offset_bottom = 16.0
+texture = ExtResource("8_witl0")
+
+[node name="HPBar" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_gxwc3")
+region_rect = Rect2(0, 0, 62, 32)
+
+[node name="NameLabel" type="Label" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = -3.0
+offset_right = 65.0
+offset_bottom = 20.0
+theme = ExtResource("18_dtd4u")
+text = "Hikari"
+
+[node name="CharacterHealth2" type="Control" parent="HUD/HealthDisplay/VBoxContainer" node_paths=PackedStringArray("faceImg", "hpBar", "nameLabel")]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 16.0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_6tabn")
+faceImg = NodePath("FaceImg")
+hpBar = NodePath("NinePatchRect/HPBar")
+nameLabel = NodePath("NameLabel")
+
+[node name="FaceImg" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth2"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -24.0
+offset_right = 21.0
+grow_vertical = 0
+texture = ExtResource("7_yic7s")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth2"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 0
+offset_left = 21.0
+offset_right = 69.0
+offset_bottom = 16.0
+texture = ExtResource("8_witl0")
+
+[node name="HPBar" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth2/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_gxwc3")
+region_rect = Rect2(0, 0, 62, 32)
+
+[node name="NameLabel" type="Label" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth2"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = -3.0
+offset_right = 65.0
+offset_bottom = 20.0
+theme = ExtResource("18_dtd4u")
+text = "Hikari"
+
+[node name="CharacterHealth3" type="Control" parent="HUD/HealthDisplay/VBoxContainer" node_paths=PackedStringArray("faceImg", "hpBar", "nameLabel")]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 40.0
+offset_bottom = 56.0
+script = ExtResource("8_6tabn")
+faceImg = NodePath("FaceImg")
+hpBar = NodePath("NinePatchRect/HPBar")
+nameLabel = NodePath("NameLabel")
+
+[node name="FaceImg" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth3"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -24.0
+offset_right = 21.0
+grow_vertical = 0
+texture = ExtResource("7_yic7s")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth3"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 0
+offset_left = 21.0
+offset_right = 69.0
+offset_bottom = 16.0
+texture = ExtResource("8_witl0")
+
+[node name="HPBar" type="NinePatchRect" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth3/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_gxwc3")
+region_rect = Rect2(0, 0, 62, 32)
+
+[node name="NameLabel" type="Label" parent="HUD/HealthDisplay/VBoxContainer/CharacterHealth3"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = -3.0
+offset_right = 65.0
+offset_bottom = 20.0
+theme = ExtResource("18_dtd4u")
+text = "Hikari"
 
 [node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "container", "tailSprite", "cursor")]
 texture_filter = 1
@@ -2860,6 +3054,7 @@ visible = false
 layout_mode = 1
 
 [node name="Blocker" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

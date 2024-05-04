@@ -67,7 +67,7 @@ func open(_actor:GameActor, skill:BaseSkill):
 		var targets = []
 		match currentSkill.targetKind:
 			Global.ETargetKind.ALLY,Global.ETargetKind.ANY:
-				var members : Array = Global.State.party.members
+				var members : Array = Global.State.party.getMembers()
 				for i in range(members.size()):
 					var m = members[i]
 					targets.append(m)

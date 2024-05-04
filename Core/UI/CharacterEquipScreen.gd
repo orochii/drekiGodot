@@ -15,7 +15,7 @@ func showTask(payload):
 	if(payload != null):
 		currIdx = payload[0]
 		if(listSpawner != null): listSpawner.reposition(currIdx)
-	var members = Global.State.party.members
+	var members = Global.State.party.getMembers()
 	actor = Global.State.getActor(members[currIdx])
 	description.text = ""
 	charStats.setup(actor)
@@ -49,12 +49,12 @@ func _process(delta):
 		get_parent().get_parent().setScreen(3,[currIdx])
 		return
 	if(cycleLeft()):
-		var size = Global.State.party.members.size()
+		var size = Global.State.party.getMembers().size()
 		var newIdx = (currIdx + size - 1) % size
 		get_parent().get_parent().setScreen(2,[newIdx])
 		return
 	if(cycleRight()):
-		var size = Global.State.party.members.size()
+		var size = Global.State.party.getMembers().size()
 		var newIdx = (currIdx + size + 1) % size
 		get_parent().get_parent().setScreen(2,[newIdx])
 		return

@@ -24,6 +24,7 @@ var _characters = null
 var lastSceneName : String = ""
 var targetGate : int = -1
 var cameraAngle : float = 0
+var visibleLayers : int = 0
 # system state
 #[5,21,30,22,9,500]
 #[9,11,5,6,7,511]
@@ -187,6 +188,7 @@ func _serialize():
 		"characters" : _serializeCharacters(),
 		"lastSceneName" : lastSceneName,
 		"cameraAngle" : Global.Camera.currRotation.y,
+		"visibleLayers" : Global.Camera.getLayers(),
 		#
 		"gameTime" : gameTime,
 		"playTime" : playTime,
@@ -228,6 +230,15 @@ func _deserialize(savedata : Dictionary):
 				party = p
 			"characters":
 				_characters = savedata[key]
+			"gameTime":
+				gameTime = savedata[key]
+				gameTime["h"] = int(gameTime["h"])
+				gameTime["m"] = int(gameTime["m"])
+				#gameTime["s"] = int(gameTime["s"])
+				gameTime["day"] = int(gameTime["day"])
+				gameTime["month"] = int(gameTime["month"])
+				gameTime["year"] = int(gameTime["year"])
+				# var gameTime:Dictionary = { "h":9,"m":0,"s":0,"day":6,"month":7,"year":511 }
 			_:
 				set(key, savedata[key])
 
