@@ -1,9 +1,11 @@
-[gd_scene load_steps=91 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=96 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
 [ext_resource type="Script" path="res://Core/UI/Compass.gd" id="2_4wpfq"]
 [ext_resource type="Texture2D" uid="uid://brk5l5yd3u66j" path="res://Graphics/System/compass.png" id="2_el63w"]
+[ext_resource type="PackedScene" uid="uid://ggkkmrm51hsq" path="res://Objects/ui/item_popup.tscn" id="2_pesr5"]
+[ext_resource type="Texture2D" uid="uid://c825288p1w6j3" path="res://Graphics/Icons/buttonsM30/A button.png" id="3_1ixul"]
 [ext_resource type="Script" path="res://Core/UI/GameMessage.gd" id="3_jvixt"]
 [ext_resource type="Texture2D" uid="uid://dx1w4rsw8tmn3" path="res://Graphics/System/compass_1.png" id="3_wf77i"]
 [ext_resource type="Texture2D" uid="uid://lj6iwddp4r71" path="res://Graphics/System/t_s_6.png" id="4_7e7g2"]
@@ -82,6 +84,9 @@
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="55_2j7gp"]
 [ext_resource type="Script" path="res://Core/UI/SkillTarget.gd" id="57_oprof"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
+[ext_resource type="Script" path="res://Core/UI/Debug/DebugMenu.gd" id="84_67nmn"]
+[ext_resource type="Script" path="res://Core/UI/Debug/DebugVarList.gd" id="84_cjxrx"]
+[ext_resource type="PackedScene" uid="uid://dexfcektogv7j" path="res://Objects/ui/debug_list_entry.tscn" id="85_8py51"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4etw"]
 transparency = 1
@@ -100,58 +105,10 @@ region = Rect2(88, 32, 8, 8)
 
 [sub_resource type="Animation" id="Animation_mug7x"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("AtlasTexture_bslo1")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(88, 32, 8, 8)]
-}
 
 [sub_resource type="Animation" id="Animation_n2qvv"]
 resource_name = "standby"
 length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("TextureRect:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:texture:region")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(80, 32, 8, 8), Rect2(88, 32, 8, 8), Rect2(80, 40, 8, 8), Rect2(88, 40, 8, 8)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mpore"]
 _data = {
@@ -223,7 +180,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config", "Debug", "interactPopup", "popupParent")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -236,6 +193,47 @@ Message = NodePath("MessageBox")
 Party = NodePath("PartyMenu")
 File = NodePath("FileMenu")
 Config = NodePath("ConfigScreen")
+Debug = NodePath("DebugMenu")
+interactPopup = NodePath("Popups/InteractPopup")
+popupParent = NodePath("Popups")
+itemPopupTemplate = ExtResource("2_pesr5")
+
+[node name="Popups" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractPopup" type="Control" parent="Popups"]
+visible = false
+anchors_preset = 0
+offset_left = 160.0
+offset_top = 120.0
+offset_right = 160.0
+offset_bottom = 120.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Popups/InteractPopup"]
+texture = ExtResource("3_1ixul")
+offset = Vector2(0, -8)
+script = ExtResource("17_i84k7")
+
+[node name="Label" type="Label" parent="Popups/InteractPopup"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -26.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("18_dtd4u")
+text = "Interact"
+horizontal_alignment = 1
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 1
@@ -339,6 +337,7 @@ region_rect = Rect2(8, 0, 8, 8)
 
 [node name="Camera3D" type="Camera3D" parent="HUD/CompassContainer/SubViewportContainer/SubViewport/Compass"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+current = true
 
 [node name="Control" type="Control" parent="HUD/CompassContainer"]
 visible = false
@@ -371,6 +370,7 @@ grow_vertical = 2
 
 [node name="HealthDisplay" type="Control" parent="HUD"]
 layout_mode = 1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -667,7 +667,6 @@ offset = Vector2(-16, -6)
 
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2710,7 +2709,6 @@ label_settings = ExtResource("19_wre01")
 horizontal_alignment = 1
 
 [node name="SystemScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3053,6 +3051,161 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="DebugMenu" type="Control" parent="." node_paths=PackedStringArray("buttons", "listBox", "cursor")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("84_67nmn")
+buttons = [NodePath("SelectionBox/ScrollContainer/VBoxContainer/Switches"), NodePath("SelectionBox/ScrollContainer/VBoxContainer/Variables")]
+listBox = NodePath("ListBox")
+cursor = NodePath("SelectionBox/Cursor")
+
+[node name="SelectionBox" type="NinePatchRect" parent="DebugMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 160.0
+texture = ExtResource("2_1rrgr")
+region_rect = Rect2(0, 0, 64, 64)
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Border" type="NinePatchRect" parent="DebugMenu/SelectionBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1rrgr")
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DebugMenu/SelectionBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugMenu/SelectionBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Switches" type="Button" parent="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = " "
+flat = true
+alignment = 0
+
+[node name="Name" type="Label" parent="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer/Switches"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Switches"
+
+[node name="Variables" type="Button" parent="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = " "
+flat = true
+alignment = 0
+
+[node name="Name" type="Label" parent="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer/Variables"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Variables"
+
+[node name="Cursor" type="AnimatedSprite2D" parent="DebugMenu/SelectionBox"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_gx67a")
+offset = Vector2(-16, -6)
+
+[node name="ListBox" type="NinePatchRect" parent="DebugMenu" node_paths=PackedStringArray("container")]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1rrgr")
+region_rect = Rect2(0, 0, 64, 64)
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+script = ExtResource("84_cjxrx")
+optionTemplate = ExtResource("85_8py51")
+container = NodePath("ScrollContainer/VBoxContainer")
+mode = &"variable"
+
+[node name="Border" type="NinePatchRect" parent="DebugMenu/ListBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1rrgr")
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Cursor" type="AnimatedSprite2D" parent="DebugMenu/ListBox"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_gx67a")
+offset = Vector2(-16, -6)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DebugMenu/ListBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugMenu/ListBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
 [node name="Blocker" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -3075,3 +3228,5 @@ mouse_force_pass_scroll_events = false
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/ToTitle" to="PartyMenu/SystemScreen/Node" method="_on_to_title_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Quit" to="PartyMenu/SystemScreen/Node" method="_on_quit_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Back" to="PartyMenu/SystemScreen/Node" method="_on_back_pressed"]
+[connection signal="pressed" from="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer/Switches" to="DebugMenu" method="_on_switches_pressed"]
+[connection signal="pressed" from="DebugMenu/SelectionBox/ScrollContainer/VBoxContainer/Variables" to="DebugMenu" method="_on_variables_pressed"]

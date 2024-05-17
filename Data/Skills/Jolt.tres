@@ -37,6 +37,7 @@ waitMode = 1
 script = ExtResource("5_wiu86")
 status = ExtResource("6_qs88y")
 operation = 0
+forceAdd = false
 
 [sub_resource type="Resource" id="Resource_sc5qe"]
 script = ExtResource("5_42up4")

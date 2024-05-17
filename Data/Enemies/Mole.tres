@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=13 format=3 uid="uid://cn4v6tsk48ile"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=11 format=3 uid="uid://cn4v6tsk48ile"]
 
 [ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_thtna"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_g3bf0"]
-[ext_resource type="Resource" uid="uid://ccnl1ck458bp4" path="res://Data/Items/Root.tres" id="3_lih1q"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="4_26iuy"]
-[ext_resource type="Resource" uid="uid://vdynhxx2qmk" path="res://Data/Items/Stem.tres" id="5_2tamw"]
-[ext_resource type="Resource" uid="uid://dm2ofvb0qvmel" path="res://Data/Items/Drench.tres" id="6_uolp8"]
+[ext_resource type="Resource" uid="uid://ccnl1ck458bp4" path="res://Data/Items/Medicine/Root.tres" id="4_u6vj6"]
+[ext_resource type="Resource" uid="uid://vdynhxx2qmk" path="res://Data/Items/Medicine/Stem.tres" id="6_f3ojg"]
 
 [sub_resource type="Resource" id="Resource_2t7cd"]
 script = ExtResource("1_thtna")
@@ -16,24 +15,19 @@ conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.
 
 [sub_resource type="Resource" id="Resource_f8mbg"]
 script = ExtResource("4_26iuy")
-item = ExtResource("3_lih1q")
-rate = 1.0
+item = ExtResource("4_u6vj6")
+rate = 0.5
 
 [sub_resource type="Resource" id="Resource_bvv6b"]
 script = ExtResource("4_26iuy")
-item = ExtResource("5_2tamw")
-rate = 0.649
-
-[sub_resource type="Resource" id="Resource_pyeb4"]
-script = ExtResource("4_26iuy")
-item = ExtResource("6_uolp8")
-rate = 0.325
+item = ExtResource("6_f3ojg")
+rate = 0.25
 
 [resource]
 script = ExtResource("1_i0uq7")
 type = "Mammal"
 battleSprite = ExtResource("1_dqtx7")
-gender = 2
+gender = 0
 collapseEffect = ExtResource("3_g3bf0")
 innateElement = 9
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
@@ -48,4 +42,4 @@ actions = Array[ExtResource("1_thtna")]([SubResource("Resource_2t7cd")])
 rewardExp = 5
 rewardApp = 4
 rewardGold = 3
-rewardTreasure = Array[ExtResource("4_26iuy")]([SubResource("Resource_f8mbg"), SubResource("Resource_bvv6b"), SubResource("Resource_pyeb4")])
+rewardTreasure = Array[ExtResource("4_26iuy")]([SubResource("Resource_f8mbg"), SubResource("Resource_bvv6b")])

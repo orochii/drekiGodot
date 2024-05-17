@@ -12,6 +12,7 @@ signal onLoop(_state:StringName)
 @export var useOverlay : bool = false
 @export var scaleYBillboard : bool = true
 @export var yRefNode : Node3D
+@export var debug : bool = false
 
 var speed : float = 1
 var blinkCounter : float = 0
@@ -50,6 +51,7 @@ func updateFrame(delta,deltaUnscaled):
 	if spritesheet != null:
 		var _lastState = state
 		var s:SpritesheetEntry = getCurrentSheet()
+		if(debug):print ("state:%s sheet:%s" % [state,s.name])
 		if s != null:
 			if speed==0:
 				var dd = deltaUnscaled * s.idleSpeed
@@ -62,6 +64,7 @@ func updateFrame(delta,deltaUnscaled):
 		# uh... yeah, a weird workaround for switching states before loop
 		if _lastState != state:
 			s = getCurrentSheet()
+		if(debug):print ("state:%s sheet:%s" % [state,s.name])
 		if s != null:
 			var newFrame = floori(frameCounter)
 			s.getFrame(self, newFrame, blinkState)
@@ -84,7 +87,7 @@ func updateAngleDeform():
 		self.scale.y = 1
 
 func hasIdle():
-	return spritesheet.getSheet(state+"_idle") != null
+	return spritesheet.hasSheet(state+"_idle")
 
 func setNewState(stateName):
 	state = stateName

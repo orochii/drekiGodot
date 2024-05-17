@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseItem" load_steps=3 format=3 uid="uid://b4oblkvos45r1"]
+
+[ext_resource type="Script" path="res://Core/Data/Items/BaseItem.gd" id="1_6k8fc"]
+[ext_resource type="Texture2D" uid="uid://cgi0wga2ldlhc" path="res://Graphics/Icons/items/item_0413.png" id="1_dmhby"]
+
+[resource]
+script = ExtResource("1_6k8fc")
+icon = ExtResource("1_dmhby")
+category = 4
+price = 0
+canSell = false

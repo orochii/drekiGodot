@@ -105,9 +105,9 @@ func open(mode,fromMenu):
 	fileMode = mode
 	helpText.text = "save_help" if mode==0 else "load_help"
 	self.fromMenu = fromMenu
-	createSaveList()
-	#
-	visible = true
+	if createSaveList():
+		#
+		visible = true
 
 func createSaveList():
 	# Clear
@@ -130,12 +130,17 @@ func createSaveList():
 		fileContainer.add_child(inst)
 		files.append(inst)
 	UIUtils.setVNeighbors(files)
-	files[0].grab_focus()
+	
 	if files.size() != 0:
+		files[0].grab_focus()
 		if !currFolder.is_empty():
 			for f in files:
 				if f.folder == currFolder:
 					f.grab_focus()
+		return true
+	else:
+		close()
+		return false
 
 func createSlotList():
 	# Clear
@@ -207,9 +212,12 @@ func positionCursor(focused):
 		cursor.visible = false
 
 func onNameSubmit(payload):
-	print(payload)
 	var newName = payload["name"]
-	Global.makeSaveFile(newName)
-	currFolder = newName
-	createSaveList()
-	createSlotList()
+	if newName != "":
+		currFolder = newName
+		Global.makeSaveFile(newName)
+		createSaveList()
+		createSlotList()
+	else:
+		if files.size() != 0:
+			files[0].grab_focus()

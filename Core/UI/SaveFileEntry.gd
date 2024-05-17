@@ -14,5 +14,4 @@ func setup(n:String):
 
 
 func _on_pressed():
-	print("Selected: %s" % folder)
 	parent.onFileSelected(folder)

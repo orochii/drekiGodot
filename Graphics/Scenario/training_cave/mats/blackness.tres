@@ -1,0 +1,5 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://djxxpm68xk4yo"]
+
+[resource]
+resource_name = "blackness"
+albedo_color = Color(0, 0, 0, 1)

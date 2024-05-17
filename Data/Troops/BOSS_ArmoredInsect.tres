@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=8 format=3 uid="uid://dhdt277kui74o"]
+
+[ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="1_jiol0"]
+[ext_resource type="Resource" uid="uid://b4itwim41w6ia" path="res://Data/Enemies/ArmoredInsect.tres" id="1_l4v25"]
+[ext_resource type="AudioStream" uid="uid://0kva6qfoaghe" path="res://Audio/BGM/[Challenge] Sword In Hand.ogg" id="2_617au"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_x30du"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="3_w25sv"]
+
+[sub_resource type="Resource" id="Resource_62hxr"]
+script = ExtResource("1_jiol0")
+name = &""
+stream = ExtResource("2_617au")
+volume = 1.0
+pitch = 1.0
+
+[sub_resource type="Resource" id="Resource_qu4nc"]
+script = ExtResource("2_x30du")
+enemy = ExtResource("1_l4v25")
+position = Vector3(-1.5, 0, 0)
+flags = 0
+
+[resource]
+script = ExtResource("3_w25sv")
+battleMusic = Array[ExtResource("1_jiol0")]([SubResource("Resource_62hxr")])
+entries = Array[ExtResource("2_x30du")]([SubResource("Resource_qu4nc")])

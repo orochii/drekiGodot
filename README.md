@@ -1,6 +1,15 @@
 # drekiGodot
 One attempt at making RPG on Godot just how I like it :)
 
+# First Cave TODO
+- Some missing sounds, idiot (redo step sound cuz it sucks).
+- Death is still not done
+- Skills for boss
+- Scan ability
+- Twin Flames barely there
+- Extra treasure (sword, phoenix down)
+- Tutorials (equipment, scrolls, items, back attack)
+
 # TODO List
 - Redo battlebacks/position/camera, set to use close locations, add starting rotation for camera/battleground. Target icon currently ignores world rotation, what is it using for position? isn't it using global? o.o
 - Skill tree learning

@@ -11,6 +11,6 @@ func _process(delta):
 
 func refreshText():
 	var t = Global.State.gameTime
-	var weekdayName = Global.State.WEEKDAY_NAMES[Global.State.weekday()]
-	var monthName = Global.State.MONTH_NAMES[t["month"]].to_upper()
-	self.text = format % [t["h"],t["m"],t["s"],weekdayName,t["day"]+1,monthName,t["year"]]
+	var weekdayName = TranslationServer.translate(Global.State.WEEKDAY_NAMES[Global.State.weekday()])
+	var monthName = TranslationServer.translate(Global.State.MONTH_NAMES[t["month"]]).to_upper()
+	self.text = format % [t["h"],t["m"],t["s"], weekdayName,t["day"]+1,monthName,t["year"]]

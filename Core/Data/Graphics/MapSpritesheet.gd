@@ -1,3 +1,4 @@
+@tool
 extends Spritesheet
 class_name MapSpritesheet
 

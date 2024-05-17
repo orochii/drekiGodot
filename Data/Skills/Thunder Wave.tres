@@ -36,6 +36,7 @@ waitMode = 1
 script = ExtResource("5_m7qj3")
 status = ExtResource("6_lsmos")
 operation = 0
+forceAdd = false
 
 [resource]
 script = ExtResource("1_m6usj")

@@ -8,16 +8,22 @@ const MONTH_NAMES = ["Tēwaz","Gebō","Ehwaz","Yngwaz","Jēra","Perþō","Þuris
 const MAX_SWITCHES = 50
 const MAX_VARIABLES= 50
 
-signal onSwitchChange(id:int,value:bool)
-signal onVariableChange(id:int,value:int)
+signal onSwitchChange(id:StringName,value:bool)
+signal onVariableChange(id:StringName,value:int)
+
+func clearStateSignals():
+	var sw_cs = onSwitchChange.get_connections()
+	for c in sw_cs: onSwitchChange.disconnect(c["callable"])
+	var vr_cs = onVariableChange.get_connections()
+	for c in vr_cs: onVariableChange.disconnect(c["callable"])
 
 # actor states
 var actors : Array[GameActor] = []
 # party stuff: members, inventory
 var party : GameParty
 # switches/variables
-var switches : Array = []
-var variables : Array = []
+var switches : Dictionary = {}
+var variables : Dictionary = {}
 var localVars : Dictionary = {}
 # map state
 var _characters = null
@@ -39,33 +45,30 @@ var count = 0
 
 func initialize():
 	party = GameParty.new()
-	switches.resize(MAX_SWITCHES)
-	variables.resize(MAX_VARIABLES)
 
 #region Switch/Variable Operations
-func getSwitch(id:int) -> bool:
-	if (id >= switches.size() || id < 0): return false
-	return switches[id]==true
-func setSwitch(id:int,v:bool):
-	if (id < 0): return
-	if id >= switches.size():
-		switches.resize(id + 100)
-	var prevVal = switches[id]==true
+func getSwitch(id:StringName) -> bool:
+	if switches.has(id):
+		return switches[id]==true
+	return false
+func setSwitch(id:StringName,v:bool):
+	var change = true
+	if variables.has(id):
+		change = (switches[id] != v)
 	switches[id] = v
-	if prevVal != v:
+	if change:
 		onSwitchChange.emit(id,v)
 
-func getVariable(id:int) -> int:
-	if (id >= variables.size() || id < 0): return false
-	if variables[id]==null: return 0
-	else: return variables[id]
-func setVariable(id:int,v:int):
-	if (id < 0): return
-	if id >= variables.size():
-		variables.resize(id + 100)
-	var prevVal = variables[id] if variables[id] != null else 0
+func getVariable(id:StringName) -> int:
+	if variables.has(id):
+		return variables[id]
+	return 0
+func setVariable(id:StringName,v:int):
+	var change = true
+	if variables.has(id):
+		change = (variables[id] != v)
 	variables[id] = v
-	if prevVal != v:
+	if change:
 		onVariableChange.emit(id,v)
 
 func getLocalVar(key:String, name:StringName):
@@ -205,7 +208,9 @@ func _serializeActors():
 func _serializeCharacters():
 	var dict = {}
 	var scene : Node3D = Global.getSceneRoot()
-	for n in scene.get_children():
+	var children:Array[Node] = []
+	get_all_characters(scene,children)
+	for n in children:
 		if n is Character:
 			dict[n.get_path()] = {
 				"posx" : n.global_position.x,
@@ -215,6 +220,15 @@ func _serializeCharacters():
 				"roty" : n.global_rotation.y,
 				"rotz" : n.global_rotation.z,
 				"erased" : n.erased,
+			}
+		elif n.has_meta("dynamic"):
+			dict[n.get_path()] = {
+				"posx" : n.global_position.x,
+				"posy" : n.global_position.y,
+				"posz" : n.global_position.z,
+				"rotx" : n.global_rotation.x,
+				"roty" : n.global_rotation.y,
+				"rotz" : n.global_rotation.z
 			}
 	return dict
 
@@ -253,7 +267,9 @@ func _deserializeActors(data : Array):
 func _deserializeCharacters():
 	if (_characters == null): return
 	var scene : Node3D = Global.getSceneRoot()
-	for n in scene.get_children():
+	var children:Array[Node] = []
+	get_all_characters(scene,children)
+	for n in children:
 		if n is Character:
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
@@ -266,11 +282,30 @@ func _deserializeCharacters():
 				if e.has("erased"): n.setErased(e["erased"])
 			if n is NPC:
 				n.refreshPage()
-		if n is Trigger:
+		elif n is Trigger:
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
 				var e = _characters[path]
 				#if e.has("localVars"): n.localVars = e["localVars"]
 			n.refreshPage()
+		elif n.has_meta("dynamic"):
+			var path = "/"+n.get_path().get_concatenated_names()
+			if _characters.has(path):
+				print("Found dynamic object")
+				var e = _characters[path]
+				var pos = Vector3(e["posx"],e["posy"],e["posz"])
+				var rot = Vector3(e["rotx"],e["roty"],e["rotz"])
+				n.global_position = pos
+				n.global_rotation = rot
 	_characters = null
 #endregion
+
+func get_all_characters(root:Node,ary:Array[Node]):
+	var children = root.get_children()
+	for n in children:
+		if n is Character:
+			ary.append(n)
+		elif n.has_meta("dynamic"):
+			ary.append(n)
+		else:
+			get_all_characters(n,ary)

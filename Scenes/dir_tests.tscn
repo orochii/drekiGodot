@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ylml433we7g"]
+
+[ext_resource type="Script" path="res://Scenes/test_dir.gd" id="1_rtjnq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8wh0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu5dr"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Direction" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 5)
+
+[node name="Direction2" type="RayCast3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 5)
+
+[node name="Direction3" type="RayCast3D" parent="."]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 5)
+
+[node name="Direction4" type="RayCast3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 5)
+
+[node name="Direction5" type="RayCast3D" parent="."]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 5)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." node_paths=PackedStringArray("character")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.39778)
+script = ExtResource("1_rtjnq")
+character = NodePath("../Direction")
+range = 5.0
+viewAngle = 30.0
+normalMat = SubResource("StandardMaterial3D_b8wh0")
+seenMat = SubResource("StandardMaterial3D_eu5dr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.326773, 0.945103, 0, -0.945103, 0.326773, 0, 4.20367, 0)

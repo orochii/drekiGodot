@@ -12,18 +12,17 @@ func getName():
 	var enemy:Enemy = getData()
 	return enemy.getName()
 
-func getFeatures():
+func recreateFeatureCache():
 	var enemy:Enemy = getData()
-	var features = []
+	_cachedFeatures = []
 	# Base features
-	features.append_array(enemy.features)
+	_cachedFeatures.append_array(enemy.features)
 	# Status features
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
-		features.append_array(data.features)
+		_cachedFeatures.append_array(data.features)
 	# Passive skill features?
-	# Return
-	return features
+	regenCachedStatistics()
 
 func getBaseMaxHP():
 	var enemy:Enemy = getData()

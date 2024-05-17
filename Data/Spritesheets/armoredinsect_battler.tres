@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=5 format=3 uid="uid://dvnw8sbbybuh7"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_vyaef"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_pjepm"]
+[ext_resource type="Texture2D" uid="uid://dl2fkxjd2erm6" path="res://Graphics/Battler/z_armoredInsect.png" id="3_pgp6f"]
+
+[sub_resource type="Resource" id="Resource_ad8nh"]
+script = ExtResource("1_vyaef")
+frames = Array[Vector2i]([Vector2i(0, 0)])
+events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
+name = &"base"
+fps = 8
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("2_pjepm")
+texture = ExtResource("3_pgp6f")
+cellW = 0
+cellH = 0
+collection = Array[ExtResource("1_vyaef")]([SubResource("Resource_ad8nh")])

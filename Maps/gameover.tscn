@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6a88uqobsumi"]
+
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_oc3xt"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="2_etf4v"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_ojxwd"]
+[ext_resource type="PackedScene" uid="uid://c3x6xxet8dq00" path="res://Graphics/Scenario/light_scene.glb" id="4_x8mfd"]
+
+[sub_resource type="Environment" id="Environment_378u5"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+ambient_light_energy = 0.8
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pxpjw"]
+size = Vector3(60, 1, 60)
+
+[node name="gameover" type="Node3D"]
+
+[node name="Camera" parent="." instance=ExtResource("1_oc3xt")]
+
+[node name="GameUI" parent="." instance=ExtResource("2_etf4v")]
+
+[node name="Player" parent="." instance=ExtResource("3_ojxwd")]
+
+[node name="Scenario" type="Node" parent="."]
+
+[node name="LightPivot" type="Node" parent="Scenario"]
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Scenario/LightPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 33.8019, 8.93891)
+light_color = Color(0.94902, 0.890196, 0.745098, 1)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenario/LightPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -7.51254, 0)
+light_color = Color(1, 0.317647, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scenario/LightPivot"]
+environment = SubResource("Environment_378u5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenario"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenario/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_pxpjw")
+
+[node name="light_scene" parent="Scenario" instance=ExtResource("4_x8mfd")]

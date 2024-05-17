@@ -6,8 +6,8 @@
 [ext_resource type="Resource" uid="uid://ci3paygfjrydc" path="res://Data/Skills/Fire.tres" id="2_t8wvo"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_o8yew"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScriptCondition_Turn.gd" id="3_o747h"]
-[ext_resource type="Resource" uid="uid://baped7344522u" path="res://Data/Items/Thaw.tres" id="4_ushoi"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="5_uvhk4"]
+[ext_resource type="Resource" uid="uid://baped7344522u" path="res://Data/Items/Medicine/Thaw.tres" id="7_3xbf1"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="8_2tkp2"]
 
 [sub_resource type="Resource" id="Resource_omx5s"]
@@ -28,8 +28,8 @@ conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.
 
 [sub_resource type="Resource" id="Resource_jkll2"]
 script = ExtResource("5_uvhk4")
-item = ExtResource("4_ushoi")
-rate = 0.1
+item = ExtResource("7_3xbf1")
+rate = 0.05
 
 [resource]
 script = ExtResource("8_2tkp2")

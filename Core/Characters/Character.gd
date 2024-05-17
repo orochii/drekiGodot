@@ -57,6 +57,7 @@ func getLastGroundedPosition():
 	return lastGroundedPosition
 
 func _ready():
+	setCollision(true)
 	lastGroundedPosition = global_position
 	if graphic != null: 
 		graphic.onFrame.connect(playStep)
@@ -75,9 +76,9 @@ func setMove(direction : Vector3):
 	target_velocity.z = direction.z * mspeed
 
 func lookTowards(pos):
-	var d = pos - global_position
-	var t = global_position - d
-	look_at(t, Vector3.UP)
+	var d:Vector3 = pos - global_position
+	var a = d.signed_angle_to(Vector3.BACK,Vector3.UP)
+	global_rotation = Vector3(0,-a,0)
 
 func jump():
 	if is_on_floor():
@@ -96,7 +97,8 @@ func _physics_process(delta):
 		if navDir != Vector3.ZERO:
 			if !fixedDirection: lookTowards(global_position + navDir)
 		move_and_slide()
-		if navigator.is_target_reachable()==false || navigator.get_final_position().distance_to(global_position) < 0.1:
+		var dst = navigator.get_final_position().distance_to(global_position) < 0.5
+		if navigator.is_target_reachable()==false || dst:
 			target_velocity.x = 0
 			target_velocity.z = 0
 			navigating = false
@@ -117,7 +119,6 @@ func _physics_process(delta):
 		if c != null:
 			var n = raycast.get_collision_normal()
 			var deg = rad_to_deg(n.angle_to(Vector3.UP))
-			#print("floorAngle:%f" % deg)
 			if deg < 45.0:
 				lastGroundedCollider = c
 				lastGroundedPosition = global_position - c.global_position
@@ -155,13 +156,16 @@ func getCurrentState():
 func getSpeedMult():
 	return speedMult
 
+const COLL_LAYER_WORLD = 1+4
+const COLL_LAYER_OBJECTS = 2
+
 func setCollision(v:bool):
 	collision = v
 	if v:
-		self.collision_layer = 1
-		self.collision_mask = 1
+		self.collision_layer = COLL_LAYER_OBJECTS
+		self.collision_mask = COLL_LAYER_WORLD+COLL_LAYER_OBJECTS
 	else:
-		self.collision_layer = 2
-		self.collision_mask = 2
+		self.collision_layer = 0
+		self.collision_mask = COLL_LAYER_WORLD
 	#collider.disabled = !v
 	if collision==false: target_velocity.y = 0

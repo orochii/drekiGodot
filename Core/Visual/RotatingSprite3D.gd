@@ -22,7 +22,6 @@ func setVals(_off:Vector2i,_raw:Vector2i,_rotZ:float,_flipH:bool):
 	rawOffset = _raw
 	rotationZ = _rotZ
 	flip_h = _flipH
-	print("SPRT: x%d y%d z%f" % [rawOffset.x, rawOffset.y, rotationZ])
 	__updateValues()
 
 func __updateValues():

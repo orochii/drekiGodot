@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://5d0sfxr1qm52"]
+
+[ext_resource type="Texture2D" uid="uid://e3opahhhvwus" path="res://Graphics/Scenario/training_cave/trainingCave_new_lavacave_tex2_1.png" id="1_n2e8g"]
+
+[resource]
+resource_name = "wall1_ill"
+albedo_texture = ExtResource("1_n2e8g")
+texture_filter = 2

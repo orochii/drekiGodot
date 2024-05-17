@@ -85,6 +85,5 @@ func getActor():
 
 func _onSkillSelected(entry,skill):
 	Global.Audio.playSFX("decision")
-	print("Skill selected")
 	# open target list
 	skillTargetWindow.open(getActor(), skill)

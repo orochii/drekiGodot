@@ -6,6 +6,7 @@ class_name MapManager
 @export var gates : Array[Node3D]
 @export var defaultFloorGate : FloorGate
 @export var battlePositions : Node
+@export var animatedComplements : Node
 
 var allCharacters:Array = []
 
@@ -54,6 +55,17 @@ func getNearestBattlePosition():
 	if nearest==null:
 		return p
 	return nearest
+
+func setForBattle(v:bool):
+	setAnimatedForBattle(v)
+	setCharactersVisible(!v)
+
+func setAnimatedForBattle(v:bool):
+	if animatedComplements==null: return
+	if v:
+		animatedComplements.process_mode = Node.PROCESS_MODE_ALWAYS
+	else:
+		animatedComplements.process_mode = Node.PROCESS_MODE_INHERIT
 
 func setCharactersVisible(v:bool):
 	for c in allCharacters:

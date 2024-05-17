@@ -1,14 +1,16 @@
 extends BaseEvent
 
-@export var zone:CollisionShape3D
-@export var switchId:int = 0
+@export var zoneNodePath:NodePath
+@export var switchId:StringName = &""
 @export var camPosition:Node3D
 @export var panningTime:float = 1.0
 @export var panningWait:float = 2.0
 
 var currentActivator:Node3D = null
+var zone:CollisionShape3D
 
 func _run():
+	zone = get_node(zoneNodePath)
 	# 
 	var _result = false
 	# Get object references

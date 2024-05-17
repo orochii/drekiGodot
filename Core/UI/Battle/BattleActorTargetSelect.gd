@@ -2,6 +2,7 @@ extends Control
 class_name BattleActorTargetSelect
 
 const DIR_COOLDOWN = 0.2
+const PRINT_DEBUG = false
 
 @export var actorCommand:BattleActorCommand
 @export_group("Members")
@@ -147,24 +148,28 @@ func _moveCursor(dir:Vector2):
 		_selectTarget(0)
 	else:
 		var _targets = _getTargets()
-		var _pos = _currentTarget.homePosition
-		var _pos2d = Vector2(_pos.x, _pos.z)
-		var _targetPos = _pos2d + dir
-		var maxDiff = deg_to_rad(45)
+		var _pos = _currentTarget.getGlobalHomePosition()
+		var _pos2d = actorCommand.battle.posToScreen(_pos)
+		var _targetPos = (_pos2d + dir)
+		var maxDiff = deg_to_rad(85)
 		var _angle = dir.angle()
 		var _closestTarget = null
 		var _closestDistance = 0
 		var _closestAngle = 0
+		if(PRINT_DEBUG): print_rich("_pos2d:[color=green](x%f y%f)[/color]"%[_pos2d.x, _pos2d.y])
+		if(PRINT_DEBUG): print_rich("dir:[color=green](x%f y%f)[/color] _angle:[color=green]%f[/color]" % [dir.x, dir.y, rad_to_deg(_angle)])
 		for t in _targets:
 			if t != _currentTarget:
-				var home = t.homePosition
-				var p = Vector2(home.x, home.z)
+				var home = t.getGlobalHomePosition()
+				var p = actorCommand.battle.posToScreen(home)
 				var d = p.distance_squared_to(_targetPos)
 				var a = (p-_pos2d).angle()
-				var diffA = abs(_angle-a)
+				var diffA = abs(angle_difference(_angle, a))
+				if(PRINT_DEBUG): print_rich("t:[color=red]%s[/color] p:[color=green](x%f y%f)[/color] a:[color=green]%f[/color] || diffA:%f" % [t.battler.getName(), p.x, p.y, rad_to_deg(a),rad_to_deg(diffA)])
 				if diffA<maxDiff && (_closestTarget==null || _closestDistance > d):
 					_closestTarget = t
 					_closestDistance = d
+					maxDiff = diffA
 		if _closestTarget != null:
 			Global.Audio.playSFX("cursor")
 			_currentTarget = _closestTarget
@@ -199,7 +204,7 @@ func _refreshTarget():
 		status.setup(null)
 	else:
 		cursor.visible = true
-		selector.global_position = _currentTarget.getGlobalHomePosition() + Vector3(0,0,-0.3)
+		selector.global_position = _currentTarget.getGlobalHomePosition()
 		selectorParticles.emitting = true
 		selectorParticlesMulti.emitting = selectorParticles.emitting &&_currentScope==Global.ETargetScope.ALL
 		repositionCursor()

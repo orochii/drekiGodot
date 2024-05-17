@@ -22,7 +22,6 @@ func refresh():
 	var rotZ:float = deg_to_rad(rotationZ)
 	var _posOff = positionOffset
 	var _gripOff = gripOffset
-	print("WEAP: x%d y%d z%f" % [_posOff.x, _posOff.y, rotZ])
 	if(flipH): 
 		_posOff.x = -_posOff.x
 		_gripOff.x = -_gripOff.x

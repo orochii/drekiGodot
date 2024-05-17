@@ -2,7 +2,7 @@ extends Resource
 class_name Enemy
 
 @export_group("Display")
-@export var type : String
+@export_enum("Mammal","Insect","Inorganic") var type : String
 @export var battleSprite : Spritesheet
 
 @export_group("Flavor")

@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=14 format=3 uid="uid://erdb44r5ke82"]
+
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_2l7kx"]
+[ext_resource type="Resource" uid="uid://df2tprvaf2w74" path="res://Data/Spritesheets/blueflame_battler.tres" id="1_5jy2u"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_cv3rq"]
+[ext_resource type="Resource" uid="uid://ci3paygfjrydc" path="res://Data/Skills/Fire.tres" id="2_3hv42"]
+[ext_resource type="Script" path="res://Core/Data/Features/FlyingFeature.gd" id="2_7r2jv"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript_Skill.gd" id="3_0dm4k"]
+[ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="5_ah4vy"]
+[ext_resource type="Resource" uid="uid://bkxqnpyttgpos" path="res://Data/Items/Armor/One Piece.tres" id="6_ppmej"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="7_46663"]
+
+[sub_resource type="Resource" id="Resource_qv2e2"]
+script = ExtResource("1_2l7kx")
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_bc1rl"]
+script = ExtResource("3_0dm4k")
+actions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("2_3hv42")])
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_mj1bo"]
+script = ExtResource("2_7r2jv")
+
+[sub_resource type="Resource" id="Resource_hmx6i"]
+script = ExtResource("7_46663")
+item = ExtResource("6_ppmej")
+rate = 1.0
+
+[resource]
+script = ExtResource("1_cv3rq")
+type = "Inorganic"
+battleSprite = ExtResource("1_5jy2u")
+gender = 2
+collapseEffect = ExtResource("5_ah4vy")
+innateElement = 6
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_mj1bo")])
+level = 25
+mhp = 500
+mmp = 100
+str = 75
+vit = 60
+mag = 36
+agi = 15
+actions = Array[ExtResource("1_2l7kx")]([SubResource("Resource_qv2e2"), SubResource("Resource_bc1rl")])
+rewardExp = 0
+rewardApp = 4
+rewardGold = 200
+rewardTreasure = Array[ExtResource("7_46663")]([SubResource("Resource_hmx6i")])

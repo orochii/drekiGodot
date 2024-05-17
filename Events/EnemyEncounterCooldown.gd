@@ -5,10 +5,11 @@ extends BaseEvent
 @export var animator:AnimationPlayer
 
 func _run():
-	navigator.setEnabled(false)
-	animator.play("blink")
-	await get_tree().create_timer(cooldownTime).timeout
-	navigator.setEnabled(true)
-	animator.play("RESET")
+	if navigator != null:
+		navigator.setEnabled(false)
+		animator.play("blink")
+		await get_tree().create_timer(cooldownTime).timeout
+		navigator.setEnabled(true)
+		animator.play("RESET")
 	get_parent().setLocalVar("freeze", false)
 	get_parent().refreshPage()

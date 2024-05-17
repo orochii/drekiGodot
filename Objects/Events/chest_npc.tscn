@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://cw5i3n2eru37b"]
+
+[ext_resource type="Script" path="res://Core/Characters/ChestNPC.gd" id="1_h5aww"]
+[ext_resource type="Resource" uid="uid://xckjfdg7a4sh" path="res://Data/Spritesheets/smallchest_map.tres" id="2_joaeb"]
+[ext_resource type="Texture2D" uid="uid://clggtkyw1lag6" path="res://Graphics/Character/_OBJECTS/smallchest_base.png" id="3_kncn7"]
+[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="4_gwek5"]
+[ext_resource type="Script" path="res://Events/GainItem.gd" id="5_ly1l4"]
+[ext_resource type="Script" path="res://Core/Interpreter/BaseEvent.gd" id="7_tiphx"]
+[ext_resource type="Script" path="res://Core/Interpreter/LocalVarPageCondition.gd" id="8_j5aer"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qlpox"]
+
+[sub_resource type="Resource" id="Resource_ib0qx"]
+script = ExtResource("8_j5aer")
+variableName = &"opened"
+value = true
+
+[node name="ChestNPC" type="CharacterBody3D" node_paths=PackedStringArray("pages", "graphic", "collider")]
+script = ExtResource("1_h5aww")
+spritesheet = ExtResource("2_joaeb")
+pages = [NodePath("Page1"), NodePath("Page2")]
+graphic = NodePath("Graphic")
+collider = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_qlpox")
+
+[node name="Graphic" type="Sprite3D" parent="."]
+offset = Vector2(0, 8)
+pixel_size = 0.0625
+billboard = 2
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("3_kncn7")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("4_gwek5")
+spritesheet = ExtResource("2_joaeb")
+state = &"open"
+
+[node name="Page1" type="Node3D" parent="."]
+script = ExtResource("5_ly1l4")
+localVar = &"opened"
+graphic = ExtResource("2_joaeb")
+
+[node name="Page2" type="Node3D" parent="."]
+script = ExtResource("7_tiphx")
+graphic = ExtResource("2_joaeb")
+graphicState = &"open"
+activation = 5
+conditions = Array[Resource("res://Core/Interpreter/EventPageCondition.gd")]([SubResource("Resource_ib0qx")])

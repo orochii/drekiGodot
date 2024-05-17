@@ -6,7 +6,11 @@ var position : int = 0
 var exp : int
 var equips : Array
 var _expList : Array[int] = []
-var currWeapon : int = -1
+var currWeapon : int = -1:
+	set(value):
+		currWeapon = value
+		recreateFeatureCache()
+		regenCachedStatistics()
 var currAP : int
 var apPerc : int
 
@@ -41,8 +45,10 @@ func _init(_id:StringName):
 func gainExp(p):
 	exp += p
 	while exp >= getNextLvlExp():
+		regenCachedStatistics()
 		level += 1
 	while exp < getLevelExp(level):
+		regenCachedStatistics()
 		level -= 1
 
 func gainApp(p):
@@ -63,22 +69,29 @@ func getDefaultSkill(i):
 
 func getSkills():
 	var skills = []
+	var equipSkills = []
 	var _slotData:Array[SlotData] = Global.Db.equipSlots
 	# Equip skills
 	for i in range(_slotData.size()):
+		var e = equips[i]
 		if _slotData[i].kind==Global.EquipSlot.ARMS:
-			var e = equips[i]
 			if(e == null):
 				var skill = getDefaultSkill(i)
 				skills.append(skill)
 			else:
 				var item = Global.Db.getItem(e) as EquipItem
 				skills.append(item.skill)
+		else:
+			if(e != null):
+				var item = Global.Db.getItem(e) as EquipItem
+				equipSkills.append(item.skill)
 	# Available skills
 	for s in availableSkills:
 		var skill = Global.Db.getSkill(s)
 		if skill is UseableSkill:
 			skills.append(skill)
+	# Append other equip skills
+	skills.append_array(equipSkills)
 	#TODO Fylgja and scrolls?
 	return skills
 
@@ -117,6 +130,8 @@ func _learn(learning:SkillLearning):
 	var id = learning.skill.getId()
 	learnedSkills.append(id)
 	availableSkills.append(id)
+	recreateFeatureCache()
+	regenCachedStatistics()
 	return true
 
 func getCurrWeaponIdx():
@@ -131,11 +146,11 @@ func getCurrWeaponIdx():
 func getDefaultWeaponIdx():
 	return 0
 
-func getFeatures():
+func recreateFeatureCache():
 	var actor:Actor = getData()
-	var features = []
+	_cachedFeatures = []
 	# Base features
-	features.append_array(actor.features)
+	_cachedFeatures.append_array(actor.features)
 	# Equip features
 	for i in range(equips.size()):
 		var e = equips[i]
@@ -146,18 +161,18 @@ func getFeatures():
 				if equip.slot==Global.EquipSlot.ARMS:
 					if i != getCurrWeaponIdx():
 						continue
-				features.append_array(equip.features)
+				_cachedFeatures.append_array(equip.features)
 	# Status features
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
-		features.append_array(data.features)
+		_cachedFeatures.append_array(data.features)
 	# Passive skill features
 	for s in availableSkills:
 		var skill = Global.Db.getSkill(s)
 		if skill is PassiveSkill:
 			var passive = skill as PassiveSkill
-			features.append_array(passive.features)
-	return features
+			_cachedFeatures.append_array(passive.features)
+	regenCachedStatistics()
 
 func getBaseMaxHP():
 	var actor:Actor = getData()
@@ -238,6 +253,7 @@ func equip(slotIdx:int, item:EquipItem):
 		var newEquip = item.getId()
 		equips[slotIdx] = newEquip
 		Global.State.party.loseItem(newEquip,1)
+	recreateFeatureCache()
 	return true
 func canEquip(equip:EquipItem)->bool:
 	var a:Actor = getData()

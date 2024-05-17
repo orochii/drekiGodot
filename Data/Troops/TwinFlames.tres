@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=6 format=3 uid="uid://p7mlwr6cixqm"]
+
+[ext_resource type="Resource" uid="uid://erdb44r5ke82" path="res://Data/Enemies/BlueFlame.tres" id="1_hpjjh"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_ceuh5"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="3_ffu46"]
+
+[sub_resource type="Resource" id="Resource_qu4nc"]
+script = ExtResource("2_ceuh5")
+enemy = ExtResource("1_hpjjh")
+position = Vector3(-0.75, 0, -0.5)
+flags = 0
+
+[sub_resource type="Resource" id="Resource_ha733"]
+script = ExtResource("2_ceuh5")
+enemy = ExtResource("1_hpjjh")
+position = Vector3(-1.25, 0, 0.5)
+flags = 1
+
+[resource]
+script = ExtResource("3_ffu46")
+battleMusic = Array[Resource("res://Core/Audio/SystemAudioEntry.gd")]([])
+entries = Array[ExtResource("2_ceuh5")]([SubResource("Resource_qu4nc"), SubResource("Resource_ha733")])

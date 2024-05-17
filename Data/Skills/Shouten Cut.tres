@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=16 format=3 uid="uid://bmoebsnnnt02v"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=19 format=3 uid="uid://bmoebsnnnt02v"]
 
 [ext_resource type="Texture2D" uid="uid://d114bt2vnevhk" path="res://Graphics/Icons/skills/ShoutenCut.png" id="1_6obqo"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_fxe8w"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_2dsl2"]
 [ext_resource type="Script" path="res://Core/Data/Actions/WaitEffect.gd" id="2_2ylkx"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_kjml2"]
+[ext_resource type="Script" path="res://Core/Data/Actions/AfterimageEffect.gd" id="3_u3uad"]
 [ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_5vvuc"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="7_1fjhn"]
 
@@ -22,6 +23,11 @@ setPose = true
 [sub_resource type="Resource" id="Resource_pvhit"]
 script = ExtResource("2_2ylkx")
 waitTime = 0.2
+
+[sub_resource type="Resource" id="Resource_8egxm"]
+script = ExtResource("3_u3uad")
+enabled = true
+interval = 0.0
 
 [sub_resource type="Resource" id="Resource_2aw57"]
 script = ExtResource("2_2dsl2")
@@ -62,6 +68,11 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 
+[sub_resource type="Resource" id="Resource_qaopb"]
+script = ExtResource("3_u3uad")
+enabled = false
+interval = 0.0
+
 [sub_resource type="Resource" id="Resource_n2iji"]
 script = ExtResource("2_2ylkx")
 waitTime = 1.0
@@ -82,6 +93,6 @@ cooldown = 1
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_60trr"), SubResource("Resource_pvhit"), SubResource("Resource_2aw57"), SubResource("Resource_jexpn"), SubResource("Resource_moql1"), SubResource("Resource_2tu5n"), SubResource("Resource_n2iji")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_60trr"), SubResource("Resource_pvhit"), SubResource("Resource_8egxm"), SubResource("Resource_2aw57"), SubResource("Resource_jexpn"), SubResource("Resource_moql1"), SubResource("Resource_2tu5n"), SubResource("Resource_qaopb"), SubResource("Resource_n2iji")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("1_6obqo")

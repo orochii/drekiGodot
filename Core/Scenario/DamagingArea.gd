@@ -21,7 +21,8 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body is Character:
-		if body.canRespawn: respawn_player(body)
+		var c = body as Character
+		if body.canRespawn: respawn_player(c)
 
 func respawn_player(body):
 	var respawning = {}

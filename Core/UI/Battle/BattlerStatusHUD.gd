@@ -18,7 +18,7 @@ func setup(b:Battler,showCp:bool):
 
 func _process(delta):
 	if(_battler==null): return
-	self.visible = !_battler.isHidden()
+	self.visible = (!_battler.isHidden() && _battler.readyForBattle)
 	updatePosition()
 	updateCP()
 

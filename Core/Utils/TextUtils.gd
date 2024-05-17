@@ -18,5 +18,13 @@ static func parseText(t : String):
 		var actor : Actor = Global.Db.getActor(r.get_string(1))
 		var name = actor.getDesc()
 		t = t.replace(pattern, name)
-		
+	
+	regex.compile("\\\\n\\[(.+)\\]")
+	results = regex.search_all(t)
+	for r in results:
+		var pattern = r.get_string(0)
+		var actor : GameActor = Global.State.getActor(r.get_string(1))
+		if actor != null:
+			var name = actor.getName()
+			t = t.replace(pattern, name)
 	return t

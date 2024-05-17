@@ -1,3 +1,4 @@
+@tool
 extends SpritesheetEntry
 class_name MapSpritesheetEntry
 
@@ -7,17 +8,25 @@ class_name MapSpritesheetEntry
 @export var blinkDiag : Texture2D
 @export var totalFrames : int = 4
 @export var events : Array[StringName] = ["","step","","step"]
+@export var offset : Vector2i
 
 func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
 	var step : float = 90.0 if !hasDiag else 45.0
-	var angle : float = target.global_rotation_degrees.y + 180 #+ (step/2)
-	var yRefNode = target.get("yRefNode")
+	var angle : float = 0
+	if !Engine.is_editor_hint():
+		angle = target.global_rotation_degrees.y + 180 #+ (step/2)
+		#if !hasDiag: angle -= 30
+	else:
+		angle = 180
+	var yRefNode = null
+	if !Engine.is_editor_hint(): yRefNode = target.get("yRefNode")
 	if yRefNode != null:
 		angle = -target.rotation_degrees.y - 90
 		angle -= yRefNode.rotation_degrees.y
 	else:
-		var cam = target.get_viewport().get_camera_3d()
+		var cam = null
+		if !Engine.is_editor_hint(): cam = target.get_viewport().get_camera_3d()
 		if (cam != null): angle -= cam.global_rotation_degrees.y
 	if angle >= 360: angle -= 360
 	if angle < 0: angle += 360
@@ -80,6 +89,7 @@ func _resolveBlink(baseT : Texture2D, blinkT : Texture2D, state : bool) -> Textu
 		return baseT
 
 func getFrame(target : Sprite3D, frame : int, blinkState : bool):
+	if target==null: return
 	var r = _resolveDir(target)
 	var hasDiag = r[&"hasDiag"]
 	var dir = r[&"dir"]
@@ -96,7 +106,7 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 	target.region_rect.position = Vector2(col * cellW, row * cellH)
 	target.region_rect.size = Vector2(cellW, cellH)
 	#target.position.y = (cellH * 0.5) * target.pixel_size
-	target.offset.y = (cellH * 0.5)
+	target.offset.y = (cellH * 0.5) + offset.y
 
 func getTotalFrames():
 	return totalFrames

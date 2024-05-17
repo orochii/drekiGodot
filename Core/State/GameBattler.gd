@@ -11,6 +11,8 @@ var currMP : int
 var states : Array[StatusState]
 var lastIndexes:Dictionary
 var skillConditions:Dictionary
+var _cachedFeatures = null
+var _cachedStatistics = null
 
 func advanceSkillConditions():
 	for key in skillConditions:
@@ -58,7 +60,10 @@ func getSkills():
 	return []
 
 func getFeatures():
-	return []
+	if _cachedFeatures==null: recreateFeatureCache()
+	return _cachedFeatures
+func recreateFeatureCache():
+	_cachedFeatures = []
 
 func changeHP(val:int):
 	currHP = clampi(currHP + val, 0, getMaxHP())
@@ -68,6 +73,7 @@ func changeHP(val:int):
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
+
 func changeMP(val:int):
 	currMP = clampi(currMP + val, 0, getMaxHP())
 	var deathStatus = Global.Db.getStatus(DRY_STATUS)
@@ -76,6 +82,7 @@ func changeMP(val:int):
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
+
 func recoverAll():
 	currHP = getMaxHP()
 	currMP = getMaxMP()
@@ -89,9 +96,10 @@ func hasStatus(s:Status):
 			return ss
 	return null
 
-func addStatus(s:Status,force:bool=false):
+func addStatus(s:Status,force:bool=false,noFeatureCache:bool=false):
 	var ss = hasStatus(s)
 	var rate = getStatusRate(s)
+	#print("%s add status %s" % [getName(),s.getId()])
 	if (force || rate > randf()):
 		if ss == null: # Doesn't have status
 			ss = StatusState.new()
@@ -106,13 +114,15 @@ func addStatus(s:Status,force:bool=false):
 		else: # Does have status
 			ss.stack = clampi(ss.stack+1, 1, 3)
 		for rs in s.statusRemove:
-			removeStatus(rs)
+			removeStatus(rs,true)
+	if noFeatureCache==false: recreateFeatureCache()
 	return true
 
-func removeStatus(s:Status):
+func removeStatus(s:Status,noFeatureCache:bool=false):
 	var ss = hasStatus(s)
 	if ss != null:
 		states.erase(ss)
+		if noFeatureCache==false: recreateFeatureCache()
 		return true
 	return false
 
@@ -209,23 +219,39 @@ func advanceStatesTurn():
 func getName():
 	return ""
 func getMaxHP():
-	return applyFeatureStatChange(getBaseMaxHP(), Global.Stat.HP)
+	return getCachedStatistic(Global.Stat.HP)
 func getMaxMP():
-	return applyFeatureStatChange(getBaseMaxMP(), Global.Stat.MP)
+	return getCachedStatistic(Global.Stat.MP)
 func getStr():
-	return applyFeatureStatChange(getBaseStr(), Global.Stat.Str)
+	return getCachedStatistic(Global.Stat.Str)
 func getVit():
-	return applyFeatureStatChange(getBaseVit(), Global.Stat.Vit)
+	return getCachedStatistic(Global.Stat.Vit)
 func getMag():
-	return applyFeatureStatChange(getBaseMag(), Global.Stat.Mag)
+	return getCachedStatistic(Global.Stat.Mag)
 func getAgi():
-	return applyFeatureStatChange(getBaseAgi(), Global.Stat.Agi)
+	return getCachedStatistic(Global.Stat.Agi)
 func getAtk():
-	return applyFeatureStatChange(0, Global.Stat.Atk)
+	return getCachedStatistic(Global.Stat.Atk)
 func getPhyAbs():
-	return applyFeatureStatChange(0, Global.Stat.PhyAbs)
+	return getCachedStatistic(Global.Stat.PhyAbs)
 func getMagAbs():
-	return applyFeatureStatChange(0, Global.Stat.MagAbs)
+	return getCachedStatistic(Global.Stat.MagAbs)
+
+func getCachedStatistic(stat : Global.Stat):
+	if _cachedStatistics == null: regenCachedStatistics()
+	return _cachedStatistics[stat]
+func regenCachedStatistics():
+	_cachedStatistics = {
+		Global.Stat.HP : applyFeatureStatChange(getBaseMaxHP(), Global.Stat.HP),
+		Global.Stat.MP : applyFeatureStatChange(getBaseMaxMP(), Global.Stat.MP),
+		Global.Stat.Str : applyFeatureStatChange(getBaseStr(), Global.Stat.Str),
+		Global.Stat.Vit : applyFeatureStatChange(getBaseVit(), Global.Stat.Vit),
+		Global.Stat.Mag : applyFeatureStatChange(getBaseMag(), Global.Stat.Mag),
+		Global.Stat.Agi : applyFeatureStatChange(getBaseAgi(), Global.Stat.Agi),
+		Global.Stat.Atk : applyFeatureStatChange(0, Global.Stat.Atk),
+		Global.Stat.PhyAbs : applyFeatureStatChange(0, Global.Stat.PhyAbs),
+		Global.Stat.MagAbs : applyFeatureStatChange(0, Global.Stat.MagAbs),
+	}
 
 func applyFeatureStatChange(base:int, stat : Global.Stat):
 	var perc = 100

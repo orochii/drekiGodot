@@ -6,6 +6,8 @@ extends Node
 var toFocus = null
 
 func showTask(payload):
+	buttons[0].modulate = Global.UI.getEnabledColor(_isSaveAllowed())
+	buttons[1].modulate = Global.UI.getEnabledColor(_isLoadAllowed())
 	if payload != null:
 		if payload.size() > 0:
 			toFocus = buttons[payload[0]]
@@ -33,11 +35,22 @@ func positionCursor(focused):
 	else:
 		cursor.visible = false
 
+func _isSaveAllowed():
+	return true
+func _isLoadAllowed():
+	return (Global.getSaveFileList().size() != 0)
+
 func _on_save_pressed():
+	if !_isSaveAllowed(): #Global.getSaveFileList().size() != 0:
+		Global.Audio.playSFX("cancel")
+		return
 	Global.Audio.playSFX("decision")
 	Global.UI.File.open(0,true)
 	Global.UI.Party.close()
 func _on_load_pressed():
+	if !_isLoadAllowed():
+		Global.Audio.playSFX("cancel")
+		return
 	Global.Audio.playSFX("decision")
 	Global.UI.File.open(1,true)
 	Global.UI.Party.close()

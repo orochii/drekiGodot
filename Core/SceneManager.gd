@@ -45,6 +45,8 @@ func transfer(newMap):
 	await onFadeEnd
 	if newMap != "":
 		Global.State.lastSceneName = newMap
+		# Clear state signals
+		Global.State.clearStateSignals()
 		# Unload map
 		var scene : Node3D = Global.getSceneRoot()
 		scene.get_parent().remove_child(scene)
@@ -71,7 +73,7 @@ func callBattle(troop:EnemyTroop):
 	if BattleManager.USE_SCENARIO:
 		currentScene.visible = false
 	else:
-		Global.Map.setCharactersVisible(false)
+		Global.Map.setForBattle(true)
 	Global.State.currentTroop = troop
 	battleInstance = battleSceneTemplate.instantiate()
 	Global.get_parent().add_child(battleInstance)
@@ -87,7 +89,7 @@ func endBattle():
 	await onFadeEnd
 	battleInstance.queue_free()
 	currentScene.visible = true
-	Global.Map.setCharactersVisible(true)
+	Global.Map.setForBattle(false)
 	askUnpause(battleInstance)
 	battleInstance = null
 	fadeIn(TRANSFER_FADE_LEN)

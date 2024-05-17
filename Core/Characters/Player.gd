@@ -20,7 +20,10 @@ func refreshGraphic():
 
 func _process(delta):
 	Global.State.advanceTime(delta * GAME_TIME_SCALE * Global.GAME_TIME_SCALE)
-	
+	if canMove():
+		Global.UI.updateInteractPopup(getClosestEv())
+	else:
+		Global.UI.updateInteractPopup(null)
 	if !customMove:
 		var direction = Vector3.ZERO
 		direction.x = getHorz()
@@ -32,10 +35,13 @@ func _process(delta):
 	if getJump(): jump()
 	if getInteract(): interact()
 	
-	if self.grounded && canMove() && Input.is_action_just_pressed("action_menu"):
-		Global.Audio.playSFX("decision")
-		Global.cacheScreenshot()
-		Global.UI.Party.open()
+	if self.grounded && canMove():
+		if Input.is_action_just_pressed("action_menu"):
+			Global.Audio.playSFX("decision")
+			Global.cacheScreenshot()
+			Global.UI.Party.open()
+		if Input.is_action_just_pressed("ui_debug"):
+			Global.UI.Debug.open()
 
 func getHorz():
 	if !canMove(): return 0
@@ -69,14 +75,19 @@ func getSpeedMult():
 	return speedMult
 
 func interact():
+	var closestEv = getClosestEv()
+	if closestEv != null: closestEv.onInteract()
+
+func getClosestEv():
 	var closestEv = null
 	var closestDst = 1000000
 	for ev in closeEvents:
-		var dst = (ev.global_position - global_position).length_squared()
-		if dst < closestDst:
-			closestEv = ev
-			closestDst = dst
-	if closestEv != null: closestEv.onInteract()
+		if ev is Vehicle || (ev.currentEvent != null && ev.currentEvent.activation==BaseEvent.EActivation.INTERACT):
+			var dst = (ev.global_position - global_position).length_squared()
+			if dst < closestDst:
+				closestEv = ev
+				closestDst = dst
+	return closestEv
 
 # ========
 # Interact
@@ -92,11 +103,17 @@ func _on_area_3d_area_exited(area: Area3D):
 		if closeEvents.has(trigger): closeEvents.erase(trigger)
 
 func _on_area_3d_body_entered(body: Node3D):
+	if body is Vehicle:
+		var vehicle = body as Vehicle
+		if !closeEvents.has(vehicle): closeEvents.append(vehicle)
 	if body is NPC:
 		var npc = body as NPC
 		if !closeEvents.has(npc): closeEvents.append(npc)
 
 func _on_area_3d_body_exited(body: Node3D):
+	if body is Vehicle:
+		var vehicle = body as Vehicle
+		if closeEvents.has(vehicle): closeEvents.erase(vehicle)
 	if body is NPC:
 		var npc = body as NPC
 		if closeEvents.has(npc): closeEvents.erase(npc)

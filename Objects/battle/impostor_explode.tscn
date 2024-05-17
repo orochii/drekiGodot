@@ -9,34 +9,35 @@ shader = ExtResource("3_uni7b")
 shader_parameter/direction = Vector3(1, 0, 0)
 shader_parameter/spread = 360.0
 shader_parameter/flatness = 1.0
-shader_parameter/initial_linear_velocity_min = 1.0
+shader_parameter/initial_linear_velocity_min = 0.1
 shader_parameter/initial_angle_min = 0.0
-shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_min = 6.0
 shader_parameter/orbit_velocity_min = 0.0
 shader_parameter/linear_accel_min = null
-shader_parameter/radial_accel_min = null
+shader_parameter/radial_accel_min = 6.0
 shader_parameter/tangent_accel_min = null
-shader_parameter/damping_min = null
+shader_parameter/damping_min = 6.0
 shader_parameter/scale_min = null
 shader_parameter/hue_variation_min = null
 shader_parameter/anim_speed_min = null
 shader_parameter/anim_offset_min = null
-shader_parameter/initial_linear_velocity_max = null
-shader_parameter/initial_angle_max = null
-shader_parameter/angular_velocity_max = null
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/angular_velocity_max = 6.0
 shader_parameter/orbit_velocity_max = 0.0
-shader_parameter/linear_accel_max = null
-shader_parameter/radial_accel_max = null
-shader_parameter/tangent_accel_max = null
-shader_parameter/damping_max = null
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_max = 6.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_max = 2.0
 shader_parameter/scale_max = null
 shader_parameter/hue_variation_max = null
 shader_parameter/anim_speed_max = null
 shader_parameter/anim_offset_max = null
-shader_parameter/lifetime_randomness = null
-shader_parameter/emission_box_extents = Vector3(1, 1, 0)
+shader_parameter/lifetime_randomness = 0.0
+shader_parameter/emission_box_extents = Vector3(0.5, 0.5, 0)
 shader_parameter/color_value = Color(1, 1, 1, 1)
 shader_parameter/gravity = null
+shader_parameter/scale = 0.5
 shader_parameter/sprite = ExtResource("3_s8l7w")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea5r4"]
@@ -47,7 +48,7 @@ billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_xi4vg"]
 material = SubResource("StandardMaterial3D_ea5r4")
-size = Vector2(0.063, 0.063)
+size = Vector2(0.032, 0.032)
 
 [node name="ImpostorExplode" type="Node3D" node_paths=PackedStringArray("particles")]
 script = ExtResource("1_xxkem")
@@ -57,5 +58,6 @@ particles = NodePath("GPUParticles3D")
 gi_mode = 0
 amount = 4000
 explosiveness = 1.0
+randomness = 1.0
 process_material = SubResource("ShaderMaterial_4g5fp")
 draw_pass_1 = SubResource("QuadMesh_xi4vg")

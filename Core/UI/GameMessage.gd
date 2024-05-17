@@ -25,13 +25,13 @@ var targetPosition : Node3D
 var visibleChars : float = 0
 var totalChars : int = 0
 var options : Array = []
-var optionsVarId : int = 0
+var optionsVarId : StringName = &""
 var optionsCancelIdx : int = -1
 
 func _ready():
 	visible = false
 
-func setOptions(varId:int, optionsList:Array, cancelOption:int=-1):
+func setOptions(varId:StringName, optionsList:Array, cancelOption:int=-1):
 	optionsVarId = varId
 	optionsCancelIdx = cancelOption
 	for i in range(optionsList.size()):
@@ -47,8 +47,8 @@ func showText(targetNode:Node3D, textPos:int, speaker:String, message:String):
 	textBoxPosition = textPos
 	messageText.visible_characters = 0
 	visibleChars = 0
-	speakerText.text = TextUtils.parseText(speaker)
-	messageText.text = TextUtils.parseText(message)
+	speakerText.text = TextUtils.parseText(TranslationServer.translate(speaker))
+	messageText.text = TextUtils.parseText(TranslationServer.translate(message))
 	totalChars = messageText.get_total_character_count()
 	resizeWindow()
 	refreshPosition()
@@ -70,6 +70,7 @@ func _process(delta):
 			visibleChars += delta * messageSpeed
 			if visibleChars > totalChars:
 				visibleChars = totalChars
+				messageText.visible_characters = roundi(visibleChars)
 				if options.size() != 0:
 						options[0].grab_focus()
 		var _closeAction = 0
@@ -101,6 +102,7 @@ func _process(delta):
 					options.clear()
 			else:
 				visibleChars = totalChars
+				messageText.visible_characters = roundi(visibleChars)
 				if options.size() != 0:
 					options[0].grab_focus()
 	else:

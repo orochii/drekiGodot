@@ -72,10 +72,8 @@ func _canSee(p:Node3D):
 		var distSq = character.global_position.distance_squared_to(p.global_position)
 		if (distSq < range*range):
 			# check direction angle
-			var rot = character.global_rotation
 			var dir = p.global_position - character.global_position
-			var dirRot = dir.rotated(Vector3.RIGHT, -rot.x).rotated(Vector3.UP, -rot.y).rotated(Vector3.FORWARD, -rot.z)
-			var angle = dir.angle_to(Vector3.BACK)
-			if angle < viewAngle:
+			var angle = dir.angle_to(character.global_basis.z)
+			if angle < deg_to_rad(viewAngle):
 				return true
 	return false

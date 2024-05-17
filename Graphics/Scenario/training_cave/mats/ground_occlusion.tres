@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dgbl3yqitcckj"]
+
+[ext_resource type="Texture2D" uid="uid://c2yyednwxp6vb" path="res://Graphics/Scenario/training_cave/trainingCave_new_lavacave_tex1.png" id="1_mfmau"]
+
+[resource]
+resource_name = "ground_occlusion"
+albedo_texture = ExtResource("1_mfmau")
+texture_filter = 2

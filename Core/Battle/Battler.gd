@@ -3,18 +3,30 @@ class_name Battler
 
 signal onAnimationWaitEnd(stateName)
 
+const DEFAULT_JUMP_ENTER_TIME = 0.5
+const DEFAULT_JUMP_ENTER_HEIGHT = 1.5
+const DEFAULT_JUMP_TIME = 0.5
+const DEFAULT_JUMP_HEIGHT = 1.5
 const DAMAGE_POP_WAIT = 0.5
 const ATB_MAX = 1
-const DEFAULT_SPEED = 40
+const DEFAULT_SPEED = 15
 const POSITION_OFFSET = Vector3(0,0,-2)
-const START_OFFSET = Vector3(0,0,-20)
+const START_OFFSET = Vector3(0,0,-7.5)
+const FLYING_DELTAMULT = 0.125
+const FLYING_BASEHEIGHT = 0.5
+const FLYING_ADDHEIGHT = 0.5
+const FLYING_DELTAMOVE = 0.25
+const IMAGE_PER_FRAME = 16
 
 @export var graphic:CharGraphic
 @export var weapon:WeaponSprite
 @export var scaler:Node3D
+@export var raycast:RayCast3D
+@export var afterimage:PackedScene
 
 var overrideState:StringName = &""
 var overrideLoop:bool = false
+var readyForBattle:bool = false
 var appeared:bool = true
 var hidden:bool = false
 var escaped:bool = false
@@ -29,6 +41,11 @@ var effectWaitTime = 0
 var moveSpeed = DEFAULT_SPEED
 var homePosition:Vector3 = Vector3(0,0,0)
 var targetPosition:Vector3 = Vector3(0,0,0)
+var jumpStartPos:Vector3
+var jumpTotalTime:float
+var jumpCurrTime:float
+var jumpHeight:float
+var targetHeight:float = 0
 var _moveSetPose:bool = false
 var _startDirection:float = 0
 var _oldDirection:float = 0
@@ -36,6 +53,12 @@ var direction:float = 0
 # Counter stuff
 var currentCounters = []
 var currentCounterAction = []
+var flyingState = 0
+var flyingHeight = 0.0
+var afterimageEnabled = false
+var afterimageWait = 0
+var afterimageInterval = 0.1
+var prevFramePos:Vector3
 
 func setStartDirection(a:float):
 	_startDirection = a
@@ -50,14 +73,19 @@ func goToPosition(pos:Vector3, setPose:bool):
 func goToStartPosition():
 	var homePos = getHomePosition()
 	var startPos = homePos + getStartOffset()
-	targetPosition = startPos
-	_moveSetPose = true
+	#goToPosition(startPos,true)
+	jump(startPos,DEFAULT_JUMP_ENTER_TIME,DEFAULT_JUMP_ENTER_HEIGHT,&"jumpForward",true)
 func moveToStartPosition():
 	var homePos = getHomePosition()
 	var startPos = homePos + getStartOffset()
 	moveToPosition(startPos)
 func goToHome():
-	targetPosition = getHomePosition()
+	#targetPosition = getHomePosition()
+	var newPos = getHomePosition()
+	if position.distance_squared_to(newPos) > 0.01:
+		jump(newPos,DEFAULT_JUMP_TIME,DEFAULT_JUMP_HEIGHT,&"jumpBack")
+	else:
+		moveToPosition(newPos)
 func setHomePosition(pos:Vector3):
 	# inst.setHomePosition(startingPosition + (partyPositionOffset * i))
 	homePosition = pos
@@ -67,9 +95,11 @@ func getHomePosition():
 	var rotOffset = offset.rotated(Vector3(0,1,0),d)
 	return homePosition + rotOffset
 func getGlobalHomePosition():
+	return localToGlobalPosition(homePosition)
+func localToGlobalPosition(pos:Vector3):
 	var p = get_parent() as Node3D
 	var rot = Quaternion.from_euler(p.global_rotation)
-	return p.global_position + (rot * homePosition)
+	return p.global_position + (rot * pos)
 func getStartOffset():
 	var d = deg_to_rad(_startDirection)
 	return START_OFFSET.rotated(Vector3(0,1,0),d)
@@ -87,6 +117,7 @@ func setup(_battler:GameBattler):
 	weapon.camOverride = battle.camera
 
 func _ready():
+	flyingState = randf()
 	graphic.onLoop.connect(_onGraphicLoop)
 	graphic.onFrame.connect(_onGraphicFrameEvent)
 
@@ -124,36 +155,92 @@ func updateWeaponSprite(idx):
 			var posData = bse.weaponPosition[idx]
 			weapon.visible = true
 			weapon.refreshValues(Vector2i(posData.x, posData.y), posData.z, graphic.flip_h)
-			print("WORK: x%d y%d z%d" % [posData.x, posData.y, posData.z])
 		else:
 			weapon.visible = false
 
+func isFlying():
+	var fs = battler.getFeatures()
+	for f in fs:
+		if f is FlyingFeature:
+			return true
+	return false
+
 func _process(delta):
+	_updateFlying(delta)
+	_updateAfterimage(delta)
 	if effectWait():
 		effectWaitTime -= delta
 	# - Pose update
 	graphic.state = getCurrentPose()
+	# - Jumping
+	if jumping():
+		var t = (jumpTotalTime-jumpCurrTime) / jumpTotalTime
+		# position
+		position = jumpStartPos.lerp(targetPosition, t)
+		prevFramePos = graphic.global_position
+		# height
+		var tt = (pingpong(t, 0.5) * 1)
+		scaler.position.y = sin(tt*PI) * jumpHeight + flyingHeight
+		# decrease
+		jumpCurrTime -= delta
+		if !jumping():
+			rotation_degrees = Vector3(0, direction, 0)
+			overrideLoop = false
+			if !readyForBattle: readyForBattle = true
 	# - Movement
-	if moving():
-		var dir = targetPosition - position
-		look_at(position - dir, Vector3.UP)
-		var deg = rotation_degrees
-		deg.x = 0; deg.z = 0
-		rotation_degrees = deg
+	elif moving():
+		lookAtTarget(localToGlobalPosition(targetPosition),false)
 		position = position.move_toward(targetPosition, moveSpeed*delta)
+		prevFramePos = graphic.global_position
+		if raycast.is_colliding():
+			var point = raycast.get_collision_point()
+			global_position.y = point.y
 		if !moving():
 			rotation_degrees = Vector3(0, direction, 0)
+			if !readyForBattle: readyForBattle = true
 
-# a
+func _updateFlying(delta):
+	if isFlying():
+		flyingState = flyingState + (delta * FLYING_DELTAMULT)
+		flyingState = flyingState - floor(flyingState)
+		var h = FLYING_BASEHEIGHT + sin(flyingState*2*PI) * FLYING_ADDHEIGHT
+		flyingHeight = lerp(flyingHeight, h, FLYING_DELTAMOVE*delta)
+	else:
+		flyingState = 0
+		flyingHeight = move_toward(flyingHeight, 0, FLYING_DELTAMOVE*delta)
+	scaler.position.y = flyingHeight
+func _updateAfterimage(delta):
+	if afterimageEnabled:
+		afterimageWait-=delta
+		if afterimageWait < 0:
+			var i = afterimage.instantiate()
+			get_parent().add_child(i)
+			i.setup(graphic)
+			afterimageWait = afterimageInterval
+	else:
+		afterimageWait = 0
+
+# jumpTotalTime jumpCurrTime jumpStartPos jumpHeight
+func jump(pos:Vector3,time:float,height:float,jumpPose=&"jumpHigh",lookAt:bool=false):
+	if lookAt: lookAtTarget(localToGlobalPosition(pos),false)
+	overrideState = jumpPose
+	overrideLoop = true
+	targetPosition = pos
+	jumpTotalTime = time
+	jumpCurrTime = time
+	jumpStartPos = position
+	jumpHeight = height
 func cacheDirection():
 	_oldDirection = direction
 # This should be called at start of action
-func lookAtTarget(targetPos:Vector3):
+func lookAtTarget(targetPos:Vector3,changeDirection:bool=true):
 	var dir = targetPos - global_position
-	look_at(global_position - dir, Vector3.UP)
+	var invDir = global_position - dir
+	look_at(invDir, Vector3.UP)
 	var deg = rotation_degrees
-	direction = deg.y
 	deg.x = 0; deg.z = 0
+	if(changeDirection): 
+		direction = deg.y
 	rotation_degrees = deg
 #
 func lookAtTargets(targets:Array[Battler]):
@@ -168,8 +255,12 @@ func resetDirection():
 	var deg = Vector3(0,direction,0)
 	rotation_degrees = deg
 
+func jumping():
+	return jumpCurrTime > 0
+
 func moving():
-	return position.distance_squared_to(targetPosition) > 0.0001
+	var pp = Vector3(position.x, targetPosition.y, position.z)
+	return pp.distance_squared_to(targetPosition) > 0.0001
 
 func updateAtb(delta,avgSpeed:int):
 	var ownAgi = battler.getAgi()
@@ -331,8 +422,9 @@ func collapse():
 		if enemy.collapseEffect != null:
 			var eff = enemy.collapseEffect.instantiate()
 			get_parent().add_child(eff)
-			graphic.visible = false
 			eff.setup(graphic)
+			await get_tree().process_frame
+			graphic.visible = false
 			return
 
 func getCurrentPose():

@@ -13,6 +13,7 @@ const WAIT_OPTIONS = ["◄ Back  ", "◄ Wait ►", "  Forward ►"]
 @export var buttons:Array[BaseButton]
 @export var waitButton:BaseButton
 @export var cursor:AnimatedSprite2D
+@export var helpLabel:Label
 
 var waitIdx = 0
 var originalButtonPositions:Array[Vector2]
@@ -69,7 +70,7 @@ func _canBeCommanded(b:Battler):
 
 func _setup(b:Battler):
 	currentBattler = b
-	highlight.global_position = currentBattler.homePosition
+	highlight.global_position = currentBattler.getGlobalHomePosition()
 	highlightParticles.emitting = true
 	readyBattlers.erase(currentBattler)
 	visible = true
@@ -98,6 +99,7 @@ func positionCursor(focused:Node):
 	for i in range(buttons.size()):
 		var b = buttons[i]
 		if(focused == b):
+			refreshHelp(i)
 			var currPos = Vector2(b.offset_left,b.offset_right)
 			var newPos = originalButtonPositions[i] + Vector2(-4,-4)
 			var lerpedPos = lerp(currPos, newPos, 0.5)
@@ -113,6 +115,9 @@ func positionCursor(focused:Node):
 			var npr:NinePatchRect = b.get_node("NinePatchRect")
 			npr.region_rect.position.x = 0
 	cursor.visible = found
+
+func refreshHelp(idx:int):
+	helpLabel.text = "actionhelp_%d"%idx
 
 func _on_action_pressed():
 	currentBattler.setWeaponIndex(-1)

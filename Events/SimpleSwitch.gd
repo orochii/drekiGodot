@@ -1,6 +1,6 @@
 extends BaseEvent
 
-@export var switchId:int
+@export var switchId:StringName
 @export var deactivateOnEnabled:bool
 @export var model:CharModel
 @export var sound:AudioStreamPlayer3D
@@ -18,10 +18,10 @@ func _run():
 	var p = getPlayer()
 	
 	# Show confirm window
-	Global.UI.Message.setOptions(0, ["Yes","No"], 1)
+	Global.UI.Message.setOptions(&"options", ["Yes","No"], 1)
 	await get_tree().process_frame
 	await Global.UI.Message.showText(p, 8, "", "Operate switch?")
-	if Global.State.getVariable(0) != 0:
+	if Global.State.getVariable(&"options") != 0:
 		return
 	
 	p.state = &"push"
@@ -36,6 +36,7 @@ func _run():
 	while Global.Camera.isPanning(): await get_tree().process_frame
 	# Set switch
 	Global.State.setSwitch(switchId,!switch)
+	setup()
 	await get_tree().create_timer(panningWait).timeout
 	# Go back to player
 	Global.Camera.resetTarget(panningTime)

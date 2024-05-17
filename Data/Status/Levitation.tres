@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Status" load_steps=5 format=3 uid="uid://cp7g0s66tyu5"]
+
+[ext_resource type="Script" path="res://Core/Data/Features/FlyingFeature.gd" id="1_k725r"]
+[ext_resource type="Texture2D" uid="uid://ci4lbjnn1dsct" path="res://Graphics/Icons/states/st_67.png" id="2_sglre"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="3_crnc8"]
+
+[sub_resource type="Resource" id="Resource_rtjgc"]
+script = ExtResource("1_k725r")
+
+[resource]
+script = ExtResource("3_crnc8")
+icon = ExtResource("2_sglre")
+displayRating = 0
+statusPose = &""
+flags = 0
+restriction = 0
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_rtjgc")])
+statusRemove = Array[ExtResource("3_crnc8")]([])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 99
+releaseOnTurnsElapsedRate = 0.0

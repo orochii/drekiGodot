@@ -17,13 +17,14 @@ size = Vector3(0.702, 1, 1)
 radius = 0.6
 height = 2.2
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("graphic", "collider", "raycast", "soundEmitter")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("graphic", "collider", "navigator", "raycast", "soundEmitter")]
 floor_max_angle = 1.0472
 floor_snap_length = 0.5
 script = ExtResource("1_hti21")
 speed = 10.0
 graphic = NodePath("Graphic")
 collider = NodePath("CollisionShape3D")
+navigator = NodePath("NavigationAgent3D")
 raycast = NodePath("RayCast3D")
 soundEmitter = NodePath("AudioStreamPlayer3D")
 
@@ -77,6 +78,8 @@ texture = ExtResource("5_artf2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
 max_polyphony = 40
 bus = &"SFX"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [connection signal="area_entered" from="Interact" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_area_3d_area_exited"]

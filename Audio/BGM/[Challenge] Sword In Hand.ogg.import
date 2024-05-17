@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://0kva6qfoaghe"
+path="res://.godot/imported/[Challenge] Sword In Hand.ogg-6adb27885bd3911da10831e62aed9283.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/BGM/[Challenge] Sword In Hand.ogg"
+dest_files=["res://.godot/imported/[Challenge] Sword In Hand.ogg-6adb27885bd3911da10831e62aed9283.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

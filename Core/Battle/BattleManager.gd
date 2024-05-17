@@ -26,6 +26,7 @@ signal onBattlerReady(battler:Battler)
 @export var damagePopupContainer:Control
 @export var configMenu:ConfigMenu
 @export var battleEndWindow:BattleEnd
+@export var actionName:ActionNameWindow
 
 var currentBattleback:Node3D
 var _start = false
@@ -56,6 +57,7 @@ func endBattlerTurn(b:Battler):
 
 func battleEnd(result:EBattleResult):
 	battleResult = result
+	await get_tree().create_timer(1.0).timeout
 	battleEndWindow.execute(result)
 	Global.Scene.battleResult = result
 
@@ -98,7 +100,6 @@ func _ready():
 		var pos = Global.Map.getNearestBattlePosition()
 		battleObjContainer.global_position = pos.global_position
 		battleObjContainer.global_rotation = pos.global_rotation
-		print(pos.global_rotation_degrees)
 	# Create battlers
 	_createTroop()
 	_createParty()
@@ -121,6 +122,7 @@ func _process(delta):
 	if(Global.Scene.transitioning): return
 	if(battleResult != EBattleResult.NONE): return
 	if(configMenu.visible): return
+	
 	# Debug
 	if _doInput():
 		return
@@ -221,6 +223,7 @@ func _executeAction(currentAction:BattleAction):
 	var activeBattler = currentAction.battler
 	activeBattler.currentAction = null
 	if currentAction.action != null:
+		actionName.pop("Action",currentAction.action.getName())
 		# Resolve action cost
 		currentAction.resolveCost()
 		currentAction.battler.cacheDirection()
@@ -253,6 +256,7 @@ func _executeAction(currentAction:BattleAction):
 		# Resolve counter/follow-up actions
 		for b in allBattlers:
 			for counterAction in b.currentCounterAction:
+				actionName.pop("Counter",counterAction.action.getName())
 				currentAction.battler.cacheDirection()
 				counterAction.setRepeats()
 				while counterAction.repeatAvailable():
@@ -281,6 +285,7 @@ func _executeAction(currentAction:BattleAction):
 			if currentAction.anyAllyOnTargets():
 				currentAction.battler.resetDirection()
 			currentAction.battler.goToHome()
+		await get_tree().create_timer(0.5).timeout
 	else:
 		pass
 	await endBattlerTurn(activeBattler)
@@ -302,10 +307,11 @@ func _playBattleMusic():
 		Global.Audio.playBGM(currentMusic.getStreamName(), currentMusic.volume, currentMusic.pitch)
 
 func _resolveBattleMusic() -> SystemAudioEntry:
+	if Global.State.currentTroop.battleMusic.size() != 0:
+		if Global.State.currentTroop.battleMusic[0] != null:
+			return Global.State.currentTroop.battleMusic[0]
 	if Global.Audio.audioData.defaultBattleMusic.size() != 0:
 		return Global.Audio.audioData.defaultBattleMusic[0]
-	if Global.State.currentTroop.battleMusic.size() != 0:
-		return Global.State.currentTroop.battleMusic[0]
 	return null
 
 func _createParty():
@@ -341,7 +347,7 @@ func _createTroop():
 		inst.setStartDirection(90)
 		inst.setHomePosition(entry.position)
 		inst.moveToStartPosition()
-		allBattlers.append(inst)
+		if inst.appeared: allBattlers.append(inst)
 		troopBattlers.append(inst)
 		battlerStatus.setup(inst,true)
 

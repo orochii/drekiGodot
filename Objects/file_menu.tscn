@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://boft533utr21y"]
+[gd_scene load_steps=32 format=3 uid="uid://boft533utr21y"]
 
 [ext_resource type="Script" path="res://Core/UI/FileMenu.gd" id="1_naewe"]
 [ext_resource type="PackedScene" uid="uid://cou580ktucklw" path="res://Objects/save_file_info.tscn" id="2_5u522"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="8_kfowc"]
 [ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="9_gttal"]
 [ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="11_2p1xu"]
+[ext_resource type="Theme" uid="uid://crgwmpkbu5axv" path="res://Themes/BigText.tres" id="12_hn6ux"]
 [ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="12_nj6g7"]
 [ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="13_yjfso"]
 [ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="14_e4ooq"]
@@ -319,6 +320,7 @@ offset_left = 181.0
 offset_top = 204.0
 offset_right = 292.0
 offset_bottom = 227.0
+theme = ExtResource("12_hn6ux")
 
 [node name="Cursor" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -326,7 +328,7 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_p37s6")
 offset = Vector2(-16, -6)
 
-[node name="NamingPopup" type="Control" parent="." node_paths=PackedStringArray("nameLabel", "keyboard")]
+[node name="NamingPopup" type="Control" parent="." node_paths=PackedStringArray("nameLabel", "keyboard", "cancelLegend")]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -338,6 +340,9 @@ grow_vertical = 2
 script = ExtResource("20_ihfgk")
 nameLabel = NodePath("NameEntry/VBoxContainer/NameValue")
 keyboard = NodePath("Keyboard")
+invalidCharacters = "\\/:*?\"><|"
+cancelLegend = NodePath("ButtonLegends/Cancel")
+canCancel = true
 
 [node name="ColorRect" type="ColorRect" parent="NamingPopup"]
 layout_mode = 1
@@ -491,6 +496,25 @@ offset_right = 50.0
 offset_bottom = 16.0
 theme = ExtResource("6_0xuob")
 text = "Finish"
+vertical_alignment = 1
+
+[node name="Cancel" type="Control" parent="NamingPopup/ButtonLegends"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="NamingPopup/ButtonLegends/Cancel"]
+texture = ExtResource("8_kfowc")
+centered = false
+script = ExtResource("9_gttal")
+bindName = &"action_extra"
+
+[node name="LeftLabel" type="Label" parent="NamingPopup/ButtonLegends/Cancel"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 57.0
+offset_bottom = 16.0
+theme = ExtResource("6_0xuob")
+text = "Close"
 vertical_alignment = 1
 
 [node name="LowerMargin" type="Control" parent="NamingPopup/ButtonLegends"]

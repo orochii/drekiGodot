@@ -3,6 +3,9 @@ class_name NamingPopup
 
 @export var nameLabel:Label
 @export var keyboard:VisualKeyboard
+@export var invalidCharacters:String = ""
+@export var cancelLegend:Control
+@export var canCancel:bool = false
 
 var original_text = ""
 var max_letters = 0
@@ -12,6 +15,7 @@ var curr_case = false
 var temp_case = false
 
 func pop(payload:Dictionary):
+	cancelLegend.visible = canCancel
 	last_focus = get_viewport().gui_get_focus_owner()
 	original_text = payload["name"]
 	nameLabel.text = "%s" % original_text
@@ -22,6 +26,9 @@ func pop(payload:Dictionary):
 	keyboard.setFocus()
 	keyboard.onKeyPressed = onKeyPressed
 
+func onCancel():
+	nameLabel.text = ""
+	submit()
 func submit():
 	visible = false
 	last_focus.grab_focus()
@@ -31,7 +38,6 @@ func submit():
 	onSubmit.call(payload)
 
 func onKeyPressed(key:StringName):
-	print(key)
 	match key:
 		&"BACK":
 			if nameLabel.text.length() != 0:
@@ -57,8 +63,11 @@ func onKeyPressed(key:StringName):
 			submit()
 			Global.Audio.playSFX("decision")
 		_:
-			nameLabel.text += key
-			Global.Audio.playSFX("decision")
+			if invalidCharacters.contains(key):
+				Global.Audio.playSFX("buzzer")
+			else:
+				nameLabel.text += key
+				Global.Audio.playSFX("decision")
 	if temp_case:
 		temp_case = false
 		curr_case = false
@@ -66,16 +75,25 @@ func onKeyPressed(key:StringName):
 
 func _process(delta):
 	if !visible: return
+	# Close
+	if canCancel && Input.is_action_just_pressed("action_cancel"):
+		onCancel()
+		return
 	# Capitals
 	if Input.is_action_just_pressed("action_menu"):
 		onKeyPressed(&"CASE")
+		return
 	# Delete
-	if Input.is_action_just_pressed("action_cancel"):
+	if Input.is_action_just_pressed("action_extra"):
+		if canCancel && nameLabel.text.length()==0:
+			onCancel()
 		onKeyPressed(&"BACK")
+		return
 	# Default
 	if Input.is_action_just_pressed("action_select"):
 		onKeyPressed(&"TAB")
+		return
 	# Finish
 	if Input.is_action_just_pressed("action_start"):
 		onKeyPressed(&"ENTER")
-	pass
+		return

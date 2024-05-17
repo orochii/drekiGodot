@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://r5k0gn0wwlhg"]
+
+[ext_resource type="Texture2D" uid="uid://bysdhrnxlom35" path="res://Graphics/Scenario/training_cave/trainingCave_new_scaffold_bridge.png" id="1_jtppa"]
+
+[resource]
+resource_name = "scaffold_bridge"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_jtppa")
+texture_filter = 2

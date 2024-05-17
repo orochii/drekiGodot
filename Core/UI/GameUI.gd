@@ -5,11 +5,15 @@ class_name GameUI
 @export var Party : PartyMenu
 @export var File : FileMenu
 @export var Config : ConfigMenu
+@export var Debug : Control
+@export var interactPopup : Control
+@export var popupParent : Control
+@export var itemPopupTemplate : PackedScene
 
 var currLang = "en"
 var perfLabel:Label = null
 var colorShader:ColorRect = null
-var debugVisible:bool = false
+var debugVisible:bool = true
 
 func _init():
 	Global.UI = self
@@ -59,7 +63,14 @@ func refreshPerformanceLabel():
 func busy():
 	if Global.Scene.transferring: return true
 	if (Message.busy()): return true
+	if (Debug.visible): return true
 	return false
+
+func getEnabledColor(v:bool):
+	if v:
+		return Color.WHITE
+	else:
+		return Color(1,1,1,0.25)
 
 func posToScreen(pos : Vector3) -> Vector2:
 	var cam = get_viewport().get_camera_3d()
@@ -67,3 +78,15 @@ func posToScreen(pos : Vector3) -> Vector2:
 
 func screenSize() -> Vector2:
 	return get_viewport().get_visible_rect().size
+
+func createItemPopup(item:BaseItem,amount:int,pos:Vector3):
+	var i = itemPopupTemplate.instantiate()
+	popupParent.add_child(i)
+	i.setup(item,amount,posToScreen(pos))
+
+func updateInteractPopup(ev:Node3D):
+	if ev==null:
+		interactPopup.visible = false
+	else:
+		interactPopup.visible = true
+		interactPopup.position = posToScreen(ev.global_position + Vector3(0, ev.getInteractOffset(), 0))

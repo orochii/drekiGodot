@@ -8,14 +8,14 @@
 offsets = PackedFloat32Array(0, 0.292111, 1)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rcsrx"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v2vgp"]
 gradient = SubResource("Gradient_8px0v")
 
 [sub_resource type="Curve" id="Curve_tr64t"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.10526, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_e3vhx"]
+[sub_resource type="CurveTexture" id="CurveTexture_ewsfa"]
 curve = SubResource("Curve_tr64t")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_db7a7"]
@@ -23,10 +23,10 @@ emission_shape = 1
 emission_sphere_radius = 0.3
 gravity = Vector3(0, -3.267, 0)
 scale_min = 0.2
-scale_curve = SubResource("CurveTexture_e3vhx")
-color_ramp = SubResource("GradientTexture1D_rcsrx")
+scale_curve = SubResource("CurveTexture_ewsfa")
+color_ramp = SubResource("GradientTexture1D_v2vgp")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2p28i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycoii"]
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
@@ -35,7 +35,7 @@ texture_filter = 0
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_mblux"]
-material = SubResource("StandardMaterial3D_2p28i")
+material = SubResource("StandardMaterial3D_ycoii")
 
 [sub_resource type="Animation" id="Animation_d7510"]
 resource_name = "standby"

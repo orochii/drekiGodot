@@ -1,34 +1,15 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=10 format=3 uid="uid://bkxqnpyttgpos"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=3 format=3 uid="uid://bkxqnpyttgpos"]
 
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="1_5xlgh"]
-[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Common/Kick.tres" id="1_ge8av"]
-[ext_resource type="Script" path="res://Core/Data/Features/CounterFeature.gd" id="2_x2kdr"]
-[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="3_i3h37"]
-[ext_resource type="Script" path="res://Core/Data/Features/StatusAffinity.gd" id="4_e5b66"]
-[ext_resource type="Resource" uid="uid://c8ma2t0gb3gc6" path="res://Data/Status/Death.tres" id="5_nue4v"]
-
-[sub_resource type="Resource" id="Resource_vguvs"]
-script = ExtResource("2_x2kdr")
-action = ExtResource("1_ge8av")
-targetCounteredBattler = true
-
-[sub_resource type="Resource" id="Resource_eacgk"]
-script = ExtResource("3_i3h37")
-stat = 0
-kind = 0
-amount = 20000
-
-[sub_resource type="Resource" id="Resource_f1484"]
-script = ExtResource("4_e5b66")
-status = ExtResource("5_nue4v")
-value = 5
+[ext_resource type="Resource" uid="uid://du2wk4kv6e8ht" path="res://Data/Skills/Levitation.tres" id="2_nlue0"]
 
 [resource]
 script = ExtResource("1_5xlgh")
 gripOffset = Vector2i(0, 0)
-slot = 2
+slot = 3
 flags = Array[int]([12])
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_vguvs"), SubResource("Resource_eacgk"), SubResource("Resource_f1484")])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+skill = ExtResource("2_nlue0")
 category = 3
 price = 99999
 canSell = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=87 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bv3nis73agvl2" path="res://Graphics/System/windowskin2.png" id="9_6y5ss"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorCommand.gd" id="9_mkxs7"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="9_ol241"]
+[ext_resource type="Texture2D" uid="uid://d0015ndjhleuj" path="res://Scenes/2024-5-9_102008_0.png" id="9_p3kvi"]
 [ext_resource type="Texture2D" uid="uid://doje8qka66pja" path="res://Graphics/System/battle/element_background.png" id="10_vkifn"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorTargetSelect.gd" id="10_xffvq"]
 [ext_resource type="Texture2D" uid="uid://b15twoiikwfyu" path="res://Graphics/System/battle/actionIcon_action.png" id="11_ey1mi"]
@@ -58,6 +59,7 @@
 [ext_resource type="Texture2D" uid="uid://doapoqrfhbxcx" path="res://Graphics/_REF_/2023-11-04_132134_197.png" id="53_wcvq8"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleSpoilsWindow.gd" id="54_e0w84"]
 [ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="55_1qadm"]
+[ext_resource type="Script" path="res://Scenes/ActionName.gd" id="58_vft1p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvfdo"]
 transparency = 1
@@ -74,7 +76,7 @@ gradient = SubResource("Gradient_y7i7p")
 
 [sub_resource type="Curve" id="Curve_yoxac"]
 max_value = 5.0
-_data = [Vector2(0, 0), 0.0, 2.11649, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 2.11649, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_xyxo5"]
@@ -223,11 +225,56 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_oyqmj"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.878431, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vq61f"]
+gradient = SubResource("Gradient_oyqmj")
+width = 16
+height = 16
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Animation" id="Animation_ox24g"]
+resource_name = "display"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_evdap"]
+_data = {
+"display": SubResource("Animation_ox24g")
+}
+
 [sub_resource type="QuadMesh" id="QuadMesh_jbevs"]
 size = Vector2(320, -240)
 center_offset = Vector3(240, 135, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow", "actionName")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_cj0ch")
@@ -247,6 +294,7 @@ damagePopupTemplate = ExtResource("4_jmik8")
 damagePopupContainer = NodePath("BattleUI/DamagePopupContainer")
 configMenu = NodePath("ConfigScreen")
 battleEndWindow = NodePath("BattleUI/BattleEnd")
+actionName = NodePath("BattleUI/ActionName")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -296,8 +344,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 material_override = SubResource("StandardMaterial3D_fvfdo")
 cast_shadow = 0
 emitting = false
-amount = 2
-lifetime = 0.5
+amount = 1
+lifetime = 0.35
 process_material = SubResource("ParticleProcessMaterial_0pev0")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
@@ -319,6 +367,7 @@ material_override = SubResource("StandardMaterial3D_hessc")
 cast_shadow = 0
 emitting = false
 amount = 2
+lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_0pev0")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
 
@@ -329,6 +378,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="BattleUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_p3kvi")
 
 [node name="BattlerStatus" type="Control" parent="BattleUI"]
 layout_mode = 1
@@ -372,7 +431,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "highlight", "highlightParticles", "buttons", "waitButton", "cursor")]
+[node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "highlight", "highlightParticles", "buttons", "waitButton", "cursor", "helpLabel")]
 visible = false
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
@@ -392,6 +451,7 @@ highlightParticles = NodePath("../../SubViewportContainer/SubViewport/BattleCont
 buttons = [NodePath("Action"), NodePath("Inventory"), NodePath("Wait")]
 waitButton = NodePath("Wait")
 cursor = NodePath("AnimatedSprite2D")
+helpLabel = NodePath("Window/Contents/Label")
 
 [node name="Window" type="Control" parent="BattleUI/ActorCommand"]
 custom_minimum_size = Vector2(0, 32)
@@ -1662,9 +1722,99 @@ columns = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("9_ol241")
-text = "Help text here asdasdasd let's see when three lines stop fitting.
-Second line
-Third line doesn't fit whoop :C"
+
+[node name="ActionName" type="Control" parent="BattleUI" node_paths=PackedStringArray("actionType", "actionName", "animation")]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+scale = Vector2(1, 1e-05)
+pivot_offset = Vector2(0, 16)
+script = ExtResource("58_vft1p")
+actionType = NodePath("Content/Type")
+actionName = NodePath("Content/Name")
+animation = NodePath("AnimationPlayer")
+
+[node name="TextureRect" type="TextureRect" parent="BattleUI/ActionName"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_vq61f")
+
+[node name="Background" type="NinePatchRect" parent="BattleUI/ActionName"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="BattleUI/ActionName"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_6y5ss")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Content" type="Control" parent="BattleUI/ActionName"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Type" type="Label" parent="BattleUI/ActionName/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("30_q3xjd")
+text = "Action"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="BattleUI/ActionName/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ol241")
+text = "Shouten Cut"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BattleUI/ActionName"]
+libraries = {
+"": SubResource("AnimationLibrary_evdap")
+}
 
 [node name="ConfigScreen" parent="." instance=ExtResource("38_4irjf")]
 process_priority = -128

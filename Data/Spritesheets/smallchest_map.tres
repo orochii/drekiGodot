@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=9 format=3 uid="uid://xckjfdg7a4sh"]
+
+[ext_resource type="Texture2D" uid="uid://clggtkyw1lag6" path="res://Graphics/Character/_OBJECTS/smallchest_base.png" id="1_lhtjs"]
+[ext_resource type="Texture2D" uid="uid://bp73yaksl1pqa" path="res://Graphics/Character/_OBJECTS/smallchest_base_diag.png" id="2_yb2ul"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="3_mqhmi"]
+[ext_resource type="Texture2D" uid="uid://matud8ufjcsq" path="res://Graphics/Character/_OBJECTS/smallchest_open.png" id="4_2v6ki"]
+[ext_resource type="Texture2D" uid="uid://lrf8tixrg65v" path="res://Graphics/Character/_OBJECTS/smallchest_open_diag.png" id="5_b8j6m"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="6_u7yy5"]
+
+[sub_resource type="Resource" id="Resource_2n4iq"]
+script = ExtResource("3_mqhmi")
+base = ExtResource("1_lhtjs")
+baseDiag = ExtResource("2_yb2ul")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+name = &"base"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_6xogr"]
+script = ExtResource("3_mqhmi")
+base = ExtResource("4_2v6ki")
+baseDiag = ExtResource("5_b8j6m")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+name = &"open"
+fps = 12
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("6_u7yy5")
+collection = Array[ExtResource("3_mqhmi")]([SubResource("Resource_2n4iq"), SubResource("Resource_6xogr")])

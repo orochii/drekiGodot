@@ -1,15 +1,17 @@
 extends Node3D
 class_name BaseEvent
 
-enum EActivation { INTERACT, PLAYER_TOUCH, EVENT_TOUCH, AUTOSTART, PARALLEL }
+enum EActivation { INTERACT, PLAYER_TOUCH, EVENT_TOUCH, AUTOSTART, PARALLEL, NONE }
 
 @export_group("Visuals")
 @export var graphic : Spritesheet
+@export var graphicState : StringName = &""
 @export var collision: bool = true
 @export_group("Behavior")
 @export var activation : EActivation
 @export var loop : bool
 @export var conditions : Array[EventPageCondition]
+@export var interactOffset : float = 2.0
 
 var looping : bool = false
 var running : bool = false
@@ -37,4 +39,4 @@ func setup(immediate:bool=false):
 	pass
 
 func getPlayer():
-	return Global.Player#get_node("/root/Node3D/Player")
+	return Global.Player

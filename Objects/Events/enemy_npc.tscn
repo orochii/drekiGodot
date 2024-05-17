@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bwats5lni2203"]
 
-[ext_resource type="Script" path="res://Core/Characters/NPC.gd" id="1_dd0mb"]
+[ext_resource type="Script" path="res://Core/Characters/EnemyNPC.gd" id="1_jbl5d"]
 [ext_resource type="Texture2D" uid="uid://c7m4da16vctxm" path="res://Graphics/Character/_ENEMY/enemy1_mole.png" id="2_8kyd6"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_we62a"]
 [ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/mole_map.tres" id="4_t6pxf"]
@@ -14,6 +14,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ly7q7"]
 radius = 0.49
+height = 1.7
 
 [sub_resource type="Animation" id="Animation_seugt"]
 length = 0.001
@@ -192,7 +193,11 @@ _data = {
 
 [node name="EnemyNPC" type="CharacterBody3D" node_paths=PackedStringArray("pages", "graphic", "collider", "navigator", "raycast", "balloon", "balloonAnim")]
 transform = Transform3D(0.562848, 0, -0.82656, 0, 1, 0, 0.82656, 0, 0.562848, 0, 0, 0)
-script = ExtResource("1_dd0mb")
+velocity = Vector3(0, -56229.2, 0)
+floor_max_angle = 1.0472
+script = ExtResource("1_jbl5d")
+troop = ExtResource("7_rprjx")
+spritesheet = ExtResource("4_t6pxf")
 pages = [NodePath("Page1"), NodePath("Page2")]
 speed = 5.0
 graphic = NodePath("Graphic")
@@ -203,18 +208,18 @@ balloon = NodePath("BalloonNode/Balloon")
 balloonAnim = NodePath("BalloonNode/Emoter")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_ly7q7")
 
 [node name="Graphic" type="Sprite3D" parent="."]
-offset = Vector2(0, 16)
+offset = Vector2(0, 12)
 pixel_size = 0.0625
 billboard = 2
 alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_8kyd6")
 region_enabled = true
-region_rect = Rect2(0, 0, 24, 32)
+region_rect = Rect2(0, 72, 24, 24)
 script = ExtResource("3_we62a")
 spritesheet = ExtResource("4_t6pxf")
 
@@ -224,6 +229,7 @@ libraries = {
 }
 
 [node name="Shadow" type="Sprite3D" parent="."]
+visible = false
 pixel_size = 0.0625
 axis = 1
 billboard = 2
@@ -262,9 +268,14 @@ libraries = {
 
 [node name="Balloon" type="Sprite3D" parent="BalloonNode"]
 offset = Vector2(0, 24)
+modulate = Color(1, 1, 1, 0)
 pixel_size = 0.0625
 billboard = 1
 texture_filter = 0
 texture = ExtResource("9_qgtkb")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
+
+[node name="RayCast3D2" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466309, 0)
+target_position = Vector3(0, 0, 10)

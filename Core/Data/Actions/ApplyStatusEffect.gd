@@ -3,6 +3,7 @@ class_name ApplyStatusEffect
 
 @export var status:Status
 @export_enum("Add","Remove") var operation:int = 0
+@export var forceAdd:bool = false
 
 # In-battle action execution
 func execute(action:BattleAction):
@@ -12,13 +13,13 @@ func execute(action:BattleAction):
 # Data change
 func apply(user:GameBattler, target:GameBattler):
 	var eff = calcEffect(user,target)
-	eff["effective"] = true
+	eff["effective"] = false
 	if eff.has("statusAdd"):
 		for s in eff["statusAdd"]:
-			eff["effective"] = eff["effective"] || target.addStatus(s)
+			eff["effective"] = target.addStatus(s,forceAdd) || eff["effective"]
 	elif eff.has("statusRemove"):
 		for s in eff["statusRemove"]:
-			eff["effective"] = eff["effective"] || target.removeStatus(s)
+			eff["effective"] = target.removeStatus(s) || eff["effective"]
 
 func calcEffect(user:GameBattler, target:GameBattler):
 	# any calculation here must be deterministic

@@ -32,6 +32,7 @@ uniform float lifetime_randomness;
 uniform vec3 emission_box_extents;
 uniform vec4 color_value : source_color;
 uniform vec3 gravity;
+uniform float scale = 0.5;
 uniform sampler2D sprite : source_color;
 
 float rand_from_seed(inout uint seed) {
@@ -111,7 +112,7 @@ void start() {
 		vec2 particlePosition = TRANSFORM[3].xy;
 		VELOCITY.xy = (particlePosition + vec2(0,2)) * initial_linear_velocity_min;
 		particlePosition.y = -particlePosition.y;
-		vec2 textureS = vec2(textureSize(sprite, 0)) / 16.0;
+		vec2 textureS = vec2(textureSize(sprite, 0)) / 32.0;
 		vec2 pp = (particlePosition / textureS) + vec2(0.5,0.5);
 		vec4 spriteColor = texture(sprite, pp);
 		COLOR = spriteColor;

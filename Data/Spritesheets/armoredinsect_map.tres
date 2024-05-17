@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=6 format=3 uid="uid://bmme56f8kcqdi"]
+
+[ext_resource type="Texture2D" uid="uid://c6clhxhlrkni8" path="res://Graphics/Character/_ENEMY/armored_insect.png" id="1_0gmke"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="1_bkvmj"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="2_m3rqe"]
+[ext_resource type="Texture2D" uid="uid://bs2l40ic4gnsr" path="res://Graphics/Character/_ENEMY/armored_insect_diag.png" id="2_setov"]
+
+[sub_resource type="Resource" id="Resource_je4a0"]
+script = ExtResource("2_m3rqe")
+base = ExtResource("1_0gmke")
+baseDiag = ExtResource("2_setov")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+name = &"base"
+fps = 12
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("1_bkvmj")
+collection = Array[ExtResource("2_m3rqe")]([SubResource("Resource_je4a0")])

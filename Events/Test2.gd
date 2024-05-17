@@ -3,7 +3,7 @@ extends BaseEvent
 func _run():
 	var p = getPlayer()
 	await Global.UI.Message.showText(p, 8, "", "Hi there! Uh yeah, again.")
-	Global.State.setSwitch(0,false)
+	Global.State.setSwitch(&"0",false)
 	Global.State.party.gainItem("Weapon/Sword", 1)
 	Global.State.party.gainItem("Great Drench", 1)
 	Global.State.party.gainItem("Antidote", 1)

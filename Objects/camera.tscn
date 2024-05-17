@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://Core/Shaders/psx_camera_shader.gdshader" id="2_qwfgo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k3yvg"]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("2_qwfgo")
 shader_parameter/enable_fog = true
 shader_parameter/fog_color = Color(1, 1, 1, 1)

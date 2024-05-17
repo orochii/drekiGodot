@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=6 format=3 uid="uid://b4itwim41w6ia"]
+
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_xyq5d"]
+[ext_resource type="Resource" uid="uid://dvnw8sbbybuh7" path="res://Data/Spritesheets/armoredinsect_battler.tres" id="2_puswo"]
+[ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_kwjgg"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="8_i4d15"]
+
+[sub_resource type="Resource" id="Resource_2t7cd"]
+script = ExtResource("1_xyq5d")
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[resource]
+script = ExtResource("8_i4d15")
+type = "Insect"
+battleSprite = ExtResource("2_puswo")
+gender = 1
+collapseEffect = ExtResource("3_kwjgg")
+innateElement = 8
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+level = 1
+mhp = 250
+mmp = 120
+str = 112
+vit = 999
+mag = 999
+agi = 7
+actions = Array[ExtResource("1_xyq5d")]([SubResource("Resource_2t7cd")])
+rewardExp = 10
+rewardApp = 4
+rewardGold = 200
+rewardTreasure = Array[Resource("res://Core/Data/Enemies/EnemyTreasure.gd")]([])

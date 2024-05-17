@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://wvctddsd21hk"]
+[gd_scene load_steps=10 format=3 uid="uid://wvctddsd21hk"]
 
 [ext_resource type="Script" path="res://Core/Battle/Battler.gd" id="1_b2f6x"]
+[ext_resource type="PackedScene" uid="uid://m1ejqeu8kbcu" path="res://Objects/battle/battler_afterimage.tscn" id="2_00et8"]
 [ext_resource type="Texture2D" uid="uid://dvybyaykp5jh5" path="res://Graphics/Battler/hikari_battler.png" id="2_wuj0w"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_r8px5"]
 [ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="4_nra88"]
@@ -18,19 +19,20 @@ shader_parameter/scale = 1.0
 shader_parameter/rotation = 0.0
 shader_parameter/yOnly = true
 
-[node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic", "weapon", "scaler")]
+[node name="Battler" type="Node3D" node_paths=PackedStringArray("graphic", "weapon", "scaler", "raycast")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_b2f6x")
 graphic = NodePath("Scale/Graphic")
 weapon = NodePath("Scale/Weapon")
 scaler = NodePath("Scale")
+raycast = NodePath("RayCast3D")
+afterimage = ExtResource("2_00et8")
 
 [node name="Scale" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Graphic" type="Sprite3D" parent="Scale"]
 offset = Vector2(0, 32)
-pixel_size = 0.0625
+pixel_size = 0.0313
 billboard = 2
 alpha_cut = 1
 texture_filter = 0
@@ -53,3 +55,7 @@ offset = Vector2(0, 32)
 pixel_size = 0.0313
 texture_filter = 0
 script = ExtResource("7_nvndh")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+target_position = Vector3(0, -3, 0)

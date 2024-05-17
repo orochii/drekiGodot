@@ -1,0 +1,77 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bv8raakya6v73"
+path="res://.godot/imported/trainingCave_new.glb-14f05e70b6b3bc30bd296e09d3a00882.scn"
+
+[deps]
+
+source_file="res://Graphics/Scenario/training_cave/trainingCave_new.glb"
+dest_files=["res://.godot/imported/trainingCave_new.glb-14f05e70b6b3bc30bd296e09d3a00882.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"blackness": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/blackness.tres"
+},
+"ground": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/ground_glow2.tres"
+},
+"ground_ill": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/ground_glow2.tres"
+},
+"ground_occlusion": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/ground_occluding.tres"
+},
+"ground_top": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/mats/groundtop_glow.tres"
+},
+"rocks": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/rock_glow.tres"
+},
+"scaffold_bridge": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/mats/scaffold_glow.tres"
+},
+"scaffold_bridge2": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/mats/scaffold2_glow.tres"
+},
+"wall1": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/mats/wall1_glow.tres"
+},
+"wall1_ill": {
+"use_external/enabled": true,
+"use_external/path": "res://Graphics/Scenario/training_cave/mats/wall1_ill_glow.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

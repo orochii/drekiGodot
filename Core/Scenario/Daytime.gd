@@ -39,4 +39,4 @@ func refreshAngle():
 			environment.environment.ambient_light_color = ambCol
 		else:
 			rotatingObject.global_rotation_degrees.y = -p+angleOffset
-	
+

@@ -117,7 +117,7 @@ func generateOptions():
 	pauseOnFocusLost.setup("Pause on Focus Lost")
 	var language:DropdownOption = createDropdown()
 	language.setVariable(Global.Config, "language")
-	language.setup("Language", {"en":"English","es":"Spanish"})
+	language.setup("Language", {"en":"English","es":"Spanish","ja":"Japanese"})
 	language.onValueChange = Global.Config.refreshLanguage
 	# Audio
 	category = "audio"

@@ -175,7 +175,7 @@ loop = false
 
 [node name="Beams" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97964, 0)
-amount = 16
+amount = 32
 process_material = SubResource("ParticleProcessMaterial_rdi42")
 draw_pass_1 = SubResource("QuadMesh_ly7qi")
 

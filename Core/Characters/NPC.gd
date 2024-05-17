@@ -14,24 +14,22 @@ func _ready():
 	Global.State.onVariableChange.connect(_onVariableChange)
 	refreshPage(true)
 
-func _exit_tree():
-	# Unregister to signals
-	Global.State.onSwitchChange.disconnect(_onSwitchChange)
-	Global.State.onVariableChange.disconnect(_onVariableChange)
-
 func isEventRunning():
 	if currentEvent != null:
 		return currentEvent.running
 	return false
 
 func refreshPage(immediate:bool=false):
-	print("Checking page.")
+	var prevEvent = currentEvent
 	currentEvent = null
+	# Find current page
 	for i in range(pages.size()-1, -1, -1):
 		var p = pages[i]
 		if p.check():
 			currentEvent = p
 			break
+	# Ignore if same page
+	if prevEvent == currentEvent && currentEvent != null: return
 	# Disable all pages
 	for p in pages:
 		if(p != null): 
@@ -40,7 +38,9 @@ func refreshPage(immediate:bool=false):
 				p.looping = false
 	# Setup page (visuals, etc)
 	if currentEvent != null: 
-		if graphic != null: self.graphic.spritesheet = currentEvent.graphic
+		if graphic != null: 
+			self.graphic.spritesheet = currentEvent.graphic
+		self.state = currentEvent.graphicState
 		self.setCollision(currentEvent.collision)
 		currentEvent.setup(immediate)
 		if currentEvent.activation==BaseEvent.EActivation.AUTOSTART: currentEvent.execute()
@@ -49,9 +49,9 @@ func refreshPage(immediate:bool=false):
 		if graphic != null: self.graphic.spritesheet = null
 		self.setCollision(false)
 
-func _onSwitchChange(id:int, v:bool):
+func _onSwitchChange(id:StringName, v:bool):
 	refreshPage()
-func _onVariableChange(id:int, v:int):
+func _onVariableChange(id:StringName, v:int):
 	refreshPage()
 
 func onInteract():
@@ -73,3 +73,7 @@ func setLocalVar(name:StringName, val:bool):
 
 func createLocalVarKey():
 	return Global.State.lastSceneName + ":" + self.get_path().get_concatenated_names()
+
+func getInteractOffset():
+	if currentEvent==null: return 0
+	return currentEvent.interactOffset

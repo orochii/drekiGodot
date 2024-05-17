@@ -17,7 +17,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(0.5, 2, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0.506462, -1.2406), Vector3(0, 1.32163, -0.769332), Vector3(0, -0.155859, -0.298065), Vector3(0, -0.155859, -0.298065)]
+"values": [Vector3(0, 0.253, -0.62), Vector3(0, 0.661, -0.384), Vector3(0, -0.078, -0.149), Vector3(0, -0.078, -0.149)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,9 +86,9 @@ script = ExtResource("2_7vnqs")
 loop = false
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.938189, -0.346123, 0, 0.346123, 0.938189, 0, 0.506462, -1.2406)
+transform = Transform3D(1, 0, 0, 0, 0.938189, -0.346123, 0, 0.346123, 0.938189, 0, 0.253, -0.62)
 flip_h = true
-pixel_size = 0.0625
+pixel_size = 0.0313
 axis = 0
 texture_filter = 0
 texture = ExtResource("3_4435w")

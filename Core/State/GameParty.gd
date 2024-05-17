@@ -3,6 +3,7 @@ class_name GameParty
 
 const MAX_PARTY_SIZE = 3
 const MAX_ITEMS = 99
+const MAX_GOLD = 99999
 
 var members : Array
 var currentParty : int = 0
@@ -10,17 +11,11 @@ var reserve : Array
 var inventory : Array[GameInventoryEntry]
 var gold : int
 
-func getMembers():
-	if members.size() <= currentParty:
-		for i in range(members.size(), currentParty+1):
-			members.append([])
-	return members[currentParty]
-
-func getMember(i:int):
-	if i >= getMembers().size() || i < 0: return null
-	var id = getMembers()[i]
-	var actor = Global.State.getActor(id)
-	return actor
+#region Inventory Operations
+func gainGold(n:int):
+	gold = clamp(gold+n,0,MAX_GOLD)
+func loseGold(n:int):
+	gold = clamp(gold-n,0,MAX_GOLD)
 
 func gainItem(id:StringName,n:int):
 	if(n<=0): return
@@ -32,7 +27,6 @@ func gainItem(id:StringName,n:int):
 	e.id = id
 	e.amount = mini(n, MAX_ITEMS)
 	inventory.append(e)
-
 func loseItem(id:StringName,n:int):
 	if(n<=0): return
 	var toRemove = null
@@ -50,6 +44,23 @@ func itemCount(id:StringName):
 		if(e.id==id):
 			return e.amount
 	return 0
+
+func hasItem(id:StringName):
+	return (itemCount(id) > 0)
+#endregion
+
+#region Party Operations
+func getMembers():
+	if members.size() <= currentParty:
+		for i in range(members.size(), currentParty+1):
+			members.append([])
+	return members[currentParty]
+
+func getMember(i:int):
+	if i >= getMembers().size() || i < 0: return null
+	var id = getMembers()[i]
+	var actor = Global.State.getActor(id)
+	return actor
 
 func addMember(dataActor):
 	var id = dataActor.getId()
@@ -83,7 +94,9 @@ func swapMember(idx1:int,type1:int,idx2:int,type2:int):
 
 func checkSwap():
 	pass
+#endregion
 
+#region Init and Serialization
 func _init():
 	members = []
 	for a in Global.Db.startingParty:
@@ -124,3 +137,4 @@ func _deserializeInventory(data : Array):
 		_e._deserialize(i)
 		_inv.append(_e)
 	return _inv
+#endregion

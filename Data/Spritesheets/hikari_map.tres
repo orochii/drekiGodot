@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=20 format=3 uid="uid://om54ei8hopuh"]
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=22 format=3 uid="uid://om54ei8hopuh"]
 
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="1_i2bus"]
 [ext_resource type="Texture2D" uid="uid://pekmdwl2rjpu" path="res://Graphics/Character/hikari/hikari_charset_diag.png" id="2_e2ngo"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b36872fff33uu" path="res://Graphics/Character/hikari/hikari_charset_run_blink.png" id="12_egg7k"]
 [ext_resource type="Texture2D" uid="uid://b4js2tm3fr36n" path="res://Graphics/Character/hikari/hikari_charset_run_blink_diag.png" id="13_ome0q"]
 [ext_resource type="Texture2D" uid="uid://bi4bv5wygxfak" path="res://Graphics/Character/hikari/hikari_charset_push.png" id="14_gqavx"]
+[ext_resource type="Texture2D" uid="uid://cow2f8isewfex" path="res://Graphics/Character/hikari/hikari_charset_armsup.png" id="15_3g86m"]
 
 [sub_resource type="Resource" id="Resource_ijpkp"]
 script = ExtResource("5_h53qo")
@@ -24,6 +25,7 @@ blink = ExtResource("3_36amf")
 blinkDiag = ExtResource("4_qwtqu")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
 name = &"base"
 fps = 12
 idleSpeed = 0.0
@@ -36,6 +38,7 @@ blink = ExtResource("8_x2e4k")
 blinkDiag = ExtResource("9_t46ox")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
 name = &"jump"
 fps = 12
 idleSpeed = 0.0
@@ -48,6 +51,7 @@ blink = ExtResource("12_egg7k")
 blinkDiag = ExtResource("13_ome0q")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
 name = &"run"
 fps = 12
 idleSpeed = 0.0
@@ -57,10 +61,21 @@ script = ExtResource("5_h53qo")
 base = ExtResource("14_gqavx")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
 name = &"push"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_pfi0k"]
+script = ExtResource("5_h53qo")
+base = ExtResource("15_3g86m")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+name = &"armsup"
 fps = 12
 idleSpeed = 0.0
 
 [resource]
 script = ExtResource("6_l16xs")
-collection = Array[ExtResource("5_h53qo")]([SubResource("Resource_ijpkp"), SubResource("Resource_jgvgh"), SubResource("Resource_a8o7e"), SubResource("Resource_rioj8")])
+collection = Array[ExtResource("5_h53qo")]([SubResource("Resource_ijpkp"), SubResource("Resource_jgvgh"), SubResource("Resource_a8o7e"), SubResource("Resource_rioj8"), SubResource("Resource_pfi0k")])

@@ -1,9 +1,14 @@
+@tool
 extends Resource
 class_name Spritesheet
 
 var initialized : bool = false
 var collectionDict : Dictionary = {}
 
+func hasSheet(id:StringName) -> bool:
+	if (initialized == false): initialize()
+	if collectionDict.has(id): return true
+	return false
 func getSheet(id : StringName) -> SpritesheetEntry:
 	if (initialized == false): initialize()
 	if collectionDict.has(id): return collectionDict[id]

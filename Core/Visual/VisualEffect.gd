@@ -56,7 +56,7 @@ func getYOffset(s:Sprite3D):
 	var min = -size.y/2 + offset.y
 	var max = size.y/2 + offset.y
 	var offY = lerp(min,max,targetVerticalOffset)
-	return offY * s.pixel_size
+	return offY * s.pixel_size * .5
 
 func getLerpedPosition():
 	return lerp(userPos, targetPos, positionLerpValue)

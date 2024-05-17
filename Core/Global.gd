@@ -4,12 +4,11 @@ const COMPRESSION = FileAccess.COMPRESSION_GZIP
 # Camera stuff
 const PIXEL_SIZE = 0.0625
 const PIXEL_FOV = 0.07407407407407407407407407407407
-const GAME_TIME_SCALE = 100
+const GAME_TIME_SCALE = 6
 
 enum Gender { MALE, FEMALE, NONE }
 enum Month { 
-	JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE,
-	JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER
+	Tēwaz,Gebō,Ehwaz,Yngwaz,Jēra,Perþō,Þurisaz,Kenaz,Wunjō,Ōþala,Naudiz,Isaz,Haglaz
 }
 enum EItemCategory {
 	MEDICINE, INGREDIENT, SCROLL, EQUIP, KEY, UNIQUE
@@ -67,7 +66,6 @@ func _init():
 	DirAccess.make_dir_absolute(snapPath())
 	Scene = scene.instantiate()
 	add_child(Scene)
-	print("LOAD Database")
 	Db = load("res://Data/database.tres")
 	Ev = Interpreter.new()
 	Audio = AudioManager.new()
@@ -99,7 +97,6 @@ func deleteSaveFile(name:String):
 	# Delete all files inside
 	var files = DirAccess.get_files_at(path)
 	for f in files:
-		print(f)
 		DirAccess.remove_absolute(path+f)
 	# Now delete folder
 	DirAccess.remove_absolute(path)

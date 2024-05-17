@@ -23,7 +23,6 @@ func setup(slot:String,idx:int):
 		slotImg.region_rect.position = Vector2(0,0)
 
 func _on_pressed():
-	print("Selected: %s" % filename)
 	parent.onSlotSelected(filename,exists)
 
 func _on_focus_entered():

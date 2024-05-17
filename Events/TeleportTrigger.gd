@@ -4,7 +4,6 @@ extends BaseEvent
 @export var targetGate:int = -1
 
 func _run():
-	print(nextScene)
 	if Global.Camera != null:
 		Global.State.cameraAngle = Global.Camera.currRotation.y
 	Global.State.targetGate = targetGate
