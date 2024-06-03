@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Core/Data/Actions/WaitEffect.gd" id="2_2ylkx"]
 [ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_kjml2"]
 [ext_resource type="Script" path="res://Core/Data/Actions/AfterimageEffect.gd" id="3_u3uad"]
-[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_5vvuc"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="6_4ogne"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="7_1fjhn"]
 
 [sub_resource type="Resource" id="Resource_60trr"]
@@ -38,7 +38,7 @@ applyOnTarget = false
 
 [sub_resource type="Resource" id="Resource_jexpn"]
 script = ExtResource("3_kjml2")
-visualEffectTemplate = ExtResource("4_5vvuc")
+visualEffectTemplate = ExtResource("6_4ogne")
 onePerEachTarget = false
 waitMode = 0
 
@@ -67,6 +67,7 @@ elements = Array[int]([])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [sub_resource type="Resource" id="Resource_qaopb"]
 script = ExtResource("3_u3uad")
@@ -86,8 +87,8 @@ targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
-cost = 0
+costType = 4
+cost = 3
 charges = 0
 cooldown = 1
 canUse = 0

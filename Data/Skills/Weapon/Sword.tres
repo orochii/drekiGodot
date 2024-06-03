@@ -46,6 +46,7 @@ elements = Array[int]([1])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [resource]
 script = ExtResource("1_y25ie")

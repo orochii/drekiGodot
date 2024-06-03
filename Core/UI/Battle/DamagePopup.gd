@@ -22,12 +22,12 @@ var battler:Battler
 func setup(b:Battler,eff:Dictionary):
 	battler = b
 	# Set damage text
-	if eff["hit"]:
+	if eff.has("hit") && eff["hit"]:
 		var dmg = eff["damage"] * -1
 		var type = "LP"
 		if eff.has("type"):
 			if eff["type"] == Global.EDamageType.MP: type = "MP"
-		if dmg >= 0:
+		if dmg > 0:
 			var damageText = "+%d%s" % [dmg,type]
 			_setDamage(damageText, damageColors[1])
 		else:

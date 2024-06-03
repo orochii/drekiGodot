@@ -155,7 +155,7 @@ func _innerGetTargetArray(kind:Global.ETargetKind,state:Global.ETargetState):
 		Global.ETargetKind.ENEMY:
 			return battler.getEnemies(state)
 		Global.ETargetKind.ALLY:
-			return battler.getAllies(state)
+			return battler.getAllies(Global.ETargetState.ANY) # allies can be targeted no matter the state
 		Global.ETargetKind.ANY:
 			return battler.getAll(state)
 		Global.ETargetKind.USER:

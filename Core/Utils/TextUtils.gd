@@ -1,9 +1,11 @@
 class_name TextUtils
 
-static func parseText(t : String):
+static func parseText(t : String, autotranslate:bool=true):
+	if autotranslate:
+		t = TranslationServer.translate(t)
 	var regex = RegEx.new()
+	regex.compile("\\\\BB\\[(.+?)\\]")
 	
-	regex.compile("\\bb\\[(.+)\\]")
 	var results = regex.search_all(t)
 	for r in results:
 		var pattern = r.get_string(0)
@@ -11,7 +13,7 @@ static func parseText(t : String):
 		var name = "[img]" + actionName + "[/img]"
 		t = t.replace(pattern, name)
 	
-	regex.compile("\\\\d\\[(.+)\\]")
+	regex.compile("\\\\D\\[(.+)\\]")
 	results = regex.search_all(t)
 	for r in results:
 		var pattern = r.get_string(0)
@@ -19,7 +21,7 @@ static func parseText(t : String):
 		var name = actor.getDesc()
 		t = t.replace(pattern, name)
 	
-	regex.compile("\\\\n\\[(.+)\\]")
+	regex.compile("\\\\N\\[(.+)\\]")
 	results = regex.search_all(t)
 	for r in results:
 		var pattern = r.get_string(0)

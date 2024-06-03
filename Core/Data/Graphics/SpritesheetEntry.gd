@@ -15,6 +15,15 @@ func getFrame(target : Sprite3D, frame : int, blinkState : bool):
 	# target.region_rect.size = Vector2(cellW, cellH)
 	pass
 
+func getFrameAsData(frame:int,blink:bool,dir:int):
+	return {
+		"texture":null,
+		"rect_pos":Vector2(),
+		"rect_size":Vector2(),
+		"offset_y":0.0,
+		"flip_h":false
+	}
+
 func getTotalFrames():
 	return 1
 

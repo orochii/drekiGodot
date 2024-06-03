@@ -10,9 +10,9 @@ func _run():
 	# start
 	var alreadyTried = get_parent().getLocalVar(&"tried")
 	if !alreadyTried:
-		await Global.UI.Message.showText(p, 2, "\\n[Hikari]", "Sorry, but I'll have to take care of you.")
+		await Global.UI.Message.showText(p, 2, "\\N[Hikari]", "Sorry, but I'll have to take care of you.")
 	else:
-		await Global.UI.Message.showText(p, 2, "\\n[Hikari]", "Here we go again.")
+		await Global.UI.Message.showText(p, 2, "\\N[Hikari]", "Here we go again.")
 	# battle
 	await Global.Scene.callBattle(troop)
 	# end
@@ -20,13 +20,10 @@ func _run():
 		BattleManager.EBattleResult.WIN:
 			get_parent().setLocalVar(&"dead", true)
 		BattleManager.EBattleResult.LOSE:
-			Global.Scene.transfer(fullname("gameover"))
+			Global.Scene.callGameOver()
 		_:
 			p.navigateTowards(retreatPos.global_position)
 			while p.navigating==true: 
 				await get_tree().process_frame
-			await Global.UI.Message.showText(p, 2, "\\n[Hikari]", "I might need to revise my strategy...")
+			await Global.UI.Message.showText(p, 2, "\\N[Hikari]", "I might need to revise my strategy...")
 			get_parent().setLocalVar(&"tried", true)
-
-func fullname(nextScene:String):
-	return "res://Maps/" + nextScene + ".tscn"

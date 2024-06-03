@@ -15,3 +15,6 @@ func remove(ev : BaseEvent):
 
 func wait(time : float):
 	await Global.UI.get_tree().create_timer(time).timeout
+
+func flush():
+	running.clear()

@@ -1,14 +1,12 @@
-extends Node3D
+extends CameraControlBase
+class_name CameraWorldmap
 
 const GAME_TIME_SCALE = 600
 
-@export var target : Node3D
 @export var pivot : Node3D
-@export var shaderQuad : MeshInstance3D
-@export var camera : Camera3D
 
 func _ready():
-	shaderQuad.visible = true
+	super._ready()
 	if target != null:
 		global_position = target.global_position
 		align_with_target()

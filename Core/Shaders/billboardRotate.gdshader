@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded,cull_front;
+render_mode unshaded,cull_disabled;
 
 uniform sampler2D tex:source_color,filter_nearest;
 
@@ -12,6 +12,9 @@ uniform bool yOnly = false;
 
 void vertex(){
 	float rot = rotation - PI/2.0;
+	if (flip_h) {
+		rot = (PI) - rot;
+	}
 	float sine = sin(rot) * scale;
 	float cosine = cos(rot) * scale;
 	if (yOnly) {
@@ -28,6 +31,9 @@ void vertex(){
 	//invRotOffset2.x = (cos(-rotZ)*invRotOffset.x) - (sin(-rotZ)*invRotOffset.y)
 	//invRotOffset2.y = (sin(-rotZ)*invRotOffset.x) + (cos(-rotZ)*invRotOffset.y)
 	// sin(rotation)*offset.x
+	if(flip_h){
+		VERTEX.x = -VERTEX.x;
+	}
 	VERTEX.x += sin(rot)*raw_offset.x - cos(rot)*raw_offset.y;
 	VERTEX.y += cos(rot)*raw_offset.x + sin(rot)*raw_offset.y;
 }
@@ -36,6 +42,7 @@ void fragment(){
 	vec2 uv = UV;
 	//if (flip_h) uv.x = 1.0-uv.x;
 	vec4 tex_samp = texture(tex,uv);
-	ALBEDO = tex_samp.rgb * albedo_color.rgb;
-	ALPHA = tex_samp.a * albedo_color.a;
+	
+	ALBEDO = tex_samp.rgb * albedo_color.rgb * COLOR.rgb;
+	ALPHA = tex_samp.a * albedo_color.a * COLOR.a;
 }

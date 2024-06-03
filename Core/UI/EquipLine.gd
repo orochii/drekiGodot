@@ -21,7 +21,7 @@ func setSlot(_idx:int,p):
 	if slot.kind==Global.EquipSlot.ARMS:
 		weaponIdx = idx
 	else:
-		weaponIdx = 0
+		weaponIdx = -1
 
 func setup(_item:BaseItem):
 	item = _item

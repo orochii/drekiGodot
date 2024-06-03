@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6a88uqobsumi"]
+[gd_scene load_steps=9 format=3 uid="uid://b6a88uqobsumi"]
 
 [ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="1_oc3xt"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="2_etf4v"]
 [ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="3_ojxwd"]
 [ext_resource type="PackedScene" uid="uid://c3x6xxet8dq00" path="res://Graphics/Scenario/light_scene.glb" id="4_x8mfd"]
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="5_v3kl4"]
+[ext_resource type="Script" path="res://Events/GameOver.gd" id="6_k70rx"]
 
 [sub_resource type="Environment" id="Environment_378u5"]
 ambient_light_source = 2
@@ -54,3 +56,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_pxpjw")
 
 [node name="light_scene" parent="Scenario" instance=ExtResource("4_x8mfd")]
+
+[node name="Trigger" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+script = ExtResource("5_v3kl4")
+pages = [NodePath("Node3D")]
+
+[node name="Node3D" type="Node3D" parent="Trigger"]
+script = ExtResource("6_k70rx")
+activation = 3
+loop = true

@@ -33,6 +33,7 @@ func reset():
 func _process(delta):
 	if(get_parent().visible==false): return
 	if(get_parent().active==false): return
+	if Global.UI.Config.visible: return
 	if(skillTargetWindow.visible==true): return
 	if(slotsContainer.active): return
 	if(Input.is_action_just_pressed("action_menu")):

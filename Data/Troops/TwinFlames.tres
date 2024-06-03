@@ -1,22 +1,41 @@
-[gd_resource type="Resource" script_class="EnemyTroop" load_steps=6 format=3 uid="uid://p7mlwr6cixqm"]
+[gd_resource type="Resource" script_class="EnemyTroop" load_steps=12 format=3 uid="uid://p7mlwr6cixqm"]
 
-[ext_resource type="Resource" uid="uid://erdb44r5ke82" path="res://Data/Enemies/BlueFlame.tres" id="1_hpjjh"]
+[ext_resource type="Resource" uid="uid://erdb44r5ke82" path="res://Data/Enemies/RedSpirit.tres" id="1_hpjjh"]
+[ext_resource type="Resource" uid="uid://cvp721gcmytns" path="res://Data/Enemies/BlueSpirit.tres" id="1_p5m6q"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroopEntry.gd" id="2_ceuh5"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTroop.gd" id="3_ffu46"]
+[ext_resource type="Script" path="res://Core/Interpreter/BattleHealthCondition.gd" id="4_84o4f"]
+[ext_resource type="Script" path="res://Events/Battle/TwinFlames.gd" id="5_7or2m"]
+[ext_resource type="Script" path="res://Core/Battle/BattleEvent.gd" id="6_v7tew"]
 
 [sub_resource type="Resource" id="Resource_qu4nc"]
 script = ExtResource("2_ceuh5")
-enemy = ExtResource("1_hpjjh")
-position = Vector3(-0.75, 0, -0.5)
+enemy = ExtResource("1_p5m6q")
+position = Vector3(-0.75, 0, -1.5)
 flags = 0
 
 [sub_resource type="Resource" id="Resource_ha733"]
 script = ExtResource("2_ceuh5")
 enemy = ExtResource("1_hpjjh")
-position = Vector3(-1.25, 0, 0.5)
+position = Vector3(-2.5, 0, 1.5)
 flags = 1
+
+[sub_resource type="Resource" id="Resource_dei1m"]
+script = ExtResource("4_84o4f")
+targetKind = 0
+targetIdx = 0
+conditionType = 0
+conditionCompare = 0
+conditionAmount = 0.5
+
+[sub_resource type="Resource" id="Resource_1qo78"]
+script = ExtResource("6_v7tew")
+activation = 0
+conditions = Array[Resource("res://Core/Interpreter/EventPageCondition.gd")]([SubResource("Resource_dei1m")])
+event = ExtResource("5_7or2m")
 
 [resource]
 script = ExtResource("3_ffu46")
 battleMusic = Array[Resource("res://Core/Audio/SystemAudioEntry.gd")]([])
 entries = Array[ExtResource("2_ceuh5")]([SubResource("Resource_qu4nc"), SubResource("Resource_ha733")])
+pages = Array[ExtResource("6_v7tew")]([SubResource("Resource_1qo78")])

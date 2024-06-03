@@ -14,6 +14,8 @@ class_name Database
 @export var innateElementRelations : Array[InnateElement]
 @export var availableScreenResolutions : Array[ScreenResolution]
 @export var ambientLightDayConfiguration: Gradient
+@export var skyColorConfiguration: Gradient
+@export var systemColors:Dictionary
 
 func getActor(id : StringName):
 	return load("res://Data/Actors/%s.tres" % id)

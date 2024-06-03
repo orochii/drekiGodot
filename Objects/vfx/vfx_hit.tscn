@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmku0jn6bxrv0"]
+[gd_scene load_steps=15 format=3 uid="uid://cmku0jn6bxrv0"]
 
 [ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_n8rxp"]
+[ext_resource type="AudioStream" uid="uid://baacgj055smy6" path="res://Audio/SFX/Swosh3.ogg" id="2_i1fh4"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="2_xrmjp"]
 [ext_resource type="Shader" path="res://Core/Shaders/animatedParticle_shader.gdshader" id="3_2i15m"]
 [ext_resource type="Texture2D" uid="uid://bs5cduy8cc6x" path="res://Graphics/Animations/2003shock.png" id="4_cctkm"]
@@ -43,6 +44,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer3D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_i1fh4")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_buxip"]
 _data = {
@@ -115,3 +131,7 @@ explosiveness = 1.0
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_aduj6")
 draw_pass_1 = SubResource("QuadMesh_dlvx1")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 20.0
+bus = &"SFX"

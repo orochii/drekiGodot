@@ -1,0 +1,128 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=31 format=3 uid="uid://om54ei8hopuh"]
+
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="1_i2bus"]
+[ext_resource type="Texture2D" uid="uid://pekmdwl2rjpu" path="res://Graphics/Character/hikari/hikari_charset_diag.png" id="2_e2ngo"]
+[ext_resource type="Texture2D" uid="uid://cr4tl5rsiv4vw" path="res://Graphics/Character/hikari/hikari_charset_blink.png" id="3_36amf"]
+[ext_resource type="Texture2D" uid="uid://bbwdypg8u3wir" path="res://Graphics/Character/hikari/hikari_charset_blink_diag.png" id="4_qwtqu"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="5_h53qo"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="6_l16xs"]
+[ext_resource type="Texture2D" uid="uid://wgrtkajm8wl5" path="res://Graphics/Character/hikari/hikari_charset_jump.png" id="6_nl5gr"]
+[ext_resource type="Texture2D" uid="uid://8guo7bpxd5bx" path="res://Graphics/Character/hikari/hikari_charset_jump_diag.png" id="7_fst5l"]
+[ext_resource type="Texture2D" uid="uid://kdrpev07mfhi" path="res://Graphics/Character/hikari/hikari_charset_jump_blink.png" id="8_x2e4k"]
+[ext_resource type="Texture2D" uid="uid://c38k8gxrdlp86" path="res://Graphics/Character/hikari/hikari_charset_jump_blink_diag.png" id="9_t46ox"]
+[ext_resource type="Texture2D" uid="uid://2hxq0bwcjnbp" path="res://Graphics/Character/hikari/hikari_charset_run.png" id="10_4je10"]
+[ext_resource type="Texture2D" uid="uid://drvkxnxslkcfl" path="res://Graphics/Character/hikari/hikari_charset_run_diag.png" id="11_vcw8n"]
+[ext_resource type="Texture2D" uid="uid://b36872fff33uu" path="res://Graphics/Character/hikari/hikari_charset_run_blink.png" id="12_egg7k"]
+[ext_resource type="Texture2D" uid="uid://b4js2tm3fr36n" path="res://Graphics/Character/hikari/hikari_charset_run_blink_diag.png" id="13_ome0q"]
+[ext_resource type="Texture2D" uid="uid://bi4bv5wygxfak" path="res://Graphics/Character/hikari/hikari_charset_push.png" id="14_gqavx"]
+[ext_resource type="Texture2D" uid="uid://b16iuinsj5bl2" path="res://Graphics/Character/hikari/hikari_charset_climb.png" id="15_dijw5"]
+[ext_resource type="Texture2D" uid="uid://bl7ugvl3djsxf" path="res://Graphics/Character/hikari/hikari_charset_climb_diag.png" id="16_bfq8j"]
+[ext_resource type="Texture2D" uid="uid://brt6eenjkpvlw" path="res://Graphics/Character/hikari/hikari_charset_climb_blink.png" id="17_1bj51"]
+[ext_resource type="Texture2D" uid="uid://bjhafbnhnll7a" path="res://Graphics/Character/hikari/hikari_charset_climb_diag_blink.png" id="18_7akmm"]
+[ext_resource type="Texture2D" uid="uid://cj34hy6amn7l3" path="res://Graphics/Character/hikari/hikari_charset_downFace.png" id="19_s2uqv"]
+[ext_resource type="Texture2D" uid="uid://dyo10ef8r5wc7" path="res://Graphics/Character/hikari/hikari_charset_sit.png" id="20_7o7rj"]
+[ext_resource type="Texture2D" uid="uid://eid65xmayh7a" path="res://Graphics/Character/hikari/hikari_charset_down.png" id="21_2fnm7"]
+
+[sub_resource type="Resource" id="Resource_ijpkp"]
+script = ExtResource("5_h53qo")
+base = ExtResource("1_i2bus")
+baseDiag = ExtResource("2_e2ngo")
+blink = ExtResource("3_36amf")
+blinkDiag = ExtResource("4_qwtqu")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"base"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_jgvgh"]
+script = ExtResource("5_h53qo")
+base = ExtResource("6_nl5gr")
+baseDiag = ExtResource("7_fst5l")
+blink = ExtResource("8_x2e4k")
+blinkDiag = ExtResource("9_t46ox")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"jump"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_a8o7e"]
+script = ExtResource("5_h53qo")
+base = ExtResource("10_4je10")
+baseDiag = ExtResource("11_vcw8n")
+blink = ExtResource("12_egg7k")
+blinkDiag = ExtResource("13_ome0q")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"run"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_rioj8"]
+script = ExtResource("5_h53qo")
+base = ExtResource("14_gqavx")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"push"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_pfi0k"]
+script = ExtResource("5_h53qo")
+base = ExtResource("15_dijw5")
+baseDiag = ExtResource("16_bfq8j")
+blink = ExtResource("17_1bj51")
+blinkDiag = ExtResource("18_7akmm")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"climb"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_23jmx"]
+script = ExtResource("5_h53qo")
+base = ExtResource("19_s2uqv")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"downFace"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_s0hx2"]
+script = ExtResource("5_h53qo")
+base = ExtResource("20_7o7rj")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"sit"
+fps = 12
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_8f1is"]
+script = ExtResource("5_h53qo")
+base = ExtResource("21_2fnm7")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"down"
+fps = 12
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("6_l16xs")
+collection = Array[ExtResource("5_h53qo")]([SubResource("Resource_ijpkp"), SubResource("Resource_jgvgh"), SubResource("Resource_a8o7e"), SubResource("Resource_rioj8"), SubResource("Resource_pfi0k"), SubResource("Resource_23jmx"), SubResource("Resource_s0hx2"), SubResource("Resource_8f1is")])

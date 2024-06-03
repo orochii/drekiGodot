@@ -2,10 +2,15 @@ extends Control
 class_name BattleSkillStatusWindow
 
 @export var face:NinePatchRect
+@export var hpParent:NinePatchRect
+@export var hpBar:NinePatchRect
+@export var hpNum:Label
+@export var mpParent:NinePatchRect
 @export var mpBar:NinePatchRect
 @export var mpNum:Label
 
-@export var mpCost:Label
+@export var costLabel:Label
+@export var costNum:Label
 @export var cooldown:Control
 @export var cooldownCount:Label
 @export var charges:Control
@@ -15,6 +20,7 @@ class_name BattleSkillStatusWindow
 var battler:Battler = null
 var _skill:UseableSkill = null
 var barOriginalWidth
+var hpCurr
 var mpCurr
 
 func setBattler(b:Battler):
@@ -24,7 +30,9 @@ func setBattler(b:Battler):
 
 func setup(skill:UseableSkill):
 	_skill = skill
+	if battler == null: return
 	_refreshCost()
+	_refreshStatus()
 	if _skill == null:
 		cooldown.visible = false
 		charges.visible = false
@@ -55,24 +63,45 @@ func _ready():
 func _process(delta):
 	if is_visible_in_tree():
 		if battler==null: return
-		if mpCurr != battler.battler.currHP:
+		if (mpCurr != battler.battler.currMP) || (hpCurr != battler.battler.currHP):
 			_refreshStatus()
 			_refreshCost()
 
 func _refreshStatus():
+	hpCurr = battler.battler.currHP
 	mpCurr = battler.battler.currMP
-	var mpPerc = mpCurr * 1.0 / battler.battler.getMaxMP()
-	mpNum.text = "%d" % mpCurr
-	_setMpBarWidth(mpPerc)
+	if _skill==null: return
+	match _skill.getCostKind():
+		0:
+			var perc = mpCurr * 1.0 / battler.battler.getMaxMP()
+			mpNum.text = "%d" % mpCurr
+			_setBarWidth(mpBar,perc)
+		1:
+			var perc = hpCurr * 1.0 / battler.battler.getMaxHP()
+			hpNum.text = "%d" % hpCurr
+			_setBarWidth(hpBar,perc)
 
 func _refreshCost():
+	hpParent.visible = false
+	mpParent.visible = false
 	if _skill != null:
-		mpCost.text = "%d" % _skill.getMPCost(battler.battler)
+		match _skill.getCostKind():
+			0:
+				mpParent.visible = true
+				costLabel.text = "MP Cost"
+				costNum.text = "%d" % _skill.getMPCost(battler.battler)
+			1:
+				hpParent.visible = true
+				costLabel.text = "HP Cost"
+				costNum.text = "%d" % _skill.getHPCost(battler.battler)
+			_:
+				costLabel.text = ""
+				costNum.text = "Free"
 	else:
-		mpCost.text = ""
+		costNum.text = ""
 
-func _setMpBarWidth(percent:float):
-	var size = mpBar.texture.get_size()
-	mpBar.region_rect.size.x = roundi(percent * size.x)
-	mpBar.region_rect.size.y = size.y
-	mpBar.size.x = roundi(percent * barOriginalWidth)
+func _setBarWidth(bar,percent:float):
+	var size = bar.texture.get_size()
+	bar.region_rect.size.x = roundi(percent * size.x)
+	bar.region_rect.size.y = size.y
+	bar.size.x = roundi(percent * barOriginalWidth)

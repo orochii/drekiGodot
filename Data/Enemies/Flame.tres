@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=14 format=3 uid="uid://ckwh1pmm5yrxt"]
 
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_bsfhi"]
-[ext_resource type="Resource" uid="uid://b8uf6vq6tosjn" path="res://Data/Spritesheets/flame_battler.tres" id="2_f7fwu"]
+[ext_resource type="Resource" uid="uid://b8uf6vq6tosjn" path="res://Data/Spritesheets/Battler/flame_battler.tres" id="2_f7fwu"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript_Skill.gd" id="2_n0uyx"]
 [ext_resource type="Resource" uid="uid://ci3paygfjrydc" path="res://Data/Skills/Fire.tres" id="2_t8wvo"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_o8yew"]

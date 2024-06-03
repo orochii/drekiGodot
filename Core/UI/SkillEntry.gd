@@ -16,7 +16,10 @@ func setup(_skill:UseableSkill):
 	itemName.text = skill.getName()
 
 func setEnabled(v:bool):
-	self.modulate.a = 1 if v else 0.5
+	if v: 
+		modulate = Global.Db.systemColors[&"enabled"]
+	else: 
+		modulate = Global.Db.systemColors[&"disabled"]
 	enabled = v
 
 func _on_pressed():

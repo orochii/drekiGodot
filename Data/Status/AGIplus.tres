@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Status" load_steps=5 format=3 uid="uid://dln6o8hn31x23"]
+
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_t0smw"]
+[ext_resource type="Texture2D" uid="uid://c2g0hqp1yr2e2" path="res://Graphics/Icons/states/st_49.png" id="2_xwdma"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="3_syep7"]
+
+[sub_resource type="Resource" id="Resource_5crru"]
+script = ExtResource("1_t0smw")
+stat = 5
+kind = 1
+amount = 25
+
+[resource]
+script = ExtResource("3_syep7")
+icon = ExtResource("2_xwdma")
+displayRating = 0
+statusPose = &""
+flags = 0
+restriction = 0
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_5crru")])
+statusRemove = Array[StringName]([&"AGIminus"])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

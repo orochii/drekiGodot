@@ -1,3 +1,4 @@
+@icon("res://Editor/chest.svg")
 @tool
 extends NPC
 

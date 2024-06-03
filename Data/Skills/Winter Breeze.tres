@@ -1,8 +1,24 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://cefeox1qh3rn3"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=10 format=3 uid="uid://cefeox1qh3rn3"]
 
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_c8ks0"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_lunsj"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_ap31q"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="2_dunh6"]
 [ext_resource type="Texture2D" uid="uid://c0kxjnbea05k3" path="res://Graphics/Icons/skills/cold.png" id="2_fkei3"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="3_kw733"]
+
+[sub_resource type="Resource" id="Resource_h2cq1"]
+script = ExtResource("1_lunsj")
+state = &"skill"
+loop = false
+waitForEnd = false
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_k4p8s"]
+script = ExtResource("2_dunh6")
+visualEffectTemplate = ExtResource("3_kw733")
+onePerEachTarget = false
+waitMode = 1
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
 script = ExtResource("1_c8ks0")
@@ -15,10 +31,11 @@ magF = 1.0
 agiF = 0.0
 pDefF = 0.0
 mDefF = 1.0
-elements = Array[int]([])
+elements = Array[int]([6])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [resource]
 script = ExtResource("2_ap31q")
@@ -29,13 +46,13 @@ targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
+costType = 1
 cost = 0
 charges = 0
 cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_h2cq1"), SubResource("Resource_k4p8s"), SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("2_fkei3")

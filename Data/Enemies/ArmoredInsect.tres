@@ -1,14 +1,54 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=6 format=3 uid="uid://b4itwim41w6ia"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=20 format=3 uid="uid://b4itwim41w6ia"]
 
-[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_xyq5d"]
-[ext_resource type="Resource" uid="uid://dvnw8sbbybuh7" path="res://Data/Spritesheets/armoredinsect_battler.tres" id="2_puswo"]
+[ext_resource type="Resource" uid="uid://c37alksy6hri4" path="res://Data/Skills/Enemy/Beak.tres" id="1_2utjy"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript_Skill.gd" id="2_fbmr4"]
+[ext_resource type="Resource" uid="uid://dvnw8sbbybuh7" path="res://Data/Spritesheets/Battler/armoredinsect_battler.tres" id="2_puswo"]
+[ext_resource type="Resource" uid="uid://dek64dbmdq0p" path="res://Data/Skills/Enemy/Drain Bite.tres" id="3_5k3d0"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_kwjgg"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScriptCondition_Turn.gd" id="4_fdn7b"]
+[ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="7_imabp"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatusAffinity.gd" id="8_a0i3r"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="8_i4d15"]
+[ext_resource type="Resource" uid="uid://dnqs3rt1qdyyg" path="res://Data/Status/Frozen.tres" id="9_si22l"]
+[ext_resource type="Resource" uid="uid://cxu3cv5tbortt" path="res://Data/Status/Paralysis.tres" id="10_2yhs4"]
+[ext_resource type="Resource" uid="uid://ce50h4ejrc4hp" path="res://Data/Status/Blind.tres" id="11_l2gub"]
 
-[sub_resource type="Resource" id="Resource_2t7cd"]
-script = ExtResource("1_xyq5d")
+[sub_resource type="Resource" id="Resource_dldik"]
+script = ExtResource("2_fbmr4")
+actions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("1_2utjy")])
 priority = 5
 conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_8lgqi"]
+script = ExtResource("4_fdn7b")
+turnStart = 3
+turnInterval = 2
+
+[sub_resource type="Resource" id="Resource_ve0o5"]
+script = ExtResource("2_fbmr4")
+actions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("3_5k3d0")])
+priority = 10
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([SubResource("Resource_8lgqi")])
+
+[sub_resource type="Resource" id="Resource_1f7xv"]
+script = ExtResource("7_imabp")
+element = 2
+value = 5
+
+[sub_resource type="Resource" id="Resource_tnx6x"]
+script = ExtResource("8_a0i3r")
+status = ExtResource("9_si22l")
+value = 5
+
+[sub_resource type="Resource" id="Resource_200iy"]
+script = ExtResource("8_a0i3r")
+status = ExtResource("10_2yhs4")
+value = 5
+
+[sub_resource type="Resource" id="Resource_1ja5b"]
+script = ExtResource("8_a0i3r")
+status = ExtResource("11_l2gub")
+value = 1
 
 [resource]
 script = ExtResource("8_i4d15")
@@ -17,16 +57,16 @@ battleSprite = ExtResource("2_puswo")
 gender = 1
 collapseEffect = ExtResource("3_kwjgg")
 innateElement = 8
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
-level = 1
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_1f7xv"), SubResource("Resource_tnx6x"), SubResource("Resource_200iy"), SubResource("Resource_1ja5b")])
+level = 8
 mhp = 250
 mmp = 120
 str = 112
 vit = 999
 mag = 999
 agi = 7
-actions = Array[ExtResource("1_xyq5d")]([SubResource("Resource_2t7cd")])
+actions = Array[Resource("res://Core/Data/ActionScript/ActionScript.gd")]([SubResource("Resource_dldik"), SubResource("Resource_ve0o5")])
 rewardExp = 10
-rewardApp = 4
+rewardApp = 20
 rewardGold = 200
 rewardTreasure = Array[Resource("res://Core/Data/Enemies/EnemyTreasure.gd")]([])

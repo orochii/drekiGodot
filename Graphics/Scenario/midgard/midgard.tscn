@@ -72,6 +72,7 @@ data = PackedVector3Array(-0.2478, 0.5095, 0.8308, -0.2516, 0.5154, 0.826, -0.25
 layers = 524288
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Water" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Water/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_mwl2y")
@@ -107,6 +108,7 @@ shape = SubResource("ConcavePolygonShape3D_q8cdo")
 shape = SubResource("ConcavePolygonShape3D_htc8m")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Aleko_Mountains" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Aleko_Mountains/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_70ae2")
@@ -117,11 +119,13 @@ shape = SubResource("ConcavePolygonShape3D_70ae2")
 shape = SubResource("ConcavePolygonShape3D_83nau")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Fierro_Mountains_002" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fierro_Mountains_002/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_8cn7y")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Fierro_Mountains" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fierro_Mountains/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_pg0fw")
@@ -142,21 +146,25 @@ shape = SubResource("ConcavePolygonShape3D_3b1dt")
 shape = SubResource("ConcavePolygonShape3D_urd2e")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ardmore_Mountain" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ardmore_Mountain/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_jl52u")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FierroTown" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FierroTown/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_nc7g7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Havoc_Town" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Havoc_Town/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_6fasp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FierroHavoc_002" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FierroHavoc_002/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_2cnnf")
@@ -165,6 +173,7 @@ shape = SubResource("ConcavePolygonShape3D_2cnnf")
 visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="FierroHavoc_001" index="0"]
+metadata/cannot_land = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FierroHavoc_001/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_cl2jm")

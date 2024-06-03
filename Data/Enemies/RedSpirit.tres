@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=16 format=3 uid="uid://erdb44r5ke82"]
+
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_8iscu"]
+[ext_resource type="Resource" uid="uid://ci3paygfjrydc" path="res://Data/Skills/Fire.tres" id="2_beihw"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript_Skill.gd" id="3_3bk18"]
+[ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScriptCondition_Turn.gd" id="3_22ty3"]
+[ext_resource type="Resource" uid="uid://bt68lsclwbe7l" path="res://Data/Spritesheets/Battler/redspirit_battler.tres" id="4_qpjmn"]
+[ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="5_6d5s3"]
+[ext_resource type="Script" path="res://Core/Data/Features/FlyingFeature.gd" id="6_pxe3w"]
+[ext_resource type="Resource" uid="uid://bkxqnpyttgpos" path="res://Data/Items/Armor/One Piece.tres" id="7_4qit5"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyTreasure.gd" id="8_gwtdt"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="9_rgcmw"]
+
+[sub_resource type="Resource" id="Resource_qv2e2"]
+script = ExtResource("1_8iscu")
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([])
+
+[sub_resource type="Resource" id="Resource_50y4s"]
+script = ExtResource("3_22ty3")
+turnStart = 2
+turnInterval = 3
+
+[sub_resource type="Resource" id="Resource_bc1rl"]
+script = ExtResource("3_3bk18")
+actions = Array[Resource("res://Core/Data/Skills/UseableSkill.gd")]([ExtResource("2_beihw")])
+priority = 5
+conditions = Array[Resource("res://Core/Data/ActionScript/ActionScriptCondition.gd")]([SubResource("Resource_50y4s")])
+
+[sub_resource type="Resource" id="Resource_mj1bo"]
+script = ExtResource("6_pxe3w")
+
+[sub_resource type="Resource" id="Resource_hmx6i"]
+script = ExtResource("8_gwtdt")
+item = ExtResource("7_4qit5")
+rate = 1.0
+
+[resource]
+script = ExtResource("9_rgcmw")
+type = "Inorganic"
+battleSprite = ExtResource("4_qpjmn")
+gender = 2
+collapseEffect = ExtResource("5_6d5s3")
+innateElement = 5
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_mj1bo")])
+level = 25
+mhp = 500
+mmp = 100
+str = 75
+vit = 45
+mag = 16
+agi = 16
+actions = Array[ExtResource("1_8iscu")]([SubResource("Resource_qv2e2"), SubResource("Resource_bc1rl")])
+rewardExp = 0
+rewardApp = 4
+rewardGold = 200
+rewardTreasure = Array[ExtResource("8_gwtdt")]([SubResource("Resource_hmx6i")])

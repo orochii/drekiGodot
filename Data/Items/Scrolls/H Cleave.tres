@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=3 format=3 uid="uid://crdylr8ef1aur"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=4 format=3 uid="uid://crdylr8ef1aur"]
 
 [ext_resource type="Texture2D" uid="uid://b410nr8hmf1oc" path="res://Graphics/Icons/items/item_0182.png" id="1_bsryo"]
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="1_fir0t"]
+[ext_resource type="Resource" uid="uid://dv8vgsanjs05f" path="res://Data/Skills/Scroll/H Cleave.tres" id="3_gch00"]
 
 [resource]
 script = ExtResource("1_fir0t")
 gripOffset = Vector2i(0, 0)
-slot = 0
+slot = 4
 flags = Array[int]([])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
+skill = ExtResource("3_gch00")
 icon = ExtResource("1_bsryo")
 category = 2
 price = 0

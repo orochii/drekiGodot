@@ -14,7 +14,7 @@ enum EItemCategory {
 	MEDICINE, INGREDIENT, SCROLL, EQUIP, KEY, UNIQUE
 }
 enum EquipSlot {
-	ARMS, HEAD, BODY, ACCESSORY
+	ARMS, HEAD, BODY, ACCESSORY, SCROLL
 }
 enum EquipKind {
 	SWORD, GREAT_SWORD, KATANA, DAGGER, AXE, SPEAR, BOW, WHIP, HANDS, OTHER,
@@ -23,7 +23,7 @@ enum EquipKind {
 enum Element { 
 	NONE, CUT, HIT, PIERCE, PROJECTILE, 
 	FIRE, ICE, THUNDER, WATER, EARTH, WIND, LITE, GLOOM,
-	HEALING
+	HEALING, DRAIN
 }
 enum Rank { A, B, C, D, E, F }
 enum Stat { HP, MP, Str, Vit, Mag, Agi, HitRate, Eva, PhyAbs, MagAbs, Atk }
@@ -48,7 +48,7 @@ enum EStatusActivation {
 	MILLISECONDS
 }
 
-var Camera : CameraControl
+var Camera : CameraControlBase
 var UI : GameUI
 var Ev : Interpreter
 var Db : Database
@@ -59,6 +59,7 @@ var State : GameState
 var Scene : SceneManager
 var Inputs : InputManager
 var Map : MapManager
+var Battle : BattleManager
 var scene = preload("res://Objects/scene_manager.tscn")
 
 func _init():
@@ -138,6 +139,12 @@ func loadGame(name:String):
 	# Load state, load map, then on map load finished 
 	# try to deserialize characters
 	State._deserialize(savedata)
+	Scene.transfer(State.lastSceneName)
+
+func backupRetry():
+	State.retryBackup = State._serialize()
+func restoreFromRetry():
+	State._deserialize(State.retryBackup)
 	Scene.transfer(State.lastSceneName)
 
 func saveGameScreenshot(name:String):

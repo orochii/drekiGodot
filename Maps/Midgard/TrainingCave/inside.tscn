@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://dhkinpu1tm247"]
+[gd_scene load_steps=97 format=3 uid="uid://dhkinpu1tm247"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_3t1sb"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_hleji"]
@@ -16,9 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://ch5yppfbfibqv" path="res://Graphics/Scenario/training_cave/training_cave_new.tscn" id="12_5lj3x"]
 [ext_resource type="AudioStream" uid="uid://cc0r253cf1d7s" path="res://Audio/BGS/lava_loop.ogg" id="17_oxjgw"]
 [ext_resource type="Script" path="res://Core/Scenario/Elevator.gd" id="18_6cy0v"]
+[ext_resource type="PackedScene" uid="uid://bwats5lni2203" path="res://Objects/events/enemy_npc.tscn" id="18_f4hyd"]
 [ext_resource type="AudioStream" uid="uid://bmy80kjaeheo5" path="res://Audio/SFX/earth1.ogg" id="19_kp4oq"]
 [ext_resource type="PackedScene" uid="uid://d13062r8cyryi" path="res://Graphics/Scenario/props/torch.tscn" id="22_3j2mw"]
-[ext_resource type="Resource" uid="uid://drbx8qh17jrgn" path="res://Data/Spritesheets/whiteflame_map.tres" id="23_fhl4l"]
+[ext_resource type="Resource" uid="uid://drbx8qh17jrgn" path="res://Data/Spritesheets/Map/whiteflame_map.tres" id="23_fhl4l"]
 [ext_resource type="Script" path="res://Core/Scenario/TouchActivator.gd" id="23_v48bk"]
 [ext_resource type="Resource" uid="uid://p7mlwr6cixqm" path="res://Data/Troops/TwinFlames.tres" id="24_xrry5"]
 [ext_resource type="PackedScene" uid="uid://bifddoc0mqmq2" path="res://Graphics/Scenario/training_cave/tileTop.glb" id="24_y0dab"]
@@ -28,30 +29,31 @@
 [ext_resource type="Script" path="res://Core/Interpreter/SwitchPageCondition.gd" id="29_7tn2q"]
 [ext_resource type="PackedScene" uid="uid://caiuqsrneu4wy" path="res://Graphics/Scenario/props/pillar.glb" id="30_5udvg"]
 [ext_resource type="Script" path="res://Core/Scenario/MovingPlatform.gd" id="31_10uno"]
-[ext_resource type="PackedScene" uid="uid://bwats5lni2203" path="res://Objects/Events/enemy_npc.tscn" id="31_c1ydp"]
 [ext_resource type="Resource" uid="uid://b4p5jkun4rwbx" path="res://Data/Troops/Moles3.tres" id="32_3cpas"]
 [ext_resource type="PackedScene" uid="uid://dexhf4bhggpe3" path="res://Graphics/Scenario/training_cave/switch1.glb" id="34_aa8em"]
 [ext_resource type="Script" path="res://Objects/3dobj/CharModel.gd" id="35_7u2k8"]
 [ext_resource type="Script" path="res://Events/SimpleSwitch.gd" id="36_s128p"]
 [ext_resource type="AudioStream" uid="uid://y1vo1rxhhn60" path="res://Audio/SFX/door-open.ogg" id="37_ipi2m"]
-[ext_resource type="PackedScene" uid="uid://dv6snrwa6x33j" path="res://Objects/forklift.tscn" id="38_eu82y"]
+[ext_resource type="PackedScene" uid="uid://dv6snrwa6x33j" path="res://Objects/vehicles/forklift.tscn" id="38_eu82y"]
 [ext_resource type="Resource" uid="uid://b4oblkvos45r1" path="res://Data/Items/KeyItems/ForkliftKey.tres" id="39_htrud"]
 [ext_resource type="PackedScene" uid="uid://cx7ul6p7a7qqy" path="res://Graphics/Scenario/props/crate.glb" id="39_k55wl"]
-[ext_resource type="Resource" uid="uid://dglkm1fxd86ew" path="res://Data/Spritesheets/flame_map.tres" id="40_5fc2q"]
-[ext_resource type="PackedScene" uid="uid://cw5i3n2eru37b" path="res://Objects/Events/chest_npc.tscn" id="41_aar6p"]
+[ext_resource type="Resource" uid="uid://dglkm1fxd86ew" path="res://Data/Spritesheets/Map/flame_map.tres" id="40_5fc2q"]
 [ext_resource type="Resource" uid="uid://qd4xcgjjmsfk" path="res://Data/Troops/FlameAndMoles.tres" id="41_atp3b"]
 [ext_resource type="Resource" uid="uid://crdylr8ef1aur" path="res://Data/Items/Scrolls/H Cleave.tres" id="42_g3eyf"]
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="42_stjiw"]
+[ext_resource type="PackedScene" uid="uid://cw5i3n2eru37b" path="res://Objects/events/chest_npc.tscn" id="42_v5k1o"]
 [ext_resource type="PackedScene" uid="uid://dmpyrssfer3k3" path="res://Graphics/Scenario/props/ladder_8.glb" id="43_oavmb"]
 [ext_resource type="Script" path="res://Events/DropLadder.gd" id="43_odyxr"]
 [ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="43_wkg22"]
+[ext_resource type="Resource" uid="uid://jktecmjr0svu" path="res://Data/Items/Medicine/Phoenix Feather.tres" id="44_mkffi"]
 [ext_resource type="Script" path="res://Events/LadderInteract.gd" id="45_j7r2w"]
+[ext_resource type="Resource" uid="uid://84msihrapm3r" path="res://Data/Items/Weapon/Sword.tres" id="45_th3xf"]
 [ext_resource type="Resource" uid="uid://dhdt277kui74o" path="res://Data/Troops/BOSS_ArmoredInsect.tres" id="46_6v4qs"]
-[ext_resource type="Resource" uid="uid://bmme56f8kcqdi" path="res://Data/Spritesheets/armoredinsect_map.tres" id="47_e3qds"]
+[ext_resource type="Resource" uid="uid://bmme56f8kcqdi" path="res://Data/Spritesheets/Map/armoredinsect_map.tres" id="47_e3qds"]
 [ext_resource type="Script" path="res://Events/TrainingCave/Boss.gd" id="49_kim5o"]
 [ext_resource type="Texture2D" uid="uid://c7m4da16vctxm" path="res://Graphics/Character/_ENEMY/enemy1_mole.png" id="49_pjsg1"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="50_gjuu0"]
-[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/mole_map.tres" id="51_ol26f"]
+[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/Map/mole_map.tres" id="51_ol26f"]
 [ext_resource type="Script" path="res://Core/Interpreter/LocalVarPageCondition.gd" id="56_q1qfw"]
 [ext_resource type="Texture2D" uid="uid://bwl32bu88vhqt" path="res://Graphics/System/emotes.png" id="58_8cotb"]
 
@@ -582,22 +584,22 @@ shape = SubResource("BoxShape3D_d2wfe")
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="EnemyNPC" parent="Enemies" instance=ExtResource("31_c1ydp")]
+[node name="EnemyNPC" parent="Enemies" instance=ExtResource("18_f4hyd")]
 transform = Transform3D(0.562848, 0, -0.82656, 0, 1, 0, 0.82656, 0, 0.562848, 0.772725, 0.295647, 11.2813)
 velocity = Vector3(0, -225.4, 0)
 
-[node name="EnemyNPC2" parent="Enemies" instance=ExtResource("31_c1ydp")]
+[node name="EnemyNPC2" parent="Enemies" instance=ExtResource("18_f4hyd")]
 transform = Transform3D(0.562848, 0, -0.82656, 0, 1, 0, 0.82656, 0, 0.562848, 68.6111, 1.49396, 13.4578)
 velocity = Vector3(0, -225.4, 0)
 troop = ExtResource("32_3cpas")
 
-[node name="EnemyNPC3" parent="Enemies" instance=ExtResource("31_c1ydp")]
+[node name="EnemyNPC3" parent="Enemies" instance=ExtResource("18_f4hyd")]
 transform = Transform3D(0.562848, 0, -0.82656, 0, 1, 0, 0.82656, 0, 0.562848, 58.8785, 1.49395, 30.8596)
 velocity = Vector3(0, -225.4, 0)
 troop = ExtResource("41_atp3b")
 spritesheet = ExtResource("40_5fc2q")
 
-[node name="EnemyNPC4" parent="Enemies" instance=ExtResource("31_c1ydp")]
+[node name="EnemyNPC4" parent="Enemies" instance=ExtResource("18_f4hyd")]
 transform = Transform3D(0.562848, 0, -0.82656, 0, 1, 0, 0.82656, 0, 0.562848, 35.9423, 3.78726, -6.59629)
 troop = ExtResource("24_xrry5")
 spritesheet = ExtResource("23_fhl4l")
@@ -797,14 +799,24 @@ transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 
 [node name="Chests" type="Node" parent="."]
 
-[node name="ChestNPC" parent="Chests" instance=ExtResource("41_aar6p")]
+[node name="ChestNPC" parent="Chests" instance=ExtResource("42_v5k1o")]
 transform = Transform3D(0.208765, 0, -0.977966, 0, 1, 0, 0.977966, 0, 0.208765, 88.0228, 8.0944, 10.5539)
 item = ExtResource("39_htrud")
 amount = 1
 
-[node name="ChestNPC2" parent="Chests" instance=ExtResource("41_aar6p")]
+[node name="ChestNPC2" parent="Chests" instance=ExtResource("42_v5k1o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.4336, 1.49375, 5.4129)
 item = ExtResource("42_g3eyf")
+amount = 1
+
+[node name="ChestNPC3" parent="Chests" instance=ExtResource("42_v5k1o")]
+transform = Transform3D(-0.851104, 0, -0.524996, 0, 1, 0, 0.524996, 0, -0.851104, 57.2543, 7.49395, 47.333)
+item = ExtResource("44_mkffi")
+amount = 1
+
+[node name="ChestNPC4" parent="Chests" instance=ExtResource("42_v5k1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25313, 0.481547, 83.8303)
+item = ExtResource("45_th3xf")
 amount = 1
 
 [node name="LoweringLadder" type="Node3D" parent="."]

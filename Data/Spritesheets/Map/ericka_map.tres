@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=5 format=3 uid="uid://bdqq6dwxe5we4"]
+
+[ext_resource type="Texture2D" uid="uid://nw172vnuqqc4" path="res://Graphics/Character/_NPCS/aldo.png" id="1_khwvx"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="2_kpjoc"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="3_joq6p"]
+
+[sub_resource type="Resource" id="Resource_uj8d0"]
+script = ExtResource("2_kpjoc")
+base = ExtResource("1_khwvx")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+name = &"base"
+fps = 8
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("3_joq6p")
+collection = Array[ExtResource("2_kpjoc")]([SubResource("Resource_uj8d0")])

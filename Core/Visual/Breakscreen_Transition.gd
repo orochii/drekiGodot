@@ -12,7 +12,7 @@ class_name BreakScreen_Transition
 var _lastTexture = null
 var _lastState = -1.0
 var noise:FastNoiseLite = null
-var splices:Vector2i
+var splices:Vector2i = Vector2i(16,9)
 
 func setTexture(texture:Texture):
 	mesh.texture = texture
@@ -21,7 +21,8 @@ func setTexture(texture:Texture):
 func _process(delta):
 	if(noise==null): noise = FastNoiseLite.new()
 	if(_lastTexture==mesh.texture && _lastState==state): return
-	splices = Global.Config.currentScreenResolution().aspectRatio
+	if !Engine.is_editor_hint():
+		splices = Global.Config.currentScreenResolution().aspectRatio
 	# Make color
 	var c = Color(1, 1, 1, transparency.sample(state))
 	# Set position

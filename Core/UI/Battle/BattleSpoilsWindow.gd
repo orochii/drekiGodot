@@ -31,4 +31,4 @@ func _process(delta):
 		_refreshHelp(_treasures[idx])
 
 func _refreshHelp(item):
-	helpText.text = item.getDesc()
+	helpText.text = TextUtils.parseText(item.getDesc())

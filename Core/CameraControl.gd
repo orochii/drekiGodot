@@ -1,21 +1,12 @@
-extends Node3D
+extends CameraControlBase
 class_name CameraControl
 
-@export var target : Node3D
-@export var camera : Camera3D
-@export var shaderQuad : MeshInstance3D
 @export var rotationSpeed : float = 60
-@export var interior : bool = false
 
-var origTarget : Node3D
-var lastTarget : Node3D
 var currRotation : Vector3
 
 func _ready():
-	shaderQuad.visible = !interior
-	origTarget = target
-	lastTarget = target
-	Global.Camera = self
+	super._ready()
 	if(target != null): position = target.position
 	currRotation = global_rotation_degrees
 	currRotation.y = Global.State.cameraAngle
@@ -101,6 +92,9 @@ func moveTowardsAngle(from:float,to:float,delta:float) -> float:
 func updateScreenSize(newSize:Vector2i):
 	camera.size = newSize.y * Global.PIXEL_SIZE
 	camera.fov = newSize.y * Global.PIXEL_FOV
+
+func saveRotation():
+	return true
 
 func setLayers(l:int):
 	camera.cull_mask = l

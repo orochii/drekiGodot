@@ -2,7 +2,7 @@ extends BaseSkill
 class_name UseableSkill
 
 enum ESkillFlags { PHYSICAL, MAGICAL, RANGED, CAN_REFLECT, CAN_GUARD }
-enum ECostType { AmountMP, PercentMP }
+enum ECostType { Free,AmountMP, PercentMP, AmountHP, PercentHP }
 
 @export var flags : Array[ESkillFlags]
 
@@ -27,12 +27,30 @@ enum ECostType { AmountMP, PercentMP }
 @export var actionSequence : Array[BaseEffect]
 @export var endSequence : Array[BaseEffect]
 
+func getCostKind():
+	match costType:
+		ECostType.AmountMP,ECostType.PercentMP:
+			return 0
+		ECostType.AmountHP,ECostType.PercentHP:
+			return 1
+		_:
+			return -1
+
 func getMPCost(b:GameBattler):
 	match costType:
 		ECostType.AmountMP:
 			return cost
 		ECostType.PercentMP:
-			return b.getMaxMP() * cost / 100
+			return ceili(b.getMaxMP() * cost / 100.0)
+		_:
+			return 0
+
+func getHPCost(b:GameBattler):
+	match costType:
+		ECostType.AmountHP:
+			return cost
+		ECostType.PercentHP:
+			return ceili(b.getMaxHP() * cost / 100.0)
 		_:
 			return 0
 
@@ -43,7 +61,16 @@ func getMPCostString():
 		ECostType.PercentMP:
 			return "%d%%" % cost
 		_:
-			return "?"
+			return ""
+
+func getHPCostString():
+	match costType:
+		ECostType.AmountHP:
+			return "%d" % cost
+		ECostType.PercentHP:
+			return "%d%%" % cost
+		_:
+			return ""
 
 func isUseable(inBattle:bool):
 	match canUse:

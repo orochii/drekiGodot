@@ -35,6 +35,7 @@ elements = Array[int]([4])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [resource]
 script = ExtResource("2_ocnp6")

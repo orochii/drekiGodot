@@ -1,8 +1,8 @@
-[gd_scene load_steps=87 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=89 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
-[ext_resource type="Resource" uid="uid://qd4xcgjjmsfk" path="res://Data/Troops/FlameAndMoles.tres" id="2_cj0ch"]
+[ext_resource type="Resource" uid="uid://p7mlwr6cixqm" path="res://Data/Troops/TwinFlames.tres" id="2_l7bpi"]
 [ext_resource type="PackedScene" uid="uid://by5j1sllxtvax" path="res://Objects/battle/battlebacks/lava_cave_battleback.tscn" id="3_w2r5x"]
 [ext_resource type="Script" path="res://Core/Utils/DebugTroop.gd" id="4_bpma2"]
 [ext_resource type="Script" path="res://Core/Battle/BattleCamera.gd" id="4_ivj8n"]
@@ -42,8 +42,10 @@
 [ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="31_ycsw0"]
 [ext_resource type="Texture2D" uid="uid://brn18hxlwd7m8" path="res://Graphics/System/turn_icon.png" id="32_ma8rw"]
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="33_qqhny"]
+[ext_resource type="Texture2D" uid="uid://266w7nwewg81" path="res://Graphics/System/battle/HP_T.png" id="34_0i0wn"]
 [ext_resource type="Texture2D" uid="uid://dcfd0bmexqyaf" path="res://Graphics/System/stripeTexture.png" id="34_1cblp"]
 [ext_resource type="Texture2D" uid="uid://bd8d53aa0rurl" path="res://Graphics/System/partyMenu/back_inventory.png" id="35_afqrn"]
+[ext_resource type="Texture2D" uid="uid://c5ns4ml14vhcg" path="res://Graphics/System/battle/HP_Bar.PNG" id="35_omfjr"]
 [ext_resource type="Texture2D" uid="uid://ctesvsuaf24xo" path="res://Graphics/Icons/items/item_0243.png" id="36_qob5q"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="38_4irjf"]
 [ext_resource type="Script" path="res://Core/UI/Battle/BattleActorItemSelect.gd" id="39_bi6w1"]
@@ -86,6 +88,7 @@ curve = SubResource("Curve_yoxac")
 direction = Vector3(0, 0, 1)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
 scale_curve = SubResource("CurveTexture_xyxo5")
 color_ramp = SubResource("GradientTexture1D_bvn66")
 
@@ -110,6 +113,7 @@ curve = SubResource("Curve_leunr")
 direction = Vector3(0, 0, 1)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
 scale_curve = SubResource("CurveTexture_1ay6l")
 color = Color(0.626857, 0.320427, 0.580975, 0.501961)
 color_ramp = SubResource("GradientTexture1D_dxxgv")
@@ -274,18 +278,18 @@ _data = {
 size = Vector2(320, -240)
 center_offset = Vector3(240, 135, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow", "actionName")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow", "actionName", "ui")]
 process_mode = 3
 script = ExtResource("1_rbil0")
-testTroop = ExtResource("2_cj0ch")
+testTroop = ExtResource("2_l7bpi")
 testBack = ExtResource("3_w2r5x")
 scenarioContainer = NodePath("SubViewportContainer/SubViewport/ScenarioContainer")
 battleObjContainer = NodePath("SubViewportContainer/SubViewport/BattleContainer")
-camera = NodePath("SubViewportContainer/SubViewport/BattleContainer/Camera/Camera3D")
+camera = NodePath("SubViewportContainer/SubViewport")
 battlerTemplate = ExtResource("2_bnp7f")
 party = NodePath("SubViewportContainer/SubViewport/BattleContainer/Allies")
 troop = NodePath("SubViewportContainer/SubViewport/BattleContainer/Enemies")
-partyPositionBase = Vector3(3, 0, 0)
+partyPositionBase = Vector3(2.5, 0, 0)
 partyPositionOffset = Vector3(0.5, 0, 2)
 partyStatus = NodePath("BattleUI/PartyStatus")
 battlerStatus = NodePath("BattleUI/BattlerStatus")
@@ -295,6 +299,7 @@ damagePopupContainer = NodePath("BattleUI/DamagePopupContainer")
 configMenu = NodePath("ConfigScreen")
 battleEndWindow = NodePath("BattleUI/BattleEnd")
 actionName = NodePath("BattleUI/ActionName")
+ui = NodePath("BattleUI")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -304,7 +309,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("pivot", "camera")]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" node_paths=PackedStringArray("pivot", "camera", "replicator", "viewportReplicator", "target", "start")]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(320, 240)
@@ -312,16 +317,26 @@ render_target_update_mode = 4
 script = ExtResource("4_ivj8n")
 pivot = NodePath("BattleContainer/Camera")
 camera = NodePath("BattleContainer/Camera/Camera3D")
+replicator = NodePath("../../IsolatedViewportContainer/SubViewport/Camera3D")
+viewportReplicator = NodePath("../../IsolatedViewportContainer/SubViewport")
+target = NodePath("BattleContainer/CameraTarget")
+start = NodePath("BattleContainer/CameraStart")
 
 [node name="ScenarioContainer" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="BattleContainer" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CameraTarget" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
+
+[node name="CameraStart" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
+transform = Transform3D(0.970067, 0, -0.242836, 0, 1, 0, 0.242836, 0, 0.970067, -3.26697, 7.95232, 0.778984)
 
 [node name="Camera" type="Node3D" parent="SubViewportContainer/SubViewport/BattleContainer"]
 transform = Transform3D(1, 0, 0, 0, 0.965924, 0.258819, 0, -0.258819, 0.965924, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/BattleContainer/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+cull_mask = 31
 current = true
 fov = 20.0
 size = 16.875
@@ -370,6 +385,25 @@ amount = 2
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_0pev0")
 draw_pass_1 = SubResource("QuadMesh_n4dii")
+
+[node name="IsolatedViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="IsolatedViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="IsolatedViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+cull_mask = 524288
+current = true
+fov = 20.0
+size = 16.875
 
 [node name="BattleUI" type="Control" parent="."]
 layout_mode = 3
@@ -693,7 +727,7 @@ skillList = NodePath("SkillList")
 helpText = NodePath("HelpWindow/Content/RichTextLabel")
 statusWindow = NodePath("StatusWindow")
 
-[node name="StatusWindow" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("face", "mpBar", "mpNum", "mpCost", "cooldown", "cooldownCount", "charges", "chargesCount", "reason")]
+[node name="StatusWindow" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("face", "hpParent", "hpBar", "hpNum", "mpParent", "mpBar", "mpNum", "costLabel", "costNum", "cooldown", "cooldownCount", "charges", "chargesCount", "reason")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -703,9 +737,14 @@ offset_right = 96.0
 grow_vertical = 0
 script = ExtResource("27_7jvca")
 face = NodePath("Contents/Face")
+hpParent = NodePath("Contents/HPBack")
+hpBar = NodePath("Contents/HPBack/HPBar")
+hpNum = NodePath("Contents/HPBack/HPLabel")
+mpParent = NodePath("Contents/MPBack")
 mpBar = NodePath("Contents/MPBack/MPBar")
 mpNum = NodePath("Contents/MPBack/MPLabel")
-mpCost = NodePath("Contents/MPCost/Num")
+costLabel = NodePath("Contents/MPCost/MpLabel")
+costNum = NodePath("Contents/MPCost/MpNum")
 cooldown = NodePath("Contents/UseRestrict/Cooldown")
 cooldownCount = NodePath("Contents/UseRestrict/Cooldown/Label")
 charges = NodePath("Contents/UseRestrict/Charges")
@@ -765,7 +804,53 @@ offset_bottom = 24.0
 grow_horizontal = 0
 texture = ExtResource("27_hnp7d")
 
+[node name="HPBack" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+visible = false
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = 24.0
+grow_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("34_0i0wn")
+
+[node name="HPBar" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/HPBack"]
+custom_minimum_size = Vector2(31, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 47.0
+grow_vertical = 0
+size_flags_vertical = 8
+texture = ExtResource("35_omfjr")
+
+[node name="HPLabel" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/HPBack"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -6.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_ol241")
+text = "250"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="MPBack" type="NinePatchRect" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents"]
+visible = false
 custom_minimum_size = Vector2(48, 16)
 layout_mode = 1
 anchors_preset = 1
@@ -823,7 +908,7 @@ offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
+[node name="MpLabel" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -836,7 +921,7 @@ text = "MP Cost"
 label_settings = ExtResource("31_ycsw0")
 vertical_alignment = 2
 
-[node name="Num" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
+[node name="MpNum" type="Label" parent="BattleUI/ActorSkillSelect/StatusWindow/Contents/MPCost"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1006,6 +1091,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("9_ol241")
+bbcode_enabled = true
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please?"
 
 [node name="SkillList" type="Control" parent="BattleUI/ActorSkillSelect" node_paths=PackedStringArray("container", "scroll", "cursor")]
@@ -1080,7 +1166,6 @@ sprite_frames = SubResource("SpriteFrames_ane6s")
 offset = Vector2(-16, -6)
 
 [node name="ActorItemSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "itemList", "helpText", "statusWindow")]
-visible = false
 custom_minimum_size = Vector2(0, 152)
 layout_mode = 1
 anchors_preset = 12
@@ -1392,9 +1477,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("9_ol241")
+bbcode_enabled = true
 text = "Here is some help, dood. Now go get'em! And catch me a crocodile if you see one. DOOD. :D. Also how much?o can I do three lines pretty please? Yes you can. :OOOOO"
+metadata/_edit_use_anchors_ = true
 
 [node name="ActorTargetSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "scopeLabel", "status", "cursor", "selector", "selectorParticles", "selectorParticlesMulti")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1722,6 +1810,7 @@ columns = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("9_ol241")
+bbcode_enabled = true
 
 [node name="ActionName" type="Control" parent="BattleUI" node_paths=PackedStringArray("actionType", "actionName", "animation")]
 modulate = Color(1, 1, 1, 0)

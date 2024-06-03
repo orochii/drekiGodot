@@ -11,6 +11,7 @@ signal onBattleEnd()
 @export var breakScreen : BreakScreen_Transition
 @export var transitionPlayer : AnimationPlayer
 @export var battleSceneTemplate : PackedScene
+@export var loadingOverlay : Control
 
 var transferring = false
 var originalTexture : Texture
@@ -47,12 +48,16 @@ func transfer(newMap):
 		Global.State.lastSceneName = newMap
 		# Clear state signals
 		Global.State.clearStateSignals()
+		Global.Ev.flush()
 		# Unload map
 		var scene : Node3D = Global.getSceneRoot()
 		scene.get_parent().remove_child(scene)
 		scene.queue_free()
 		# Load map
-		var newScene = load(newMap)
+		#var newScene = load(newMap)
+		await loadingOverlay.load(newMap)
+		var newScene = loadingOverlay.loadedRes
+		# Instantiate
 		var i = newScene.instantiate()
 		get_tree().root.add_child(i)
 		currentScene = i
@@ -67,10 +72,17 @@ func transfer(newMap):
 	askUnpause(self)
 	transferring = false
 
+func callGameOver():
+	Global.Scene.transfer(Global.Scene.sceneFullname("gameover"))
+
+func sceneFullname(s:String):
+	return "res://Maps/" + s + ".tscn"
+
 func callBattle(troop:EnemyTroop):
+	Global.backupRetry()
 	breakScreenTransition()
 	await get_tree().process_frame
-	if BattleManager.USE_SCENARIO:
+	if Global.Map.battleback != null:
 		currentScene.visible = false
 	else:
 		Global.Map.setForBattle(true)
@@ -159,3 +171,7 @@ func _on_transition_player_animation_finished(anim_name):
 	transitioning = false
 	onTransitionEnd.emit()
 	askUnpause(self)
+
+func goToRespawn():
+	Global.State.targetGate = int(Global.State.lastRespawn["gate"])
+	Global.Scene.transfer("res://Maps/" + Global.State.lastRespawn["map"] + ".tscn")

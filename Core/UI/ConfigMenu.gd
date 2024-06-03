@@ -136,6 +136,9 @@ func generateOptions():
 	var sfxVolume:SliderOption = createSlider()
 	sfxVolume.setCallables(Global.Audio.getSFXVol, Global.Audio.setSFXVol)
 	sfxVolume.setup("SFX Volume", 0, 10, 0.1)
+	var stepSounds:DropdownOption = createDropdown()
+	stepSounds.setVariable(Global.Config, "stepSounds")
+	stepSounds.setup("Step sounds")
 	# Graphics
 	category = "graphics"
 	var screenResolution:DropdownOption = createDropdown()

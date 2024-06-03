@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3bt0yfvvxmdj"]
+[gd_scene load_steps=21 format=3 uid="uid://b3bt0yfvvxmdj"]
 
 [ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
 [ext_resource type="Shader" path="res://Core/Shaders/TextureFader.gdshader" id="2_bs647"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://dx40wqlccbhts" path="res://Scenes/breakscreen_transition_test.tscn" id="5_4e0cv"]
 [ext_resource type="AudioStream" uid="uid://bs3fquwc8bya5" path="res://Audio/SFX/drum.ogg" id="5_yxdoo"]
 [ext_resource type="AudioStream" uid="uid://dnv6mqsq8b3tf" path="res://Audio/SFX/glass.ogg" id="6_0qm8y"]
+[ext_resource type="Script" path="res://Core/SimpleResourceLoad.gd" id="8_8vd4n"]
+[ext_resource type="Script" path="res://Core/UI/AnimChar2D.gd" id="10_jlmpf"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="10_x7jw5"]
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="11_1ymdk"]
 
 [sub_resource type="Gradient" id="Gradient_k0mpe"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -169,7 +173,7 @@ _data = {
 "execute": SubResource("Animation_liscs")
 }
 
-[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover", "transition", "breakScreen", "transitionPlayer")]
+[node name="SceneManager" type="Control" node_paths=PackedStringArray("cover", "transition", "breakScreen", "transitionPlayer", "loadingOverlay")]
 process_mode = 3
 z_index = 1000
 layout_mode = 3
@@ -184,6 +188,7 @@ transition = NodePath("Transition")
 breakScreen = NodePath("breakscreen_transition_test")
 transitionPlayer = NodePath("TransitionPlayer")
 battleSceneTemplate = ExtResource("2_yqp68")
+loadingOverlay = NodePath("Loading")
 
 [node name="Fader" type="TextureRect" parent="."]
 visible = false
@@ -217,7 +222,79 @@ layout_mode = 1
 rotationMagnitude = 40.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_0qm8y")
 bus = &"SFX"
+
+[node name="Loading" type="Control" parent="." node_paths=PackedStringArray("characters")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_8vd4n")
+characters = [NodePath("HBoxContainer/Leader"), NodePath("HBoxContainer/Second"), NodePath("HBoxContainer/Third")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Loading"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="Leader" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+script = ExtResource("10_jlmpf")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("10_x7jw5")
+direction = 2
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="Loading/HBoxContainer/Leader"]
+texture_filter = 1
+texture = ExtResource("11_1ymdk")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(72, 32, 24, 32)
+
+[node name="Second" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+script = ExtResource("10_jlmpf")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("10_x7jw5")
+direction = 2
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="Loading/HBoxContainer/Second"]
+texture_filter = 1
+texture = ExtResource("11_1ymdk")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 32, 24, 32)
+
+[node name="Third" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+script = ExtResource("10_jlmpf")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("10_x7jw5")
+direction = 2
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="Loading/HBoxContainer/Third"]
+texture_filter = 1
+texture = ExtResource("11_1ymdk")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(48, 32, 24, 32)
+
+[node name="Spacer" type="Control" parent="Loading/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
 
 [connection signal="animation_finished" from="TransitionPlayer" to="." method="_on_transition_player_animation_finished"]

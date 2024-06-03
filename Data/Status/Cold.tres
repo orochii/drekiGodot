@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Status" load_steps=7 format=3 uid="uid://k8vlpitkxxck"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="1_hyt2f"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="1_wwkls"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="2_sa5ij"]
+[ext_resource type="Texture2D" uid="uid://dn7rhqyvvs28e" path="res://Graphics/Icons/states/st_09.png" id="3_7m3gj"]
+
+[sub_resource type="Resource" id="Resource_3y5d8"]
+script = ExtResource("1_hyt2f")
+base = 1
+type = 1
+referenceBattler = 1
+percent = 0.04
+crit = 0.0
+hitChance = 1.0
+variance = 0.0
+ignoreHit = true
+
+[sub_resource type="Resource" id="Resource_2l30q"]
+script = ExtResource("2_sa5ij")
+stat = 5
+kind = 1
+amount = -10
+
+[resource]
+script = ExtResource("1_wwkls")
+icon = ExtResource("3_7m3gj")
+displayRating = 0
+statusPose = &""
+flags = 0
+restriction = 0
+eotActivation = 0
+eotInterval = 1
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_3y5d8")])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_2l30q")])
+statusRemove = Array[StringName]([&"Burn"])
+releaseAtBattleEnd = false
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

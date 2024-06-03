@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Core/Characters/EnemyNPC.gd" id="1_jbl5d"]
 [ext_resource type="Texture2D" uid="uid://c7m4da16vctxm" path="res://Graphics/Character/_ENEMY/enemy1_mole.png" id="2_8kyd6"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_we62a"]
-[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/mole_map.tres" id="4_t6pxf"]
+[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/Map/mole_map.tres" id="4_t6pxf"]
 [ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="5_7pwr8"]
 [ext_resource type="Script" path="res://Events/EnemyEncounter.gd" id="6_04icv"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="7_rprjx"]
@@ -219,7 +219,7 @@ alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("2_8kyd6")
 region_enabled = true
-region_rect = Rect2(0, 72, 24, 24)
+region_rect = Rect2(0, 0, 24, 24)
 script = ExtResource("3_we62a")
 spritesheet = ExtResource("4_t6pxf")
 

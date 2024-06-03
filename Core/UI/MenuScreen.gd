@@ -21,6 +21,7 @@ func _ready():
 func _process(delta):
 	if(Global.Scene.transitioning):return
 	if !visible || !active: return
+	if Global.UI.Config.visible: return
 	if Input.is_action_just_pressed("action_cancel"):
 		Global.Audio.playSFX("cancel")
 		returnScreen()

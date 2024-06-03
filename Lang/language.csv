@@ -55,7 +55,7 @@ Fylgja,Fylgja,Fylgja,
 Character - Actions,Character - Actions,Personaje - Acciones,
 Action,Action,Acción,アクション
 Counter,Counter,Contraataque,カウンター
-BATTLE RESULT,BATTLE RESULT,RESULTADO DE BATALLA,戦闘結果
+BATTLE RESUlt,BATTLE RESUlt,RESUltADO DE BATALLA,戦闘結果
 SPOILS,SPOILS,BOTÍN,獲物
 item_get,"Got [img]%s[/img] [color=""#d0b060""]%s[/color] x %d","Obtienes [img]%s[/img] [color=""#d0b060""]%s[/color] x %d","「[img]%s[/img] [color=""#d0b060""]%s[/color] x %d」を獲得しました"
 actionhelp_0,Use a weapon or ability.,Usa un arma o habilidad.,武器や能力を使用します。
@@ -178,10 +178,10 @@ action_select,Action: Select,Acción: Select,
 action_select_help,,,
 action_start,Action: Start,Acción: Start,
 action_start_help,,,
-cycle_left,Cycle Left,Ciclo izquierda,
-cycle_left_help,Cycles left or backwards between options.,Vuelve a la opción anterior o cicla hacia la izquierda.,
-cycle_right,Cycle Right,Ciclo derecha,
-cycle_right_help,Cycles right or forward between options.,Selecciona la opción siguiente o cicla hacia la derecha.,
+lt,Cycle Left,Ciclo izquierda,
+lt_help,Cycles left or backwards between options.,Vuelve a la opción anterior o cicla hacia la izquierda.,
+rt,Cycle Right,Ciclo derecha,
+rt_help,Cycles right or forward between options.,Selecciona la opción siguiente o cicla hacia la derecha.,
 cam_left,Camera Left,Cámara izquierda,
 cam_left_help,Rotate camera towards the left direction.,Rota la cámara en dirección izquierda.,
 cam_right,Camera Right,Cámara derecha,
@@ -190,36 +190,71 @@ cam_right_help,Rotate camera towards the right direction.,Rota la cámara en dir
 Hikari,Hikari,Hikari,ヒカリ
 Hikari_last,Morishita,Morishita,森下
 Hikari_place,Yamashiru,Yamashiru,山城
-Hikari_desc,"After her graduation, she will embark on a journey, finding traces of strange events in the world, and becoming interested in everything that happened in the past. /n /n Born in Yamashiru, she lived her early childhood in the city of Eddie. However due to their parents' affiliation with the Academy, the Yamashiru government expelled them from the country under treason charges against her father Taro Morishita. Due to this, her family decided to travel by ship to the continent of Aleko, where they would stay at house of her mother's brother. /n /n However, due to an accident on the high seas, her father disappears and her mother dies to save her and her sister, and after the event both left to the care of the Academy.","Se embarcará en un viaje después de su graduación, tras ir encontrando rastros de extraños acontecimientos en el mundo, e irse interesando en todo lo que ocurrió en el pasado. /n /n Nacida en Yamashiru, vivió su infancia temprana en la ciudad de Eddie. Sin embargo debido a la afiliación de sus padres con la Academia, el gobierno de Yamashiru les expulsó del país por cargos de traición, especialmente su padre Taro Morishita. Tras esto su familia decidió trasladarse en barco al continente de Aleko, donde vivirían por un tiempo en casa de un hermano de Rei Ono, la madre de Hikari. /n /n Sin embargo debido a un accidente en altamar, su padre desaparece y su madre muere al salvarla junto a su hermana, y tras este suceso quedan al cuidado de la Academia.",
+Hikari_desc,"After her graduation, she will embark on a journey, finding traces of strange events in the world, and becoming interested in everything that happened in the past.
+
+Born in Yamashiru, she lived her early childhood in the city of Eddie. However due to their parents' affiliation with the Academy, the Yamashiru government expelled them from the country under treason charges against her father Taro Morishita. Due to this, her family decided to travel by ship to the continent of Aleko, where they would stay at house of her mother's brother.
+
+However, due to an accident on the high seas, her father disappears and her mother dies to save her and her sister, and after the event both left to the care of the Academy.","Se embarcará en un viaje después de su graduación, tras ir encontrando rastros de extraños acontecimientos en el mundo, e irse interesando en todo lo que ocurrió en el pasado.
+
+Nacida en Yamashiru, vivió su infancia temprana en la ciudad de Eddie. Sin embargo debido a la afiliación de sus padres con la Academia, el gobierno de Yamashiru les expulsó del país por cargos de traición, especialmente su padre Taro Morishita. Tras esto su familia decidió trasladarse en barco al continente de Aleko, donde vivirían por un tiempo en casa de un hermano de Rei Ono, la madre de Hikari.
+
+Sin embargo debido a un accidente en altamar, su padre desaparece y su madre muere al salvarla junto a su hermana, y tras este suceso quedan al cuidado de la Academia.",
 Minuet,Minuet,Minuet,メヌエット
-Minuet_desc,,"Compañera de \n[1] desde que ésta entró a la academia, fueron amigas en ese entonces. Ahora su compañera de combate. Sarcástica y un poco seria, de carácter pasivo. /n /n Originaria de Aleko, vivió su infancia temprana con sus padres, sin embargo estos fueron presa de la guerra de Parnassus, donde servían como soporte para las fuerzas de la Academia. /n /n Tras esto, sus padres dejaron una herencia que le aseguró su futuro, y la niña fue encargada a la Academia de Aleko para su educación.",
+Minuet_desc,,"Compañera de \N[1] desde que ésta entró a la academia, fueron amigas en ese entonces. Ahora su compañera de combate. Sarcástica y un poco seria, de carácter pasivo.
+
+Originaria de Aleko, vivió su infancia temprana con sus padres, sin embargo estos fueron presa de la guerra de Parnassus, donde servían como soporte para las fuerzas de la Academia.
+
+Tras esto, sus padres dejaron una herencia que le aseguró su futuro, y la niña fue encargada a la Academia de Aleko para su educación.",
 Sid,Sid,Sid,シド
-Sid_desc,,"Alférez y líder del escuadrón X, él es un talentoso estratega. Huérfano a causa de la guerra, no tiene memorias de su familia, ahora vive por el honor y proteger a sus camaradas. /n /n Se sabe que es originario de Parnassus, junto a \N[4]. Sin embargo sus padres parecen haber perecido mucho antes de la guerra, probablemente en otro enfrentamiento armado. /n /n Lastimosamente tras el ataque a la vieja Parnassus, los documentos de su origen fueron perdidos en el orfanato destruido tras el ataque de los Lilim.",
+Sid_desc,,"Alférez y líder del escuadrón X, él es un talentoso estratega. Huérfano a causa de la guerra, no tiene memorias de su familia, ahora vive por el honor y proteger a sus camaradas.
+
+Se sabe que es originario de Parnassus, junto a \N[Lance]. Sin embargo sus padres parecen haber perecido mucho antes de la guerra, probablemente en otro enfrentamiento armado.
+
+Lastimosamente tras el ataque a la vieja Parnassus, los documentos de su origen fueron perdidos en el orfanato destruido tras el ataque de los Lilim.",
 Lance,Lance,Lance,ランス
-Lance_desc,,"Hijo adoptivo de la reconocida familia Vredevelt, y amigo cercano de \N[3] desde el orfanato. Mucha de su vida es un misterio para otros, debido a su personalidad silenciosa. /n /n Fue encontrado en el mismo orfanato que \N[3] en el momento de evacuación. Poco después del suceso, por razones sólo consecuentes a la familia Vredevelt, estos lo tomaron en adopción. /n /n Parece no llevarse bien con su medio hermano mayor.",
+Lance_desc,,"Hijo adoptivo de la reconocida familia Vredevelt, y amigo cercano de \N[Sid] desde el orfanato. Mucha de su vida es un misterio para otros, debido a su personalidad silenciosa.
+
+Fue encontrado en el mismo orfanato que \N[Sid] en el momento de evacuación. Poco después del suceso, por razones sólo consecuentes a la familia Vredevelt, estos lo tomaron en adopción.
+
+Parece no llevarse bien con su medio hermano mayor.",
 RedWyvern,?????,?????,？？？？？
-RedWyvern_desc,,"Un wyvern de la región montañosa situada entre Aleko, Fierro y Havoc. Un espíritu libre sin fronteras ni barreras, y poco sentido común. /n /n Se une al viaje en busca de una respuesta a sus dudas y su inquietud por el mundo que le rodea, que poco entiende y poco sabe.",
+RedWyvern_desc,,"Un wyvern de la región montañosa situada entre Aleko, Fierro y Havoc. Un espíritu libre sin fronteras ni barreras, y poco sentido común.
+
+Se une al viaje en busca de una respuesta a sus dudas y su inquietud por el mundo que le rodea, que poco entiende y poco sabe.",
 Shishi,Shishi,Shishi,シシ
-Shishi_desc,,"Se presume cayó del espacio tras estar en estado criogénico por miles de años. /n /n Se desconoce todo de él. Tiene un comportamiento extraño, una personalidad inexistente, y curiosidad infinita por todo lo que ve.",
+Shishi_desc,,"Se presume cayó del espacio tras estar en estado criogénico por miles de años.
+
+Se desconoce todo de él. Tiene un comportamiento extraño, una personalidad inexistente, y curiosidad infinita por todo lo que ve.",
 Alice,Alice,Alice,アリス
-Alice_desc,,"Una chica un tanto rara y bastante torpe, proveniente de Ardmore, antiguo pueblo que da el nombre al continente homónimo. Suele empeñarse al extremo en hacer lo que le solicitan. /n /n Hija mayor de una familia de campesinos, soñaba con ser uno de esos guerreros de fantasía. Y gracias a su esfuerzo, y al de sus padres, pudo unirse a la Escuela de Combate de Parnassus, que ya supone un logro. /n /n ¿Qué le deparará el futuro a esta chica hiperactiva?",
+Alice_desc,,"Una chica un tanto rara y bastante torpe, proveniente de Ardmore, antiguo pueblo que da el nombre al continente homónimo. Suele empeñarse al extremo en hacer lo que le solicitan.
+
+Hija mayor de una familia de campesinos, soñaba con ser uno de esos guerreros de fantasía. Y gracias a su esfuerzo, y al de sus padres, pudo unirse a la Escuela de Combate de Parnassus, que ya supone un logro.
+
+¿Qué le deparará el futuro a esta chica hiperactiva?",
 Mana,Mana,Mana,マナ
-Mana_desc,,"Posiblemente nacido en la villa Utgarim escondida en el monte Parnassus. Vivía en esa villa junto a su hermana Manju, hasta que esta murió bajo el control del Rey Bestia en la batalla contra Ludwig Liatos. /n /n No se conoce mucho más de su vida, se supone es simplemente un pueblerino de su villa igual que los demás. Tras el fallecimiento de su hermana vivió junto al líder del pueblo y fue educado por este.",
+Mana_desc,,"Posiblemente nacido en la villa Utgarim escondida en el monte Parnassus. Vivía en esa villa junto a su hermana Manju, hasta que esta murió bajo el control del Rey Bestia en la batalla contra Ludwig Liatos.
+
+No se conoce mucho más de su vida, se supone es simplemente un pueblerino de su villa igual que los demás. Tras el fallecimiento de su hermana vivió junto al líder del pueblo y fue educado por este.",
 Eric,Eric,Eric,エリック
 Eric_desc,,,
 Light Mage,Light Mage,Maga Luz,ライトメイジ
 Militia,Militia,Milicia,民兵
 Red Wyvern,Red Wyvern,Wyvern Rojo,レッドワイバーン
 ,,,
-Mole,Mole,Topo,モル
+Mole,Mole,Topo,モグラ
+Mole_desc,The moles will conquer the earth!,¡Los topos conquistarán la tierra!,モグラが地球を征服する！
 Flame,Flame,Flama,炎
+Flame_desc,Yellow flames can freeze pretty easily.,Las flamas amarillas pueden congelarse fácilmente.,黄色い炎は非常に簡単に凍ってしまいます。
 BlueFlame,Blue Flame,Flama Roja,青い炎
+BlueFlame_desc,Frozen spirit. Weirdly enough it prefers to live close to lava.,Espíritu helado. Extrañamente prefiere vivir en volcanes.,凍てついた精神。 奇妙なことに、それは溶岩の近くに住むことを好みます。
 RedFlame,Red Flame,Flama Azul,赤い炎
+RedFlame_desc,"Natural spirit of fire, born from the entrails of a vulcan.",Espíritu natural del fuego nacido en las entrañas de un volcán.,バルカンの内臓から生まれる自然の火の精霊。
 ArmoredInsect,Armored Insect,Insecto armado,アーマード・インセクト
+ArmoredInsect_desc,Abomination with an impenetrable armor.,Abominación que posee una armadura impenetrable.,貫通不可能な鎧を備えた忌まわしき者。
 ,,,
-Medicine/Drench,Drench,Poción,
+Medicine/Drench,Drench,Poción,薬
 Medicine/Drench_desc,Recovers 30% of max LP.,Recupera 30% del LP máximo.,
-Medicine/Great Drench,Great Drench,Gran poción,
+Medicine/Great Drench,Great Drench,Gran poción,素晴らしい薬
 Medicine/Great Drench_desc,Recovers 60% of max LP.,Restaura 60% del LP máximo.,
 Medicine/Tonic,Tonic,Tónico,
 Medicine/Tonic_desc,Recovers 30% of max MP.,Recobra 30% del MP máximo.,
@@ -346,9 +381,9 @@ Passives/Last Stand_desc,All defenses are doubled when HP is low.,Dobla las defe
 Aire Ball,Aire Ball,Bola de Aire,
 Aire Ball_desc,Wind damage that depends on the user's LP.,Daño de viento dependiente del LP del usuario.,
 Anti,Anti,Anti,
-Anti_desc,Removes progressive damage states. \bb[LT]/\bb[RT] changes scope.,Cura estados de daño progresivo. \bb[LT]/\bb[RT] cambia objetivo.,
+Anti_desc,Removes progressive damage states. \BB[cycle_left]/\BB[cycle_right] changes scope.,Cura estados de daño progresivo. \BB[cycle_left]/\BB[cycle_right] cambia objetivo.,
 Esna,Esna,Esna,
-Esna_desc,Removes physical restrictions and mental illnesses. \bb[LT]/\bb[RT] changes scope.,Remueve restricciones físicas y males mentales. \bb[LT]/\bb[RT] cambia objetivo.,
+Esna_desc,Removes physical restrictions and mental illnesses. \BB[cycle_left]/\BB[cycle_right] changes scope.,Remueve restricciones físicas y males mentales. \BB[cycle_left]/\BB[cycle_right] cambia objetivo.,
 Crystalize,Crystalize,Cristalizar,
 Crystalize_desc,Massive ice magical damage. Might freeze the target.,Daño masivo de hielo. Puede congelar.,
 Cutting Wind,Cutting Wind,Viento cortante,
@@ -380,11 +415,11 @@ Ra Thunder_desc,Thunder magical damage that ignores defenses.,Daño mágico de t
 Ragna Edge,Ragna Edge,Filo Ragna,
 Ragna Edge_desc,Physical/magical cutting earth damage. Ignore defenses.,Daño físico-mágico de corte y tierra. Ignora defensas.,
 Remedy,Remedy,Remedio,
-Remedy_desc,Basic healing spell. \bb[LT]/\bb[RT] changes scope.,Hechizo de cura básico. \bb[LT]/\bb[RT] para cambiar objetivos.,
+Remedy_desc,Basic healing spell. \BB[cycle_left]/\BB[cycle_right] changes scope.,Hechizo de cura básico. \BB[cycle_left]/\BB[cycle_right] para cambiar objetivos.,
 RemedyP,Remedy+,Remedio+,
-RemedyP_desc,Basic healing spell. \bb[LT]/\bb[RT] changes scope.,Hechizo de cura básico. \bb[LT]/\bb[RT] para cambiar objetivos.,
+RemedyP_desc,Basic healing spell. \BB[cycle_left]/\BB[cycle_right] changes scope.,Hechizo de cura básico. \BB[cycle_left]/\BB[cycle_right] para cambiar objetivos.,
 RemedyPP,Remedy++,Remedio++,
-RemedyPP_desc,Basic healing spell. \bb[LT]/\bb[RT] changes scope.,Hechizo de cura básico. \bb[LT]/\bb[RT] para cambiar objetivos.,
+RemedyPP_desc,Basic healing spell. \BB[cycle_left]/\BB[cycle_right] changes scope.,Hechizo de cura básico. \BB[cycle_left]/\BB[cycle_right] para cambiar objetivos.,
 Scan,Scan,Escaneo,
 Scan_desc,Shows enemy information.,Te da información básica sobre el enemigo.,
 Scrape,Scrape,Raspar,

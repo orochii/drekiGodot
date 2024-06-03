@@ -27,7 +27,7 @@ func setItem(entry:ItemEntry):
 		var item = itemEntry.data as UseableItem
 		scope = item.targetScope
 		currTargetAllIdx = 0
-	description.text = itemEntry.data.getDesc()
+	description.text = TextUtils.parseText(itemEntry.data.getDesc())
 	get_viewport().gui_release_focus()
 	refreshTargets()
 
@@ -70,7 +70,7 @@ func onItemUsed(target):
 		for t in targets:
 			for eff in item.actionSequence:
 				var result = eff.apply(t.actor, t.actor)
-				if result.has("effective"):
+				if result!=null && result.has("effective"):
 					effective = effective || result["effective"]
 		if effective:
 			# Take item
@@ -99,7 +99,10 @@ func _process(delta):
 		Global.Audio.playSFX("cancel")
 		visible = false
 		parentScreen.active = true
-		curr.grab_focus()
+		if curr == null:
+			if itemSpawner.filteredEntries.size() != 0: curr = itemSpawner.filteredEntries[0]
+		if curr != null:
+			curr.grab_focus()
 
 func positionCursor(focused):
 	if(focused != null):

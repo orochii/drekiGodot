@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BattlerSpritesheet" load_steps=5 format=3 uid="uid://df2tprvaf2w74"]
+
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheetEntry.gd" id="1_ci0i7"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/BattlerSpritesheet.gd" id="2_bn5bo"]
+[ext_resource type="Texture2D" uid="uid://ckexc3kdp3kjx" path="res://Graphics/Battler/bluespirit.png" id="3_5k8r8"]
+
+[sub_resource type="Resource" id="Resource_ad8nh"]
+script = ExtResource("1_ci0i7")
+frames = Array[Vector2i]([Vector2i(0, 0)])
+events = Array[StringName]([&""])
+weaponPosition = Array[Vector3i]([])
+name = &"base"
+fps = 8
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("2_bn5bo")
+texture = ExtResource("3_5k8r8")
+cellW = 0
+cellH = 0
+collection = Array[ExtResource("1_ci0i7")]([SubResource("Resource_ad8nh")])

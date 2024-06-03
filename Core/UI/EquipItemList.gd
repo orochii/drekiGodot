@@ -11,6 +11,7 @@ var idx:int
 
 func _process(delta):
 	if(is_visible_in_tree()==false):return
+	if Global.UI.Config.visible: return
 	# Scroll to focused control
 	var focused = get_viewport().gui_get_focus_owner()
 	if equipEntries.has(focused):

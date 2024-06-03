@@ -42,10 +42,11 @@ magF = 0.0
 agiF = 0.0
 pDefF = 1.0
 mDefF = 0.0
-elements = Array[int]([])
+elements = Array[int]([2])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [resource]
 script = ExtResource("3_aqm1o")

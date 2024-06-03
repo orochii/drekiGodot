@@ -9,6 +9,7 @@ var state:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_connectToUI()
 	var lineOffset = openOffset if state else closedOffset
 	var totalHeight = Global.State.party.getMembers().size() * lineOffset.y
 	for l in lines.size():
@@ -32,3 +33,18 @@ func _process(delta):
 		var currOffset = Vector2(lineOffset.x, (lineOffset.y * l) - totalHeight)
 		lines[l].targetPos = lines[l].targetPos.move_toward(currOffset, moveSpeed)
 		lines[l].position = anchorRef.position + lines[l].targetPos
+
+func _connectToUI():
+	if !Global.UI.onHpChange.is_connected(_onHpChange):
+		Global.UI.onHpChange.connect(_onHpChange)
+
+func _disconnectToUI():
+	if Global.UI.onHpChange.is_connected(_onHpChange):
+		Global.UI.onHpChange.disconnect(_onHpChange)
+
+func _onHpChange(b,max):
+	for l in lines:
+		if l._actor==b: l.refreshHP()
+
+func _exit_tree():
+	_disconnectToUI()

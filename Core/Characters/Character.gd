@@ -1,3 +1,4 @@
+@icon("res://Editor/character.svg")
 extends CharacterBody3D
 class_name Character
 
@@ -12,7 +13,7 @@ const GRAVITY : float = 98*2
 @export var navigator : NavigationAgent3D
 @export var state : StringName = &"base"
 @export var raycast : RayCast3D
-@export var soundEmitter : AudioStreamPlayer3D
+@export var soundEmitter : Node3D
 @export var stepEventOverride : StringName = &""
 @export var fixedDirection : bool
 @export var balloon:Sprite3D
@@ -130,20 +131,31 @@ func playJump():
 	var audio:AudioManager = Global.Audio
 	var _ev = audio.audioData.getEvent("jump")
 	if(_ev==null): return
-	soundEmitter.stream = _ev.getSample()
-	soundEmitter.play()
+	playSound(_ev.getSample())
 
 func playStep(ev:StringName, idx:int):
 	if(ev != &"step"): return
 	if(!grounded): return
 	if(soundEmitter != null):
+		if Global.Config.stepSounds != true: return
 		var audio:AudioManager = Global.Audio
 		if stepEventOverride.length() != 0:
 			var _ev = audio.audioData.getEvent(stepEventOverride)
 		else:
 			var _ev = audio.audioData.getEvent(&"step")
-			soundEmitter.stream = _ev.getSample()
-			soundEmitter.play()
+			playSound(_ev.getSample())
+
+var _currStreamIdx:int = 0
+
+func playSound(stream:AudioStream):
+	if soundEmitter is AudioStreamPlayer3D:
+		soundEmitter.stream = stream
+		soundEmitter.play()
+	else:
+		var emitter = soundEmitter.get_child(_currStreamIdx)
+		emitter.stream = stream
+		emitter.play()
+		_currStreamIdx = (_currStreamIdx+1) % soundEmitter.get_child_count()
 
 func getCurrentState():
 	if state == &"base":

@@ -13,6 +13,7 @@ const MAX_LEVEL : int = 255
 
 @export_group("Flavor")
 @export var gender : Global.Gender
+@export_enum("Left","Right") var handiness : int = 1
 @export var birthday : int
 @export var birthmonth : Global.Month
 @export var birthyear : int

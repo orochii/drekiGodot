@@ -59,6 +59,20 @@ func setLastIndex(tag:StringName,value):
 func getSkills():
 	return []
 
+func hasAirJuggling():
+	var fs = getFeatures()
+	for f in fs:
+		if f is AirJugglingFeature:
+			return true
+	return false
+
+func isFlying():
+	var fs = getFeatures()
+	for f in fs:
+		if f is FlyingFeature:
+			return true
+	return false
+
 func getFeatures():
 	if _cachedFeatures==null: recreateFeatureCache()
 	return _cachedFeatures
@@ -73,15 +87,17 @@ func changeHP(val:int):
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
+	Global.UI.onHpChange.emit(self,false)
 
 func changeMP(val:int):
-	currMP = clampi(currMP + val, 0, getMaxHP())
+	currMP = clampi(currMP + val, 0, getMaxMP())
 	var deathStatus = Global.Db.getStatus(DRY_STATUS)
 	if currMP == 0:
 		# Add death
 		addStatus(deathStatus,true)
 	else:
 		removeStatus(deathStatus)
+	Global.UI.onMpChange.emit(self,false)
 
 func recoverAll():
 	currHP = getMaxHP()
@@ -99,7 +115,6 @@ func hasStatus(s:Status):
 func addStatus(s:Status,force:bool=false,noFeatureCache:bool=false):
 	var ss = hasStatus(s)
 	var rate = getStatusRate(s)
-	#print("%s add status %s" % [getName(),s.getId()])
 	if (force || rate > randf()):
 		if ss == null: # Doesn't have status
 			ss = StatusState.new()
@@ -114,33 +129,43 @@ func addStatus(s:Status,force:bool=false,noFeatureCache:bool=false):
 		else: # Does have status
 			ss.stack = clampi(ss.stack+1, 1, 3)
 		for rs in s.statusRemove:
-			removeStatus(rs,true)
-	if noFeatureCache==false: recreateFeatureCache()
+			var _status:Status = Global.Db.getStatus(rs)
+			removeStatus(_status,true)
+	if noFeatureCache==false: 
+		recreateFeatureCache()
+		Global.UI.onStatusChange.emit(self)
 	return true
 
 func removeStatus(s:Status,noFeatureCache:bool=false):
 	var ss = hasStatus(s)
 	if ss != null:
 		states.erase(ss)
-		if noFeatureCache==false: recreateFeatureCache()
+		if noFeatureCache==false: 
+			recreateFeatureCache()
+			Global.UI.onStatusChange.emit(self)
 		return true
 	return false
 
 func getStatusRate(s:Status):
-	var rate = 1.0
+	var rate = -1.0
 	var features = getFeatures()
 	for f in features:
 		if f is StatusAffinityFeature:
 			var statusAffinityFeature = f as StatusAffinityFeature
 			if statusAffinityFeature.status == s:
-				rate *= statusAffinityFeature.getEffect()
+				var _fRate = statusAffinityFeature.getEffect()
+				if rate < 0:
+					rate = _fRate
+				else:
+					rate *= _fRate
+	if rate < 0: return StatusAffinityFeature.RANK_EFFECT[2]
 	return rate
 
-func getElementSetRate(set:Array[Global.Element]):
-	if set.size()==0: return 1
+func getElementSetRate(_set:Array[Global.Element]):
+	if _set.size()==0: return 1
 	var weaponRate = 0.0
 	var magicRate = 1.0
-	for e in set:
+	for e in _set:
 		var rate = getElementRate(e)
 		if ElementAffinityFeature.WEAPON_ELEMENTS.has(e):
 			# Weapon element
@@ -149,7 +174,7 @@ func getElementSetRate(set:Array[Global.Element]):
 			# Magic element
 			magicRate *= rate
 	var totalRate = weaponRate + magicRate
-	if(weaponRate >= 0): totalRate /= 2
+	if(weaponRate > 0): totalRate /= 2
 	return totalRate
 
 func getElementRate(e:Global.Element):
@@ -176,7 +201,30 @@ func getInnateElementRate(element:Global.Element):
 	var eaf = ElementAffinityFeature.new()
 	eaf.element = element
 	eaf.value = rank
-	return eaf.getEffect()
+	var _rate = eaf.getEffect()
+	return _rate
+func getAffinityRates():
+	var elementRanks = {}
+	var stateRanks = {}
+	for element in Global.Element.values():
+		var i = getInnateElementRate(element)
+		elementRanks[element] = [i,i]
+	var fs = getFeatures()
+	for f in fs:
+		if f is ElementAffinityFeature:
+			var e = f as ElementAffinityFeature
+			if !e.resource_path.contains("res://Data/Status/"):
+				elementRanks[e.element][0] *= e.getEffect()
+			elementRanks[e.element][1] *= e.getEffect()
+		if f is StatusAffinityFeature:
+			var s = f as StatusAffinityFeature
+			var id = s.status.getId()
+			if !stateRanks.has(id):
+				stateRanks[id] = [2,2]
+			if !s.resource_path.contains("res://Data/Status/"):
+				stateRanks[id][0] *= s.getEffect()
+			stateRanks[id][1] *= s.getEffect()
+	return [elementRanks,stateRanks]
 
 func getSortedStates():
 	var ary:Array[StatusState] = []
@@ -218,6 +266,8 @@ func advanceStatesTurn():
 
 func getName():
 	return ""
+func getDesc():
+	return getData().getDesc()
 func getMaxHP():
 	return getCachedStatistic(Global.Stat.HP)
 func getMaxMP():
@@ -241,6 +291,7 @@ func getCachedStatistic(stat : Global.Stat):
 	if _cachedStatistics == null: regenCachedStatistics()
 	return _cachedStatistics[stat]
 func regenCachedStatistics():
+	var _oldStatistics = _cachedStatistics
 	_cachedStatistics = {
 		Global.Stat.HP : applyFeatureStatChange(getBaseMaxHP(), Global.Stat.HP),
 		Global.Stat.MP : applyFeatureStatChange(getBaseMaxMP(), Global.Stat.MP),
@@ -252,20 +303,42 @@ func regenCachedStatistics():
 		Global.Stat.PhyAbs : applyFeatureStatChange(0, Global.Stat.PhyAbs),
 		Global.Stat.MagAbs : applyFeatureStatChange(0, Global.Stat.MagAbs),
 	}
+	if _oldStatistics != null && !_oldStatistics.is_empty():
+		for s in _oldStatistics:
+			match s:
+				Global.Stat.HP:
+					if _oldStatistics[s] != _cachedStatistics[s]:
+						Global.UI.onHpChange.emit(self,true)
+				Global.Stat.MP:
+					if _oldStatistics[s] != _cachedStatistics[s]:
+						Global.UI.onMpChange.emit(self,true)
 
 func applyFeatureStatChange(base:int, stat : Global.Stat):
-	var perc = 100
+	var perc = 1.0
 	var plus = 0
 	var features = getFeatures()
 	for f in features:
 		if f is StatChangeFeature:
 			var scf = f as StatChangeFeature
+			var _stack = getResourceStatusLevel(scf)
+			var _amount = StatChangeFeature.getStackModAmount(scf.kind, _stack, scf.amount)
 			if scf.stat == stat:
 				if scf.kind == StatChangeFeature.Kind.PERC:
-					perc += scf.amount
+					perc += _amount
 				else:
-					plus += scf.amount
-	return (base * perc / 100) + plus
+					plus += _amount
+	return roundi(base * perc) + plus
+
+func getResourceStatusLevel(res:Resource):
+	var _path = res.resource_path
+	if _path.contains("res://Data/Status/"):
+		var _id = Status.stripId(_path)
+		var _status = Global.Db.getStatus(_id)
+		if _status != null:
+			var ss:StatusState = hasStatus(_status)
+			if ss != null:
+				return ss.stack
+	return 1
 
 func getBaseMaxHP():
 	return 1
@@ -279,6 +352,20 @@ func getBaseMag():
 	return 1
 func getBaseAgi():
 	return 1
+func getHitRate():
+	var _hit = 1.0
+	var features = getFeatures()
+	for f in features:
+		if f is HitRateFeature:
+			_hit += f.amount
+	return _hit
+func getEvasion():
+	var _eva = 0.0
+	var features = getFeatures()
+	for f in features:
+		if f is EvasionFeature:
+			_eva += f.evasion
+	return _eva
 
 func getData():
 	return null
@@ -332,7 +419,7 @@ func pickActionScript(battle:BattleManager) -> ActionScript:
 	for a in actions:
 		var valid = true
 		for c in a.conditions:
-			if !c.evaluate(self,battle):
+			if c != null && !c.evaluate(self,battle):
 				valid = false
 				break
 		if valid:
@@ -347,13 +434,17 @@ func pickActionScript(battle:BattleManager) -> ActionScript:
 
 func getPosition() -> int:
 	return 0
+func setPosition(v:int):
+	pass
 
 func canUse(action:Resource):
 	if action is UseableSkill:
 		var skill = action as UseableSkill
 		# MP Cost
-		var cost = skill.getMPCost(self)
-		if cost > currMP: return false
+		var mpCost = skill.getMPCost(self)
+		if mpCost > currMP: return false
+		var hpCost = skill.getHPCost(self)
+		if hpCost > currHP: return false
 		# cooldown
 		var skId = skill.getId()
 		if skill.cooldown != 0:
@@ -374,8 +465,10 @@ func canUse(action:Resource):
 
 func resolveSkillCost(skill,battle=true):
 	# take off MP
-	var cost = skill.getMPCost(self)
-	self.changeMP(-cost)
+	var mpCost = skill.getMPCost(self)
+	var hpCost = skill.getHPCost(self)
+	self.changeMP(-mpCost)
+	self.changeHP(-hpCost)
 	# set cooldown
 	var skId = skill.getId()
 	if battle:

@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="Actor" load_steps=10 format=3 uid="uid://3ft3ynrhkjkr"]
+[gd_resource type="Resource" script_class="Actor" load_steps=12 format=3 uid="uid://3ft3ynrhkjkr"]
 
 [ext_resource type="Texture2D" uid="uid://c0b3tqg6tqfvd" path="res://Graphics/Faces/5_pixart2.png" id="1_8y0px"]
 [ext_resource type="Script" path="res://Core/Data/Actors/Actor.gd" id="1_ga2pu"]
-[ext_resource type="Resource" uid="uid://brkbbs6uk8mn8" path="res://Data/Spritesheets/redwyvern_battler.tres" id="2_5wn6s"]
+[ext_resource type="Resource" uid="uid://brkbbs6uk8mn8" path="res://Data/Spritesheets/Battler/redwyvern_battler.tres" id="2_5wn6s"]
 [ext_resource type="Texture2D" uid="uid://bp3m1q5ntddsv" path="res://Graphics/Faces/5_faceAnimated.png" id="2_ycywp"]
 [ext_resource type="Texture2D" uid="uid://bsw72cnkiidcb" path="res://Graphics/Faces/5_face2.png" id="3_6l6n3"]
 [ext_resource type="Script" path="res://Core/Data/Features/ElementAffinityFeature.gd" id="4_21r2c"]
+[ext_resource type="Script" path="res://Core/Data/Features/FlyingFeature.gd" id="6_1ix7k"]
 
 [sub_resource type="Resource" id="Resource_bqd5t"]
 script = ExtResource("4_21r2c")
@@ -21,6 +22,9 @@ value = 0
 script = ExtResource("4_21r2c")
 element = 10
 value = 3
+
+[sub_resource type="Resource" id="Resource_pyvge"]
+script = ExtResource("6_1ix7k")
 
 [resource]
 script = ExtResource("1_ga2pu")
@@ -38,7 +42,7 @@ equippableFlags = Array[int]([3, 5, 8, 9, 12, 16])
 learningSlots = Array[Resource("res://Core/Data/Actors/SkillLearningSlot.gd")]([])
 defaultWeaponSkills = Array[int]([2, 3])
 innateElement = 10
-features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_bqd5t"), SubResource("Resource_uq8i1"), SubResource("Resource_cl1tm")])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_bqd5t"), SubResource("Resource_uq8i1"), SubResource("Resource_cl1tm"), SubResource("Resource_pyvge")])
 startLevel = 1.0
 expGrowth = Vector2i(25, 50)
 mhp = Vector2i(287, 95)

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cvelam0kqbe8x" path="res://Graphics/Scenario/fierro_sprytile.tscn" id="11_m5s0b"]
 [ext_resource type="Texture2D" uid="uid://nw172vnuqqc4" path="res://Graphics/Character/_NPCS/aldo.png" id="12_xmsaj"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="13_cqbkp"]
-[ext_resource type="Resource" uid="uid://b4khiuusc0nv6" path="res://Data/Spritesheets/aldo_map.tres" id="14_cfv3i"]
+[ext_resource type="Resource" uid="uid://b4khiuusc0nv6" path="res://Data/Spritesheets/Map/aldo_map.tres" id="14_cfv3i"]
 [ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="15_6wm6r"]
 [ext_resource type="Script" path="res://Events/Test1.gd" id="16_fq8u1"]
 [ext_resource type="Script" path="res://Events/Test2.gd" id="17_pfaao"]
@@ -22,7 +22,7 @@
 [ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="20_yk21h"]
 [ext_resource type="PackedScene" uid="uid://brpmbslutbb0o" path="res://Graphics/Models/arm_2_down.tscn" id="21_dgidf"]
 [ext_resource type="Script" path="res://Events/EnemyEncounter.gd" id="23_kxm76"]
-[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/mole_map.tres" id="23_ulfwv"]
+[ext_resource type="Resource" uid="uid://b5bnbbj55fnq5" path="res://Data/Spritesheets/Map/mole_map.tres" id="23_ulfwv"]
 [ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="24_76ror"]
 [ext_resource type="PackedScene" uid="uid://ds2udv7gy8v57" path="res://Objects/3dobj/arm_2_.tscn" id="25_vsk4p"]
 

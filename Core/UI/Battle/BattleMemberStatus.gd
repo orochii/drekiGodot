@@ -60,6 +60,7 @@ func setup(b:Battler):
 
 func refreshBattler():
 	if(battler != null):
+		_connectToUI()
 		face.texture = battler.battler.getSmallFace()
 
 func refreshStatusImmediate():
@@ -70,8 +71,6 @@ func refreshStatusImmediate():
 
 func refreshStatus():
 	if(battler != null):
-		hpValues._setCurrent(battler.battler.currHP, battler.battler.getMaxHP())
-		mpValues._setCurrent(battler.battler.currMP, battler.battler.getMaxMP())
 		hpValues._updateValues(hpBar,hpLabel)
 		mpValues._updateValues(mpBar,mpLabel)
 		# Update CP
@@ -79,3 +78,32 @@ func refreshStatus():
 
 func _process(delta):
 	refreshStatus()
+
+func _refreshHp():
+	hpValues._setCurrent(battler.battler.currHP, battler.battler.getMaxHP())
+func _refreshMp():
+	mpValues._setCurrent(battler.battler.currMP, battler.battler.getMaxMP())
+
+func _connectToUI():
+	if !Global.UI.onHpChange.is_connected(_onHpChange):
+		Global.UI.onHpChange.connect(_onHpChange)
+		Global.UI.onMpChange.connect(_onMPChange)
+		#_onHpChange(battler,true)
+		#_onMPChange(battler,true)
+
+func _disconnectToUI():
+	if Global.UI.onHpChange.is_connected(_onHpChange):
+		Global.UI.onHpChange.disconnect(_onHpChange)
+		Global.UI.onMpChange.disconnect(_onMPChange)
+
+func _onHpChange(b,max):
+	if battler==null: return
+	if b != battler.battler: return
+	_refreshHp()
+func _onMPChange(b,max):
+	if battler==null: return
+	if b != battler.battler: return
+	_refreshMp()
+
+func _exit_tree():
+	_disconnectToUI()

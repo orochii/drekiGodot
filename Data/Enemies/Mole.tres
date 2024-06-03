@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Enemy" load_steps=11 format=3 uid="uid://cn4v6tsk48ile"]
 
-[ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/mole_battler.tres" id="1_dqtx7"]
+[ext_resource type="Resource" uid="uid://dbpcnngsht776" path="res://Data/Spritesheets/Battler/mole_battler.tres" id="1_dqtx7"]
 [ext_resource type="Script" path="res://Core/Data/Enemies/Enemy.gd" id="1_i0uq7"]
 [ext_resource type="Script" path="res://Core/Data/ActionScript/ActionScript.gd" id="1_thtna"]
 [ext_resource type="PackedScene" uid="uid://dhr31iu0gt1qh" path="res://Objects/battle/impostor_explode.tscn" id="3_g3bf0"]

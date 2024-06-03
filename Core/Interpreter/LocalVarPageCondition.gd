@@ -4,7 +4,7 @@ class_name LocalVarPageCondition
 @export var variableName:StringName
 @export var value:bool
 
-func check(ev:BaseEvent) -> bool:
+func check(ev) -> bool:
 	var p = ev.get_parent()
 	if p is NPC:
 		return p.getLocalVar(variableName) == value

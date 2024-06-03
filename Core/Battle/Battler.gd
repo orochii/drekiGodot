@@ -3,6 +3,7 @@ class_name Battler
 
 signal onAnimationWaitEnd(stateName)
 
+const LOW_HP_PERCENT = 0.25
 const DEFAULT_JUMP_ENTER_TIME = 0.5
 const DEFAULT_JUMP_ENTER_HEIGHT = 1.5
 const DEFAULT_JUMP_TIME = 0.5
@@ -10,7 +11,7 @@ const DEFAULT_JUMP_HEIGHT = 1.5
 const DAMAGE_POP_WAIT = 0.5
 const ATB_MAX = 1
 const DEFAULT_SPEED = 15
-const POSITION_OFFSET = Vector3(0,0,-2)
+const POSITION_OFFSET = Vector3(0,0,-1)
 const START_OFFSET = Vector3(0,0,-7.5)
 const FLYING_DELTAMULT = 0.125
 const FLYING_BASEHEIGHT = 0.5
@@ -51,6 +52,7 @@ var _startDirection:float = 0
 var _oldDirection:float = 0
 var direction:float = 0
 # Counter stuff
+var turnEffects = []
 var currentCounters = []
 var currentCounterAction = []
 var flyingState = 0
@@ -90,12 +92,12 @@ func setHomePosition(pos:Vector3):
 	# inst.setHomePosition(startingPosition + (partyPositionOffset * i))
 	homePosition = pos
 func getHomePosition():
-	var offset:Vector3 = POSITION_OFFSET * battler.getPosition()
+	var offset:Vector3 = POSITION_OFFSET * (battler.getPosition())
 	var d = deg_to_rad(_startDirection)
 	var rotOffset = offset.rotated(Vector3(0,1,0),d)
 	return homePosition + rotOffset
 func getGlobalHomePosition():
-	return localToGlobalPosition(homePosition)
+	return localToGlobalPosition(getHomePosition())
 func localToGlobalPosition(pos:Vector3):
 	var p = get_parent() as Node3D
 	var rot = Quaternion.from_euler(p.global_rotation)
@@ -114,7 +116,28 @@ func getSize() -> Vector2:
 func setup(_battler:GameBattler):
 	battler = _battler
 	graphic.spritesheet = _battler.getBattleGraphic()
-	weapon.camOverride = battle.camera
+	weapon.camOverride = battle.camera.camera
+	_connectToUI()
+
+func cleanup():
+	_disconnectToUI()
+
+func _connectToUI():
+	Global.UI.onHpChange.connect(_onHpChange)
+	Global.UI.onMpChange.connect(_onMPChange)
+	_onHpChange(battler,true)
+	_onMPChange(battler,true)
+
+func _disconnectToUI():
+	Global.UI.onHpChange.disconnect(_onHpChange)
+	Global.UI.onMpChange.disconnect(_onMPChange)
+
+var _lowHp:bool = false
+func _onHpChange(b,max):
+	if b != battler: return
+	_lowHp = battler.currHP < (battler.getMaxHP() * LOW_HP_PERCENT)
+func _onMPChange(b,max):
+	if b != battler: return
 
 func _ready():
 	flyingState = randf()
@@ -138,7 +161,7 @@ func _onGraphicFrameEvent(ev:StringName, idx:int):
 func setWeaponIndex(idx:int):
 	if battler is GameActor:
 		var actor = battler as GameActor
-		actor.currWeapon = idx
+		actor.setCurrentWeapon(idx)
 		var realIdx = actor.getCurrWeaponIdx()
 		var equip = actor.getEquip(realIdx)
 		# Set weapon sprite
@@ -159,11 +182,7 @@ func updateWeaponSprite(idx):
 			weapon.visible = false
 
 func isFlying():
-	var fs = battler.getFeatures()
-	for f in fs:
-		if f is FlyingFeature:
-			return true
-	return false
+	return battler.isFlying()
 
 func _process(delta):
 	_updateFlying(delta)
@@ -276,9 +295,10 @@ func isAtbFull():
 	return atbValue >= ATB_MAX
 
 func startTurn():
+	turnEffects.clear()
 	battler.advanceSkillConditions()
-	await _updateStatusTurns()
 func endTurn():
+	await _updateStatusTurns()
 	currentAction = null
 	battler.advanceStatesTurn()
 	turn += 1
@@ -304,13 +324,14 @@ func _updateStatusTime(delta:float):
 func _executeStatusEffects(status:Status, curr:int):
 	# if on right interval, do stuff
 	var c = curr % status.eotInterval
-	if c == status.eotInterval:
+	if c == (status.eotInterval-1):
 		var action = BattleAction.new()
 		action.battler = self
 		action.action = status
 		action.scope = Global.ETargetScope.ONE
 		action.kind = Global.ETargetKind.USER
 		action.targetIdx = 0
+		action.targets = action.resolveTargets()
 		for effect in action.resolveActionList(0):
 			await effect.execute(action)
 
@@ -446,7 +467,7 @@ func getCurrentState():
 				if graphic.spritesheet.collectionDict.has(data.statusPose):
 					return data.statusPose
 			return &"status"
-	if battler.currHP < battler.getMaxHP()/4:
+	if _lowHp:
 		return &"lowhp"
 	return &"base"
 
@@ -458,3 +479,10 @@ func isHidden():
 
 func effectWait():
 	return effectWaitTime > 0
+
+func setIsolate(v:bool):
+	if v:
+		graphic.layers = 524288
+	else:
+		graphic.layers = 1
+	weapon.sprite.layers = graphic.layers

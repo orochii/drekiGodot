@@ -9,7 +9,7 @@ enum ECompareOper { EQUAL, NOT_EQUAL,
 @export var compare : ECompareOper
 @export var value : int
 
-func check(ev:BaseEvent) -> bool:
+func check(ev) -> bool:
 	var v = Global.State.getVariable(variableId)
 	match compare:
 		ECompareOper.NOT_EQUAL:

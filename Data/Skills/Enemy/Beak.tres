@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=14 format=3 uid="uid://c37alksy6hri4"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_gp046"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_ufyea"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_3cvwu"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_psd8u"]
+[ext_resource type="PackedScene" uid="uid://cmku0jn6bxrv0" path="res://Objects/vfx/vfx_hit.tscn" id="4_6ft7m"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="4_vgyn7"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="5_tmirs"]
+[ext_resource type="Resource" uid="uid://ce50h4ejrc4hp" path="res://Data/Status/Blind.tres" id="6_f4s8m"]
+
+[sub_resource type="Resource" id="Resource_yl2sq"]
+script = ExtResource("1_gp046")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+setPose = true
+
+[sub_resource type="Resource" id="Resource_m67sj"]
+script = ExtResource("2_3cvwu")
+state = &"punch"
+loop = false
+waitForEnd = false
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_n2toh"]
+script = ExtResource("3_psd8u")
+visualEffectTemplate = ExtResource("4_6ft7m")
+onePerEachTarget = true
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_3ji0j"]
+script = ExtResource("4_vgyn7")
+type = 0
+base = 1
+atkF = 0.5
+strF = 1.0
+vitF = 0.0
+magF = 0.0
+agiF = 0.0
+pDefF = 1.0
+mDefF = 0.0
+elements = Array[int]([])
+crit = 0.04
+hit = 1.0
+variance = 0.0
+ignoreHit = false
+
+[sub_resource type="Resource" id="Resource_ykqex"]
+script = ExtResource("5_tmirs")
+status = ExtResource("6_f4s8m")
+operation = 0
+forceAdd = false
+hitChance = 1.0
+ignoreHit = false
+considerLastHit = false
+
+[resource]
+script = ExtResource("1_ufyea")
+flags = Array[int]([])
+targetKind = 2
+targetCanChangeKind = false
+targetCanChangeScope = false
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 0
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+cpCost = 0.6
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yl2sq"), SubResource("Resource_m67sj"), SubResource("Resource_n2toh"), SubResource("Resource_3ji0j"), SubResource("Resource_ykqex")])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])

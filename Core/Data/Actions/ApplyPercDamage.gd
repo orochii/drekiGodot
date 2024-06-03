@@ -8,25 +8,32 @@ class_name ApplyPercDamage
 @export var percent : float
 @export_group("Chance and variance")
 @export_range(0,1) var crit:float = 0
-@export_range(0,1) var hit:float = 1
+@export_range(0,1) var hitChance:float = 1
 @export_range(0,1) var variance:float = 0
+@export var ignoreHit:bool = false
 
 var multipleTargets:bool = false
 
 func execute(action:BattleAction):
+	var effs = []
 	multipleTargets = action.scope == Global.ETargetScope.ALL
 	for t in action.targets:
-		var eff = apply(action.battler.battler, t.battler)
+		var _hit = ignoreHit || checkHit(hitChance, action.battler.battler, t.battler)
+		var eff = apply(action.battler.battler, t.battler, _hit)
+		# Register effect to this turn
+		effs.append(eff)
 		# Display effect- eff(damage,elementCorrection,hit)
 		t.damagePop(eff)
+	# Store effects
+	action.battler.turnEffects.append({&"type":&"damage",&"effects":effs})
 
 # Data change ><
-func apply(user:GameBattler, target:GameBattler):
+func apply(user:GameBattler, target:GameBattler, hit:bool=true):
 	var eff = calcEffect(user,target)
 	# Do hit
 	eff["effective"] = true
-	var r = randf()
-	eff["hit"] = r < hit
+	eff["target"] = target
+	eff["hit"] = hit
 	if eff["hit"]:
 		# Apply crit
 		var rCrit = randf()
@@ -39,13 +46,13 @@ func apply(user:GameBattler, target:GameBattler):
 		# Apply effect
 		match type:
 			Global.EDamageType.HP:
-				var _oldval = target.currHP
+				eff["oldval"] = target.currHP
 				target.changeHP(-eff["damage"])
-				eff["effective"] = _oldval != target.currHP
+				eff["effective"] = eff["oldval"] != target.currHP
 			Global.EDamageType.MP:
-				var _oldval = target.currMP
+				eff["oldval"] = target.currMP
 				target.changeMP(-eff["damage"])
-				eff["effective"] = _oldval != target.currMP
+				eff["effective"] = eff["oldval"] != target.currMP
 	return eff
 
 func calcEffect(user:GameBattler, target:GameBattler):
@@ -65,11 +72,16 @@ func calcEffect(user:GameBattler, target:GameBattler):
 					value = ref.currMP
 				1:
 					value = ref.getMaxMP()
-	if base==1: value = ref.getMaxHP()
+	#if base==1: value = ref.getMaxHP()
 	# Calculate damage
-	var damage = value * percent
+	var _adjustedPerc = adjustDamage(percent, getStatusLevel(user))
+	var damage = value * _adjustedPerc
 	# Return result
 	return {
 		"damage" : roundi(damage),
 		"type" : type
 	}
+
+func adjustDamage(v, level):
+	var _plus = (level-1) * 0.5
+	return v * (1 + _plus)

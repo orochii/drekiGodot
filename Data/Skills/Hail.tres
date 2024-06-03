@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=13 format=3 uid="uid://bp5kj4tnua63x"]
+
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_xy3ka"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="2_wq8yg"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="3_0kt48"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="4_8wmk6"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="5_kih0x"]
+[ext_resource type="Texture2D" uid="uid://tp7gvplimuuw" path="res://Graphics/Icons/skills/WinterBreeze.png" id="5_tqmxe"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="6_jctl8"]
+[ext_resource type="Resource" uid="uid://k8vlpitkxxck" path="res://Data/Status/Cold.tres" id="6_ppr3k"]
+
+[sub_resource type="Resource" id="Resource_h2cq1"]
+script = ExtResource("1_xy3ka")
+state = &"skill"
+loop = false
+waitForEnd = false
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_k4p8s"]
+script = ExtResource("2_wq8yg")
+visualEffectTemplate = ExtResource("3_0kt48")
+onePerEachTarget = false
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_yq3tp"]
+script = ExtResource("4_8wmk6")
+type = 0
+base = 10
+atkF = 0.0
+strF = 0.0
+vitF = 0.0
+magF = 1.0
+agiF = 0.0
+pDefF = 0.0
+mDefF = 1.0
+elements = Array[int]([6])
+crit = 0.04
+hit = 1.0
+variance = 0.0
+ignoreHit = false
+
+[sub_resource type="Resource" id="Resource_e8aaq"]
+script = ExtResource("5_kih0x")
+status = ExtResource("6_ppr3k")
+operation = 0
+forceAdd = false
+hitChance = 1.0
+ignoreHit = false
+considerLastHit = false
+
+[resource]
+script = ExtResource("6_jctl8")
+flags = Array[int]([0, 4])
+targetKind = 2
+targetCanChangeKind = false
+targetCanChangeScope = false
+targetScope = 0
+targetState = 0
+repeats = 0
+costType = 1
+cost = 0
+charges = 0
+cooldown = 0
+canUse = 0
+cpCost = 0.6
+startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_h2cq1"), SubResource("Resource_k4p8s"), SubResource("Resource_yq3tp"), SubResource("Resource_e8aaq")])
+endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+icon = ExtResource("5_tqmxe")

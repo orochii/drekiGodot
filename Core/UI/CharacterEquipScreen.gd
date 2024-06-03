@@ -25,7 +25,7 @@ func setFocus():
 	equipList.focus()
 func hideTask():
 	if(actor==null): return
-	actor.currWeapon = -1
+	actor.setCurrentWeapon(-1)
 func reset():
 	cursor.visible = false
 
@@ -38,6 +38,7 @@ func _ready():
 
 func _process(delta):
 	if(get_parent().visible==false): return
+	if Global.UI.Config.visible: return
 	updateCurrItem()
 	if(get_parent().active==false): return
 	if(moveLeft()):
@@ -77,7 +78,7 @@ func updateCurrItem():
 		if currFocus is EquipLine:
 			var i = currFocus as EquipLine
 			currItem = i.item
-			actor.currWeapon = i.weaponIdx
+			actor.setCurrentWeapon(i.weaponIdx)
 			charStats.refresh()
 			refreshItem()
 			return
@@ -92,7 +93,7 @@ func refreshItem():
 	if currItem==null:
 		description.text = ""
 	else:
-		description.text = currItem.getDesc()
+		description.text = TextUtils.parseText(currItem.getDesc())
 
 func refreshAdds():
 	charAdds.refreshAdds(currItem, itemList.idx)

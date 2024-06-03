@@ -9,6 +9,7 @@ class_name MapSpritesheetEntry
 @export var totalFrames : int = 4
 @export var events : Array[StringName] = ["","step","","step"]
 @export var offset : Vector2i
+@export var offsetTowardsCamera : float
 
 func _resolveDir(target : Sprite3D):
 	var hasDiag = (baseDiag != null)
@@ -34,7 +35,8 @@ func _resolveDir(target : Sprite3D):
 	if (dir == 8): dir = 0
 	return {
 		&"dir" : dir,
-		&"hasDiag" : hasDiag
+		&"hasDiag" : hasDiag,
+		&"angle" : angle
 	}
 
 func _resolveRow(hasDiag : bool, dir : int, blinkState : bool):
@@ -88,25 +90,37 @@ func _resolveBlink(baseT : Texture2D, blinkT : Texture2D, state : bool) -> Textu
 	else:
 		return baseT
 
-func getFrame(target : Sprite3D, frame : int, blinkState : bool):
-	if target==null: return
-	var r = _resolveDir(target)
-	var hasDiag = r[&"hasDiag"]
-	var dir = r[&"dir"]
-	
-	var rr = _resolveRow(hasDiag, dir, blinkState)
-	var texture = rr[&"texture"]
-	var row = rr[&"row"]
-	var col = frame
-	
+func _resolveFrame(texture:Texture2D, row, col):
 	var cellW = texture.get_width() / totalFrames
 	var cellH = texture.get_height() / 4
 	#Apply changes
-	target.texture = texture
-	target.region_rect.position = Vector2(col * cellW, row * cellH)
-	target.region_rect.size = Vector2(cellW, cellH)
-	#target.position.y = (cellH * 0.5) * target.pixel_size
-	target.offset.y = (cellH * 0.5) + offset.y
+	return {
+		"texture":texture,
+		"rect_pos":Vector2(col * cellW, row * cellH),
+		"rect_size":Vector2(cellW, cellH),
+		"offset_y":(cellH * 0.5) + offset.y,
+		"flip_h":false
+	}
+
+func getFrame(target : Sprite3D, frame : int, blinkState : bool):
+	if target==null: return
+	var r = _resolveDir(target)
+	var rr = _resolveRow(r[&"hasDiag"], r[&"dir"], blinkState)
+	var f = _resolveFrame(rr[&"texture"],rr[&"row"],frame)
+	#Move towards camera
+	var _otc = Vector3(0,0,offsetTowardsCamera).rotated(Vector3.UP, deg_to_rad(-r[&"angle"]))
+	target.position = _otc
+	#Apply changes
+	target.texture = f["texture"]
+	target.region_rect.position = f["rect_pos"]
+	target.region_rect.size = f["rect_size"]
+	target.offset.y = f["offset_y"]
+
+func getFrameAsData(frame:int,blink:bool,dir:int):
+	var hasDiag = (baseDiag != null)
+	var rr = _resolveRow(hasDiag, dir, blink)
+	var f = _resolveFrame(rr[&"texture"],rr[&"row"],frame)
+	return f
 
 func getTotalFrames():
 	return totalFrames

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cw5i3n2eru37b"]
 
 [ext_resource type="Script" path="res://Core/Characters/ChestNPC.gd" id="1_h5aww"]
-[ext_resource type="Resource" uid="uid://xckjfdg7a4sh" path="res://Data/Spritesheets/smallchest_map.tres" id="2_joaeb"]
+[ext_resource type="Resource" uid="uid://xckjfdg7a4sh" path="res://Data/Spritesheets/Map/smallchest_map.tres" id="2_joaeb"]
 [ext_resource type="Texture2D" uid="uid://clggtkyw1lag6" path="res://Graphics/Character/_OBJECTS/smallchest_base.png" id="3_kncn7"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="4_gwek5"]
 [ext_resource type="Script" path="res://Events/GainItem.gd" id="5_ly1l4"]

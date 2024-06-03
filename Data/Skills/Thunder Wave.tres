@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=13 format=3 uid="uid://dvwhyhqw0wijm"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=15 format=3 uid="uid://dvwhyhqw0wijm"]
 
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_m6usj"]
 [ext_resource type="Texture2D" uid="uid://dk3jrrwybp8am" path="res://Graphics/Icons/skills/ThunderWave.png" id="1_s84s5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_pc6tj"]
 [ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="5_m7qj3"]
 [ext_resource type="Resource" uid="uid://cxu3cv5tbortt" path="res://Data/Status/Paralysis.tres" id="6_lsmos"]
+[ext_resource type="Resource" uid="uid://bqwa36mnkoaun" path="res://Data/Status/AGIminus.tres" id="7_syenr"]
 
 [sub_resource type="Resource" id="Resource_kjqbs"]
 script = ExtResource("1_vwexj")
@@ -37,6 +38,18 @@ script = ExtResource("5_m7qj3")
 status = ExtResource("6_lsmos")
 operation = 0
 forceAdd = false
+hitChance = 1.0
+ignoreHit = false
+considerLastHit = false
+
+[sub_resource type="Resource" id="Resource_xpmyv"]
+script = ExtResource("5_m7qj3")
+status = ExtResource("7_syenr")
+operation = 0
+forceAdd = false
+hitChance = 1.0
+ignoreHit = false
+considerLastHit = false
 
 [resource]
 script = ExtResource("1_m6usj")
@@ -47,13 +60,13 @@ targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
-cost = 8
+costType = 1
+cost = 16
 charges = 0
 cooldown = 2
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_kjqbs"), SubResource("Resource_dmveq"), SubResource("Resource_dhgcc"), SubResource("Resource_kbris")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_kjqbs"), SubResource("Resource_dmveq"), SubResource("Resource_dhgcc"), SubResource("Resource_kbris"), SubResource("Resource_xpmyv")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("1_s84s5")

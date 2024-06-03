@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Actor" load_steps=76 format=3 uid="uid://bs77brxfkt5yg"]
 
-[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="1_fphf6"]
+[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/Battler/hikari_battler.tres" id="1_fphf6"]
 [ext_resource type="Texture2D" uid="uid://br0sx61j1stfs" path="res://Graphics/Faces/1_pixart2.png" id="1_hbvuk"]
 [ext_resource type="Script" path="res://Core/Data/Actors/Actor.gd" id="1_oyatu"]
 [ext_resource type="Script" path="res://Core/Data/Actors/SkillLearning.gd" id="2_jpdbq"]
@@ -32,7 +32,7 @@
 [ext_resource type="Resource" uid="uid://b42adf5xgbq8f" path="res://Data/Skills/Ice Star.tres" id="21_y2j4w"]
 [ext_resource type="Resource" uid="uid://ccioxi607u4w" path="res://Data/Skills/Crystalize.tres" id="22_idw7a"]
 [ext_resource type="Resource" uid="uid://cx8xixtxstrjy" path="res://Data/Skills/Passives/Sturdy.tres" id="22_pmfoi"]
-[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="31_yt4fg"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="31_yt4fg"]
 
 [sub_resource type="Resource" id="Resource_anlwo"]
 script = ExtResource("2_jpdbq")
@@ -277,6 +277,7 @@ artwork = ExtResource("1_hbvuk")
 mapSprite = ExtResource("31_yt4fg")
 battleSprite = ExtResource("1_fphf6")
 gender = 1
+handiness = 0
 birthday = 15
 birthmonth = 7
 birthyear = 493

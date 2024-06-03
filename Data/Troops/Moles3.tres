@@ -26,3 +26,4 @@ flags = 0
 script = ExtResource("1_gv25d")
 battleMusic = Array[Resource("res://Core/Audio/SystemAudioEntry.gd")]([])
 entries = Array[ExtResource("2_fdblg")]([SubResource("Resource_s5k2a"), SubResource("Resource_yokt4"), SubResource("Resource_blgtt")])
+pages = Array[Resource("res://Core/Battle/BattleEvent.gd")]([])

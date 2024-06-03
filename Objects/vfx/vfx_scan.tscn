@@ -1,0 +1,426 @@
+[gd_scene load_steps=19 format=3 uid="uid://p1d54sandeff"]
+
+[ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_cc8gc"]
+[ext_resource type="Script" path="res://Core/UI/ScanUI.gd" id="2_uf4ll"]
+[ext_resource type="Texture2D" uid="uid://d0015ndjhleuj" path="res://Scenes/2024-5-9_102008_0.png" id="2_vfmft"]
+[ext_resource type="Texture2D" uid="uid://bll4j5aio1tln" path="res://Graphics/System/battle/scan_screen.png" id="3_lwlxl"]
+[ext_resource type="PackedScene" uid="uid://clo40fxxgdd8a" path="res://Objects/ui/resistance_icon.tscn" id="3_nd7o6"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="4_nfutg"]
+[ext_resource type="LabelSettings" uid="uid://biojqnkspoymr" path="res://Themes/labelsetting_NamingThing.tres" id="5_f1yjt"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="6_3exu7"]
+[ext_resource type="Texture2D" uid="uid://b8imljb44kjgc" path="res://Graphics/Texture/grid.png" id="10_nqkln"]
+
+[sub_resource type="Animation" id="Animation_8pdwr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScanUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScanUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScanUI:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m146q"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScanUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScanUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(5, 5, 5), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6mqhx"]
+resource_name = "show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScanUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScanUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScanUI:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(64, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(5, 5, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkf2h"]
+_data = {
+"RESET": SubResource("Animation_8pdwr"),
+"hide": SubResource("Animation_m146q"),
+"show": SubResource("Animation_6mqhx")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idyn4"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.501961)
+albedo_texture = ExtResource("10_nqkln")
+emission_enabled = true
+emission_energy_multiplier = 0.2
+emission_texture = ExtResource("10_nqkln")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="SphereMesh" id="SphereMesh_d0yfm"]
+material = SubResource("StandardMaterial3D_idyn4")
+flip_faces = true
+radius = 2.0
+height = 2.0
+
+[sub_resource type="Animation" id="Animation_bhqg0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_34m7v"]
+resource_name = "rotate"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ixdiu"]
+_data = {
+"RESET": SubResource("Animation_bhqg0"),
+"rotate": SubResource("Animation_34m7v")
+}
+
+[node name="vfxScan" type="Node3D" node_paths=PackedStringArray("setupCall")]
+script = ExtResource("1_cc8gc")
+setupCall = [NodePath("ScanUI")]
+sendToIsolation = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_qkf2h")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 40.0
+bus = &"SFX"
+
+[node name="ScanUI" type="Control" parent="." node_paths=PackedStringArray("animPlayer", "leftSideCenter", "nameLabel", "levelLabel", "lpLabel", "mpLabel", "descriptionLabel", "elementsGrid", "statesGrid")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+light_mask = 524288
+visibility_layer = 524288
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_uf4ll")
+animPlayer = NodePath("../AnimationPlayer")
+leftSideCenter = NodePath("Panels/LeftPanel/LeftSideCenter")
+nameLabel = NodePath("Panels/Right Panel/VBoxContainer/NameLvLine/Name")
+levelLabel = NodePath("Panels/Right Panel/VBoxContainer/NameLvLine/Level")
+lpLabel = NodePath("Panels/Right Panel/VBoxContainer/LPMPLine/LP/LPNum")
+mpLabel = NodePath("Panels/Right Panel/VBoxContainer/LPMPLine/MP/MPNum")
+descriptionLabel = NodePath("Panels/Right Panel/VBoxContainer/Description")
+elementsGrid = NodePath("Panels/Right Panel/VBoxContainer/ElementsGrid")
+statesGrid = NodePath("Panels/Right Panel/VBoxContainer/StatesGrid")
+iconTemplate = ExtResource("3_nd7o6")
+
+[node name="Panels" type="Control" parent="ScanUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="REF" type="TextureRect" parent="ScanUI/Panels"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -120.0
+offset_right = 213.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vfmft")
+
+[node name="LeftPanel" type="Control" parent="ScanUI/Panels"]
+layout_mode = 1
+anchor_right = 0.45
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftSideCenter" type="Control" parent="ScanUI/Panels/LeftPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Right Panel" type="Control" parent="ScanUI/Panels"]
+layout_mode = 1
+anchor_left = 0.45
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ScanUI/Panels/Right Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_lwlxl")
+region_rect = Rect2(120, 0, 200, 240)
+patch_margin_left = 24
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScanUI/Panels/Right Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLvLine" type="HBoxContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/NameLvLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_nfutg")
+text = "Pulpo"
+label_settings = ExtResource("5_f1yjt")
+
+[node name="Level" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/NameLvLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_nfutg")
+text = "Lv 16"
+label_settings = ExtResource("5_f1yjt")
+horizontal_alignment = 2
+
+[node name="LPMPLine" type="HBoxContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LP" type="HBoxContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LPLabel" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine/LP"]
+layout_mode = 2
+theme = ExtResource("4_nfutg")
+text = "LP"
+label_settings = ExtResource("5_f1yjt")
+
+[node name="LPNum" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine/LP"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_3exu7")
+text = "8888888/8888888"
+horizontal_alignment = 1
+
+[node name="MP" type="HBoxContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="MPLabel" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine/MP"]
+layout_mode = 2
+theme = ExtResource("4_nfutg")
+text = "MP"
+label_settings = ExtResource("5_f1yjt")
+
+[node name="MPNum" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer/LPMPLine/MP"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_3exu7")
+text = "8888888/8888888"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("4_nfutg")
+bbcode_enabled = true
+text = "Un pulpo gigante. Con su fuerte agarre puede partir una piedra.
+Un pulpo gigante. Con su fuerte agarre puede partir una piedra."
+
+[node name="ElementsLabel" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_nfutg")
+text = "Elements"
+label_settings = ExtResource("5_f1yjt")
+
+[node name="ElementsGrid" type="GridContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="StatesLabel" type="Label" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_nfutg")
+text = "States"
+label_settings = ExtResource("5_f1yjt")
+
+[node name="StatesGrid" type="GridContainer" parent="ScanUI/Panels/Right Panel/VBoxContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+layers = 524288
+mesh = SubResource("SphereMesh_d0yfm")
+
+[node name="Rotator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ixdiu")
+}
+autoplay = "rotate"

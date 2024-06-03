@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://lywdqxc41tu5"]
+[gd_scene load_steps=25 format=3 uid="uid://lywdqxc41tu5"]
 
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="1_5ca5e"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_75wr8"]
@@ -11,14 +11,11 @@
 [ext_resource type="Script" path="res://Core/Scenario/TeleportGate.gd" id="3_mv1tv"]
 [ext_resource type="PackedScene" uid="uid://bjsjho5g8vh61" path="res://Graphics/Scenario/fierro/insides/house_3_in.tscn" id="4_njroh"]
 [ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_ma4ru"]
-[ext_resource type="Script" path="res://Core/Characters/NPC.gd" id="11_y7vs2"]
-[ext_resource type="Texture2D" uid="uid://nw172vnuqqc4" path="res://Graphics/Character/_NPCS/aldo.png" id="12_v3wvx"]
-[ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="13_kqt1h"]
-[ext_resource type="Resource" uid="uid://b4khiuusc0nv6" path="res://Data/Spritesheets/aldo_map.tres" id="14_mjitq"]
-[ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="15_7xw1m"]
-[ext_resource type="Script" path="res://Events/TestCharacterGive.gd" id="16_5lvna"]
-[ext_resource type="Resource" uid="uid://cx8t4uvns1a6l" path="res://Data/Actors/Minuet.tres" id="17_1mdl0"]
-[ext_resource type="Texture2D" uid="uid://bwl32bu88vhqt" path="res://Graphics/System/emotes.png" id="22_5bgbq"]
+[ext_resource type="PackedScene" uid="uid://bxk5gcl3ynj2d" path="res://Objects/events/base_npc.tscn" id="12_kgbvt"]
+[ext_resource type="Resource" uid="uid://cssjalloh6eby" path="res://Data/Spritesheets/Map/kazuo_map.tres" id="13_xap5o"]
+[ext_resource type="Resource" uid="uid://bdqq6dwxe5we4" path="res://Data/Spritesheets/Map/ericka_map.tres" id="14_xoc3v"]
+[ext_resource type="Resource" uid="uid://clsk0kg67ywjl" path="res://Data/Spritesheets/Map/carlos_map.tres" id="15_0f52f"]
+[ext_resource type="Resource" uid="uid://ci051ks7sjf5l" path="res://Data/Spritesheets/Map/bab_map.tres" id="16_gmyd3"]
 
 [sub_resource type="Resource" id="Resource_cd3ls"]
 script = ExtResource("2_evalp")
@@ -46,184 +43,20 @@ volumetric_fog_emission = Color(1, 1, 1, 1)
 volumetric_fog_emission_energy = 0.2
 volumetric_fog_detail_spread = 6.0
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ly7q7"]
-radius = 0.49
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2vr1"]
+size = Vector3(1.42383, 0.945313, 1.00262)
 
-[sub_resource type="Animation" id="Animation_seugt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
+[sub_resource type="BoxShape3D" id="BoxShape3D_xr4v2"]
+size = Vector3(1.31177, 0.94812, 1.27881)
 
-[sub_resource type="Animation" id="Animation_7n0wy"]
-resource_name = "blink"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.282353), Color(1, 1, 1, 1), Color(1, 1, 1, 0.282353), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_yh4k7"]
-_data = {
-"RESET": SubResource("Animation_seugt"),
-"blink": SubResource("Animation_7n0wy")
-}
-
-[sub_resource type="Animation" id="Animation_m3f5v"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 16, 16)]
-}
-
-[sub_resource type="Animation" id="Animation_sj8ea"]
-resource_name = "exclamation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(0, 16, 16, 16), Rect2(16, 0, 16, 16), Rect2(32, 0, 16, 16), Rect2(48, 0, 16, 16), Rect2(32, 0, 16, 16), Rect2(48, 0, 16, 16), Rect2(32, 0, 16, 16), Rect2(48, 0, 16, 16)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Balloon:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ipd7d"]
-resource_name = "question"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(0, 16, 16, 16), Rect2(16, 16, 16, 16), Rect2(32, 16, 16, 16), Rect2(48, 16, 16, 16)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Balloon:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_1kri8"]
-resource_name = "silent"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(0, 16, 16, 16), Rect2(0, 32, 16, 16), Rect2(16, 32, 16, 16), Rect2(32, 32, 16, 16), Rect2(48, 32, 16, 16)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Balloon:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_q78xx"]
-resource_name = "sweat"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:region_rect")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Rect2(0, 16, 16, 16), Rect2(0, 48, 16, 16), Rect2(16, 48, 16, 16), Rect2(32, 48, 16, 16), Rect2(48, 48, 16, 16)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Balloon:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ynnq1"]
-_data = {
-"RESET": SubResource("Animation_m3f5v"),
-"exclamation": SubResource("Animation_sj8ea"),
-"question": SubResource("Animation_ipd7d"),
-"silent": SubResource("Animation_1kri8"),
-"sweat": SubResource("Animation_q78xx")
-}
+[sub_resource type="BoxShape3D" id="BoxShape3D_e6dm4"]
+size = Vector3(1.87128, 1, 0.882446)
 
 [node name="fierroInn" type="Node3D" node_paths=PackedStringArray("gates", "defaultFloorGate")]
 transform = Transform3D(0.941471, 0, -0.337095, 0, 1, 0, 0.337095, 0, 0.941471, 0, 0, 0)
 script = ExtResource("1_gfrpm")
 music = SubResource("Resource_cd3ls")
-gates = [NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right")]
+gates = [NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right"), NodePath("Gates/GateRespawn")]
 defaultFloorGate = NodePath("FloorGates/Floor1")
 
 [node name="Gates" type="Node3D" parent="."]
@@ -266,10 +99,17 @@ nextScene = "Midgard/Fierro/town"
 targetGate = 3
 activation = 1
 
+[node name="GateRespawn" type="Node3D" parent="Gates" node_paths=PackedStringArray("floorGate")]
+transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 3.5, 3.05, 5.5)
+script = ExtResource("3_mv1tv")
+floorGate = NodePath("../../FloorGates/Floor2")
+
 [node name="FloorGates" type="Node3D" parent="."]
 
 [node name="Floor1" type="Area3D" parent="FloorGates"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_m0mqj")
 layers = 1
 
@@ -279,6 +119,8 @@ shape = SubResource("BoxShape3D_67eoc")
 
 [node name="Floor2" type="Area3D" parent="FloorGates"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 0)
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_m0mqj")
 layers = 3
 
@@ -313,74 +155,58 @@ environment = SubResource("Environment_8s182")
 
 [node name="NPCs" type="Node" parent="."]
 
-[node name="NPC1" type="CharacterBody3D" parent="NPCs" node_paths=PackedStringArray("pages", "graphic", "collider", "navigator", "raycast", "balloon", "balloonAnim")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18607, 0, 4.455)
-script = ExtResource("11_y7vs2")
-pages = [NodePath("Page1")]
-speed = 5.0
-graphic = NodePath("Graphic")
-collider = NodePath("CollisionShape3D")
-navigator = NodePath("NavigationAgent3D")
-raycast = NodePath("RayCast3D")
-balloon = NodePath("BalloonNode/Balloon")
-balloonAnim = NodePath("BalloonNode/Emoter")
+[node name="NPC1" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(-0.842772, 0, -0.538271, 0, 1, 0, 0.538271, 0, -0.842772, 2.68479, 0, 8.9365)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/NPC1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_ly7q7")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NPCs/NPC1"]
+transform = Transform3D(0.929113, 0, 0.369795, 0, 1, 0, -0.369795, 0, 0.929113, 0.101549, 1.59619, 0.316998)
+shape = SubResource("BoxShape3D_l2vr1")
 
-[node name="Graphic" type="Sprite3D" parent="NPCs/NPC1" node_paths=PackedStringArray("shadow", "raycast")]
-offset = Vector2(0, 16)
-pixel_size = 0.0625
-billboard = 2
-alpha_cut = 1
-texture_filter = 0
-texture = ExtResource("12_v3wvx")
-region_enabled = true
-region_rect = Rect2(0, 0, 24, 32)
-script = ExtResource("13_kqt1h")
-spritesheet = ExtResource("14_mjitq")
-shadow = NodePath("../Shadow")
-raycast = NodePath("../RayCast3D")
+[node name="Page1" parent="NPCs/NPC1" index="3"]
+graphic = ExtResource("13_xap5o")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCs/NPC1/Graphic"]
-libraries = {
-"": SubResource("AnimationLibrary_yh4k7")
-}
+[node name="NPC2" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(-0.415074, 0, -0.909787, 0, 1, 0, 0.909787, 0, -0.415074, 2.227, 0, 10.156)
 
-[node name="Shadow" type="Sprite3D" parent="NPCs/NPC1"]
-pixel_size = 0.0625
-axis = 1
-billboard = 2
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("15_7xw1m")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NPCs/NPC2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0936289, 1.56354, 0.275636)
+shape = SubResource("BoxShape3D_xr4v2")
 
-[node name="RayCast3D" type="RayCast3D" parent="NPCs/NPC1"]
-target_position = Vector3(0, -10, 0)
+[node name="Page1" parent="NPCs/NPC2" index="3"]
+graphic = ExtResource("14_xoc3v")
 
-[node name="Page1" type="Node3D" parent="NPCs/NPC1"]
-script = ExtResource("16_5lvna")
-giveActor = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("17_1mdl0")])
-graphic = ExtResource("14_mjitq")
+[node name="NPC3" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(0.296425, 0, 0.955056, 0, 1, 0, -0.955056, 0, 0.296425, -8.04229, 0, 0.183645)
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="NPCs/NPC1"]
+[node name="CollisionShape3D" parent="NPCs/NPC3" index="0"]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, -0.111053, 1, 0.0120249)
+shape = SubResource("BoxShape3D_e6dm4")
 
-[node name="BalloonNode" type="Node3D" parent="NPCs/NPC1"]
+[node name="Page1" parent="NPCs/NPC3" index="2"]
+textLines = Array[String](["Howdy! Be welcome to your INN.
+Please take a seat, we'll get to you soon."])
+graphic = ExtResource("15_0f52f")
 
-[node name="Emoter" type="AnimationPlayer" parent="NPCs/NPC1/BalloonNode"]
-libraries = {
-"": SubResource("AnimationLibrary_ynnq1")
-}
+[node name="NPC4" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(0.936867, 0, -0.349684, 0, 1, 0, 0.349684, 0, 0.936867, -4.86492, 0.5, -2.72501)
 
-[node name="Balloon" type="Sprite3D" parent="NPCs/NPC1/BalloonNode"]
-offset = Vector2(0, 24)
-pixel_size = 0.0625
-billboard = 1
-texture_filter = 0
-texture = ExtResource("22_5bgbq")
-region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+[node name="Page1" parent="NPCs/NPC4" index="2"]
+textLines = Array[String](["zzzZZZzzz...", "Yes... three of these please...", "And three bottles of... better..."])
+graphic = ExtResource("16_gmyd3")
+graphicState = &"sleep"
+
+[node name="NPC5" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(-0.184775, 0, -0.982781, 0, 1, 0, 0.982781, 0, -0.184775, -2.00346, 0.5, -1.7764)
+
+[node name="Page1" parent="NPCs/NPC5" index="2"]
+textLines = Array[String](["I'm STARVING!"])
+graphic = ExtResource("16_gmyd3")
 
 [connection signal="body_entered" from="FloorGates/Floor1" to="FloorGates/Floor1" method="_on_body_entered"]
 [connection signal="body_entered" from="FloorGates/Floor2" to="FloorGates/Floor2" method="_on_body_entered"]
+
+[editable path="NPCs/NPC1"]
+[editable path="NPCs/NPC2"]
+[editable path="NPCs/NPC3"]
+[editable path="NPCs/NPC4"]
+[editable path="NPCs/NPC5"]

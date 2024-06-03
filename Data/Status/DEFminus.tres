@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Status" load_steps=5 format=3 uid="uid://c6tlk772by6j"]
+
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_nelyb"]
+[ext_resource type="Texture2D" uid="uid://b4htwtsykpkdg" path="res://Graphics/Icons/states/st_43.png" id="2_co5jg"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="3_ac0y0"]
+
+[sub_resource type="Resource" id="Resource_u0v63"]
+script = ExtResource("1_nelyb")
+stat = 3
+kind = 1
+amount = -25
+
+[resource]
+script = ExtResource("3_ac0y0")
+icon = ExtResource("2_co5jg")
+displayRating = 0
+statusPose = &""
+flags = 0
+restriction = 0
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_u0v63")])
+statusRemove = Array[StringName]([&"DEFplus"])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

@@ -15,6 +15,7 @@ const POS_MARGIN = 32
 @export var tailSprite : Sprite2D
 @export var optionTemplate : PackedScene
 @export var cursor:AnimatedSprite2D
+@export var optionsSpacer:Control
 
 var textBoxPosition = 8
 
@@ -34,6 +35,7 @@ func _ready():
 func setOptions(varId:StringName, optionsList:Array, cancelOption:int=-1):
 	optionsVarId = varId
 	optionsCancelIdx = cancelOption
+	optionsSpacer.visible = true
 	for i in range(optionsList.size()):
 		var inst = optionTemplate.instantiate()
 		inst.setup(i, optionsList[i])
@@ -47,8 +49,8 @@ func showText(targetNode:Node3D, textPos:int, speaker:String, message:String):
 	textBoxPosition = textPos
 	messageText.visible_characters = 0
 	visibleChars = 0
-	speakerText.text = TextUtils.parseText(TranslationServer.translate(speaker))
-	messageText.text = TextUtils.parseText(TranslationServer.translate(message))
+	speakerText.text = TextUtils.parseText(speaker)
+	messageText.text = TextUtils.parseText(message)
 	totalChars = messageText.get_total_character_count()
 	resizeWindow()
 	refreshPosition()
@@ -100,6 +102,7 @@ func _process(delta):
 					for o in options:
 						o.queue_free()
 					options.clear()
+					optionsSpacer.visible = false
 			else:
 				visibleChars = totalChars
 				messageText.visible_characters = roundi(visibleChars)

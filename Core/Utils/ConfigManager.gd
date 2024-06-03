@@ -10,6 +10,8 @@ var battleCamera : bool = true
 var skipTutorials : bool = false
 var pauseOnFocusLost : bool = true
 var language : String = "en"
+# Audio
+var stepSounds : bool = true
 # Graphics
 var screenResolution : int = 0
 var screenScale : int = 2

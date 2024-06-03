@@ -13,7 +13,7 @@ signal onBattlerReady(battler:Battler)
 @export var testBack:PackedScene
 @export var scenarioContainer:Node3D
 @export var battleObjContainer:Node3D
-@export var camera:Camera3D
+@export var camera:BattleCamera
 @export var battlerTemplate:PackedScene
 @export var party:Node
 @export var troop:Node
@@ -27,7 +27,11 @@ signal onBattlerReady(battler:Battler)
 @export var configMenu:ConfigMenu
 @export var battleEndWindow:BattleEnd
 @export var actionName:ActionNameWindow
+@export var ui:Control
 
+var runningEvents:Array[BattleEvent]
+var enabledEvents:Array[BattleEvent]
+var disabledEvents:Array[BattleEvent]
 var currentBattleback:Node3D
 var _start = false
 var battleResult:EBattleResult = EBattleResult.NONE
@@ -50,12 +54,16 @@ func battlerEscape(b:Battler):
 
 func endBattlerTurn(b:Battler):
 	await b.endTurn()
+	await _waitForEffects([b])
 	b.setWeaponIndex(-1)
 	readyBattlers.erase(b)
 	actionBattlers.erase(b)
 	waitingBattlers.append(b)
 
 func battleEnd(result:EBattleResult):
+	clearEvents()
+	for b in partyBattlers: b.cleanup()
+	for b in troopBattlers: b.cleanup()
 	battleResult = result
 	await get_tree().create_timer(1.0).timeout
 	battleEndWindow.execute(result)
@@ -76,21 +84,39 @@ func findPartyBattler(actor):
 	return null
 
 func posToScreen(pos : Vector3) -> Vector2:
-	return camera.unproject_position(pos)
+	return camera.posToScreen(pos)
 
 func screenSize() -> Vector2:
 	return get_viewport().get_visible_rect().size
 
+func addToIsolation(n:Node):
+	camera.viewportReplicator.add_child(n)
+
+func disableEvent(p:BattleEvent):
+	if enabledEvents.has(p):
+		enabledEvents.erase(p)
+		disabledEvents.append(p)
+
+func clearEvents():
+	runningEvents.clear()
+	disabledEvents.clear()
+	enabledEvents.clear()
+
 func _ready():
+	# 
+	Global.Battle = self
 	# For playtesting
 	if (Global.State.party == null):
 		_prepareTest()
 	if (Global.State.currentTroop == null): Global.State.currentTroop = testTroop
+	# Fill events list
+	for p in Global.State.currentTroop.pages:
+		enabledEvents.append(p)
 	# Play music
 	Global.Audio.rememberBGM(&"prebattle")
 	_playBattleMusic()
 	# Create scenario
-	if USE_SCENARIO == true:
+	if Global.Map.battleback != null:
 		if Global.State.currentBattleback != "":
 			var res:PackedScene = load(Global.State.currentBattleback)
 			currentBattleback = res.instantiate()
@@ -98,8 +124,12 @@ func _ready():
 			battleObjContainer.position = currentBattleback.basePlane.position
 	else:
 		var pos = Global.Map.getNearestBattlePosition()
-		battleObjContainer.global_position = pos.global_position
-		battleObjContainer.global_rotation = pos.global_rotation
+		if pos != null:
+			battleObjContainer.global_position = pos.global_position
+			battleObjContainer.global_rotation = pos.global_rotation
+		else:
+			battleObjContainer.global_position = Vector3()
+			battleObjContainer.global_rotation = Vector3()
 	# Create battlers
 	_createTroop()
 	_createParty()
@@ -109,11 +139,23 @@ func _ready():
 	if(Global.Scene.transitioning):
 		waitingCount = START_DELAY
 
+func runEvents(activation:BattleEvent.ERepeatSpan):
+	# Check event pages
+	for p in enabledEvents:
+		if p.activation == activation:
+			if p.check():
+				await p.execute()
+				if p.activation == BattleEvent.ERepeatSpan.BATTLE:
+					disableEvent(p)
+
+var _actionRunning:bool = false
+
 func _process(delta):
 	# Wait
 	if(waitingCount > 0):
 		waitingCount -= delta
 		return
+	# Start sequence
 	if !_start:
 		for b in allBattlers:
 			if b.appeared: b.goToHome()
@@ -122,21 +164,28 @@ func _process(delta):
 	if(Global.Scene.transitioning): return
 	if(battleResult != EBattleResult.NONE): return
 	if(configMenu.visible): return
-	
 	# Debug
 	if _doInput():
 		return
-	
+	# Pause battle while action runs
+	if _actionRunning==true: 
+		return
+	# Run battle-span events
+	await runEvents(BattleEvent.ERepeatSpan.BATTLE)
+	await runEvents(BattleEvent.ERepeatSpan.TICK)
 	# Judge
 	if _judge():
 		return
-	
 	# Battle process
 	# - Execute actions
 	if actionBattlers.size() != 0:
-		# TODO Action execution
+		# Flag as busy
+		_actionRunning = true
+		# Action execution
 		var currentAction:BattleAction = actionBattlers[0].currentAction
-		await _executeAction(currentAction)
+		var _done = await _executeAction(currentAction)
+		if _done: await runEvents(BattleEvent.ERepeatSpan.TURN)
+		_actionRunning = false
 		return
 	
 	# Battle process
@@ -219,7 +268,8 @@ func _advanceActions(b:Battler):
 		await endBattlerTurn(b)
 
 func _executeAction(currentAction:BattleAction):
-	if currentAction==null: return
+	if currentAction==null: return false
+	var _done = false
 	var activeBattler = currentAction.battler
 	activeBattler.currentAction = null
 	if currentAction.action != null:
@@ -285,10 +335,13 @@ func _executeAction(currentAction:BattleAction):
 			if currentAction.anyAllyOnTargets():
 				currentAction.battler.resetDirection()
 			currentAction.battler.goToHome()
+		camera.reset(0.5)
 		await get_tree().create_timer(0.5).timeout
+		_done = true
 	else:
 		pass
 	await endBattlerTurn(activeBattler)
+	return _done
 
 func _waitForEffects(targets):
 	for t in targets:
@@ -337,7 +390,6 @@ func _createTroop():
 	if(_troopData == null): return
 	
 	for entry in _troopData.entries:
-		entry.position
 		var enemy = GameEnemy.new(entry.enemy.getId())
 		var inst:Battler = battlerTemplate.instantiate()
 		troop.add_child(inst)
@@ -350,6 +402,26 @@ func _createTroop():
 		if inst.appeared: allBattlers.append(inst)
 		troopBattlers.append(inst)
 		battlerStatus.setup(inst,true)
+
+func makeTroopAppear(idx:int):
+	var inst = troopBattlers[idx]
+	if !inst.appeared:
+		inst.appeared = true
+		allBattlers.insert(0,inst)
+		waitingBattlers.append(inst)
+		inst.goToHome()
+		reorderAllBattlers()
+
+func reorderAllBattlers():
+	# Let's redo the allBattlers array
+	var _ab:Array[Battler] = []
+	for b in troopBattlers:
+		if allBattlers.has(b):
+			_ab.append(b)
+	for b in partyBattlers:
+		if allBattlers.has(b):
+			_ab.append(b)
+	allBattlers = _ab
 
 func _doInput() -> bool:
 	# Summon config

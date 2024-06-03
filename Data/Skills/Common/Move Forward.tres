@@ -1,11 +1,30 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=2 format=3 uid="uid://cd571o5wvubcl"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=6 format=3 uid="uid://cd571o5wvubcl"]
 
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_4u3rk"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="1_ix3eq"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ChangePositionEffect.gd" id="2_dtaws"]
+
+[sub_resource type="Resource" id="Resource_8vvn7"]
+script = ExtResource("1_ix3eq")
+base = 1
+type = 1
+referenceBattler = 1
+percent = -0.08
+crit = 0.0
+hitChance = 1.0
+variance = 0.0
+ignoreHit = true
+
+[sub_resource type="Resource" id="Resource_iisrl"]
+script = ExtResource("2_dtaws")
+targetPosition = 0
 
 [resource]
 script = ExtResource("1_4u3rk")
 flags = Array[int]([])
 targetKind = 0
+targetCanChangeKind = false
+targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
@@ -14,8 +33,7 @@ cost = 0
 charges = 0
 cooldown = 0
 canUse = 0
+cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_8vvn7"), SubResource("Resource_iisrl")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-name = "Move Forward"
-description = ""

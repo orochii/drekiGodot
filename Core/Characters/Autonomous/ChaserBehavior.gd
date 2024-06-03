@@ -13,6 +13,8 @@ var reactionTimer:float = 0
 var reactionKind:StringName = &""
 var chasing:bool = false
 var enabled:bool = true
+var lastDistances:Array = []
+var lastPosition:Vector3
 
 func setEnabled(v:bool):
 	enabled = v
@@ -62,10 +64,27 @@ func _process(delta):
 		# Go towards player
 		character.navigateTowards(Global.Player.global_position)
 	else:
+		var _longTravel = false
+		if lastDistances.size()==0:
+			lastDistances.append(0)
+		else:
+			var _dst = lastPosition.distance_to(character.global_position)
+			var _totalDst = _dst
+			if lastDistances.size() > 5:
+				for d in lastDistances:
+					_totalDst += d
+				if _totalDst > 5:
+					_longTravel = true
+					lastDistances.clear()
+				else:
+					lastDistances.append(_dst)
 		# Move around
-		var _rndDir = Vector3.FORWARD.rotated(Vector3.UP, randf()*PI)
+		var _rndDst = Vector3.FORWARD * randfn(1.5, 1.0)
+		if _longTravel: Vector3.FORWARD * randfn(4.5, 1.0)
+		var _rndDir = _rndDst.rotated(Vector3.UP, randf() * 2 * PI)
 		character.navigateTowards(character.global_position + _rndDir)
 		reactionTimer = 1.0
+		lastPosition = character.global_position
 
 func _canSee(p:Node3D):
 	if p != null:

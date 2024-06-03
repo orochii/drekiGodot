@@ -2,16 +2,13 @@
 One attempt at making RPG on Godot just how I like it :)
 
 # First Cave TODO
+- Shop UI.
+- Fierro interiors.
+- Scrolls/fylgja UI.
 - Some missing sounds, idiot (redo step sound cuz it sucks).
-- Death is still not done
-- Skills for boss
-- Scan ability
-- Twin Flames barely there
-- Extra treasure (sword, phoenix down)
 - Tutorials (equipment, scrolls, items, back attack)
 
 # TODO List
-- Redo battlebacks/position/camera, set to use close locations, add starting rotation for camera/battleground. Target icon currently ignores world rotation, what is it using for position? isn't it using global? o.o
 - Skill tree learning
 - Character info: scrolls, fylgja, position.
 - Implement general item/skill effects in battle
@@ -28,6 +25,15 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Twin Flames barely there
+- Items in battle oh whoop I already had donk dis but aey succ tho there was some troubleshooting :DD
+- Skill canUse show on list (grayed out). Use onMPChanged/onStatusChanged signals
+- Scan ability
+- Extra treasure (sword, phoenix down)
+- Cleave skill/repeat effect
+- Skills for boss
+- Redo battlebacks/position/camera, set to use close locations, add starting rotation for camera/battleground. Target icon currently ignores world rotation, what is it using for position? isn't it using global? o.o
+- Game over scene (retry, load, give up)
 - Floor layering
 - Health mini-huds
 - Multi-party support

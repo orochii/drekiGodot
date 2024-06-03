@@ -21,7 +21,7 @@ func _ready():
 			var g = gates[Global.State.targetGate]
 			if g is TeleportGate:
 				var tg = g as TeleportGate
-				floorGate = tg.floorGate
+				if tg.floorGate != null: floorGate = tg.floorGate
 			p.global_position = g.global_position
 			if p is Player:
 				p.global_rotation = g.global_rotation
@@ -42,6 +42,8 @@ func _ready():
 
 func getNearestBattlePosition():
 	var p : Node3D = Global.Player
+	if battlePositions == null:
+		return null
 	var nearest = null
 	var nearestDist = 0
 	var positions = battlePositions.get_children()

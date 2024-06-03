@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Status" load_steps=5 format=3 uid="uid://cfsnw063b3sux"]
+
+[ext_resource type="Texture2D" uid="uid://ujwvk8324v28" path="res://Graphics/Icons/states/st_42.png" id="1_7yy3m"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_d5gkx"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="1_h4niv"]
+
+[sub_resource type="Resource" id="Resource_5crru"]
+script = ExtResource("1_d5gkx")
+stat = 10
+kind = 1
+amount = -25
+
+[resource]
+script = ExtResource("1_h4niv")
+icon = ExtResource("1_7yy3m")
+displayRating = 0
+statusPose = &""
+flags = 0
+restriction = 0
+eotActivation = 0
+eotInterval = 0
+eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_5crru")])
+statusRemove = Array[StringName]([&"ATKplus"])
+releaseAtBattleEnd = true
+releaseOnDamageReceived = 0.0
+releaseOnTurnsElapsed = 0
+releaseOnTurnsElapsedRate = 0.0

@@ -1,3 +1,4 @@
+@icon("res://Editor/trigger.svg")
 extends Area3D
 class_name Trigger
 
@@ -66,6 +67,7 @@ func createLocalVarKey():
 func _on_body_entered(body):
 	if body is PlayerWorldmap:
 		var p = body as PlayerWorldmap
+		print("AAAA")
 		p._on_touch_area_entered(self)
 
 func getInteractOffset():

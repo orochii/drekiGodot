@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://w4qixntss7po"]
+[gd_scene load_steps=11 format=3 uid="uid://w4qixntss7po"]
 
 [ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_eq5yj"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="2_bf08y"]
+[ext_resource type="AudioStream" uid="uid://csp0xx6cr1jh2" path="res://Audio/SFX/sword_pull1.ogg" id="2_p7ont"]
 [ext_resource type="Texture2D" uid="uid://b24lky2fgxkwc" path="res://Graphics/Animations/2003sword.png" id="3_4ybte"]
 
 [sub_resource type="Animation" id="Animation_fm0mv"]
@@ -69,6 +70,21 @@ tracks/4/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer3D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_p7ont")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bhrdj"]
 _data = {
@@ -129,3 +145,7 @@ sorting_offset = 2.0
 pixel_size = 0.0625
 no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_f8s0l")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 30.0
+bus = &"SFX"

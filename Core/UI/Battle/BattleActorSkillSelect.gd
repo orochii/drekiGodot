@@ -50,7 +50,7 @@ func _refreshHelp(force=false):
 		if currItem==null:
 			helpText.text = ""
 		else:
-			helpText.text = currItem.getDesc()
+			helpText.text = TextUtils.parseText(currItem.getDesc())
 		statusWindow.setup(currItem)
 		lastItem = currItem
 

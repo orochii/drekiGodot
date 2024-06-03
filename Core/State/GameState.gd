@@ -5,9 +5,6 @@ const MAX_MONTHDAYS = [28,28,28,28,28,28,28,28,28,28,28,28,28]
 const WEEKDAY_NAMES = ["Raidō","Fehu","Eiwaz","Ūruz","Algiz","Mannaz","Sōwilō"]
 const MONTH_NAMES = ["Tēwaz","Gebō","Ehwaz","Yngwaz","Jēra","Perþō","Þurisaz","Kenaz","Wunjō","Ōþala","Naudiz","Isaz", "Haglaz"]
 
-const MAX_SWITCHES = 50
-const MAX_VARIABLES= 50
-
 signal onSwitchChange(id:StringName,value:bool)
 signal onVariableChange(id:StringName,value:int)
 
@@ -32,13 +29,16 @@ var targetGate : int = -1
 var cameraAngle : float = 0
 var visibleLayers : int = 0
 # system state
-#[5,21,30,22,9,500]
-#[9,11,5,6,7,511]
 var gameTime:Dictionary = { "h":9,"m":0,"s":0,"day":6,"month":7,"year":511 }
 var playTime:float = 0
 var stepsTaken:int = 0
 var currentTroop:EnemyTroop = null
 var currentBattleback:String = ""
+var lastRespawn:Dictionary = { "map":"Midgard/Fierro/inn","gate":2 }
+var registeredRespawns:Dictionary = {
+	"Fierro" : { "map":"Midgard/Fierro/inn","gate":2 }
+}
+var retryBackup:Dictionary = {}
 # Screenshot differentiator helper (why time doesn't have millis? :C)
 var lastTime = null
 var count = 0
@@ -182,6 +182,11 @@ func formatPlayTime(seconds:float) -> String:
 
 #region Serialization
 func _serialize():
+	var _camRotY = 0
+	var _camLayers = 0
+	if Global.Camera != null && Global.Camera.saveRotation():
+		_camRotY = Global.Camera.currRotation.y
+		_camLayers = Global.Camera.getLayers()
 	var save_dict = {
 		"actors" : _serializeActors(),
 		"party" : party._serialize(),
@@ -190,13 +195,15 @@ func _serialize():
 		"localVars" : localVars,
 		"characters" : _serializeCharacters(),
 		"lastSceneName" : lastSceneName,
-		"cameraAngle" : Global.Camera.currRotation.y,
-		"visibleLayers" : Global.Camera.getLayers(),
+		"cameraAngle" : _camRotY,
+		"visibleLayers" : _camLayers,
 		#
 		"gameTime" : gameTime,
 		"playTime" : playTime,
 		"stepsTaken" : stepsTaken,
-		"timestamp" : getSaveTimestamp()
+		"timestamp" : getSaveTimestamp(),
+		"lastRespawn" : lastRespawn,
+		"registeredRespawns" : registeredRespawns
 	}
 	return save_dict
 
@@ -211,8 +218,18 @@ func _serializeCharacters():
 	var children:Array[Node] = []
 	get_all_characters(scene,children)
 	for n in children:
+		if n is CharacterWorldmap:
+			dict[String(n.get_path())] = {
+				"posx" : n.global_position.x,
+				"posy" : n.global_position.y,
+				"posz" : n.global_position.z,
+				"rotx" : n.global_rotation.x,
+				"roty" : n.global_rotation.y,
+				"rotz" : n.global_rotation.z,
+				#"erased" : n.erased,
+			}
 		if n is Character:
-			dict[n.get_path()] = {
+			dict[String(n.get_path())] = {
 				"posx" : n.global_position.x,
 				"posy" : n.global_position.y,
 				"posz" : n.global_position.z,
@@ -222,7 +239,7 @@ func _serializeCharacters():
 				"erased" : n.erased,
 			}
 		elif n.has_meta("dynamic"):
-			dict[n.get_path()] = {
+			dict[String(n.get_path())] = {
 				"posx" : n.global_position.x,
 				"posy" : n.global_position.y,
 				"posz" : n.global_position.z,
@@ -270,6 +287,14 @@ func _deserializeCharacters():
 	var children:Array[Node] = []
 	get_all_characters(scene,children)
 	for n in children:
+		if n is CharacterWorldmap:
+			var path = "/"+n.get_path().get_concatenated_names()
+			if _characters.has(path):
+				var e = _characters[path]
+				var pos = Vector3(e["posx"],e["posy"],e["posz"])
+				var rot = Vector3(e["rotx"],e["roty"],e["rotz"])
+				n.global_position = pos
+				n.global_rotation = rot
 		if n is Character:
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
@@ -291,7 +316,6 @@ func _deserializeCharacters():
 		elif n.has_meta("dynamic"):
 			var path = "/"+n.get_path().get_concatenated_names()
 			if _characters.has(path):
-				print("Found dynamic object")
 				var e = _characters[path]
 				var pos = Vector3(e["posx"],e["posy"],e["posz"])
 				var rot = Vector3(e["rotx"],e["roty"],e["rotz"])
@@ -303,7 +327,11 @@ func _deserializeCharacters():
 func get_all_characters(root:Node,ary:Array[Node]):
 	var children = root.get_children()
 	for n in children:
+		if n is CharacterWorldmap:
+			ary.append(n)
 		if n is Character:
+			ary.append(n)
+		if n is Trigger:
 			ary.append(n)
 		elif n.has_meta("dynamic"):
 			ary.append(n)

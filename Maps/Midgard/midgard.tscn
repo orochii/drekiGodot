@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://da5bq3pri04kx"]
+[gd_scene load_steps=31 format=3 uid="uid://da5bq3pri04kx"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_7ef4d"]
 [ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard/midgard.tscn" id="1_41gtu"]
@@ -6,16 +6,19 @@
 [ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_wu3rg"]
 [ext_resource type="AudioStream" uid="uid://daf7yxnu0tmw1" path="res://Audio/BGM/[World] Time And Freedom.ogg" id="3_d5ufe"]
 [ext_resource type="Script" path="res://Core/Characters/PlayerWorldmap.gd" id="4_1owuk"]
+[ext_resource type="PackedScene" uid="uid://c27x360ycdxk7" path="res://Graphics/Scenario/battle/grassland.tscn" id="4_2ri8s"]
 [ext_resource type="Script" path="res://Core/CameraWorldmap.gd" id="4_buto5"]
 [ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_87hw2"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="6_hs7vt"]
 [ext_resource type="PackedScene" uid="uid://doagi6qooicih" path="res://Graphics/Scenario/midgard/midgard_minimap.glb" id="7_7c2o7"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="7_md2ey"]
-[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="8_kw7wr"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="8_kw7wr"]
 [ext_resource type="Texture2D" uid="uid://bbhfn13t8n2af" path="res://Graphics/System/wm_marker.png" id="8_s1imt"]
 [ext_resource type="Shader" path="res://Core/Shaders/psx_camera_shader.gdshader" id="10_2tj8m"]
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="11_avkg2"]
 [ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="12_tv3wi"]
+[ext_resource type="Script" path="res://Events/EnemyEncounter.gd" id="17_n3tp6"]
+[ext_resource type="Resource" uid="uid://rcingx5nsidx" path="res://Data/Troops/Moles.tres" id="18_wvqlt"]
 
 [sub_resource type="Resource" id="Resource_ufju1"]
 script = ExtResource("2_wu3rg")
@@ -51,8 +54,15 @@ size = Vector2(2, 2)
 radius = 0.7
 height = 3.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehf7t"]
+albedo_color = Color(0.411765, 0.666667, 1, 1)
+
 [sub_resource type="PrismMesh" id="PrismMesh_iydr2"]
+material = SubResource("StandardMaterial3D_ehf7t")
 size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mjo8q"]
+size = Vector3(0.702, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ifxxx"]
 size = Vector3(10, 10, 10)
@@ -61,9 +71,13 @@ size = Vector3(10, 10, 10)
 ambient_light_source = 2
 ambient_light_color = Color(0.447059, 0.447059, 0.447059, 1)
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("gates")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_34ipl"]
+size = Vector3(10, 10, 10)
+
+[node name="midgard" type="Node3D" node_paths=PackedStringArray("gates")]
 script = ExtResource("1_7ef4d")
 music = SubResource("Resource_ufju1")
+battleback = ExtResource("4_2ri8s")
 gates = [NodePath("Gates/Fierro")]
 
 [node name="Gates" type="Node" parent="."]
@@ -144,11 +158,8 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
-[node name="HealthDisplay" parent="GameUI/HUD" index="2"]
-offset_left = 0.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 0.0
+[node name="Control" parent="GameUI/Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control" index="0"]
+anchors_preset = 5
 
 [node name="SelectionBox" parent="GameUI/DebugMenu" index="0"]
 offset_left = 0.0
@@ -156,24 +167,27 @@ offset_top = 0.0
 offset_right = 96.0
 offset_bottom = 144.0
 
-[node name="CameraWorldmap" type="Node3D" parent="." node_paths=PackedStringArray("target", "pivot", "shaderQuad", "camera")]
+[node name="CameraWorldmap" type="Node3D" parent="." node_paths=PackedStringArray("pivot", "target", "camera", "shaderQuad")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 script = ExtResource("4_buto5")
-target = NodePath("../PlayerWorldmap")
 pivot = NodePath("Pivot")
-shaderQuad = NodePath("Pivot/Camera3D/MeshInstance3D")
-camera = NodePath("Pivot/Camera3D")
+target = NodePath("../PlayerWorldmap")
+camera = NodePath("Pivot/Tilt/Camera3D")
+shaderQuad = NodePath("Pivot/Tilt/Camera3D/MeshInstance3D")
+interior = null
 
 [node name="Pivot" type="Node3D" parent="CameraWorldmap"]
+
+[node name="Tilt" type="Node3D" parent="CameraWorldmap/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraWorldmap/Pivot"]
+[node name="Camera3D" type="Camera3D" parent="CameraWorldmap/Pivot/Tilt"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100)
 current = true
 fov = 20.0
 size = 16.875
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraWorldmap/Pivot/Camera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraWorldmap/Pivot/Tilt/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.72205e-06, -1.07238)
 visible = false
 mesh = SubResource("QuadMesh_57xvi")
@@ -183,6 +197,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="PlayerWorldmap" type="RigidBody3D" parent="." node_paths=PackedStringArray("refBody", "cast", "graphicNode", "yRefNode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.484, 58.7254, 153.465)
+collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = true
@@ -222,8 +237,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("PrismMesh_iydr2")
 
+[node name="Interact" type="Area3D" parent="PlayerWorldmap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerWorldmap/Interact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_mjo8q")
+
 [node name="TriggerFierro" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
 transform = Transform3D(0.85906, -0.148123, -0.489976, 0.388438, 0.812041, 0.435552, 0.333365, -0.56449, 0.755128, -119.966, 70.7223, 147.612)
+collision_mask = 3
 script = ExtResource("11_avkg2")
 pages = [NodePath("Page1")]
 
@@ -240,7 +265,29 @@ activation = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vco0q")
 
+[node name="TriggerBattleTest" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+transform = Transform3D(0.831917, -0.0855728, -0.548263, 0.347593, 0.850536, 0.394676, 0.432544, -0.518908, 0.737319, -131.477, 63.2687, 141.045)
+collision_mask = 3
+script = ExtResource("11_avkg2")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerBattleTest"]
+transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_34ipl")
+
+[node name="Page1" type="Node3D" parent="TriggerBattleTest"]
+script = ExtResource("17_n3tp6")
+troop = ExtResource("18_wvqlt")
+activation = 1
+
+[node name="Origin" type="Node3D" parent="."]
+
 [connection signal="body_entered" from="PlayerWorldmap" to="PlayerWorldmap" method="_on_body_entered"]
+[connection signal="area_entered" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_area_exited"]
+[connection signal="body_entered" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_body_exited"]
 [connection signal="body_entered" from="TriggerFierro" to="TriggerFierro" method="_on_body_entered"]
+[connection signal="body_entered" from="TriggerBattleTest" to="TriggerBattleTest" method="_on_body_entered"]
 
 [editable path="GameUI"]

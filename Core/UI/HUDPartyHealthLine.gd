@@ -11,7 +11,10 @@ var _lastPerc:float = -1
 var targetPos:Vector2
 
 func refreshActor(idx:int):
-	if idx >= Global.State.party.getMembers().size(): return null
+	if idx >= Global.State.party.getMembers().size():
+		_id = &""
+		_actor = null
+		return
 	var m = Global.State.party.getMembers()[idx]
 	if (m == _id): return
 	_id = m
@@ -19,6 +22,7 @@ func refreshActor(idx:int):
 	if _actor != null:
 		faceImg.texture = _actor.getSmallFace()
 		nameLabel.text = "%d: " % (idx+1) + _actor.getName()
+		refreshHP()
 
 func refresh(idx:int):
 	refreshActor(idx)
@@ -26,10 +30,13 @@ func refresh(idx:int):
 		visible = false
 	else:
 		visible = true
-		var perc = _actor.currHP * 1.0 / _actor.getMaxHP()
-		if _lastPerc != perc:
-			_setBarWidth(hpBar, perc)
-			_lastPerc = perc
+
+func refreshHP():
+	if _actor == null: return
+	var perc = _actor.currHP * 1.0 / _actor.getMaxHP()
+	if _lastPerc != perc:
+		_setBarWidth(hpBar, perc)
+		_lastPerc = perc
 
 func _setBarWidth(bar:NinePatchRect, percent:float):
 	var size = bar.texture.get_size()

@@ -120,7 +120,7 @@ func refreshHelp(idx:int):
 	helpLabel.text = "actionhelp_%d"%idx
 
 func _on_action_pressed():
-	currentBattler.setWeaponIndex(-1)
+	#currentBattler.setWeaponIndex(-1)
 	Global.Audio.playSFX("decision")
 	currentBattler.setLastIndex(&"command", 0)
 	skillSelect.open()

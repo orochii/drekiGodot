@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b13crbwy0h3he"]
+[gd_scene load_steps=8 format=3 uid="uid://b13crbwy0h3he"]
 
 [ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_lptht"]
+[ext_resource type="AudioStream" uid="uid://chfljukl7mi6w" path="res://Audio/SFX/Swosh1.ogg" id="2_4cwwt"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="2_7vnqs"]
 [ext_resource type="Texture2D" uid="uid://crh23xb844cnm" path="res://Graphics/Animations/arrow.png" id="3_4435w"]
+[ext_resource type="AudioStream" uid="uid://0jlystao0ynk" path="res://Audio/SFX/hit1.ogg" id="3_gawkj"]
 
 [sub_resource type="Animation" id="Animation_y5uwc"]
 resource_name = "standby"
@@ -67,6 +69,25 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0, 1.0]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer3D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_4cwwt")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_gawkj")
+}],
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yt3cg"]
 _data = {
@@ -92,3 +113,7 @@ pixel_size = 0.0313
 axis = 0
 texture_filter = 0
 texture = ExtResource("3_4435w")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 20.0
+bus = &"SFX"

@@ -1,8 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://bij2e3o0vqc5m"]
+[gd_scene load_steps=22 format=3 uid="uid://bij2e3o0vqc5m"]
 
 [ext_resource type="Script" path="res://Core/Visual/VisualEffect.gd" id="1_satbd"]
 [ext_resource type="Script" path="res://Core/Visual/AnimAutoplay.gd" id="2_c6d6f"]
+[ext_resource type="AudioStream" uid="uid://d1fdu58bfdv8i" path="res://Audio/SFX/holy1.ogg" id="2_lj67o"]
 [ext_resource type="Shader" path="res://Core/Shaders/animatedParticle_shader.gdshader" id="3_6qaf5"]
+[ext_resource type="AudioStream" uid="uid://kkqmbaeh3dv0" path="res://Audio/SFX/holy2.ogg" id="3_nlxnh"]
 [ext_resource type="Texture2D" uid="uid://dlfiddaxi54u4" path="res://Graphics/Animations/remedy.png" id="4_7sljt"]
 [ext_resource type="Texture2D" uid="uid://dsse60dmc3jvv" path="res://Graphics/Animations/remedy2.png" id="5_xxu36"]
 
@@ -57,6 +59,36 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer3D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_lj67o")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer3D2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_nlxnh")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_81ynf"]
 _data = {
@@ -184,3 +216,11 @@ amount = 2
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_74a0i")
 draw_pass_1 = SubResource("QuadMesh_v3ngi")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+volume_db = 20.0
+bus = &"SFX"

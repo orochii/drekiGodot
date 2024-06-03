@@ -19,6 +19,7 @@ elements = Array[int]([])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = true
 
 [resource]
 script = ExtResource("3_wjvjq")
@@ -29,8 +30,8 @@ targetCanChangeScope = true
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
-cost = 12
+costType = 1
+cost = 18
 charges = 0
 cooldown = 1
 canUse = 2

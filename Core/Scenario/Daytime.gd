@@ -9,8 +9,25 @@ const DAY_LENGTH : float = 24*3600.0
 @export var dawnColor : Color
 @export var environment : WorldEnvironment
 
+@export_group("Sky Backdrop")
+@export var skyMesh:MeshInstance3D
+@export var skyMatIdx:int
+@export var skyMatColorPropertyName:StringName
+
+var _shadermat:ShaderMaterial = null
+var _originalMatColor:Color
+var _currSkyColor:Color
+var _currentDayPerc:float
+
 func _ready():
-	refreshAngle() # Replace with function body.
+	refreshAngle()
+	if skyMesh != null:
+		var _m = skyMesh.get_active_material(skyMatIdx)
+		if _m is ShaderMaterial:
+			_shadermat = _m.duplicate(true)
+			skyMesh.set_surface_override_material(skyMatIdx, _shadermat)
+			_originalMatColor = _shadermat.get_shader_parameter(skyMatColorPropertyName)
+			_refreshColor()
 
 func _process(delta):
 	refreshAngle()
@@ -20,6 +37,7 @@ func refreshAngle():
 	var s = t["s"]+t["m"]*60+t["h"]*3600
 	var pp = (s / DAY_LENGTH)
 	var p = pp * 360
+	_currentDayPerc = pp
 	if rotatingObject != null: 
 		if town:
 			var angle = +p+angleOffset
@@ -40,3 +58,8 @@ func refreshAngle():
 		else:
 			rotatingObject.global_rotation_degrees.y = -p+angleOffset
 
+func _refreshColor():
+	if _shadermat != null:
+		var skyColCfg = Global.Db.skyColorConfiguration as Gradient
+		_currSkyColor = skyColCfg.sample(_currentDayPerc)
+		_shadermat.set_shader_parameter(skyMatColorPropertyName,_currSkyColor)

@@ -9,7 +9,7 @@ extends BaseEvent
 func _run():
 	if activator != null:
 		if !activator.getLocalVar(&"dropped"): return
-	Global.Player.state = &"armsup"
+	Global.Player.state = &"climb"
 	Global.Player.forcedMove = true
 	Global.Player.graphic.state = Global.Player.state
 	Global.Player.graphic.speed = 0
@@ -20,7 +20,7 @@ func _run():
 	while(active):
 		var move = Input.get_axis("move_down","move_up")
 		Global.Player.graphic.speed = abs(move)
-		l = l + (move * 0.05)
+		l = l + (move * get_process_delta_time())
 		if abs(move) > 0.5:
 			if l > 1.0 || l < 0.0:
 				active = false

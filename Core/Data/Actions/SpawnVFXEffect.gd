@@ -6,6 +6,9 @@ class_name SpawnVFXEffect
 @export_enum("Don't wait","Wait","Wait in sequence") var waitMode:int = 1
 
 func execute(action:BattleAction):
+	# Ignore if no visual effect to spawn
+	if visualEffectTemplate==null: return
+	# Execute either once per target or once for all
 	if onePerEachTarget:
 		var effectsToWaitFor = []
 		for t in action.targets:

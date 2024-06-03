@@ -19,7 +19,10 @@ func setup(_entry:GameInventoryEntry,p:CharacterEquipScreen):
 
 func setCanUse(v:bool):
 	canUse = v
-	modulate.a = 1 if v else 0.5
+	if v: 
+		modulate = Global.Db.systemColors[&"enabled"]
+	else: 
+		modulate = Global.Db.systemColors[&"disabled"]
 
 func getCategory():
 	if(data==null):return Global.EItemCategory.MEDICINE

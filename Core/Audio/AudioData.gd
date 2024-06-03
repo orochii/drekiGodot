@@ -15,7 +15,9 @@ func initialize():
 	dict = {}
 	for l in loops: dict[l.stream.resource_path] = l
 	registeredEvents = {}
-	for e in events: registeredEvents[e.id] = e
+	for e in events: 
+		e.initialize()
+		registeredEvents[e.id] = e
 	initialized = true
 
 func getLoop(stream : AudioStream) -> LoopData:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Core/Characters/Player.gd" id="1_hti21"]
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="2_mdew4"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_2qdqi"]
-[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/hikari_map.tres" id="4_7q4nm"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="4_7q4nm"]
 [ext_resource type="Texture2D" uid="uid://wlwgkip5ngqs" path="res://Graphics/shade.png" id="5_artf2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ybgd"]
@@ -11,7 +11,7 @@ radius = 0.49
 height = 1.75
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w1xeb"]
-size = Vector3(0.702, 1, 1)
+size = Vector3(0.75, 1, 1.75)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rpbfm"]
 radius = 0.6
@@ -26,7 +26,7 @@ graphic = NodePath("Graphic")
 collider = NodePath("CollisionShape3D")
 navigator = NodePath("NavigationAgent3D")
 raycast = NodePath("RayCast3D")
-soundEmitter = NodePath("AudioStreamPlayer3D")
+soundEmitter = NodePath("AudioStack")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
@@ -38,7 +38,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.875)
 shape = SubResource("BoxShape3D_w1xeb")
 
 [node name="Touch" type="Area3D" parent="."]
@@ -74,12 +74,37 @@ texture = ExtResource("5_artf2")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="AudioStack" type="Node3D" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="AudioStack"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
-max_polyphony = 40
 bus = &"SFX"
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D3" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D4" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D5" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D6" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3D7" type="AudioStreamPlayer3D" parent="AudioStack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04489, 0)
+bus = &"SFX"
 
 [connection signal="area_entered" from="Interact" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_area_3d_area_exited"]

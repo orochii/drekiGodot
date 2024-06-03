@@ -20,7 +20,10 @@ func setEnabled(inBattle:bool):
 	var v = false
 	if (data != null): v = data.isUseable(inBattle)
 	canUse = v
-	modulate.a = 1 if v else 0.5
+	if v: 
+		modulate = Global.Db.systemColors[&"enabled"]
+	else: 
+		modulate = Global.Db.systemColors[&"disabled"]
 
 func getCategory():
 	if(data==null):return Global.EItemCategory.MEDICINE

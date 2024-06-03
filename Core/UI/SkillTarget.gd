@@ -22,6 +22,7 @@ func _ready():
 
 func _process(delta):
 	if !visible: return
+	if Global.UI.Config.visible: return
 	var focused = get_viewport().gui_get_focus_owner()
 	if(targetList.has(focused)):
 		positionCursor(focused)
@@ -65,14 +66,15 @@ func open(_actor:GameActor, skill:BaseSkill):
 		currTargetAllIdx = 0
 		# Get useable targets
 		var targets = []
-		match currentSkill.targetKind:
-			Global.ETargetKind.ALLY,Global.ETargetKind.ANY:
-				var members : Array = Global.State.party.getMembers()
-				for i in range(members.size()):
-					var m = members[i]
-					targets.append(m)
-			Global.ETargetKind.USER:
-				targets.append(actor.id)
+		if currentSkill.isUseable(false):
+			match currentSkill.targetKind:
+				Global.ETargetKind.ALLY,Global.ETargetKind.ANY:
+					var members : Array = Global.State.party.getMembers()
+					for i in range(members.size()):
+						var m = members[i]
+						targets.append(m)
+				Global.ETargetKind.USER:
+					targets.append(actor.id)
 		# Spawn targets
 		for m in targets:
 			var inst:PartyTargetEntry = partyTargetTemplate.instantiate()

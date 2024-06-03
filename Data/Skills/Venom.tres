@@ -19,6 +19,7 @@ elements = Array[int]([])
 crit = 0.04
 hit = 1.0
 variance = 0.0
+ignoreHit = false
 
 [resource]
 script = ExtResource("2_an0kp")
@@ -29,7 +30,7 @@ targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
+costType = 1
 cost = 0
 charges = 0
 cooldown = 0

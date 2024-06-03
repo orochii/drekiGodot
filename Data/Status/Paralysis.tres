@@ -5,8 +5,6 @@
 
 [resource]
 script = ExtResource("2_c1yat")
-name = "Paralysis"
-description = ""
 icon = ExtResource("1_p4pnl")
 displayRating = 8
 statusPose = &"status"
@@ -16,8 +14,8 @@ eotActivation = 0
 eotInterval = 0
 eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
-statusRemove = Array[ExtResource("2_c1yat")]([])
-releaseAtBattleEnd = false
+statusRemove = Array[StringName]([])
+releaseAtBattleEnd = true
 releaseOnDamageReceived = 0.0
 releaseOnTurnsElapsed = 3
 releaseOnTurnsElapsedRate = 0.75

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=99 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -84,8 +84,11 @@
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="55_2j7gp"]
 [ext_resource type="Script" path="res://Core/UI/SkillTarget.gd" id="57_oprof"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
+[ext_resource type="Texture2D" uid="uid://08x0u7fn1rpk" path="res://Graphics/System/partyMenu/base_shop.png" id="83_cum7i"]
 [ext_resource type="Script" path="res://Core/UI/Debug/DebugMenu.gd" id="84_67nmn"]
 [ext_resource type="Script" path="res://Core/UI/Debug/DebugVarList.gd" id="84_cjxrx"]
+[ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="84_gspqu"]
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="85_3fjrp"]
 [ext_resource type="PackedScene" uid="uid://dexfcektogv7j" path="res://Objects/ui/debug_list_entry.tscn" id="85_8py51"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4etw"]
@@ -257,7 +260,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("11_hotyh")
 text = "HH:MM:SS
-Wed 15 AUG, 511"
+Sowilo 15 KENAZ, 511"
 horizontal_alignment = 2
 script = ExtResource("5_n3pua")
 
@@ -558,7 +561,8 @@ offset_bottom = 20.0
 theme = ExtResource("18_dtd4u")
 text = "Hikari"
 
-[node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "container", "tailSprite", "cursor")]
+[node name="MessageBox" type="NinePatchRect" parent="." node_paths=PackedStringArray("messageText", "speakerText", "container", "tailSprite", "cursor", "optionsSpacer")]
+visible = false
 texture_filter = 1
 layout_mode = 1
 offset_left = 21.0
@@ -578,6 +582,7 @@ textMarginTop = 0.0
 tailSprite = NodePath("Tail")
 optionTemplate = ExtResource("6_ftogh")
 cursor = NodePath("Cursor")
+optionsSpacer = NodePath("VBoxContainer/OptionsSpacer")
 
 [node name="Border" type="NinePatchRect" parent="MessageBox"]
 layout_mode = 1
@@ -639,6 +644,7 @@ layout_mode = 2
 auto_translate = false
 theme_override_fonts/normal_font = ExtResource("5_m5poo")
 theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
 text = "*asd*dsa"
 fit_content = true
 scroll_active = false
@@ -659,6 +665,11 @@ scroll_active = false
 autowrap_mode = 0
 visible_characters_behavior = 1
 
+[node name="OptionsSpacer" type="Control" parent="MessageBox/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 4)
+layout_mode = 2
+
 [node name="Cursor" type="AnimatedSprite2D" parent="MessageBox"]
 visible = false
 scale = Vector2(0.5, 0.5)
@@ -667,6 +678,7 @@ offset = Vector2(-16, -6)
 
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1864,6 +1876,7 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_hotyh")
+bbcode_enabled = true
 text = "Long text for describing a thing aaa yes and farts. :) Oh only two lines, dayum..."
 scroll_active = false
 
@@ -1909,6 +1922,7 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="CharacterSkillsScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2307,13 +2321,14 @@ targetsWindow = NodePath("Target")
 menuScreen = NodePath("..")
 cursor = NodePath("Cursor")
 
-[node name="SkillInfo" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillUse" node_paths=PackedStringArray("skillIcon", "skillName", "skillDesc", "skillCost", "turnIcon", "turnLabel", "chargeIcon", "chargeLabel")]
+[node name="SkillInfo" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillUse" node_paths=PackedStringArray("skillIcon", "skillName", "skillDesc", "skillCostType", "skillCost", "turnIcon", "turnLabel", "chargeIcon", "chargeLabel")]
 custom_minimum_size = Vector2(208, 96)
 layout_mode = 2
 script = ExtResource("53_yapl8")
 skillIcon = NodePath("Container/Icon")
 skillName = NodePath("Container/Name")
 skillDesc = NodePath("Container/HelpText")
+skillCostType = NodePath("Container/Cost")
 skillCost = NodePath("Container/CostNum")
 turnIcon = NodePath("Container/UseRestrictions/TurnIcon")
 turnLabel = NodePath("Container/UseRestrictions/TurnNum")
@@ -2418,6 +2433,7 @@ offset_top = 16.0
 offset_bottom = 64.0
 grow_horizontal = 2
 theme = ExtResource("11_hotyh")
+bbcode_enabled = true
 text = "About three lines of text go here. :)
 Uhhh yeah and so here's more text, just to uh check that things look okay or something idk. oh actually 4 lines? ok..."
 
@@ -2626,6 +2642,7 @@ offset_bottom = 32.0
 layout_mode = 0
 offset_right = 1.0
 theme = ExtResource("11_hotyh")
+bbcode_enabled = true
 text = "About three lines of text go here. :)
 Uhhh yeah and so here's more text, just to uh check that things look okay or something idk. oh actually 4 lines? ok..."
 
@@ -2709,6 +2726,7 @@ label_settings = ExtResource("19_wre01")
 horizontal_alignment = 1
 
 [node name="SystemScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("firstSelected", "tasks")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3042,6 +3060,533 @@ offset_right = 160.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("11_eyxf8")
+
+[node name="Shop" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="NinePatchRect" parent="Shop"]
+modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_wa60k")
+patch_margin_left = 132
+patch_margin_right = 176
+script = ExtResource("11_l3uei")
+
+[node name="InputLegends" type="NinePatchRect" parent="Shop" node_paths=PackedStringArray("leftTop", "rightTop", "extraObj", "extraAction", "helpObj")]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_ajity")
+region_rect = Rect2(0, 0, 320, 28)
+patch_margin_left = 80
+patch_margin_top = 28
+patch_margin_right = 80
+script = ExtResource("17_w1dpt")
+leftTop = NodePath("../../PartyMenu/InputLegends/Left/LeftLabel")
+rightTop = NodePath("../../PartyMenu/InputLegends/Right/RightLabel")
+extraObj = NodePath("../../PartyMenu/InputLegends/Extra")
+extraAction = NodePath("../../PartyMenu/InputLegends/Extra/ExtraLabel")
+helpObj = NodePath("../../PartyMenu/InputLegends/Help")
+
+[node name="Left" type="Control" parent="Shop/InputLegends"]
+visible = false
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Left"]
+texture = ExtResource("16_bl4y0")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"cycle_left"
+
+[node name="LeftLabel" type="Label" parent="Shop/InputLegends/Left"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 48.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "---"
+vertical_alignment = 1
+
+[node name="Right" type="Control" parent="Shop/InputLegends"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 32.0
+offset_bottom = 48.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Right"]
+position = Vector2(32, 0)
+texture = ExtResource("16_bl4y0")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"cycle_right"
+
+[node name="RightLabel" type="Label" parent="Shop/InputLegends/Right"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "---"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Extra" type="Control" parent="Shop/InputLegends"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 56.0
+offset_bottom = 72.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Extra"]
+texture = ExtResource("19_85gig")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_extra"
+
+[node name="ExtraLabel" type="Label" parent="Shop/InputLegends/Extra"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Data"
+vertical_alignment = 1
+
+[node name="Help" type="Control" parent="Shop/InputLegends"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 76.0
+offset_bottom = 92.0
+grow_horizontal = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Help"]
+texture = ExtResource("20_q4gm6")
+centered = false
+script = ExtResource("17_i84k7")
+bindName = &"action_select"
+
+[node name="HelpLabel" type="Label" parent="Shop/InputLegends/Help"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme = ExtResource("18_dtd4u")
+text = "Help"
+vertical_alignment = 1
+
+[node name="ShopBack" type="NinePatchRect" parent="Shop"]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("83_cum7i")
+region_rect = Rect2(0, 0, 320, 212)
+patch_margin_left = 8
+patch_margin_right = 4
+patch_margin_bottom = 28
+script = ExtResource("11_l3uei")
+
+[node name="Control" type="VBoxContainer" parent="Shop/ShopBack"]
+custom_minimum_size = Vector2(304, 192)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = 16.0
+offset_right = 152.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="Shop/ShopBack/Control"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ItemList" type="ScrollContainer" parent="Shop/ShopBack/Control/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/ItemList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="GenericItemEntry" parent="Shop/ShopBack/Control/HBoxContainer/ItemList/VBoxContainer" instance=ExtResource("84_gspqu")]
+layout_mode = 2
+
+[node name="GenericItemEntry2" parent="Shop/ShopBack/Control/HBoxContainer/ItemList/VBoxContainer" node_paths=PackedStringArray("itemIcon", "itemLabel") instance=ExtResource("84_gspqu")]
+layout_mode = 2
+itemIcon = NodePath("../GenericItemEntry/Container/NinePatchRect")
+itemLabel = NodePath("../GenericItemEntry/Container/Label")
+
+[node name="Details" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="ItemEntry" parent="Shop/ShopBack/Control/HBoxContainer/Details" instance=ExtResource("18_8bsst")]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Made out of metal and a ring of text.
+This is what you were waiting for?"
+
+[node name="PriceStuff" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_hotyh")
+text = "Price"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SimplePrice" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_hotyh")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="SimplePrice2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_hotyh")
+text = "£"
+label_settings = ExtResource("19_wre01")
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "£"
+label_settings = ExtResource("19_wre01")
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "x"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "99"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "/"
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "99"
+
+[node name="ColorRect" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 0.25098)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label6" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("11_hotyh")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "£"
+label_settings = ExtResource("19_wre01")
+horizontal_alignment = 2
+
+[node name="EquipmentStatsChange" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Control" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+
+[node name="Control" type="Control" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 36.0
+offset_bottom = 36.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Control"]
+texture = ExtResource("85_3fjrp")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 32)
+
+[node name="Stats" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("18_dtd4u")
+text = "STR"
+
+[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("18_dtd4u")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("18_dtd4u")
+text = "VIT"
+
+[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("18_dtd4u")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("18_dtd4u")
+text = "INT"
+
+[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("18_dtd4u")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("18_dtd4u")
+text = "AGI"
+
+[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("18_dtd4u")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="Control2" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+
+[node name="Control3" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+
+[node name="Buttons" type="NinePatchRect" parent="Shop"]
+self_modulate = Color(1, 1, 1, 0.752941)
+custom_minimum_size = Vector2(184, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("83_cum7i")
+region_rect = Rect2(136, 216, 184, 24)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Buttons"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="Shop/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Buy"
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="Shop/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_hotyh")
+text = "Sell"
+vertical_alignment = 1
+
+[node name="Label" type="Control" parent="Shop/Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+
+[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "88888"
+horizontal_alignment = 2
 
 [node name="FileMenu" parent="." instance=ExtResource("51_d771a")]
 visible = false

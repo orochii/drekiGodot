@@ -50,7 +50,6 @@ func doMove(b:Battler,localTargets:Array[Battler]):
 	# Calculate position
 	var moveOffset = Vector3(radius,height,radius) * referencePosition + offset + positionOffset
 	var rotY = b.direction + 90
-	print (rotY)
 	var moveOffsetRotated = moveOffset.rotated(Vector3.UP,deg_to_rad(rotY))
 	var movePosition = center + moveOffsetRotated
 	# Execute movement

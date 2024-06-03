@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MapSpritesheet" load_steps=8 format=3 uid="uid://ci051ks7sjf5l"]
+
+[ext_resource type="Texture2D" uid="uid://codamyfwmq3lb" path="res://Graphics/Character/_NPCS/bab_charset.png" id="1_opbav"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheetEntry.gd" id="2_l4yvl"]
+[ext_resource type="Texture2D" uid="uid://dne0bs2tvpndr" path="res://Graphics/Character/_NPCS/bab_charset_sleep.png" id="3_e2vtg"]
+[ext_resource type="Script" path="res://Core/Data/Graphics/MapSpritesheet.gd" id="3_owlgl"]
+[ext_resource type="Texture2D" uid="uid://dxq0xutxexfbq" path="res://Graphics/Character/_NPCS/bab_charset_sleep_diag.png" id="4_a6fwk"]
+
+[sub_resource type="Resource" id="Resource_uj8d0"]
+script = ExtResource("2_l4yvl")
+base = ExtResource("1_opbav")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = null
+name = &"base"
+fps = 8
+idleSpeed = 0.0
+
+[sub_resource type="Resource" id="Resource_0e4lo"]
+script = ExtResource("2_l4yvl")
+base = ExtResource("3_e2vtg")
+baseDiag = ExtResource("4_a6fwk")
+totalFrames = 4
+events = Array[StringName]([&"", &"step", &"", &"step"])
+offset = Vector2i(0, 0)
+offsetTowardsCamera = -0.2
+name = &"sleep"
+fps = 12
+idleSpeed = 0.0
+
+[resource]
+script = ExtResource("3_owlgl")
+collection = Array[ExtResource("2_l4yvl")]([SubResource("Resource_uj8d0"), SubResource("Resource_0e4lo")])

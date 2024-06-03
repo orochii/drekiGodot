@@ -5,17 +5,15 @@ var name : String
 var position : int = 0
 var exp : int
 var equips : Array
+var scrolls : Array
 var _expList : Array[int] = []
-var currWeapon : int = -1:
-	set(value):
-		currWeapon = value
-		recreateFeatureCache()
-		regenCachedStatistics()
+var currWeapon : int = -1
 var currAP : int
 var apPerc : int
 
 var availableSkills:Array
 var learnedSkills:Array
+var _cachedSkills = null
 
 func _init(_id:StringName):
 	id = _id
@@ -62,38 +60,44 @@ func getName():
 
 func getPosition() -> int:
 	return position
+func setPosition(v:int):
+	position = v
 
 func getDefaultSkill(i):
 	var idx = getData().defaultWeaponSkills[i]
 	return Global.Db.defaultAttackSkills[idx] as UseableSkill
 
-func getSkills():
-	var skills = []
+func makeSkillsCache():
+	_cachedSkills = []
 	var equipSkills = []
 	var _slotData:Array[SlotData] = Global.Db.equipSlots
 	# Equip skills
 	for i in range(_slotData.size()):
-		var e = equips[i]
+		var e = getEquip(i) as EquipItem
 		if _slotData[i].kind==Global.EquipSlot.ARMS:
-			if(e == null):
-				var skill = getDefaultSkill(i)
-				skills.append(skill)
-			else:
-				var item = Global.Db.getItem(e) as EquipItem
-				skills.append(item.skill)
+			var skill = getDefaultSkill(i)
+			if(e != null):
+				if e.skill != null:
+					skill = e.skill
+			_cachedSkills.append(skill)
 		else:
 			if(e != null):
-				var item = Global.Db.getItem(e) as EquipItem
-				equipSkills.append(item.skill)
+				equipSkills.append(e.skill)
+	for i in range(scrolls.size()):
+		var e = Global.Db.getItem(scrolls[i]) as EquipItem
+		if e != null && e.skill != null:
+			equipSkills.append(e.skill)
 	# Available skills
 	for s in availableSkills:
 		var skill = Global.Db.getSkill(s)
 		if skill is UseableSkill:
-			skills.append(skill)
+			_cachedSkills.append(skill)
 	# Append other equip skills
-	skills.append_array(equipSkills)
-	#TODO Fylgja and scrolls?
-	return skills
+	_cachedSkills.append_array(equipSkills)
+
+func getSkills():
+	if _cachedSkills==null: makeSkillsCache()
+	return _cachedSkills
 
 func learnSlot(learningSlot:SkillLearningSlot):
 	if learningSlot==null: return false
@@ -131,20 +135,23 @@ func _learn(learning:SkillLearning):
 	learnedSkills.append(id)
 	availableSkills.append(id)
 	recreateFeatureCache()
-	regenCachedStatistics()
+	makeSkillsCache()
 	return true
+
+func setCurrentWeapon(i:int):
+	currWeapon = i
+	recreateFeatureCache()
 
 func getCurrWeaponIdx():
 	if currWeapon<0: return getDefaultWeaponIdx()
 	var _slotsData = Global.Db.equipSlots
-	
 	if currWeapon >= _slotsData.size(): return getDefaultWeaponIdx()
 	if _slotsData[currWeapon].kind != Global.EquipSlot.ARMS: 
 		return getDefaultWeaponIdx()
 	return currWeapon
 
 func getDefaultWeaponIdx():
-	return 0
+	return getData().handiness
 
 func recreateFeatureCache():
 	var actor:Actor = getData()
@@ -193,8 +200,8 @@ func getBaseAgi():
 	var actor:Actor = getData()
 	return calcBaseStat(actor.agi.x, actor.agi.y, level)
 
-func calcBaseStat(base:int, mult:int, level:int) -> int:
-	var lm : float = (mult * (level - 1)) / 100.0
+func calcBaseStat(base:int, mult:int, _level:int) -> int:
+	var lm : float = (mult * (_level - 1)) / 100.0
 	var m : float = (lm + 10.0) / 10.0
 	return roundi(base * m)
 
@@ -227,6 +234,7 @@ func getRemainingNextLvlExp():
 	return getNextLvlExp() - exp
 
 func getEquip(slotIdx:int):
+	if slotIdx >= equips.size(): return null
 	var e = equips[slotIdx]
 	if (e==null): return null
 	return Global.Db.getItem(e)
@@ -254,10 +262,11 @@ func equip(slotIdx:int, item:EquipItem):
 		equips[slotIdx] = newEquip
 		Global.State.party.loseItem(newEquip,1)
 	recreateFeatureCache()
+	makeSkillsCache()
 	return true
-func canEquip(equip:EquipItem)->bool:
+func canEquip(equipItem:EquipItem)->bool:
 	var a:Actor = getData()
-	for flag in equip.flags:
+	for flag in equipItem.flags:
 		if a.equippableFlags.has(flag)==false:
 			return false
 	return true
@@ -287,6 +296,7 @@ func _serialize():
 		"currMP" : currMP,
 		"states" : _serializeStates(),
 		"equips" : equips,
+		"scrolls" : scrolls,
 		"learnedSkills" : learnedSkills,
 		"availableSkills" : availableSkills,
 		"currAP" : currAP,
@@ -305,6 +315,8 @@ func _deserialize(savedata : Dictionary):
 		match key:
 			"equips":
 				equips = savedata[key]
+			"scrolls":
+				scrolls = savedata[key]
 			"learnedSkills":
 				learnedSkills = savedata[key]
 			"availableSkills":

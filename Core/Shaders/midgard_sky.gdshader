@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode cull_disabled;
 
 uniform sampler2D cloudTexture1 : source_color, filter_nearest;
 uniform sampler2D cloudTexture2 : source_color, filter_nearest;

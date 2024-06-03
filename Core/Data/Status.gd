@@ -17,7 +17,7 @@ class_name Status
 
 @export_category("Constant Effects")
 @export var features : Array[BaseFeature]
-@export var statusRemove : Array[Status]
+@export var statusRemove : Array[StringName]
 
 @export_category("Release Conditions")
 @export var releaseAtBattleEnd : bool
@@ -26,13 +26,16 @@ class_name Status
 @export_range(0,1) var releaseOnTurnsElapsedRate : float
 
 func getId():
-	# res://Data/Status/Death.tres
-	var len = resource_path.length()
-	var dirlen = "res://Data/Status/".length()
-	var extlen = ".tres".length()
-	return resource_path.substr(dirlen, len-dirlen-extlen)
+	return Status.stripId(resource_path)
 
 func getName():
 	return getId()
 func getDesc():
 	return getId() + "_desc"
+
+static func stripId(_path:String):
+	# res://Data/Status/Death.tres
+	var len = _path.length()
+	var dirlen = "res://Data/Status/".length()
+	var startext = _path.find(".tres")
+	return _path.substr(dirlen, startext-dirlen)

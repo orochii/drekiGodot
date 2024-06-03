@@ -1,6 +1,10 @@
 extends Control
 class_name GameUI
 
+signal onHpChange(actor,max)
+signal onMpChange(actor,max)
+signal onStatusChange(actor)
+
 @export var Message : GameMessage
 @export var Party : PartyMenu
 @export var File : FileMenu
@@ -13,7 +17,7 @@ class_name GameUI
 var currLang = "en"
 var perfLabel:Label = null
 var colorShader:ColorRect = null
-var debugVisible:bool = true
+var debugVisible:bool = false
 
 func _init():
 	Global.UI = self

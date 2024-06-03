@@ -1,0 +1,45 @@
+[gd_scene load_steps=19 format=3 uid="uid://clo40fxxgdd8a"]
+
+[ext_resource type="Texture2D" uid="uid://ljvjxupadnhq" path="res://Graphics/Icons/system/elem_strong.png" id="1_om1pq"]
+[ext_resource type="Script" path="res://Core/UI/Battle/ResistanceIcon.gd" id="2_kt7uu"]
+[ext_resource type="Texture2D" uid="uid://bollaf3f28wcq" path="res://Graphics/Icons/elements/el_05.png" id="2_uj0xq"]
+[ext_resource type="Texture2D" uid="uid://drsdm16jr33h2" path="res://Graphics/Icons/system/elem_immune.png" id="3_k6p7n"]
+[ext_resource type="Texture2D" uid="uid://dtuxccadrofcy" path="res://Graphics/Icons/system/elem_weak.png" id="4_6mckh"]
+[ext_resource type="Texture2D" uid="uid://buqj445wl082" path="res://Graphics/Icons/elements/el_01.png" id="5_p4odv"]
+[ext_resource type="Texture2D" uid="uid://qgk0ksyg4or6" path="res://Graphics/Icons/elements/el_03.png" id="6_bmj3o"]
+[ext_resource type="Texture2D" uid="uid://g0vk21bemeov" path="res://Graphics/Icons/elements/el_02.png" id="7_ayvsg"]
+[ext_resource type="Texture2D" uid="uid://bi3cx27tlddxy" path="res://Graphics/Icons/elements/el_04.png" id="8_vbcgd"]
+[ext_resource type="Texture2D" uid="uid://b1ge2u5x60m0p" path="res://Graphics/Icons/elements/el_06.png" id="10_rnj37"]
+[ext_resource type="Texture2D" uid="uid://d4j2ao5j85oox" path="res://Graphics/Icons/elements/el_07.png" id="11_1og2q"]
+[ext_resource type="Texture2D" uid="uid://xuahd0r365pg" path="res://Graphics/Icons/elements/el_08.png" id="12_mfpcm"]
+[ext_resource type="Texture2D" uid="uid://sbbxu2s4gg2l" path="res://Graphics/Icons/elements/el_09.png" id="13_myoqx"]
+[ext_resource type="Texture2D" uid="uid://bokf1qbihdbag" path="res://Graphics/Icons/elements/el_10.png" id="14_66hao"]
+[ext_resource type="Texture2D" uid="uid://by725ew6lutg0" path="res://Graphics/Icons/elements/el_11.png" id="15_whjr8"]
+[ext_resource type="Texture2D" uid="uid://4u5bcygu7qw2" path="res://Graphics/Icons/elements/el_12.png" id="16_dwto4"]
+[ext_resource type="Texture2D" uid="uid://crnn7070edjyf" path="res://Graphics/Icons/elements/el_40.png" id="17_24osg"]
+[ext_resource type="Texture2D" uid="uid://c2krcobnjnmqj" path="res://Graphics/Icons/elements/el_24.png" id="18_j5gc1"]
+
+[node name="ResistanceIcon" type="NinePatchRect" node_paths=PackedStringArray("iconSprite")]
+custom_minimum_size = Vector2(16, 16)
+texture = ExtResource("1_om1pq")
+script = ExtResource("2_kt7uu")
+iconSprite = NodePath("Icon")
+affinityIcons = Array[Texture2D]([ExtResource("1_om1pq"), ExtResource("3_k6p7n"), ExtResource("4_6mckh")])
+elementIcons = Array[Texture2D]([null, ExtResource("5_p4odv"), ExtResource("6_bmj3o"), ExtResource("7_ayvsg"), ExtResource("8_vbcgd"), ExtResource("2_uj0xq"), ExtResource("10_rnj37"), ExtResource("11_1og2q"), ExtResource("12_mfpcm"), ExtResource("13_myoqx"), ExtResource("14_66hao"), ExtResource("15_whjr8"), ExtResource("16_dwto4"), ExtResource("17_24osg"), ExtResource("18_j5gc1")])
+colors = Array[Color]([Color(0.788235, 0.690196, 0.396078, 1), Color(1, 1, 1, 1), Color(0.980392, 0, 0.266667, 1)])
+
+[node name="Icon" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uj0xq")

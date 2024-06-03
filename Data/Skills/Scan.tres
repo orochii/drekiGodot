@@ -1,30 +1,41 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://b4t5oltlf182l"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=11 format=3 uid="uid://b4t5oltlf182l"]
 
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_ldk6g"]
+[ext_resource type="Script" path="res://Core/Data/Actions/CameraMoveEffect.gd" id="1_5c6ke"]
+[ext_resource type="Script" path="res://Core/Data/Actions/IsolateEffect.gd" id="1_8pths"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="1_myv0s"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="2_66odm"]
 [ext_resource type="Texture2D" uid="uid://bhohcvggkhp2g" path="res://Graphics/Icons/skills/Scan.png" id="2_qhlil"]
+[ext_resource type="PackedScene" uid="uid://p1d54sandeff" path="res://Objects/vfx/vfx_scan.tscn" id="2_uiah8"]
 
-[sub_resource type="Resource" id="Resource_yq3tp"]
-script = ExtResource("1_ldk6g")
-type = 0
-base = 50
-atkF = 0.0
-strF = 0.0
-vitF = 0.0
-magF = 1.0
-agiF = 0.0
-pDefF = 0.0
-mDefF = 1.0
-elements = Array[int]([])
-crit = 0.04
-hit = 1.0
-variance = 0.0
+[sub_resource type="Resource" id="Resource_miuba"]
+script = ExtResource("1_8pths")
+target = 1
+value = true
+
+[sub_resource type="Resource" id="Resource_5506c"]
+script = ExtResource("1_5c6ke")
+target = 1
+referencePosition = Vector3(0.5, 0.5, 0)
+positionOffset = Vector3(2.5, 0, 0)
+duration = 1.0
+waitUntilFinished = true
+
+[sub_resource type="Resource" id="Resource_uiddq"]
+script = ExtResource("1_myv0s")
+visualEffectTemplate = ExtResource("2_uiah8")
+onePerEachTarget = false
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_8qh71"]
+script = ExtResource("1_8pths")
+target = 1
+value = false
 
 [resource]
 script = ExtResource("2_66odm")
 flags = Array[int]([0, 4])
 targetKind = 2
-targetCanChangeKind = false
+targetCanChangeKind = true
 targetCanChangeScope = false
 targetScope = 0
 targetState = 0
@@ -36,6 +47,6 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_miuba"), SubResource("Resource_5506c"), SubResource("Resource_uiddq"), SubResource("Resource_8qh71")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("2_qhlil")

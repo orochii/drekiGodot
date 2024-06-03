@@ -16,23 +16,31 @@ class_name ApplyBasicDamage
 @export_range(0,1) var crit:float = 0.04
 @export_range(0,1) var hit:float = 1
 @export_range(0,1) var variance:float = 0
+@export var ignoreHit:bool = false
 
 var multipleTargets:bool = false
 
 func execute(action:BattleAction):
+	var effs = []
 	multipleTargets = action.scope == Global.ETargetScope.ALL
 	for t in action.targets:
-		var eff = apply(action.battler.battler, t.battler)
+		var _hit = ignoreHit || checkHit(1.0, action.battler.battler, t.battler)
+		var eff = apply(action.battler.battler, t.battler, _hit)
+		# Register effect to this turn
+		effs.append(eff)
 		# Display effect- eff(damage,elementCorrection,hit)
 		t.damagePop(eff)
+	# Store effects
+	action.battler.turnEffects.append({&"type":&"damage",&"effects":effs})
 
 # Data change ><
-func apply(user:GameBattler, target:GameBattler):
+func apply(user:GameBattler, target:GameBattler, hit:bool=true):
 	var eff = calcEffect(user,target)
+	eff["target"] = target
 	# Do hit
 	eff["effective"] = true
 	var r = randf()
-	eff["hit"] = r < hit
+	eff["hit"] = hit
 	if eff["hit"]:
 		# Apply crit
 		var rCrit = randf()
@@ -42,16 +50,19 @@ func apply(user:GameBattler, target:GameBattler):
 		if variance > 0:
 			var v = 1 - variance + (randf() * variance * 2)
 			eff["damage"] = roundi(eff["damage"] * v)
+		# Apply crit
+		if critical:
+			eff["damage"] = roundi(eff["damage"] * 1.5)
 		# Apply effect
 		match type:
 			Global.EDamageType.HP:
-				var _oldval = target.currHP
+				eff["oldval"] = target.currHP
 				target.changeHP(-eff["damage"])
-				eff["effective"] = _oldval != target.currHP
+				eff["effective"] = eff["oldval"] != target.currHP
 			Global.EDamageType.MP:
-				var _oldval = target.currMP
+				eff["oldval"] = target.currMP
 				target.changeMP(-eff["damage"])
-				eff["effective"] = _oldval != target.currMP
+				eff["effective"] = eff["oldval"] != target.currMP
 	return eff
 
 # any calculation here must be deterministic
@@ -90,9 +101,14 @@ func calcEffect(user:GameBattler, target:GameBattler):
 	# Element correction
 	var elementCorrection = target.getElementSetRate(elements)
 	damage *= elementCorrection * 1.75 # Oh yes magical number!
+	var _damage = adjustDamage(damage, getStatusLevel(user))
 	# Return result
 	return {
-		"damage" : roundi(damage),
+		"damage" : roundi(_damage),
 		"elementCorrection" : elementCorrection,
 		"type" : type
 	}
+
+func adjustDamage(v, level):
+	var _plus = (level-1) * 0.5
+	return v * (1 + _plus)

@@ -62,9 +62,14 @@ func getMember(i:int):
 	var actor = Global.State.getActor(id)
 	return actor
 
+func recoverAll():
+	for m in getMembers():
+		var actor = Global.State.getActor(m)
+		actor.recoverAll()
+
 func addMember(dataActor):
 	var id = dataActor.getId()
-	var gameActor = Global.State.getActor(id)
+	#var gameActor = Global.State.getActor(id)
 	if !getMembers().has(id) && !reserve.has(id):
 		if getMembers().size() < MAX_PARTY_SIZE:
 			getMembers().append(id)

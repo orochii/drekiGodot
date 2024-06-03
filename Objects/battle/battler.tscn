@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://m1ejqeu8kbcu" path="res://Objects/battle/battler_afterimage.tscn" id="2_00et8"]
 [ext_resource type="Texture2D" uid="uid://dvybyaykp5jh5" path="res://Graphics/Battler/hikari_battler.png" id="2_wuj0w"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="3_r8px5"]
-[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/hikari_battler.tres" id="4_nra88"]
+[ext_resource type="Resource" uid="uid://cxf1elli7a71n" path="res://Data/Spritesheets/Battler/hikari_battler.tres" id="4_nra88"]
 [ext_resource type="Script" path="res://Core/Battle/WeaponSprite.gd" id="5_stcdt"]
 [ext_resource type="Shader" path="res://Core/Shaders/billboardRotate.gdshader" id="5_tg3hn"]
 [ext_resource type="Script" path="res://Core/Visual/RotatingSprite3D.gd" id="7_nvndh"]

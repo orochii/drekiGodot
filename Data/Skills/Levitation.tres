@@ -11,6 +11,9 @@ script = ExtResource("1_hvhh7")
 status = ExtResource("2_xhn34")
 operation = 0
 forceAdd = true
+hitChance = 1.0
+ignoreHit = false
+considerLastHit = false
 
 [sub_resource type="Resource" id="Resource_gtloc"]
 script = ExtResource("5_4knli")
@@ -28,7 +31,7 @@ targetCanChangeScope = false
 targetScope = 0
 targetState = 0
 repeats = 0
-costType = 0
+costType = 1
 cost = 5
 charges = 0
 cooldown = 0

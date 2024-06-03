@@ -80,11 +80,17 @@ func execute(result):
 						battleBonuses[i].append(&"loneWolf")
 					# Overpower
 					if maxEnemyLevel < actor.level:
-						var lvlDiff = (actor.level - maxEnemyLevel) / 20
+						var lvlDiff = (actor.level - maxEnemyLevel) / 5
 						if lvlDiff != 0:
 							var lvlMult = min((0.1 * lvlDiff), 0.5)
 							extraMult -= lvlMult
 							battleBonuses[i].append(&"overpower")
+					elif maxEnemyLevel > actor.level:
+						var lvlDiff = (maxEnemyLevel - actor.level) / 5
+						if lvlDiff != 0:
+							var lvlMult = min((0.2 * lvlDiff), 1.0)
+							extraMult += lvlMult
+							battleBonuses[i].append(&"valiant")
 				# Apply multipliers to exp
 				var totalMult = hiddenTotal + extraMult
 				gainExp = roundi(exp * totalMult)

@@ -220,4 +220,5 @@ func repositionCursor():
 func _isCurrentTargetValid():
 	if _currentTarget == null: return false
 	if _state==Global.ETargetState.ANY: return true
+	if _action.kind==Global.ETargetKind.ALLY: return true
 	return _currentTarget.battler.isDead() == (_state==Global.ETargetState.DEAD)
