@@ -23,12 +23,12 @@ func execute(action:BattleAction):
 	var targets = innerAction.resolveTargets()
 	targetSize = targets.size()
 	for t in targets:
-		var eff = apply(action.battler.battler, t.battler)
+		var eff = apply(action.battler.battler, action.action, t.battler)
 		# Display effect- eff(damage,elementCorrection,hit)
 		t.damagePop(eff)
 
-func apply(user:GameBattler, target:GameBattler, hit:bool=true):
-	var eff = calcEffect(user,target)
+func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
+	var eff = calcEffect(user,item,target)
 	eff["target"] = target
 	# Do hit
 	eff["effective"] = true
@@ -45,7 +45,7 @@ func apply(user:GameBattler, target:GameBattler, hit:bool=true):
 			eff["effective"] = eff["oldval"] != target.currMP
 	return eff
 
-func calcEffect(user:GameBattler, target:GameBattler):
+func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# Get damage value
 	var damage = cachedDamage * percent / targetSize
 	# Return result

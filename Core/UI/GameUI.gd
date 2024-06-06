@@ -12,6 +12,7 @@ signal onStatusChange(actor)
 @export var Debug : Control
 @export var interactPopup : Control
 @export var popupParent : Control
+@export var subsceneParent : Control
 @export var itemPopupTemplate : PackedScene
 
 var currLang = "en"

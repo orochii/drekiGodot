@@ -5,6 +5,7 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_6nud1")
+shader_parameter/tintColor = Color(1, 1, 1, 1)
 shader_parameter/bottomColor = Color(0.341176, 0.54902, 0.345098, 1)
 shader_parameter/middleColor = Color(0.431373, 0.835294, 0.792157, 1)
 shader_parameter/topColor = Color(0.81322, 0.927162, 0.992568, 1)

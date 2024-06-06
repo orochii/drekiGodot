@@ -81,10 +81,10 @@ func makeSkillsCache():
 					skill = e.skill
 			_cachedSkills.append(skill)
 		else:
-			if(e != null):
+			if(e != null && e.skill != null):
 				equipSkills.append(e.skill)
 	for i in range(scrolls.size()):
-		var e = Global.Db.getItem(scrolls[i]) as EquipItem
+		var e = getScroll(i) as EquipItem
 		if e != null && e.skill != null:
 			equipSkills.append(e.skill)
 	# Available skills
@@ -106,16 +106,21 @@ func learnSlot(learningSlot:SkillLearningSlot):
 		if _isLearned(learning):
 			prevLearn = learning
 		else:
-			_learn(learning)
-			if prevLearn != null:
-				availableSkills.erase(prevLearn.skill.getId())
-			return true
+			if _learn(learning):
+				if prevLearn != null:
+					availableSkills.erase(prevLearn.skill.getId())
+				return true
+			return false
 	return false
 func getCurrentLearningFromSlot(learningSlot:SkillLearningSlot):
 	for learning in learningSlot.learnings:
 		if !_isLearned(learning):
 			return learning
 	return null
+func getLastLearningFromSlot(learningSlot:SkillLearningSlot):
+	if learningSlot.learnings.size()==0: return null
+	return learningSlot.learnings[learningSlot.learnings.size()-1]
+
 func hasBaseRequirements(learningSlot:SkillLearningSlot):
 	if learningSlot.learnings.size()==0: return false
 	var l = learningSlot.learnings[0]
@@ -131,9 +136,9 @@ func _learn(learning:SkillLearning):
 	# Apply cost
 	currAP -= learning.apCost
 	# Learn
-	var id = learning.skill.getId()
-	learnedSkills.append(id)
-	availableSkills.append(id)
+	var _id = learning.skill.getId()
+	learnedSkills.append(_id)
+	availableSkills.append(_id)
 	recreateFeatureCache()
 	makeSkillsCache()
 	return true
@@ -238,6 +243,11 @@ func getEquip(slotIdx:int):
 	var e = equips[slotIdx]
 	if (e==null): return null
 	return Global.Db.getItem(e)
+func getScroll(idx:int):
+	if idx >= scrolls.size(): return null
+	var e = scrolls[idx]
+	if (e==null): return null
+	return Global.Db.getItem(e)
 func equip(slotIdx:int, item:EquipItem):
 	# Resize array if needed
 	var _slotsData = Global.Db.equipSlots
@@ -269,6 +279,24 @@ func canEquip(equipItem:EquipItem)->bool:
 	for flag in equipItem.flags:
 		if a.equippableFlags.has(flag)==false:
 			return false
+	return true
+
+func equipScroll(idx:int, item:EquipItem):
+	# Resize if necessary
+	if(scrolls.size() < 2):
+		scrolls.resize(2)
+	# remove current item at slot, send back to inventory
+	if(scrolls[idx] != null):
+		var oldEquip = scrolls[idx]
+		scrolls[idx] = null
+		Global.State.party.gainItem(oldEquip,1)
+	# Equip
+	if(item != null):
+		var newEquip = item.getId()
+		scrolls[idx] = newEquip
+		Global.State.party.loseItem(newEquip,1)
+	# recreateFeatureCache() #Not doing features from scrolls.
+	makeSkillsCache()
 	return true
 
 func getData():

@@ -69,7 +69,7 @@ func onItemUsed(target):
 		# Apply item effects on targets.
 		for t in targets:
 			for eff in item.actionSequence:
-				var result = eff.apply(t.actor, t.actor)
+				var result = eff.apply(t.actor, item, t.actor)
 				if result!=null && result.has("effective"):
 					effective = effective || result["effective"]
 		if effective:

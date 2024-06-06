@@ -29,11 +29,13 @@ func _process(delta):
 		cursor.visible = false
 
 func setup(battler:GameBattler):
+	_battler = battler
+	refresh()
+func refresh():
 	for e in entries: e.queue_free()
 	entries.clear()
-	if(battler==null): return
-	_battler = battler
-	var skills = battler.getSkills()
+	if(_battler==null): return
+	var skills = _battler.getSkills()
 	for skill in skills:
 		var inst:SkillEntry = skillEntryTemplate.instantiate()
 		if skill != null:

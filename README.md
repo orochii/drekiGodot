@@ -1,31 +1,27 @@
 # drekiGodot
 One attempt at making RPG on Godot just how I like it :)
 
-# First Cave TODO
-- Shop UI.
+# TODO List
 - Fierro interiors.
-- Scrolls/fylgja UI.
 - Some missing sounds, idiot (redo step sound cuz it sucks).
 - Tutorials (equipment, scrolls, items, back attack)
-
-# TODO List
-- Skill tree learning
-- Character info: scrolls, fylgja, position.
-- Implement general item/skill effects in battle
-	- Move battle camera
-	- Scan: target
-	- RunEvent: evt
-	- Switch/Variable operation
 - Data menu (enemies, characters, topics, journal)
-- Character status options (position, scrolls, fylgja)
-- Character skills screen: Skill check/use, learn skills.
 - Multi-message support.
 - Groups menu
 - Item synthesis
 - Fylgja stuff
 
 # DONE List
+- Position effects (damage up/down)
+- Character info: scrolls and position. Fylgja option is visible but not done.
+- Skill tree learn function.
+- Shop UI.
+- Fixed status
 - Twin Flames barely there
+- Battle events
+- Implement Scan
+- Move battle camera effects
+- Jump movement effect
 - Items in battle oh whoop I already had donk dis but aey succ tho there was some troubleshooting :DD
 - Skill canUse show on list (grayed out). Use onMPChanged/onStatusChanged signals
 - Scan ability
@@ -48,6 +44,7 @@ One attempt at making RPG on Godot just how I like it :)
 	- Push block omg!
 	- Even a switch?? can't believe this!
 - Added compass.
+- Character skills screen: Skill check/use.
 - Implement skill use in party menu
 - Item use in party menu
 - Character animations: Move, death, standing, actionSpecific(effect), status

@@ -7,7 +7,7 @@ class_name BaseItem
 
 @export_group("Bartering")
 @export var price : int
-@export var canSell : bool
+@export var canSell : bool = true
 
 func getId():
 	# res://Data/Items/Tonic.tres

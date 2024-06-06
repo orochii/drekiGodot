@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://drvnurhvkaolw"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=12 format=3 uid="uid://bnxrvd6b7dfen"]
 
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="1_14u8k"]
 [ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_p8kwa"]

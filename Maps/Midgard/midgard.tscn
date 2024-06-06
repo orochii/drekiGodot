@@ -158,9 +158,6 @@ offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
 
-[node name="Control" parent="GameUI/Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control" index="0"]
-anchors_preset = 5
-
 [node name="SelectionBox" parent="GameUI/DebugMenu" index="0"]
 offset_left = 0.0
 offset_top = 0.0

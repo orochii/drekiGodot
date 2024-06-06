@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://lywdqxc41tu5"]
+[gd_scene load_steps=35 format=3 uid="uid://lywdqxc41tu5"]
 
 [ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="1_5ca5e"]
 [ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="1_75wr8"]
@@ -12,10 +12,20 @@
 [ext_resource type="PackedScene" uid="uid://bjsjho5g8vh61" path="res://Graphics/Scenario/fierro/insides/house_3_in.tscn" id="4_njroh"]
 [ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_ma4ru"]
 [ext_resource type="PackedScene" uid="uid://bxk5gcl3ynj2d" path="res://Objects/events/base_npc.tscn" id="12_kgbvt"]
+[ext_resource type="Script" path="res://Events/SimpleShop.gd" id="13_0bvn7"]
 [ext_resource type="Resource" uid="uid://cssjalloh6eby" path="res://Data/Spritesheets/Map/kazuo_map.tres" id="13_xap5o"]
+[ext_resource type="Resource" uid="uid://dm2ofvb0qvmel" path="res://Data/Items/Medicine/Drench.tres" id="14_778rb"]
+[ext_resource type="Resource" uid="uid://b4khiuusc0nv6" path="res://Data/Spritesheets/Map/aldo_map.tres" id="14_mjitq"]
 [ext_resource type="Resource" uid="uid://bdqq6dwxe5we4" path="res://Data/Spritesheets/Map/ericka_map.tres" id="14_xoc3v"]
 [ext_resource type="Resource" uid="uid://clsk0kg67ywjl" path="res://Data/Spritesheets/Map/carlos_map.tres" id="15_0f52f"]
+[ext_resource type="Resource" uid="uid://bkn1g2s7tc2gx" path="res://Data/Items/Medicine/Tonic.tres" id="15_80ktm"]
+[ext_resource type="Script" path="res://Events/TestCharacterGive.gd" id="16_5lvna"]
+[ext_resource type="Resource" uid="uid://jktecmjr0svu" path="res://Data/Items/Medicine/Phoenix Feather.tres" id="16_e71ub"]
 [ext_resource type="Resource" uid="uid://ci051ks7sjf5l" path="res://Data/Spritesheets/Map/bab_map.tres" id="16_gmyd3"]
+[ext_resource type="Resource" uid="uid://cx8t4uvns1a6l" path="res://Data/Actors/Minuet.tres" id="17_1mdl0"]
+[ext_resource type="Resource" uid="uid://bu877pnixrpb7" path="res://Data/Items/Medicine/Antidote.tres" id="17_7vtuu"]
+[ext_resource type="Resource" uid="uid://b7ly33v8vnbqs" path="res://Data/Items/Weapon/Short Bow.tres" id="18_4ks51"]
+[ext_resource type="Resource" uid="uid://dxsh4ht1gijoy" path="res://Data/Items/Armor/Clothes.tres" id="19_w3v2l"]
 
 [sub_resource type="Resource" id="Resource_cd3ls"]
 script = ExtResource("2_evalp")
@@ -158,22 +168,26 @@ environment = SubResource("Environment_8s182")
 [node name="NPC1" parent="NPCs" instance=ExtResource("12_kgbvt")]
 transform = Transform3D(-0.842772, 0, -0.538271, 0, 1, 0, 0.538271, 0, -0.842772, 2.68479, 0, 8.9365)
 
+[node name="Page1" parent="NPCs/NPC1" index="2"]
+script = ExtResource("13_0bvn7")
+textLinesStart = Array[String](["Howdy!"])
+textLinesEnd = Array[String](["See ya!"])
+itemsToSell = Array[Resource("res://Core/Data/Items/BaseItem.gd")]([ExtResource("14_778rb"), ExtResource("15_80ktm"), ExtResource("16_e71ub"), ExtResource("17_7vtuu"), ExtResource("18_4ks51"), ExtResource("19_w3v2l")])
+graphic = ExtResource("13_xap5o")
+
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="NPCs/NPC1"]
 transform = Transform3D(0.929113, 0, 0.369795, 0, 1, 0, -0.369795, 0, 0.929113, 0.101549, 1.59619, 0.316998)
 shape = SubResource("BoxShape3D_l2vr1")
 
-[node name="Page1" parent="NPCs/NPC1" index="3"]
-graphic = ExtResource("13_xap5o")
-
 [node name="NPC2" parent="NPCs" instance=ExtResource("12_kgbvt")]
 transform = Transform3D(-0.415074, 0, -0.909787, 0, 1, 0, 0.909787, 0, -0.415074, 2.227, 0, 10.156)
+
+[node name="Page1" parent="NPCs/NPC2" index="2"]
+graphic = ExtResource("14_xoc3v")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="NPCs/NPC2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0936289, 1.56354, 0.275636)
 shape = SubResource("BoxShape3D_xr4v2")
-
-[node name="Page1" parent="NPCs/NPC2" index="3"]
-graphic = ExtResource("14_xoc3v")
 
 [node name="NPC3" parent="NPCs" instance=ExtResource("12_kgbvt")]
 transform = Transform3D(0.296425, 0, 0.955056, 0, 1, 0, -0.955056, 0, 0.296425, -8.04229, 0, 0.183645)
@@ -202,6 +216,14 @@ transform = Transform3D(-0.184775, 0, -0.982781, 0, 1, 0, 0.982781, 0, -0.184775
 textLines = Array[String](["I'm STARVING!"])
 graphic = ExtResource("16_gmyd3")
 
+[node name="NPC6" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(0.941471, 0, -0.337095, 0, 1, 0, 0.337095, 0, 0.941471, -0.432666, 0, 2.51381)
+
+[node name="Page1" parent="NPCs/NPC6" index="2"]
+script = ExtResource("16_5lvna")
+giveActor = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("17_1mdl0")])
+graphic = ExtResource("14_mjitq")
+
 [connection signal="body_entered" from="FloorGates/Floor1" to="FloorGates/Floor1" method="_on_body_entered"]
 [connection signal="body_entered" from="FloorGates/Floor2" to="FloorGates/Floor2" method="_on_body_entered"]
 
@@ -210,3 +232,4 @@ graphic = ExtResource("16_gmyd3")
 [editable path="NPCs/NPC3"]
 [editable path="NPCs/NPC4"]
 [editable path="NPCs/NPC5"]
+[editable path="NPCs/NPC6"]

@@ -11,10 +11,15 @@ func _ready():
 	getAllSprites()
 	setupCompassAnchor(false)
 
+func anyBusy():
+	if Global.Ev.isBusy(): return true
+	if Global.UI.busy(): return true
+	return false
+
 func _process(delta):
 	if compass != null:
 		if worldmapPlayerRef != null:
-			if Input.is_action_just_pressed("action_extra"):
+			if !anyBusy() && Input.is_action_just_pressed("action_extra"):
 				toggleCompassAnchor()
 			compass.look_at(worldmapPlayerRef.global_position)
 		else:
@@ -24,6 +29,7 @@ func _process(delta):
 func toggleCompassAnchor():
 	compassState = !compassState
 	setupCompassAnchor(compassState)
+
 func setupCompassAnchor(v:bool):
 	if v:
 		container.anchor_left = 0
@@ -50,12 +56,14 @@ func setupCompassAnchor(v:bool):
 func getAllSprites():
 	allSprites.clear()
 	getChildren(container)
+
 func getChildren(root:Node):
 	var cs = root.get_children(true)
 	for c in cs:
 		if c is Sprite3D:
 			allSprites.append(c)
 		getChildren(c)
+
 func setAllSpritePixelSize(newsize:float):
 	for s in allSprites:
 		s.pixel_size = newsize

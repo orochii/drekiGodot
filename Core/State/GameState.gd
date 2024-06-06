@@ -38,7 +38,9 @@ var lastRespawn:Dictionary = { "map":"Midgard/Fierro/inn","gate":2 }
 var registeredRespawns:Dictionary = {
 	"Fierro" : { "map":"Midgard/Fierro/inn","gate":2 }
 }
+# TEMP VARIABLES
 var retryBackup:Dictionary = {}
+var shopCurrentItems:Array
 # Screenshot differentiator helper (why time doesn't have millis? :C)
 var lastTime = null
 var count = 0

@@ -1,8 +1,18 @@
 {
   "hidden_columns": {
-
+    "res://Data/Items/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    },
+    "res://Data/Items/Armor/": {
+      "resource_local_to_scene": true,
+      "resource_name": true
+    }
   },
-  "recent_paths": [],
+  "recent_paths": [
+    "res://Data/Items/Armor/",
+    "res://Data/Items/"
+  ],
   "table_functions": {
     "filter": [
       "return true"

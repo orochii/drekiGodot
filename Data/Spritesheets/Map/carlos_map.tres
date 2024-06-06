@@ -10,6 +10,7 @@ base = ExtResource("1_yc4tn")
 totalFrames = 4
 events = Array[StringName]([&"", &"step", &"", &"step"])
 offset = Vector2i(0, 0)
+offsetTowardsCamera = 0.0
 name = &"base"
 fps = 8
 idleSpeed = 0.0

@@ -19,7 +19,7 @@ func execute(action:BattleAction):
 	multipleTargets = action.scope == Global.ETargetScope.ALL
 	for t in action.targets:
 		var _hit = ignoreHit || checkHit(hitChance, action.battler.battler, t.battler)
-		var eff = apply(action.battler.battler, t.battler, _hit)
+		var eff = apply(action.battler.battler, action.action, t.battler, _hit)
 		# Register effect to this turn
 		effs.append(eff)
 		# Display effect- eff(damage,elementCorrection,hit)
@@ -28,8 +28,8 @@ func execute(action:BattleAction):
 	action.battler.turnEffects.append({&"type":&"damage",&"effects":effs})
 
 # Data change ><
-func apply(user:GameBattler, target:GameBattler, hit:bool=true):
-	var eff = calcEffect(user,target)
+func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
+	var eff = calcEffect(user,item,target)
 	# Do hit
 	eff["effective"] = true
 	eff["target"] = target
@@ -55,7 +55,7 @@ func apply(user:GameBattler, target:GameBattler, hit:bool=true):
 				eff["effective"] = eff["oldval"] != target.currMP
 	return eff
 
-func calcEffect(user:GameBattler, target:GameBattler):
+func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	var ref = target
 	var value = 0
 	if(referenceBattler==0): ref = user

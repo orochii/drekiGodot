@@ -5,12 +5,14 @@ const TRANSFER_FADE_LEN = 0.5
 signal onFadeEnd()
 signal onTransitionEnd()
 signal onBattleEnd()
+signal onSubsceneEnd()
 
 @export var cover : TextureRect
 @export var transition : TextureRect
 @export var breakScreen : BreakScreen_Transition
 @export var transitionPlayer : AnimationPlayer
 @export var battleSceneTemplate : PackedScene
+@export var shopSceneTemplate : PackedScene
 @export var loadingOverlay : Control
 
 var transferring = false
@@ -77,6 +79,35 @@ func callGameOver():
 
 func sceneFullname(s:String):
 	return "res://Maps/" + s + ".tscn"
+
+func callShop(items:Array):
+	# Set items
+	Global.State.shopCurrentItems = items
+	await openUI(shopSceneTemplate)
+
+func openUI(template:PackedScene):
+	# Fade out
+	Global.cacheScreenshot()
+	Global.Scene.performTransition()
+	await get_tree().create_timer(0.05).timeout
+	# Create shop as popup
+	var inst = template.instantiate()
+	Global.UI.subsceneParent.add_child(inst)
+	Global.Scene.askPause(inst)
+	# Fade in
+	#fadeIn(TRANSFER_FADE_LEN)
+	#await onFadeEnd
+	# Wait for UI to be closed
+	await onSubsceneEnd
+
+func closeUI(uiInstanceRoot:Node):
+	# Fade out
+	Global.Scene.performTransition()
+	await get_tree().create_timer(0.05).timeout
+	# Destroy
+	uiInstanceRoot.queue_free()
+	askUnpause(uiInstanceRoot)
+	onSubsceneEnd.emit()
 
 func callBattle(troop:EnemyTroop):
 	Global.backupRetry()

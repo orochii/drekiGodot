@@ -1,19 +1,8 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=8 format=3 uid="uid://du2wk4kv6e8ht"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://du2wk4kv6e8ht"]
 
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_54ojf"]
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="1_hvhh7"]
-[ext_resource type="Resource" uid="uid://cp7g0s66tyu5" path="res://Data/Status/Levitation.tres" id="2_xhn34"]
 [ext_resource type="Texture2D" uid="uid://dj0xw5b3ixk54" path="res://Graphics/Icons/skills/Flying.png" id="3_qfh37"]
 [ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="5_4knli"]
-
-[sub_resource type="Resource" id="Resource_uf2ch"]
-script = ExtResource("1_hvhh7")
-status = ExtResource("2_xhn34")
-operation = 0
-forceAdd = true
-hitChance = 1.0
-ignoreHit = false
-considerLastHit = false
 
 [sub_resource type="Resource" id="Resource_gtloc"]
 script = ExtResource("5_4knli")
@@ -38,6 +27,6 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_gtloc")])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_uf2ch")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("3_qfh37")

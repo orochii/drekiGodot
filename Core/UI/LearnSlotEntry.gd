@@ -8,6 +8,9 @@ class_name LearnSlotEntry
 
 var actor:GameActor
 var slot:SkillLearningSlot
+var currentSkill:BaseSkill
+var currentApCost:int
+var maxed:bool = false
 
 func setup(_actor,_slot:SkillLearningSlot):
 	actor = _actor
@@ -15,17 +18,24 @@ func setup(_actor,_slot:SkillLearningSlot):
 	if actor.hasBaseRequirements(slot):
 		var learning:SkillLearning = actor.getCurrentLearningFromSlot(slot)
 		var idx = slot.learnings.find(learning)
-		if(learning==null): learning = slot.learnings[-1]
+		maxed = false
+		currentApCost = 0
+		if(learning==null): 
+			learning = slot.learnings[-1]
+			maxed = true
 		if idx==-1: # Max learning
 			learnCost.text = ""
 			upgradeCost.text = ""
 		elif idx==0: # Learn
+			currentApCost = learning.apCost
 			learnCost.text = "%d" % learning.apCost
 			upgradeCost.text = ""
 		else: # Upgrade
+			currentApCost = learning.apCost
 			learnCost.text = ""
 			upgradeCost.text = "%d" % learning.apCost
-		icon.texture = learning.skill.icon
+		currentSkill = learning.skill
+		icon.texture = currentSkill.icon
 		skillContainer.visible = true
 	else:
 		skillContainer.visible = false

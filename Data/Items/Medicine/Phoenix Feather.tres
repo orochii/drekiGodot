@@ -1,30 +1,7 @@
-[gd_resource type="Resource" script_class="UseableItem" load_steps=8 format=3 uid="uid://jktecmjr0svu"]
+[gd_resource type="Resource" script_class="UseableItem" load_steps=3 format=3 uid="uid://jktecmjr0svu"]
 
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="1_fpmo4"]
 [ext_resource type="Texture2D" uid="uid://of6fawoxwj6d" path="res://Graphics/Icons/items/item_0001.png" id="1_uu6mx"]
 [ext_resource type="Script" path="res://Core/Data/Items/UseableItem.gd" id="2_g5btl"]
-[ext_resource type="Resource" uid="uid://c8ma2t0gb3gc6" path="res://Data/Status/Death.tres" id="2_iouxd"]
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="3_1nyt6"]
-
-[sub_resource type="Resource" id="Resource_ouebo"]
-script = ExtResource("1_fpmo4")
-status = ExtResource("2_iouxd")
-operation = 1
-forceAdd = false
-hitChance = 1.0
-ignoreHit = false
-considerLastHit = false
-
-[sub_resource type="Resource" id="Resource_aoaio"]
-script = ExtResource("3_1nyt6")
-base = 1
-type = 0
-referenceBattler = 1
-percent = -0.25
-crit = 0.0
-hitChance = 1.0
-variance = 0.0
-ignoreHit = true
 
 [resource]
 script = ExtResource("2_g5btl")
@@ -35,9 +12,9 @@ spendOnUseChance = 1.0
 cpCost = 0.6
 canUse = 2
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_ouebo"), SubResource("Resource_aoaio")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("1_uu6mx")
 category = 0
-price = 0
-canSell = false
+price = 125
+canSell = true

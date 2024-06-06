@@ -21,6 +21,7 @@ func showTask(payload):
 	skillList.setup(actor)
 	skillList.onSkillSelected = _onSkillSelected
 	toFocus = skillList.getFirst()
+	skillList.visible = true
 func setFocus():
 	if(toFocus != null):
 		toFocus.grab_focus()

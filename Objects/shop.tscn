@@ -1,0 +1,763 @@
+[gd_scene load_steps=32 format=3 uid="uid://b3wn1xs4v8msb"]
+
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopMenu.gd" id="1_iqq46"]
+[ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="1_pllaj"]
+[ext_resource type="Script" path="res://Core/UI/MenuBackground.gd" id="2_hn4c6"]
+[ext_resource type="Texture2D" uid="uid://bw7lgk1ej13b3" path="res://Graphics/System/partyMenu/back_screenName.png" id="3_hvvxp"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopItemList.gd" id="7_dc7b6"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="7_gkooy"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopDetails.gd" id="8_otcr6"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopPriceSimple.gd" id="9_vlupf"]
+[ext_resource type="Texture2D" uid="uid://08x0u7fn1rpk" path="res://Graphics/System/partyMenu/base_shop.png" id="10_fcb2b"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopPriceTotal.gd" id="11_83suy"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="11_db23s"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopCommandWindow.gd" id="12_vme86"]
+[ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="12_xoes2"]
+[ext_resource type="PackedScene" uid="uid://rjd18xm8wgbx" path="res://Objects/item_entry.tscn" id="13_3wkpb"]
+[ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="14_1ija5"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopEquipDetails.gd" id="14_7h73o"]
+[ext_resource type="Script" path="res://Core/UI/Shop/ShopEquipDetailsLine.gd" id="15_ma0d8"]
+[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="15_upr1g"]
+[ext_resource type="LabelSettings" uid="uid://dwnb73gg6db8h" path="res://Themes/labelSetting_MinusColor.tres" id="16_ehy2b"]
+[ext_resource type="Script" path="res://Core/UI/AnimChar2D.gd" id="16_tafel"]
+[ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="17_hlgc8"]
+[ext_resource type="LabelSettings" uid="uid://c0ecb0vgrx2xt" path="res://Themes/labelSetting_PlusColor.tres" id="17_r25nm"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="23_g31qu"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="24_r0jiw"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="25_6pbyy"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="26_kbd17"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="27_rbv76"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="28_vt0mw"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="29_68g4l"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="30_2iye7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b78bk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_g31qu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_r0jiw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_6pbyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_kbd17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_rbv76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vt0mw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_68g4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_2iye7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Shop" type="Control" node_paths=PackedStringArray("shopCommand", "itemList", "details", "goldAmountLabel")]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iqq46")
+shopCommand = NodePath("Buttons")
+itemList = NodePath("ShopMainScreen/Control/HBoxContainer/ItemList")
+details = NodePath("ShopMainScreen/Control/HBoxContainer/Details")
+goldAmountLabel = NodePath("Buttons/HBoxContainer/Label/Gold")
+
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pllaj")
+patch_margin_left = 132
+patch_margin_right = 176
+script = ExtResource("2_hn4c6")
+
+[node name="TopCorners" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_hvvxp")
+region_rect = Rect2(0, 0, 320, 28)
+patch_margin_left = 80
+patch_margin_top = 28
+patch_margin_right = 80
+
+[node name="ShopMainScreen" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_fcb2b")
+region_rect = Rect2(0, 0, 320, 212)
+patch_margin_left = 8
+patch_margin_right = 4
+patch_margin_bottom = 28
+
+[node name="Control" type="VBoxContainer" parent="ShopMainScreen"]
+custom_minimum_size = Vector2(304, 192)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = 16.0
+offset_right = 152.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ItemList" type="ScrollContainer" parent="ShopMainScreen/Control/HBoxContainer" node_paths=PackedStringArray("parent", "details", "container", "cursor")]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+script = ExtResource("7_dc7b6")
+parent = NodePath("../../../..")
+details = NodePath("../Details")
+container = NodePath("VBoxContainer")
+itemTemplate = ExtResource("12_xoes2")
+cursor = NodePath("../../../Cursor")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/ItemList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Details" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer" node_paths=PackedStringArray("parent", "itemEntry", "description", "singlePrice", "detailPrice", "equipDetails")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+script = ExtResource("8_otcr6")
+parent = NodePath("../../../..")
+itemEntry = NodePath("ItemEntry")
+description = NodePath("Description")
+singlePrice = NodePath("PriceStuff/SimplePrice")
+detailPrice = NodePath("PriceStuff/DetailBuy")
+equipDetails = NodePath("EquipmentStatsChange")
+
+[node name="ItemEntry" parent="ShopMainScreen/Control/HBoxContainer/Details" instance=ExtResource("13_3wkpb")]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="ShopMainScreen/Control/HBoxContainer/Details"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "Made out of metal and a ring of text.
+This is what you were waiting for?"
+
+[node name="PriceStuff" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_db23s")
+text = "Price"
+
+[node name="SimplePrice" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff" node_paths=PackedStringArray("priceLabel")]
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("9_vlupf")
+priceLabel = NodePath("Price")
+
+[node name="Price" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/SimplePrice"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_db23s")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Denomination" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/SimplePrice"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("11_db23s")
+text = "£"
+label_settings = ExtResource("14_1ija5")
+horizontal_alignment = 2
+
+[node name="DetailBuy" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff" node_paths=PackedStringArray("unitPriceLabel", "quantityLabel", "maxQuantityLabel", "totalPriceLabel")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+script = ExtResource("11_83suy")
+unitPriceLabel = NodePath("HBoxContainer/UnitPrice")
+quantityLabel = NodePath("HBoxContainer/Quantity")
+maxQuantityLabel = NodePath("HBoxContainer/MaxQuantity")
+totalPriceLabel = NodePath("Total/TotalPrice")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UnitPrice" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Denomination" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "£"
+label_settings = ExtResource("14_1ija5")
+horizontal_alignment = 2
+
+[node name="x" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "x"
+horizontal_alignment = 2
+
+[node name="Quantity" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "99"
+horizontal_alignment = 1
+
+[node name="of" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "/"
+horizontal_alignment = 1
+
+[node name="MaxQuantity" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "99"
+
+[node name="Underline" type="ColorRect" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="UnderlineShadow" type="ColorRect" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/Underline"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 0.25098)
+
+[node name="Total" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TotalPrice" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/Total"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("11_db23s")
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Denominator" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/PriceStuff/DetailBuy/Total"]
+layout_mode = 2
+theme = ExtResource("11_db23s")
+text = "£"
+label_settings = ExtResource("14_1ija5")
+horizontal_alignment = 2
+
+[node name="EquipmentStatsChange" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+script = ExtResource("14_7h73o")
+
+[node name="EquipmentStatsLine" type="ColorRect" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange" node_paths=PackedStringArray("animSprite", "contents", "strLabel", "vitLabel", "intLabel", "agiLabel")]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+script = ExtResource("15_ma0d8")
+animSprite = NodePath("Contents/Control")
+contents = NodePath("Contents")
+styles = Array[LabelSettings]([ExtResource("16_ehy2b"), null, ExtResource("17_r25nm")])
+strLabel = NodePath("Contents/Stats/HBoxContainer/Label2")
+vitLabel = NodePath("Contents/Stats/HBoxContainer2/Label2")
+intLabel = NodePath("Contents/Stats/HBoxContainer3/Label2")
+agiLabel = NodePath("Contents/Stats/HBoxContainer4/Label2")
+
+[node name="Contents" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents" node_paths=PackedStringArray("sprite")]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 36.0
+offset_bottom = 36.0
+script = ExtResource("16_tafel")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("17_hlgc8")
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Control"]
+process_mode = 2
+texture = ExtResource("15_upr1g")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 32)
+
+[node name="Stats" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "STR"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "VIT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "INT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "AGI"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="EquipmentStatsLine2" type="ColorRect" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange" node_paths=PackedStringArray("animSprite", "contents", "strLabel", "vitLabel", "intLabel", "agiLabel")]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+script = ExtResource("15_ma0d8")
+animSprite = NodePath("Contents/Control")
+contents = NodePath("Contents")
+styles = Array[LabelSettings]([ExtResource("16_ehy2b"), null, ExtResource("17_r25nm")])
+strLabel = NodePath("Contents/Stats/HBoxContainer/Label2")
+vitLabel = NodePath("Contents/Stats/HBoxContainer2/Label2")
+intLabel = NodePath("Contents/Stats/HBoxContainer3/Label2")
+agiLabel = NodePath("Contents/Stats/HBoxContainer4/Label2")
+
+[node name="Contents" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents" node_paths=PackedStringArray("sprite")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 36.0
+offset_bottom = 36.0
+script = ExtResource("16_tafel")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("17_hlgc8")
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Control"]
+process_mode = 2
+texture = ExtResource("15_upr1g")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 32)
+
+[node name="Stats" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "STR"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "VIT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "INT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "AGI"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine2/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="EquipmentStatsLine3" type="ColorRect" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange" node_paths=PackedStringArray("animSprite", "contents", "strLabel", "vitLabel", "intLabel", "agiLabel")]
+custom_minimum_size = Vector2(48, 80)
+layout_mode = 2
+size_flags_vertical = 0
+color = Color(0.172549, 0.180392, 0.219608, 1)
+script = ExtResource("15_ma0d8")
+animSprite = NodePath("Contents/Control")
+contents = NodePath("Contents")
+styles = Array[LabelSettings]([ExtResource("16_ehy2b"), null, ExtResource("17_r25nm")])
+strLabel = NodePath("Contents/Stats/HBoxContainer/Label2")
+vitLabel = NodePath("Contents/Stats/HBoxContainer2/Label2")
+intLabel = NodePath("Contents/Stats/HBoxContainer3/Label2")
+agiLabel = NodePath("Contents/Stats/HBoxContainer4/Label2")
+
+[node name="Contents" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents" node_paths=PackedStringArray("sprite")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 36.0
+offset_bottom = 36.0
+script = ExtResource("16_tafel")
+sprite = NodePath("Sprite2D")
+spritesheet = ExtResource("17_hlgc8")
+state = &"base"
+
+[node name="Sprite2D" type="Sprite2D" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Control"]
+process_mode = 2
+texture = ExtResource("15_upr1g")
+offset = Vector2(0, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 24, 32)
+
+[node name="Stats" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 38.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "STR"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "VIT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "INT"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("7_gkooy")
+text = "AGI"
+
+[node name="Label2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Details/EquipmentStatsChange/EquipmentStatsLine3/Contents/Stats/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gkooy")
+text = "8888"
+horizontal_alignment = 2
+
+[node name="Cursor" type="AnimatedSprite2D" parent="ShopMainScreen"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_b78bk")
+offset = Vector2(-16, -6)
+
+[node name="Buttons" type="NinePatchRect" parent="." node_paths=PackedStringArray("buttons", "cursor")]
+self_modulate = Color(1, 1, 1, 0.752941)
+custom_minimum_size = Vector2(184, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("10_fcb2b")
+region_rect = Rect2(136, 216, 184, 24)
+script = ExtResource("12_vme86")
+buttons = [NodePath("HBoxContainer/Buy"), NodePath("HBoxContainer/Sell")]
+cursor = NodePath("Cursor")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="Buy" type="Button" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+flat = true
+
+[node name="Label" type="Label" parent="Buttons/HBoxContainer/Buy"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_db23s")
+text = "Buy"
+vertical_alignment = 1
+
+[node name="Sell" type="Button" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+flat = true
+
+[node name="Label" type="Label" parent="Buttons/HBoxContainer/Sell"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_db23s")
+text = "Sell"
+vertical_alignment = 1
+
+[node name="Label" type="Control" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_db23s")
+
+[node name="Gold" type="Label" parent="Buttons/HBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Cursor" type="AnimatedSprite2D" parent="Buttons"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_b78bk")
+offset = Vector2(-16, -6)
+
+[connection signal="pressed" from="Buttons/HBoxContainer/Buy" to="Buttons" method="_on_buy_pressed"]
+[connection signal="pressed" from="Buttons/HBoxContainer/Sell" to="Buttons" method="_on_sell_pressed"]

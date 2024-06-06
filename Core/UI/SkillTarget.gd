@@ -107,7 +107,7 @@ func onSkillUsed(target):
 		# Apply item effects on targets.
 		for t in targets:
 			for eff in currentSkill.actionSequence:
-				var result = eff.apply(actor, t.actor)
+				var result = eff.apply(actor, currentSkill, t.actor)
 				if result.has("effective"):
 					effective = effective || result["effective"]
 		if effective:

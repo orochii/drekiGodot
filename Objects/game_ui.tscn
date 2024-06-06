@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://bh38ymrtclopo"]
+[gd_scene load_steps=107 format=3 uid="uid://bh38ymrtclopo"]
 
 [ext_resource type="Script" path="res://Core/UI/GameUI.gd" id="1_8xb7b"]
 [ext_resource type="Texture2D" uid="uid://ciece8x8os0w3" path="res://Graphics/System/s_w_6.png" id="2_1rrgr"]
@@ -73,8 +73,12 @@
 [ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="44_iwi1e"]
 [ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="45_63yia"]
 [ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="46_4hk1r"]
+[ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="47_f43ku"]
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="47_p8gom"]
+[ext_resource type="Script" path="res://Core/UI/Character/CharacterPositionButton.gd" id="48_6vlje"]
+[ext_resource type="Script" path="res://Core/UI/Character/ScrollItemList.gd" id="48_mkogo"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="48_nqxrf"]
+[ext_resource type="Texture2D" uid="uid://ddrdcyg25kpx5" path="res://Graphics/System/position_icon.png" id="48_uxkjv"]
 [ext_resource type="Script" path="res://Core/UI/SkillList.gd" id="49_v0hn6"]
 [ext_resource type="PackedScene" uid="uid://cuqdikr3niocv" path="res://Objects/skill_entry.tscn" id="50_hg110"]
 [ext_resource type="PackedScene" uid="uid://boft533utr21y" path="res://Objects/file_menu.tscn" id="51_d771a"]
@@ -83,12 +87,11 @@
 [ext_resource type="Texture2D" uid="uid://brn18hxlwd7m8" path="res://Graphics/System/turn_icon.png" id="54_1xxfo"]
 [ext_resource type="Texture2D" uid="uid://b8ubps5iul1xm" path="res://Graphics/System/charges_icon.png" id="55_2j7gp"]
 [ext_resource type="Script" path="res://Core/UI/SkillTarget.gd" id="57_oprof"]
+[ext_resource type="Texture2D" uid="uid://ddorleqg0d0h3" path="res://Graphics/Particle/square.png" id="61_vq08o"]
 [ext_resource type="PackedScene" uid="uid://cmgt8ndcewqmp" path="res://Objects/config_screen.tscn" id="67_jr4cg"]
-[ext_resource type="Texture2D" uid="uid://08x0u7fn1rpk" path="res://Graphics/System/partyMenu/base_shop.png" id="83_cum7i"]
+[ext_resource type="Script" path="res://Core/UI/SkillTree/SkillLearn.gd" id="71_va5i4"]
 [ext_resource type="Script" path="res://Core/UI/Debug/DebugMenu.gd" id="84_67nmn"]
 [ext_resource type="Script" path="res://Core/UI/Debug/DebugVarList.gd" id="84_cjxrx"]
-[ext_resource type="PackedScene" uid="uid://dvdlxxda1kkea" path="res://Objects/generic_item_entry.tscn" id="84_gspqu"]
-[ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="85_3fjrp"]
 [ext_resource type="PackedScene" uid="uid://dexfcektogv7j" path="res://Objects/ui/debug_list_entry.tscn" id="85_8py51"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4etw"]
@@ -183,8 +186,32 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config", "Debug", "interactPopup", "popupParent")]
+[sub_resource type="Curve" id="Curve_xe80a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.94339, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oyu2t"]
+curve = SubResource("Curve_xe80a")
+
+[sub_resource type="Curve" id="Curve_51dmk"]
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8hl8f"]
+curve = SubResource("Curve_51dmk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjl5j"]
+particle_flag_disable_z = true
+angle_min = -10.0
+angle_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_8hl8f")
+alpha_curve = SubResource("CurveTexture_oyu2t")
+
+[node name="GameUI" type="Control" node_paths=PackedStringArray("Message", "Party", "File", "Config", "Debug", "interactPopup", "popupParent", "subsceneParent")]
 process_mode = 3
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -199,6 +226,7 @@ Config = NodePath("ConfigScreen")
 Debug = NodePath("DebugMenu")
 interactPopup = NodePath("Popups/InteractPopup")
 popupParent = NodePath("Popups")
+subsceneParent = NodePath("SubsceneContainer")
 itemPopupTemplate = ExtResource("2_pesr5")
 
 [node name="Popups" type="Control" parent="."]
@@ -676,9 +704,16 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_gx67a")
 offset = Vector2(-16, -6)
 
+[node name="SubsceneContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PartyMenu" type="Control" parent="." node_paths=PackedStringArray("screens", "legends")]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -963,7 +998,6 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="CharacterStatusScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -977,10 +1011,19 @@ extraText = "Equip"
 showHelp = true
 tasks = [NodePath("Node")]
 
-[node name="Node" type="Node" parent="PartyMenu/CharacterStatusScreen" node_paths=PackedStringArray("charStats", "listSpawner")]
+[node name="Node" type="Control" parent="PartyMenu/CharacterStatusScreen" node_paths=PackedStringArray("charStats", "listSpawner", "buttons", "scrollList", "scroll1Item", "scroll2Item", "fylgjaItem", "positionButton", "cursor")]
+anchors_preset = 0
 script = ExtResource("17_ji2ek")
 charStats = NodePath("../Background/CharStats")
 listSpawner = NodePath("../../MainScreen/SpawnParty")
+buttons = [NodePath("../Background/CharStats/SETUP/VBoxContainer/Scroll1"), NodePath("../Background/CharStats/SETUP/VBoxContainer/Scroll2"), NodePath("../Background/CharStats/SETUP/VBoxContainer/Fylgja"), NodePath("../Background/CharStats/SETUP/VBoxContainer/Position")]
+scrollList = NodePath("../ScrollList")
+scroll1Item = NodePath("../Background/CharStats/SETUP/VBoxContainer/Scroll1/HBoxContainer/Scroll1GenericItemEntry")
+scroll2Item = NodePath("../Background/CharStats/SETUP/VBoxContainer/Scroll2/HBoxContainer/Scroll2GenericItemEntry")
+fylgjaItem = NodePath("../Background/CharStats/SETUP/VBoxContainer/Fylgja/HBoxContainer/FylgjaGenericItemEntry")
+positionButton = NodePath("../Background/CharStats/SETUP/VBoxContainer/Position")
+cursor = NodePath("../Background/CharStats/SETUP/Cursor")
+cursorOffset = Vector2(6, 8)
 
 [node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen"]
 layout_mode = 1
@@ -1311,6 +1354,165 @@ offset_top = 112.0
 offset_right = 192.0
 offset_bottom = 176.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Scroll1" type="Button" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll1"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll1/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Scroll"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="Scroll1GenericItemEntry" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll1/HBoxContainer" instance=ExtResource("47_f43ku")]
+layout_mode = 2
+
+[node name="Scroll2" type="Button" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll2"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll2/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Scroll"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="Scroll2GenericItemEntry" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll2/HBoxContainer" instance=ExtResource("47_f43ku")]
+layout_mode = 2
+
+[node name="Fylgja" type="Button" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Fylgja"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Fylgja/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Fylgja"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="FylgjaGenericItemEntry" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Fylgja/HBoxContainer" instance=ExtResource("47_f43ku")]
+layout_mode = 2
+
+[node name="Position" type="Button" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer" node_paths=PackedStringArray("positionLabel", "positionGraphic", "leftArrow", "rightArrow")]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+flat = true
+script = ExtResource("48_6vlje")
+positionLabel = NodePath("HBoxContainer/PositionLabel")
+positionGraphic = NodePath("HBoxContainer/PositionGraphic")
+leftArrow = NodePath("HBoxContainer/LeftArrow")
+rightArrow = NodePath("HBoxContainer/RightArrow")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position/HBoxContainer"]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "Position"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="LeftArrow" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "◄"
+vertical_alignment = 1
+
+[node name="PositionLabel" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("11_hotyh")
+text = "Front"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightArrow" type="Label" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "►"
+vertical_alignment = 1
+
+[node name="PositionGraphic" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position/HBoxContainer"]
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 2
+texture = ExtResource("48_uxkjv")
+region_rect = Rect2(0, 0, 48, 16)
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
+
 [node name="EXPDATA" type="Control" parent="PartyMenu/CharacterStatusScreen/Background/CharStats"]
 anchors_preset = 0
 offset_left = 24.0
@@ -1359,6 +1561,148 @@ offset_bottom = 16.0
 theme = ExtResource("11_hotyh")
 text = "88888888"
 horizontal_alignment = 2
+
+[node name="ScrollList" type="VBoxContainer" parent="PartyMenu/CharacterStatusScreen" node_paths=PackedStringArray("container", "scroll", "parentScreen", "description", "cursor")]
+visible = false
+custom_minimum_size = Vector2(192, 176)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -64.0
+offset_right = 96.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("48_mkogo")
+container = NodePath("BottomWindow/Control/ItemList/VBoxContainer")
+scroll = NodePath("BottomWindow/Control/ItemList")
+equipEntryTemplate = ExtResource("31_so3v4")
+parentScreen = NodePath("../Node")
+description = NodePath("TopWindow/Control/RichTextLabel")
+cursor = NodePath("BottomWindow/Cursor")
+
+[node name="TopWindow" type="Control" parent="PartyMenu/CharacterStatusScreen/ScrollList"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen/ScrollList/TopWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen/ScrollList/TopWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Control" type="VBoxContainer" parent="PartyMenu/CharacterStatusScreen/ScrollList/TopWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PartyMenu/CharacterStatusScreen/ScrollList/TopWindow/Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("11_hotyh")
+bbcode_enabled = true
+text = "first line
+second line
+third line"
+
+[node name="BottomWindow" type="Control" parent="PartyMenu/CharacterStatusScreen/ScrollList"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Control" type="VBoxContainer" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="ScrollContainer" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("11_hotyh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow/Control/ItemList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterStatusScreen/ScrollList/BottomWindow"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
 
 [node name="CharacterEquipScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
 visible = false
@@ -1993,7 +2337,7 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SlotsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("lineContainer", "slotsContainer", "cursor", "parentScreen")]
+[node name="SlotsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("lineContainer", "slotsContainer", "skillLearn", "parentScreen", "cursor")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2007,9 +2351,33 @@ grow_vertical = 2
 script = ExtResource("36_i5krb")
 lineContainer = NodePath("../LineContainer")
 slotsContainer = NodePath(".")
+skillLearn = NodePath("../../../SkillLearn")
 learnSlotTemplate = ExtResource("36_ucopl")
-cursor = NodePath("../CursorContainer/AnimatedSprite2D")
 parentScreen = NodePath("../../../SkillsScreen")
+cursor = NodePath("../CursorContainer/AnimatedSprite2D")
+
+[node name="ParticlesContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PartyMenu/CharacterSkillsScreen/Background/Container/ParticlesContainer"]
+texture_filter = 1
+position = Vector2(8, 8)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_wjl5j")
+texture = ExtResource("61_vq08o")
+lifetime = 0.5
+one_shot = true
+visibility_rect = Rect2(-16, -16, 32, 32)
 
 [node name="StatsContainer" type="Control" parent="PartyMenu/CharacterSkillsScreen/Background/Container" node_paths=PackedStringArray("nameLabel", "hpLabel", "mpLabel", "apCount", "apPercCount")]
 layout_mode = 1
@@ -2231,9 +2599,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
+offset_left = -152.0
 offset_top = -39.0
-offset_right = 160.0
+offset_right = 152.0
 offset_bottom = 73.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -2299,6 +2667,7 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="SkillUse" type="VBoxContainer" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("container", "actorStats", "skillInfo", "targetsWindow", "menuScreen", "cursor")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2521,6 +2890,280 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/SkillUse"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5fut7")
+frame = 6
+frame_progress = 0.923923
+offset = Vector2(-16, -6)
+
+[node name="SkillLearn" type="VBoxContainer" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("skillInfo", "apCostLabel", "particles")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -74.0
+offset_right = 104.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("71_va5i4")
+skillInfo = NodePath("SkillInfo")
+apCostLabel = NodePath("UpgradeInfo/Container/HBoxContainer/APCostNum")
+particles = NodePath("../Background/Container/ParticlesContainer/GPUParticles2D")
+
+[node name="SkillInfo" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillLearn" node_paths=PackedStringArray("skillIcon", "skillName", "skillDesc", "skillCostType", "skillCost", "turnIcon", "turnLabel", "chargeIcon", "chargeLabel")]
+custom_minimum_size = Vector2(208, 96)
+layout_mode = 2
+script = ExtResource("53_yapl8")
+skillIcon = NodePath("Container/Icon")
+skillName = NodePath("Container/Name")
+skillDesc = NodePath("Container/HelpText")
+skillCostType = NodePath("Container/Cost")
+skillCost = NodePath("Container/CostNum")
+turnIcon = NodePath("Container/UseRestrictions/TurnIcon")
+turnLabel = NodePath("Container/UseRestrictions/TurnNum")
+chargeIcon = NodePath("Container/UseRestrictions/ChargeIcon")
+chargeLabel = NodePath("Container/UseRestrictions/ChargeNum")
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("53_ulb51")
+
+[node name="Name" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 20.0
+offset_right = -44.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme = ExtResource("11_hotyh")
+text = "Skill name"
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 16.0
+grow_horizontal = 0
+theme = ExtResource("11_hotyh")
+text = "MP"
+label_settings = ExtResource("19_wre01")
+vertical_alignment = 1
+
+[node name="CostNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 16.0
+grow_horizontal = 0
+theme = ExtResource("11_hotyh")
+text = "8888"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HelpText" type="RichTextLabel" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("11_hotyh")
+bbcode_enabled = true
+text = "About three lines of text go here. :)
+Uhhh yeah and so here's more text, just to uh check that things look okay or something idk. oh actually 4 lines? ok..."
+
+[node name="UseRestrictions" type="HBoxContainer" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 2
+
+[node name="TurnIcon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("54_1xxfo")
+
+[node name="TurnNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88"
+vertical_alignment = 1
+
+[node name="ChargeIcon" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("55_2j7gp")
+
+[node name="ChargeNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/SkillInfo/Container/UseRestrictions"]
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88/88"
+vertical_alignment = 1
+
+[node name="UpgradeInfo" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillLearn"]
+custom_minimum_size = Vector2(208, 32)
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Border" type="NinePatchRect" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jt7fy")
+draw_center = false
+region_rect = Rect2(64, 0, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 8
+
+[node name="Container" type="HBoxContainer" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 48
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container"]
+layout_mode = 2
+
+[node name="APCost" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "AP Cost"
+
+[node name="APCostNum" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container/HBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+theme = ExtResource("11_hotyh")
+text = "88"
+horizontal_alignment = 2
+
+[node name="UpgradeLabel" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container/UpgradeLabel"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container/UpgradeLabel/Control"]
+texture = ExtResource("16_bl4y0")
+centered = false
+script = ExtResource("17_i84k7")
+
+[node name="Label" type="Label" parent="PartyMenu/CharacterSkillsScreen/SkillLearn/UpgradeInfo/Container/UpgradeLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = 29.0
+grow_vertical = 2
+theme = ExtResource("18_dtd4u")
+text = "Upgrade"
+vertical_alignment = 1
+
+[node name="Cursor" type="AnimatedSprite2D" parent="PartyMenu/CharacterSkillsScreen/SkillLearn"]
 visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5fut7")
@@ -3061,533 +3704,6 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("11_eyxf8")
 
-[node name="Shop" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Background" type="NinePatchRect" parent="Shop"]
-modulate = Color(1, 1, 1, 0.752941)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_wa60k")
-patch_margin_left = 132
-patch_margin_right = 176
-script = ExtResource("11_l3uei")
-
-[node name="InputLegends" type="NinePatchRect" parent="Shop" node_paths=PackedStringArray("leftTop", "rightTop", "extraObj", "extraAction", "helpObj")]
-self_modulate = Color(1, 1, 1, 0.752941)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("12_ajity")
-region_rect = Rect2(0, 0, 320, 28)
-patch_margin_left = 80
-patch_margin_top = 28
-patch_margin_right = 80
-script = ExtResource("17_w1dpt")
-leftTop = NodePath("../../PartyMenu/InputLegends/Left/LeftLabel")
-rightTop = NodePath("../../PartyMenu/InputLegends/Right/RightLabel")
-extraObj = NodePath("../../PartyMenu/InputLegends/Extra")
-extraAction = NodePath("../../PartyMenu/InputLegends/Extra/ExtraLabel")
-helpObj = NodePath("../../PartyMenu/InputLegends/Help")
-
-[node name="Left" type="Control" parent="Shop/InputLegends"]
-visible = false
-anchors_preset = 0
-offset_top = 32.0
-offset_right = 48.0
-offset_bottom = 48.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Left"]
-texture = ExtResource("16_bl4y0")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"cycle_left"
-
-[node name="LeftLabel" type="Label" parent="Shop/InputLegends/Left"]
-layout_mode = 0
-offset_left = 18.0
-offset_right = 48.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "---"
-vertical_alignment = 1
-
-[node name="Right" type="Control" parent="Shop/InputLegends"]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -48.0
-offset_top = 32.0
-offset_bottom = 48.0
-grow_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Right"]
-position = Vector2(32, 0)
-texture = ExtResource("16_bl4y0")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"cycle_right"
-
-[node name="RightLabel" type="Label" parent="Shop/InputLegends/Right"]
-layout_mode = 0
-offset_right = 30.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "---"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Extra" type="Control" parent="Shop/InputLegends"]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_top = 56.0
-offset_bottom = 72.0
-grow_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Extra"]
-texture = ExtResource("19_85gig")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"action_extra"
-
-[node name="ExtraLabel" type="Label" parent="Shop/InputLegends/Extra"]
-layout_mode = 0
-offset_left = 18.0
-offset_right = 56.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "Data"
-vertical_alignment = 1
-
-[node name="Help" type="Control" parent="Shop/InputLegends"]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_top = 76.0
-offset_bottom = 92.0
-grow_horizontal = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Shop/InputLegends/Help"]
-texture = ExtResource("20_q4gm6")
-centered = false
-script = ExtResource("17_i84k7")
-bindName = &"action_select"
-
-[node name="HelpLabel" type="Label" parent="Shop/InputLegends/Help"]
-layout_mode = 0
-offset_left = 18.0
-offset_right = 56.0
-offset_bottom = 16.0
-theme = ExtResource("18_dtd4u")
-text = "Help"
-vertical_alignment = 1
-
-[node name="ShopBack" type="NinePatchRect" parent="Shop"]
-self_modulate = Color(1, 1, 1, 0.752941)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -28.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("83_cum7i")
-region_rect = Rect2(0, 0, 320, 212)
-patch_margin_left = 8
-patch_margin_right = 4
-patch_margin_bottom = 28
-script = ExtResource("11_l3uei")
-
-[node name="Control" type="VBoxContainer" parent="Shop/ShopBack"]
-custom_minimum_size = Vector2(304, 192)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -152.0
-offset_top = 16.0
-offset_right = 152.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="Title" type="Label" parent="Shop/ShopBack/Control"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "Shop"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 8
-
-[node name="ItemList" type="ScrollContainer" parent="Shop/ShopBack/Control/HBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/ItemList"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="GenericItemEntry" parent="Shop/ShopBack/Control/HBoxContainer/ItemList/VBoxContainer" instance=ExtResource("84_gspqu")]
-layout_mode = 2
-
-[node name="GenericItemEntry2" parent="Shop/ShopBack/Control/HBoxContainer/ItemList/VBoxContainer" node_paths=PackedStringArray("itemIcon", "itemLabel") instance=ExtResource("84_gspqu")]
-layout_mode = 2
-itemIcon = NodePath("../GenericItemEntry/Container/NinePatchRect")
-itemLabel = NodePath("../GenericItemEntry/Container/Label")
-
-[node name="Details" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="ItemEntry" parent="Shop/ShopBack/Control/HBoxContainer/Details" instance=ExtResource("18_8bsst")]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "Made out of metal and a ring of text.
-This is what you were waiting for?"
-
-[node name="PriceStuff" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_vertical = 0
-theme = ExtResource("11_hotyh")
-text = "Price"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="SimplePrice" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/HBoxContainer"]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-size_flags_vertical = 0
-theme = ExtResource("11_hotyh")
-text = "88888"
-horizontal_alignment = 2
-
-[node name="SimplePrice2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme = ExtResource("11_hotyh")
-text = "£"
-label_settings = ExtResource("19_wre01")
-horizontal_alignment = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_constants/separation = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "88888"
-horizontal_alignment = 2
-
-[node name="Label7" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "£"
-label_settings = ExtResource("19_wre01")
-horizontal_alignment = 2
-
-[node name="Label3" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(8, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "x"
-horizontal_alignment = 2
-
-[node name="Label4" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "99"
-horizontal_alignment = 1
-
-[node name="Label5" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(8, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "/"
-horizontal_alignment = 1
-
-[node name="Label6" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "99"
-
-[node name="ColorRect" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
-custom_minimum_size = Vector2(0, 1)
-layout_mode = 2
-
-[node name="ColorRect2" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/ColorRect"]
-custom_minimum_size = Vector2(0, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0, 0, 0, 0.25098)
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Label6" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("11_hotyh")
-text = "88888"
-horizontal_alignment = 2
-
-[node name="Label7" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/PriceStuff/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-text = "£"
-label_settings = ExtResource("19_wre01")
-horizontal_alignment = 2
-
-[node name="EquipmentStatsChange" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 8
-
-[node name="Control" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
-custom_minimum_size = Vector2(48, 80)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.172549, 0.180392, 0.219608, 1)
-
-[node name="Control" type="Control" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control"]
-layout_mode = 1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 36.0
-offset_bottom = 36.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Control"]
-texture = ExtResource("85_3fjrp")
-offset = Vector2(0, -16)
-region_enabled = true
-region_rect = Rect2(0, 0, 24, 32)
-
-[node name="Stats" type="VBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 38.0
-offset_right = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("18_dtd4u")
-text = "STR"
-
-[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("18_dtd4u")
-text = "8888"
-horizontal_alignment = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer2"]
-layout_mode = 2
-theme = ExtResource("18_dtd4u")
-text = "VIT"
-
-[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("18_dtd4u")
-text = "8888"
-horizontal_alignment = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer3"]
-layout_mode = 2
-theme = ExtResource("18_dtd4u")
-text = "INT"
-
-[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("18_dtd4u")
-text = "8888"
-horizontal_alignment = 2
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer4"]
-layout_mode = 2
-theme = ExtResource("18_dtd4u")
-text = "AGI"
-
-[node name="Label2" type="Label" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange/Control/Stats/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("18_dtd4u")
-text = "8888"
-horizontal_alignment = 2
-
-[node name="Control2" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
-custom_minimum_size = Vector2(48, 80)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.172549, 0.180392, 0.219608, 1)
-
-[node name="Control3" type="ColorRect" parent="Shop/ShopBack/Control/HBoxContainer/Details/EquipmentStatsChange"]
-custom_minimum_size = Vector2(48, 80)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.172549, 0.180392, 0.219608, 1)
-
-[node name="Buttons" type="NinePatchRect" parent="Shop"]
-self_modulate = Color(1, 1, 1, 0.752941)
-custom_minimum_size = Vector2(184, 24)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("83_cum7i")
-region_rect = Rect2(136, 216, 184, 24)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/Buttons"]
-custom_minimum_size = Vector2(128, 24)
-layout_mode = 0
-offset_right = 176.0
-offset_bottom = 24.0
-theme_override_constants/separation = 0
-
-[node name="Button" type="Button" parent="Shop/Buttons/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-flat = true
-
-[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Button"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_hotyh")
-text = "Buy"
-vertical_alignment = 1
-
-[node name="Button2" type="Button" parent="Shop/Buttons/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-flat = true
-
-[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Button2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_hotyh")
-text = "Sell"
-vertical_alignment = 1
-
-[node name="Label" type="Control" parent="Shop/Buttons/HBoxContainer"]
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-theme = ExtResource("11_hotyh")
-
-[node name="Label" type="Label" parent="Shop/Buttons/HBoxContainer/Label"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 8.0
-offset_right = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "88888"
-horizontal_alignment = 2
-
 [node name="FileMenu" parent="." instance=ExtResource("51_d771a")]
 visible = false
 layout_mode = 1
@@ -3767,6 +3883,10 @@ mouse_force_pass_scroll_events = false
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Status" to="PartyMenu/MainScreen/SpawnParty" method="_on_status_pressed"]
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Equip" to="PartyMenu/MainScreen/SpawnParty" method="_on_equip_pressed"]
 [connection signal="pressed" from="PartyMenu/MainScreen/MemberSubmenu/Container/Actions" to="PartyMenu/MainScreen/SpawnParty" method="_on_actions_pressed"]
+[connection signal="pressed" from="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll1" to="PartyMenu/CharacterStatusScreen/Node" method="_on_scroll_1_pressed"]
+[connection signal="pressed" from="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Scroll2" to="PartyMenu/CharacterStatusScreen/Node" method="_on_scroll_2_pressed"]
+[connection signal="pressed" from="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Fylgja" to="PartyMenu/CharacterStatusScreen/Node" method="_on_fylgja_pressed"]
+[connection signal="pressed" from="PartyMenu/CharacterStatusScreen/Background/CharStats/SETUP/VBoxContainer/Position" to="PartyMenu/CharacterStatusScreen/Node" method="_on_position_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Save" to="PartyMenu/SystemScreen/Node" method="_on_save_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Load" to="PartyMenu/SystemScreen/Node" method="_on_load_pressed"]
 [connection signal="pressed" from="PartyMenu/SystemScreen/Window/Contents/VBoxContainer/Config" to="PartyMenu/SystemScreen/Node" method="_on_config_pressed"]

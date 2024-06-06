@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://dxsh4ht1gijoy"]
+
+[ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="1_bev4w"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="1_n1cr6"]
+[ext_resource type="Texture2D" uid="uid://bqlkb02xqr7of" path="res://Graphics/Icons/items/item_0300.png" id="2_ptedi"]
+
+[sub_resource type="Resource" id="Resource_5ym1p"]
+script = ExtResource("1_n1cr6")
+stat = 3
+kind = 0
+amount = 3
+
+[resource]
+script = ExtResource("1_bev4w")
+gripOffset = Vector2i(0, 0)
+slot = 2
+flags = Array[int]([12])
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_5ym1p")])
+icon = ExtResource("2_ptedi")
+category = 3
+price = 25
+canSell = true

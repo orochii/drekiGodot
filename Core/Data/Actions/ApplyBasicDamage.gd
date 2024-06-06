@@ -25,17 +25,19 @@ func execute(action:BattleAction):
 	multipleTargets = action.scope == Global.ETargetScope.ALL
 	for t in action.targets:
 		var _hit = ignoreHit || checkHit(1.0, action.battler.battler, t.battler)
-		var eff = apply(action.battler.battler, t.battler, _hit)
+		var eff = apply(action.battler.battler, action.action, t.battler, _hit)
 		# Register effect to this turn
 		effs.append(eff)
 		# Display effect- eff(damage,elementCorrection,hit)
 		t.damagePop(eff)
 	# Store effects
 	action.battler.turnEffects.append({&"type":&"damage",&"effects":effs})
+	# Undo
+	multipleTargets = false
 
 # Data change ><
-func apply(user:GameBattler, target:GameBattler, hit:bool=true):
-	var eff = calcEffect(user,target)
+func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
+	var eff = calcEffect(user,item,target)
 	eff["target"] = target
 	# Do hit
 	eff["effective"] = true
@@ -66,7 +68,7 @@ func apply(user:GameBattler, target:GameBattler, hit:bool=true):
 	return eff
 
 # any calculation here must be deterministic
-func calcEffect(user:GameBattler, target:GameBattler):
+func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# Get attribute power (influence)
 	var attr_power = (user.getStr() * strF) + (user.getMag() * magF)
 	attr_power += (user.getVit() * vitF) + (user.getAgi() * agiF)
@@ -83,15 +85,10 @@ func calcEffect(user:GameBattler, target:GameBattler):
 		defense += (target.getMag() * mDefF) / 2
 		defense += power * (target.getPhyAbs() * 0.01 * pDefF)
 		defense += power * (target.getMagAbs() * 0.01 * mDefF)
-		
-		var vitDef = (target.getVit() * pDefF) / 2
-		var magDef = (target.getMag() * mDefF) / 2
-		var pAbs = power * (target.getPhyAbs() * 0.01 * pDefF)
-		var mAbs = power * (target.getMagAbs() * 0.01 * mDefF)
-		
 		# Apply defense change
 		damage -= ceil(defense)
 		if damage < 0: damage = 0
+		damage *= applyDamagePositionEffect(user,item,target)
 	# Physical skill multiplier
 	if atkF > 0:
 		var atkM = user.getAtk() * 0.01

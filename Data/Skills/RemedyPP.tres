@@ -1,25 +1,7 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://tfa1c2hcqbt3"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://tfa1c2hcqbt3"]
 
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_vi1we"]
 [ext_resource type="Texture2D" uid="uid://f6v4oveud4ir" path="res://Graphics/Icons/skills/RemedyPP.png" id="2_cvmjp"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_4k6cg"]
-
-[sub_resource type="Resource" id="Resource_yq3tp"]
-script = ExtResource("1_vi1we")
-type = 0
-base = 50
-atkF = 0.0
-strF = 0.0
-vitF = 0.0
-magF = 1.0
-agiF = 0.0
-pDefF = 0.0
-mDefF = 1.0
-elements = Array[int]([])
-crit = 0.04
-hit = 1.0
-variance = 0.0
-ignoreHit = true
 
 [resource]
 script = ExtResource("3_4k6cg")
@@ -37,6 +19,6 @@ cooldown = 1
 canUse = 2
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("2_cvmjp")

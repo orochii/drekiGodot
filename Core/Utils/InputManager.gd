@@ -19,6 +19,9 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _process(delta):
+	# Refresh repeats
+	_refreshRepeats(delta)
+	# 
 	if Input.is_action_just_pressed("sys_snap"):
 		Global.saveScreenshot()
 	if !Global.Scene.inBattle():
@@ -36,6 +39,24 @@ func _input(event):
 		var m = event as InputEventJoypadMotion
 		if absf(m.axis_value) > 0.5:
 			lastInputKind = 0
+
+const REPEAT_TIME_LONG:float = 0.3
+const REPEAT_TIME_SHORT:float = 0.1
+var _repeatInfo:Dictionary
+
+func isRepeating(action:StringName):
+	if Input.is_action_just_pressed(action):
+		_repeatInfo[action] = REPEAT_TIME_LONG
+		return true
+	if Input.is_action_pressed(action):
+		if _repeatInfo[action] <= 0.0:
+			_repeatInfo[action] = REPEAT_TIME_SHORT
+			return true
+	return false
+
+func _refreshRepeats(delta):
+	for k in _repeatInfo:
+		if _repeatInfo[k] > 0: _repeatInfo[k] -= delta
 
 func mirrorActionsToUIMappings():
 	for uiMap in MAPPING_MIRRORS:

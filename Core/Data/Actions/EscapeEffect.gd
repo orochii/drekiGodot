@@ -5,6 +5,6 @@ func execute(action:BattleAction):
 	for target in action.targets:
 		target.escape()
 
-func calcEffect(user:GameBattler, target:GameBattler):
+func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# any calculation here must be deterministic
-	return {"excape":true}
+	return {"escape":true}

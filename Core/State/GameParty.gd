@@ -17,6 +17,12 @@ func gainGold(n:int):
 func loseGold(n:int):
 	gold = clamp(gold-n,0,MAX_GOLD)
 
+func getItemPrice(price:int,isSelling:bool):
+	if isSelling:
+		return price / 2
+	else:
+		return price
+
 func gainItem(id:StringName,n:int):
 	if(n<=0): return
 	for e in inventory:

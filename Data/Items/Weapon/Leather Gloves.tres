@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://dwgtijudr5fnt"]
+[gd_resource type="Resource" script_class="EquipItem" load_steps=5 format=3 uid="uid://cmqi373lidyl4"]
 
 [ext_resource type="Texture2D" uid="uid://bgla0n3vp4j61" path="res://Graphics/Icons/items/item_0265.png" id="1_bev8u"]
 [ext_resource type="Script" path="res://Core/Data/Items/EquipItem.gd" id="2_il6p5"]
@@ -15,5 +15,5 @@ features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
 skill = ExtResource("3_gsos7")
 icon = ExtResource("1_bev8u")
 category = 3
-price = 0
-canSell = false
+price = 90
+canSell = true

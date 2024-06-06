@@ -22,5 +22,5 @@ features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResour
 skill = ExtResource("4_vc5ct")
 icon = ExtResource("1_hcein")
 category = 3
-price = 0
-canSell = false
+price = 65
+canSell = true
