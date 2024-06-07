@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="UseableSkill" load_steps=5 format=3 uid="uid://b644gtf6h8lun"]
 
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_jss7e"]
-[ext_resource type="Texture2D" uid="uid://blkc0fvc6ai46" path="res://Graphics/Icons/skills/SuperNova.png" id="2_ll1yb"]
-[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_20try"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="1_evpkq"]
+[ext_resource type="Texture2D" uid="uid://blkc0fvc6ai46" path="res://Graphics/Icons/skills/SuperNova.png" id="2_vboln"]
+[ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="3_sof77"]
 
 [sub_resource type="Resource" id="Resource_yq3tp"]
-script = ExtResource("1_jss7e")
+script = ExtResource("1_evpkq")
 type = 0
 base = 50
 atkF = 0.0
@@ -22,8 +22,8 @@ variance = 0.0
 ignoreHit = false
 
 [resource]
-script = ExtResource("3_20try")
-flags = Array[int]([0, 4])
+script = ExtResource("3_sof77")
+flags = Array[int]([0, 4, 5])
 targetKind = 2
 targetCanChangeKind = false
 targetCanChangeScope = false
@@ -32,11 +32,11 @@ targetState = 0
 repeats = 0
 costType = 0
 cost = 0
-charges = 0
+charges = 1
 cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_yq3tp")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-icon = ExtResource("2_ll1yb")
+icon = ExtResource("2_vboln")

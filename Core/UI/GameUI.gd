@@ -4,6 +4,7 @@ class_name GameUI
 signal onHpChange(actor,max)
 signal onMpChange(actor,max)
 signal onStatusChange(actor)
+signal onLimitChange()
 
 @export var Message : GameMessage
 @export var Party : PartyMenu

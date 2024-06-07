@@ -26,12 +26,15 @@ func execute(action:BattleAction):
 		t.damagePop(eff)
 	# Store effects
 	action.battler.turnEffects.append({&"type":&"damage",&"effects":effs})
+	# Evaluate effects for limit
+	evaluateEffects(effs)
 
 # Data change ><
 func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
 	var eff = calcEffect(user,item,target)
 	# Do hit
 	eff["effective"] = true
+	eff["user"] = user
 	eff["target"] = target
 	eff["hit"] = hit
 	if eff["hit"]:

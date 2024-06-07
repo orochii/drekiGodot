@@ -440,9 +440,18 @@ func setPosition(v:int):
 func canUse(action:Resource):
 	if action is UseableSkill:
 		var skill = action as UseableSkill
+		# Limit
+		if skill.flags.has(UseableSkill.ESkillFlags.LIMIT):
+			if Global.Scene.inBattle():
+				var lb = Global.Scene.battleInstance.limitBar
+				if !lb.isFull() || lb.isSpent():
+					return false
+			else:
+				return false
 		# MP Cost
 		var mpCost = skill.getMPCost(self)
 		if mpCost > currMP: return false
+		# HP Cost
 		var hpCost = skill.getHPCost(self)
 		if hpCost > currHP: return false
 		# cooldown
@@ -464,6 +473,11 @@ func canUse(action:Resource):
 	return true
 
 func resolveSkillCost(skill,battle=true):
+	# Limit
+	if skill.flags.has(UseableSkill.ESkillFlags.LIMIT):
+		if Global.Scene.inBattle():
+			var lb = Global.Scene.battleInstance.limitBar
+			lb.spend()
 	# take off MP
 	var mpCost = skill.getMPCost(self)
 	var hpCost = skill.getHPCost(self)

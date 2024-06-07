@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://shd0vii63ajl"]
+[gd_scene load_steps=96 format=3 uid="uid://shd0vii63ajl"]
 
 [ext_resource type="Script" path="res://Core/Battle/BattleManager.gd" id="1_rbil0"]
 [ext_resource type="PackedScene" uid="uid://wvctddsd21hk" path="res://Objects/battle/battler.tscn" id="2_bnp7f"]
@@ -22,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://cjimo6g4d3ekf" path="res://Graphics/Icons/buttonsM30/Left trigger.png" id="12_epljo"]
 [ext_resource type="Texture2D" uid="uid://fo3w6qcsqbr" path="res://Graphics/System/battle/actionIcon_item.png" id="13_p82oe"]
 [ext_resource type="Script" path="res://Core/UI/BindIcon.gd" id="13_xug2n"]
+[ext_resource type="Shader" path="res://Core/Shaders/rainbowUI.gdshader" id="14_5pq04"]
+[ext_resource type="Script" path="res://Core/UI/Battle/LimitBar.gd" id="14_fimjt"]
 [ext_resource type="Texture2D" uid="uid://bu33fnk204iqb" path="res://Graphics/System/battle/actionIcon_wait.png" id="14_vmfkj"]
 [ext_resource type="Script" path="res://Core/UI/SkillList.gd" id="17_8fcou"]
 [ext_resource type="PackedScene" uid="uid://cuqdikr3niocv" path="res://Objects/skill_entry.tscn" id="18_4l6sv"]
@@ -128,6 +130,29 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0, 1, 1, 1)
 albedo_texture = SubResource("CompressedTexture2D_jsclg")
+
+[sub_resource type="Gradient" id="Gradient_khr7d"]
+colors = PackedColorArray(0, 0, 0, 0.878431, 0, 0, 0, 0.501961)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6bei0"]
+gradient = SubResource("Gradient_khr7d")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_pohll"]
+offsets = PackedFloat32Array(0, 0.178771, 0.337989, 0.502793, 0.675978, 0.840782, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0.85, 0.85, 1, 0.1633, 0.1633, 0.71, 1, 0.53, 0.1219, 0.53, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ix5jn"]
+gradient = SubResource("Gradient_pohll")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajecd"]
+shader = ExtResource("14_5pq04")
+shader_parameter/strength = null
+shader_parameter/overlay = null
+shader_parameter/overlayColor = Color(1, 0.964706, 0.45098, 1)
+shader_parameter/displaceSpeed = Vector2(0.2, 0)
+shader_parameter/scale = Vector2(2, 1)
+shader_parameter/rainbowTexture = SubResource("GradientTexture1D_ix5jn")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ccex3"]
 animations = [{
@@ -278,7 +303,7 @@ _data = {
 size = Vector2(320, -240)
 center_offset = Vector3(240, 135, 0)
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow", "actionName", "ui")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("scenarioContainer", "battleObjContainer", "camera", "party", "troop", "partyStatus", "battlerStatus", "actorCommand", "damagePopupContainer", "configMenu", "battleEndWindow", "actionName", "limitBar", "ui")]
 process_mode = 3
 script = ExtResource("1_rbil0")
 testTroop = ExtResource("2_l7bpi")
@@ -299,6 +324,7 @@ damagePopupContainer = NodePath("BattleUI/DamagePopupContainer")
 configMenu = NodePath("ConfigScreen")
 battleEndWindow = NodePath("BattleUI/BattleEnd")
 actionName = NodePath("BattleUI/ActionName")
+limitBar = NodePath("BattleUI/PartyStatus/TextureRect/LimitBarContainer")
 ui = NodePath("BattleUI")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -442,7 +468,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PartyStatus" type="Control" parent="BattleUI" node_paths=PackedStringArray("container")]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -460,13 +486,72 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
-offset_bottom = -5.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
+[node name="TextureRect" type="TextureRect" parent="BattleUI/PartyStatus"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_6bei0")
+expand_mode = 1
+
+[node name="LimitBarContainer" type="HBoxContainer" parent="BattleUI/PartyStatus/TextureRect" node_paths=PackedStringArray("limitBar")]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -10.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("14_fimjt")
+limitBar = NodePath("Container/BarBack/LimitBar")
+currentValue = 0.0
+
+[node name="LimitLabel" type="Label" parent="BattleUI/PartyStatus/TextureRect/LimitBarContainer"]
+material = SubResource("ShaderMaterial_ajecd")
+layout_mode = 2
+theme = ExtResource("30_q3xjd")
+text = "LIMIT"
+
+[node name="Container" type="Control" parent="BattleUI/PartyStatus/TextureRect/LimitBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BarBack" type="ColorRect" parent="BattleUI/PartyStatus/TextureRect/LimitBarContainer/Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+color = Color(0.161055, 0.225684, 0.278264, 1)
+
+[node name="LimitBar" type="ColorRect" parent="BattleUI/PartyStatus/TextureRect/LimitBarContainer/Container/BarBack"]
+material = SubResource("ShaderMaterial_ajecd")
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
 [node name="ActorCommand" type="Control" parent="BattleUI" node_paths=PackedStringArray("battle", "skillSelect", "itemSelect", "targetSelect", "highlight", "highlightParticles", "buttons", "waitButton", "cursor", "helpLabel")]
-visible = false
 custom_minimum_size = Vector2(128, 96)
 layout_mode = 1
 anchors_preset = 12
@@ -556,9 +641,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -102.0
-offset_top = -61.0
+offset_top = -66.0
 offset_right = -22.0
-offset_bottom = -45.0
+offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("9_ol241")
@@ -594,9 +679,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -90.0
-offset_top = -47.0
+offset_top = -52.0
 offset_right = -10.0
-offset_bottom = -31.0
+offset_bottom = -36.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("9_ol241")
@@ -632,9 +717,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -78.0
-offset_top = -33.0
+offset_top = -38.0
 offset_right = 2.0
-offset_bottom = -17.0
+offset_bottom = -22.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("9_ol241")
@@ -670,9 +755,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -78.0
-offset_top = -19.0
+offset_top = -24.0
 offset_right = 2.0
-offset_bottom = -3.0
+offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("9_ol241")
@@ -1166,6 +1251,7 @@ sprite_frames = SubResource("SpriteFrames_ane6s")
 offset = Vector2(-16, -6)
 
 [node name="ActorItemSelect" type="Control" parent="BattleUI" node_paths=PackedStringArray("actorCommand", "itemList", "helpText", "statusWindow")]
+visible = false
 custom_minimum_size = Vector2(0, 152)
 layout_mode = 1
 anchors_preset = 12

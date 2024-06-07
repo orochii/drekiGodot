@@ -81,6 +81,7 @@ func _connectToUI():
 		Global.UI.onHpChange.connect(_onHpChange)
 		Global.UI.onMpChange.connect(_onMPChange)
 		Global.UI.onStatusChange.connect(_onStatusChange)
+		Global.UI.onLimitChange.connect(_refreshCanUse)
 		_onHpChange(_battler,true)
 		_onMPChange(_battler,true)
 
@@ -89,6 +90,7 @@ func _disconnectToUI():
 		Global.UI.onHpChange.disconnect(_onHpChange)
 		Global.UI.onMpChange.disconnect(_onMPChange)
 		Global.UI.onStatusChange.disconnect(_onStatusChange)
+		Global.UI.onLimitChange.disconnect(_refreshCanUse)
 
 func _onHpChange(b,max):
 	if _battler==null: return

@@ -1,7 +1,7 @@
 extends BaseSkill
 class_name UseableSkill
 
-enum ESkillFlags { PHYSICAL, MAGICAL, RANGED, CAN_REFLECT, CAN_GUARD }
+enum ESkillFlags { PHYSICAL, MAGICAL, RANGED, CAN_REFLECT, CAN_GUARD, LIMIT }
 enum ECostType { Free,AmountMP, PercentMP, AmountHP, PercentHP }
 
 @export var flags : Array[ESkillFlags]

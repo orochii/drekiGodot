@@ -55,3 +55,37 @@ func checkHit(hitBase:float, user:GameBattler, target:GameBattler):
 
 func getStatusLevel(user:GameBattler):
 	return user.getResourceStatusLevel(self)
+
+func evaluateEffects(effs:Array):
+	# Initialize total gain
+	var _totalGain = 0.0
+	var raise_rate = 1.0 / 256
+	# Iter through effects
+	for eff in effs:
+		# If effect successfully hits
+		if eff.has("target") && eff.has("hit") && eff.has("effective"):
+			if eff["effective"] && eff["hit"]:
+				# Damaging effects: no recovery, only enemies
+				var targetsEnemy = eff["target"].isEnemy(eff["user"])
+				var targetIsActor = eff["target"] is GameActor
+				if targetsEnemy && eff.has("damage") && eff["damage"]>0:
+					var _dmg = float(eff["damage"])
+					var _ratio = _dmg / eff["user"].getMaxHP()
+					var _perc = _dmg / eff["target"].getMaxHP()
+					var _mult = 4 + _ratio + _perc
+					if targetIsActor:
+						_mult *= 2
+						if eff.has("critical") && eff["critical"]:
+							_mult *= 1.5
+					else:
+						_mult *= 3
+					_totalGain = _mult * raise_rate
+				# Bonus from status change
+				if targetsEnemy:
+					if eff.has("statusAdd"):
+						_totalGain += 0.02
+				if !targetsEnemy:
+					if eff.has("statusRemove"):
+						_totalGain += 0.02
+	var lb = Global.Scene.battleInstance.limitBar
+	lb.currentValue = clampf(lb.currentValue + _totalGain, 0.0, 1.0)

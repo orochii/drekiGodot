@@ -27,6 +27,7 @@ signal onBattlerReady(battler:Battler)
 @export var configMenu:ConfigMenu
 @export var battleEndWindow:BattleEnd
 @export var actionName:ActionNameWindow
+@export var limitBar:LimitBar
 @export var ui:Control
 
 var runningEvents:Array[BattleEvent]
@@ -340,6 +341,8 @@ func _executeAction(currentAction:BattleAction):
 		_done = true
 	else:
 		pass
+	if limitBar.isSpent():
+		limitBar.flush()
 	await endBattlerTurn(activeBattler)
 	return _done
 

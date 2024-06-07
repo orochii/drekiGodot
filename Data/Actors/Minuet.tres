@@ -29,8 +29,8 @@
 [ext_resource type="Resource" uid="uid://ba1emoas4gohe" path="res://Data/Skills/Aire Ball.tres" id="24_xni0e"]
 [ext_resource type="Resource" uid="uid://bkm3n8vk32glu" path="res://Data/Skills/Typhoon.tres" id="25_77uti"]
 [ext_resource type="Resource" uid="uid://nnt2ba1183h7" path="res://Data/Skills/Projectile Rain.tres" id="26_x0w5t"]
-[ext_resource type="Resource" uid="uid://dtvage627vfmj" path="res://Data/Skills/Shooting Star.tres" id="27_ovqf6"]
-[ext_resource type="Resource" uid="uid://b644gtf6h8lun" path="res://Data/Skills/Supernova.tres" id="28_mekwu"]
+[ext_resource type="Resource" uid="uid://dtvage627vfmj" path="res://Data/Skills/Limits/Shooting Star.tres" id="27_bju3r"]
+[ext_resource type="Resource" uid="uid://b644gtf6h8lun" path="res://Data/Skills/Limits/Supernova.tres" id="28_274pt"]
 [ext_resource type="Resource" uid="uid://cjvff3m1nrvu2" path="res://Data/Skills/Passives/Elemental Bender.tres" id="29_qrmjy"]
 [ext_resource type="Resource" uid="uid://bcq4phm04yv7x" path="res://Data/Skills/Passives/Cost Reduce.tres" id="30_bkbjs"]
 [ext_resource type="Resource" uid="uid://gbfmesn6uhjb" path="res://Data/Skills/Passives/Mana Flow.tres" id="31_tdelu"]
@@ -219,13 +219,13 @@ learnings = Array[ExtResource("5_cbpvi")]([SubResource("Resource_r6uac")])
 
 [sub_resource type="Resource" id="Resource_f8ch7"]
 script = ExtResource("5_cbpvi")
-skill = ExtResource("27_ovqf6")
+skill = ExtResource("27_bju3r")
 apCost = 2
 requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
 
 [sub_resource type="Resource" id="Resource_chuaj"]
 script = ExtResource("5_cbpvi")
-skill = ExtResource("28_mekwu")
+skill = ExtResource("28_274pt")
 apCost = 10
 requirements = Array[Resource("res://Core/Data/Skills/BaseSkill.gd")]([])
 

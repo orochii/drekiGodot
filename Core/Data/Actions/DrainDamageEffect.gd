@@ -29,6 +29,7 @@ func execute(action:BattleAction):
 
 func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
 	var eff = calcEffect(user,item,target)
+	eff["user"] = user
 	eff["target"] = target
 	# Do hit
 	eff["effective"] = true

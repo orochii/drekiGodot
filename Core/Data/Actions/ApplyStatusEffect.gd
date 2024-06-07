@@ -18,11 +18,14 @@ func execute(action:BattleAction):
 		effs.append(eff)
 	# Store effects
 	action.battler.turnEffects.append({&"type":&"status",&"effects":effs})
+	# Evaluate effects for limit
+	evaluateEffects(effs)
 
 # Data change
 func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
 	var eff = calcEffect(user,item,target)
 	eff["effective"] = false
+	eff["user"] = user
 	eff["target"] = target
 	eff["hit"] = hit
 	if hit:
