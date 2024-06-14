@@ -20,6 +20,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [resource]
 script = ExtResource("2_an0kp")

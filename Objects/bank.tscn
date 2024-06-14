@@ -1,0 +1,328 @@
+[gd_scene load_steps=17 format=3 uid="uid://dslkt1x7egu84"]
+
+[ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="1_4scwf"]
+[ext_resource type="Script" path="res://Core/UI/MenuBackground.gd" id="2_c4qu1"]
+[ext_resource type="Texture2D" uid="uid://bw7lgk1ej13b3" path="res://Graphics/System/partyMenu/back_screenName.png" id="3_r7wvh"]
+[ext_resource type="Texture2D" uid="uid://08x0u7fn1rpk" path="res://Graphics/System/partyMenu/base_shop.png" id="4_px85q"]
+[ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="5_52wgm"]
+[ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="6_l6bai"]
+[ext_resource type="Theme" uid="uid://crgwmpkbu5axv" path="res://Themes/BigText.tres" id="7_k24ir"]
+[ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="8_ymipk"]
+[ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="9_ur4em"]
+[ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="10_caxij"]
+[ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="11_f7md0"]
+[ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="12_wxmch"]
+[ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="13_uvunq"]
+[ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="14_vbluf"]
+[ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="15_61jsm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nxq2a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ymipk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ur4em")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_caxij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f7md0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wxmch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_uvunq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_vbluf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_61jsm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Bank" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4scwf")
+patch_margin_left = 132
+patch_margin_right = 176
+script = ExtResource("2_c4qu1")
+
+[node name="TopCorners" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_r7wvh")
+region_rect = Rect2(0, 0, 320, 28)
+patch_margin_left = 80
+patch_margin_top = 28
+patch_margin_right = 80
+
+[node name="ShopMainScreen" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_px85q")
+region_rect = Rect2(0, 0, 320, 212)
+patch_margin_left = 8
+patch_margin_right = 4
+patch_margin_bottom = 28
+
+[node name="Control" type="VBoxContainer" parent="ShopMainScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+text = "International Bank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Left" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+text = "In account"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Left"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Title2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left/HBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_52wgm")
+text = "8888888 "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Title3" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+text = "£"
+label_settings = ExtResource("6_l6bai")
+vertical_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+text = "Deposit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Right"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control2"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control3" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control3"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control4" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control4"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control5" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control5"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Currency" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Currency"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "£"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cursor" type="AnimatedSprite2D" parent="ShopMainScreen"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_nxq2a")
+offset = Vector2(-16, -6)

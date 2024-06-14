@@ -38,6 +38,7 @@ crit = 0.0
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_llwgk"]
 script = ExtResource("5_hovss")

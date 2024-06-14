@@ -52,7 +52,7 @@ func refresh():
 			chargeLabel.visible = true
 			var spentCharges = actor.getSkillChargesSpent(useable.getId())
 			var availableCharges = useable.charges - spentCharges
-			chargeLabel.text = "%d/%d" % [availableCharges, useable.cooldown]
+			chargeLabel.text = "%d/%d" % [availableCharges, useable.charges]
 		else:
 			chargeIcon.visible = false
 			chargeLabel.visible = false

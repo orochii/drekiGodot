@@ -245,10 +245,24 @@ func jump(pos:Vector3,time:float,height:float,jumpPose=&"jumpHigh",lookAt:bool=f
 	overrideState = jumpPose
 	overrideLoop = true
 	targetPosition = pos
+	raycastFromTargetPosition()
 	jumpTotalTime = time
 	jumpCurrTime = time
 	jumpStartPos = position
 	jumpHeight = height
+
+func raycastFromTargetPosition():
+	# Query where the target position is located actually (or something)
+	var space_state = get_world_3d().direct_space_state
+	var _queryPos = get_parent().global_position + targetPosition
+	var _origin = _queryPos + Vector3(0,2,0)
+	var _target = _queryPos + Vector3(0,-3,0)
+	var query = PhysicsRayQueryParameters3D.create(_origin, _target)
+	var result = space_state.intersect_ray(query)
+	if result:
+		var _diff = result.position.y - _queryPos.y
+		targetPosition.y += _diff
+
 func cacheDirection():
 	_oldDirection = direction
 # This should be called at start of action

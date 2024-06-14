@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://cgweyquyc6otq" path="res://Data/Skills/Common/Move Back.tres" id="1_ml5ph"]
 [ext_resource type="Script" path="res://Core/Data/Items/SlotData.gd" id="1_nydlf"]
 [ext_resource type="Resource" uid="uid://c50k2n5aulkf1" path="res://Data/Skills/Common/Wait.tres" id="2_7ll6p"]
-[ext_resource type="Resource" uid="uid://drvnurhvkaolw" path="res://Data/Skills/Common/Kick.tres" id="2_7uveh"]
+[ext_resource type="Resource" uid="uid://bnxrvd6b7dfen" path="res://Data/Skills/Common/Kick.tres" id="2_7uveh"]
 [ext_resource type="Resource" uid="uid://cd571o5wvubcl" path="res://Data/Skills/Common/Move Forward.tres" id="3_4vm70"]
 [ext_resource type="Resource" uid="uid://if3kt7xlutx8" path="res://Data/Skills/Common/Bite.tres" id="3_7dnsd"]
 [ext_resource type="Resource" uid="uid://bs77brxfkt5yg" path="res://Data/Actors/Hikari.tres" id="3_pbtyf"]

@@ -108,6 +108,7 @@ func execute(result):
 		# Apply stuff
 		_applyParty(partyData)
 		_applyTreasure(treasures)
+		_applyGold(gold)
 		# Eeee
 		visible = true
 		waitTime = 1
@@ -137,6 +138,9 @@ func _applyParty(data):
 func _applyTreasure(items:Array[BaseItem]):
 	for i in items:
 		Global.State.party.gainItem(i.getId(), 1)
+
+func _applyGold(gold):
+	Global.State.bank.addGold(gold)
 
 func _next():
 	Global.Scene.performTransition()

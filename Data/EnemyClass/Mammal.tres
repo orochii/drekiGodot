@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="EnemyClass" load_steps=2 format=3 uid="uid://l8w2k4lpadjs"]
+
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyClass.gd" id="1_v2i5v"]
+
+[resource]
+script = ExtResource("1_v2i5v")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])

@@ -2267,7 +2267,6 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="CharacterSkillsScreen" type="Control" parent="PartyMenu" node_paths=PackedStringArray("tasks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2668,7 +2667,6 @@ frame_progress = 0.923923
 offset = Vector2(-16, -6)
 
 [node name="SkillUse" type="VBoxContainer" parent="PartyMenu/CharacterSkillsScreen" node_paths=PackedStringArray("container", "actorStats", "skillInfo", "targetsWindow", "menuScreen", "cursor")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -23,6 +23,9 @@ func getActor(id : StringName):
 func getEnemy(id : StringName):
 	return load("res://Data/Enemies/%s.tres" % id)
 
+func getEnemyClass(id : StringName):
+	return load("res://Data/EnemyClass/%s.tres" % id)
+
 func getItem(id : StringName):
 	return load("res://Data/Items/%s.tres" % id)
 

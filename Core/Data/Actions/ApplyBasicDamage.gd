@@ -17,6 +17,7 @@ class_name ApplyBasicDamage
 @export_range(0,1) var hit:float = 1
 @export_range(0,1) var variance:float = 0
 @export var ignoreHit:bool = false
+@export var allowKO:bool = true
 
 var multipleTargets:bool = false
 
@@ -62,11 +63,11 @@ func apply(user:GameBattler, item:Resource, target:GameBattler, hit:bool=true):
 		match type:
 			Global.EDamageType.HP:
 				eff["oldval"] = target.currHP
-				target.changeHP(-eff["damage"])
+				target.changeHP(-eff["damage"], allowKO)
 				eff["effective"] = eff["oldval"] != target.currHP
 			Global.EDamageType.MP:
 				eff["oldval"] = target.currMP
-				target.changeMP(-eff["damage"])
+				target.changeMP(-eff["damage"], allowKO)
 				eff["effective"] = eff["oldval"] != target.currMP
 	return eff
 

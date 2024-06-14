@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyClass" load_steps=11 format=3 uid="uid://di886dqp7wivm"]
+
+[ext_resource type="Script" path="res://Core/Data/Features/StatusAffinity.gd" id="1_vp7ab"]
+[ext_resource type="Resource" uid="uid://bpr51smgilfa4" path="res://Data/Status/Bleed.tres" id="2_c4kmf"]
+[ext_resource type="Resource" uid="uid://k8vlpitkxxck" path="res://Data/Status/Cold.tres" id="3_di4j4"]
+[ext_resource type="Resource" uid="uid://cpcnxtvcdjlau" path="res://Data/Status/Sleep.tres" id="4_hvjsa"]
+[ext_resource type="Resource" uid="uid://c4o5hq36pebh1" path="res://Data/Status/Venom.tres" id="5_1cb52"]
+[ext_resource type="Script" path="res://Core/Data/Enemies/EnemyClass.gd" id="6_vsyff"]
+
+[sub_resource type="Resource" id="Resource_eotxs"]
+script = ExtResource("1_vp7ab")
+status = ExtResource("2_c4kmf")
+value = 5
+
+[sub_resource type="Resource" id="Resource_ixvmi"]
+script = ExtResource("1_vp7ab")
+status = ExtResource("3_di4j4")
+value = 5
+
+[sub_resource type="Resource" id="Resource_l11wm"]
+script = ExtResource("1_vp7ab")
+status = ExtResource("4_hvjsa")
+value = 5
+
+[sub_resource type="Resource" id="Resource_jvtbl"]
+script = ExtResource("1_vp7ab")
+status = ExtResource("5_1cb52")
+value = 5
+
+[resource]
+script = ExtResource("6_vsyff")
+features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([SubResource("Resource_eotxs"), SubResource("Resource_ixvmi"), SubResource("Resource_l11wm"), SubResource("Resource_jvtbl")])

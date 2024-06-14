@@ -28,6 +28,10 @@ var lastSceneName : String = ""
 var targetGate : int = -1
 var cameraAngle : float = 0
 var visibleLayers : int = 0
+# bank?
+var bank : GameBank = GameBank.new()
+# registry
+var registry : GameDataRegistry = GameDataRegistry.new()
 # system state
 var gameTime:Dictionary = { "h":9,"m":0,"s":0,"day":6,"month":7,"year":511 }
 var playTime:float = 0
@@ -47,6 +51,8 @@ var count = 0
 
 func initialize():
 	party = GameParty.new()
+	bank = GameBank.new()
+	registry = GameDataRegistry.new()
 
 #region Switch/Variable Operations
 func getSwitch(id:StringName) -> bool:
@@ -192,6 +198,8 @@ func _serialize():
 	var save_dict = {
 		"actors" : _serializeActors(),
 		"party" : party._serialize(),
+		"bank" : bank._serialize(),
+		"registry" : registry._serialize(),
 		"switches" : switches,
 		"variables" : variables,
 		"localVars" : localVars,
@@ -261,6 +269,14 @@ func _deserialize(savedata : Dictionary):
 				var p = GameParty.new()
 				p._deserialize(savedata[key])
 				party = p
+			"bank":
+				var b = GameBank.new()
+				b._deserialize(savedata[key])
+				bank = b
+			"registry":
+				var r = GameDataRegistry.new()
+				r._deserialize(savedata[key])
+				registry = r
 			"characters":
 				_characters = savedata[key]
 			"gameTime":

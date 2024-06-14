@@ -13,6 +13,7 @@ crit = 0.0
 hitChance = 1.0
 variance = 0.0
 ignoreHit = true
+allowKO = true
 
 [resource]
 script = ExtResource("1_ricdy")

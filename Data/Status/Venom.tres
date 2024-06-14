@@ -1,31 +1,31 @@
-[gd_resource type="Resource" script_class="Status" load_steps=7 format=3 uid="uid://dwyfq277n0a5a"]
+[gd_resource type="Resource" script_class="Status" load_steps=7 format=3 uid="uid://c4o5hq36pebh1"]
 
-[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="1_o6o8e"]
-[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="2_681ub"]
-[ext_resource type="Script" path="res://Core/Data/Status.gd" id="3_rp5yf"]
-[ext_resource type="Texture2D" uid="uid://d37nqchowqu2w" path="res://Graphics/Icons/states/st_08.png" id="3_udv18"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyPercDamage.gd" id="1_0atia"]
+[ext_resource type="Script" path="res://Core/Data/Features/StatChangeFeature.gd" id="2_klvo2"]
+[ext_resource type="Texture2D" uid="uid://mpviahuidopm" path="res://Graphics/Icons/states/st_05.png" id="3_big7p"]
+[ext_resource type="Script" path="res://Core/Data/Status.gd" id="4_u14ro"]
 
 [sub_resource type="Resource" id="Resource_3y5d8"]
-script = ExtResource("1_o6o8e")
+script = ExtResource("1_0atia")
 base = 1
 type = 0
 referenceBattler = 1
-percent = 0.04
+percent = 0.05
 crit = 0.0
 hitChance = 1.0
 variance = 0.0
 ignoreHit = true
-allowKO = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_cna1d"]
-script = ExtResource("2_681ub")
+script = ExtResource("2_klvo2")
 stat = 2
 kind = 1
 amount = -10
 
 [resource]
-script = ExtResource("3_rp5yf")
-icon = ExtResource("3_udv18")
+script = ExtResource("4_u14ro")
+icon = ExtResource("3_big7p")
 displayRating = 0
 statusPose = &""
 flags = 0

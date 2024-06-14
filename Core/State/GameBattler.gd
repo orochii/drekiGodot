@@ -79,8 +79,12 @@ func getFeatures():
 func recreateFeatureCache():
 	_cachedFeatures = []
 
-func changeHP(val:int):
-	currHP = clampi(currHP + val, 0, getMaxHP())
+func changeHP(val:int,allowKO:bool=true):
+	if allowKO:
+		currHP = clampi(currHP + val, 0, getMaxHP())
+	else:
+		if currHP > 0:
+			currHP = clampi(currHP + val, 1, getMaxHP())
 	var deathStatus = Global.Db.getStatus(DEATH_STATUS)
 	if currHP == 0:
 		# Add death
@@ -89,7 +93,7 @@ func changeHP(val:int):
 		removeStatus(deathStatus)
 	Global.UI.onHpChange.emit(self,false)
 
-func changeMP(val:int):
+func changeMP(val:int,allowKO:bool=true):
 	currMP = clampi(currMP + val, 0, getMaxMP())
 	var deathStatus = Global.Db.getStatus(DRY_STATUS)
 	if currMP == 0:

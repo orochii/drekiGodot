@@ -47,6 +47,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_dv1lr"]
 script = ExtResource("4_orh3n")
@@ -74,6 +75,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_ufmcv"]
 script = ExtResource("6_ts7tn")
@@ -95,6 +97,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_66j66"]
 script = ExtResource("6_ts7tn")
@@ -116,6 +119,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_hk03y"]
 script = ExtResource("6_ts7tn")
@@ -137,6 +141,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_paads"]
 script = ExtResource("6_ts7tn")
@@ -158,6 +163,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_7st3j"]
 script = ExtResource("6_ts7tn")
@@ -179,6 +185,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_kha23"]
 script = ExtResource("6_ts7tn")
@@ -200,6 +207,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_at2wa"]
 script = ExtResource("6_ts7tn")
@@ -221,6 +229,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_8ks3e"]
 script = ExtResource("6_ts7tn")
@@ -242,6 +251,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_p1rrd"]
 script = ExtResource("6_ts7tn")
@@ -263,6 +273,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [sub_resource type="Resource" id="Resource_eupmh"]
 script = ExtResource("6_ts7tn")
@@ -293,6 +304,7 @@ crit = 0.04
 hit = 1.0
 variance = 0.0
 ignoreHit = false
+allowKO = true
 
 [resource]
 script = ExtResource("10_dria5")

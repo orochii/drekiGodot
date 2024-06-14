@@ -62,7 +62,15 @@ func selectRandomTarget():
 	if ary.size()==0: 
 		targetIdx = 0
 	else:
-		targetIdx = randi() % ary.size()
+		var _weightedAry = []
+		for t in ary:
+			match t.battler.getPosition():
+				0:
+					_weightedAry.append(t)
+					_weightedAry.append(t)
+				1:
+					_weightedAry.append(t)
+		targetIdx = randi() % _weightedAry.size()
 
 func setRepeats():
 	totalRepeats = resolveRepeats()

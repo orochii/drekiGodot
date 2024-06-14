@@ -17,6 +17,10 @@ func recreateFeatureCache():
 	_cachedFeatures = []
 	# Base features
 	_cachedFeatures.append_array(enemy.features)
+	# Class features
+	var _class = Global.Db.getEnemyClass(enemy.type)
+	if _class != null:
+		_cachedFeatures.append_array(_class.features)
 	# Status features
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
