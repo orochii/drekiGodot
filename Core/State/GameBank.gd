@@ -21,15 +21,34 @@ func maxDepositGold():
 func addGold(amount:int):
 	gold += amount
 
-func takeOutGold(amount:int):
+func takeOutGold(amount:int,detail="takeout"):
 	amount = clampi(amount, 0, maxTakeOutGold())
 	gold -= amount
 	Global.State.party.gainGold(amount)
+	# {$"type":&"deposit","detail":"monsterHunt","amount":420,"timestamp":0}
+	_pushTransaction(&"takeout",detail,amount)
 
-func depositGold(amount:int):
+func depositGold(amount:int,detail="unspecified"):
 	amount = clampi(amount,0, maxDepositGold())
 	Global.State.party.loseGold(amount)
 	gold += amount
+	_pushTransaction(&"deposit",detail,amount)
+
+func _pushTransaction(type,detail,amount):
+	var line = {
+		&"type":type,
+		&"detail":detail,
+		&"amount":amount,
+		&"timestamp":_getTimestamp()
+	}
+	transactionData.append(line)
+
+func _getTimestamp():
+	return Global.State.daysElapsed()
+# TODO
+# - flush old entries
+# - aggregate recent entries by detail/type
+
 #endregion
 
 #region Item Storage
@@ -74,7 +93,8 @@ func depositItem(id:StringName,amount:int):
 func _serialize():
 	var savedata = {
 		"gold" : gold,
-		"items" : _serializeInventory()
+		"items" : _serializeInventory(),
+		"transactionData" : transactionData
 	}
 	return savedata
 
