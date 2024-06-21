@@ -24,11 +24,11 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="Camera" type="Node3D" node_paths=PackedStringArray("camera", "shaderQuad")]
-transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 0, 0)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707106, 0.707106, -0.707107, -0.5, 0.5, 0, 0, 0)
 script = ExtResource("1_wbsge")
+rotationSpeed = 180.0
 camera = NodePath("Camera3D")
 shaderQuad = NodePath("Camera3D/MeshInstance3D")
-rotationSpeed = 180.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)

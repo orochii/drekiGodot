@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://cygxup0x623q1"]
+
+[ext_resource type="PackedScene" uid="uid://vc30xrkgm74e" path="res://Graphics/Scenario/fierro/insides/bank.tscn" id="1_n2kq6"]
+[ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_ufy7k"]
+[ext_resource type="Script" path="res://Core/Scenario/TeleportGate.gd" id="1_xty1o"]
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="2_q7jmj"]
+[ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="3_knouh"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="6_d866v"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="7_4rx7x"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="8_qp66j"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="9_u1ikl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6kgr2"]
+size = Vector3(1, 2, 0.5)
+
+[sub_resource type="Environment" id="Environment_j13kx"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[node name="fierroBank" type="Node3D" node_paths=PackedStringArray("gates")]
+script = ExtResource("1_ufy7k")
+gates = [NodePath("Gates/GateToBank")]
+
+[node name="GameUI" parent="." instance=ExtResource("6_d866v")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_4rx7x")]
+transform = Transform3D(0.707107, -0.5, 0.499999, 0, 0.707106, 0.707107, -0.707107, -0.5, 0.499999, -8.76091, 0, 9.64407)
+target = NodePath("../Player")
+interior = true
+
+[node name="Player" parent="." instance=ExtResource("8_qp66j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0159012, 0.00012207, 1.68785)
+
+[node name="Gates" type="Node3D" parent="."]
+
+[node name="GateToBank" type="Node3D" parent="Gates"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0, 2.5)
+script = ExtResource("1_xty1o")
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToBank" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("2_q7jmj")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToBank/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_6kgr2")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToBank/Trigger"]
+script = ExtResource("3_knouh")
+nextScene = "Midgard/Fierro/town"
+targetGate = 4
+activation = 1
+
+[node name="bank" parent="." instance=ExtResource("1_n2kq6")]
+
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.6
+script = ExtResource("9_u1ikl")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_j13kx")
+
+[node name="NPCs" type="Node" parent="."]

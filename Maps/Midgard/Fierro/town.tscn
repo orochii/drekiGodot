@@ -50,7 +50,7 @@ agent_max_slope = 50.0
 [node name="Fierro" type="Node3D" node_paths=PackedStringArray("gates", "battlePositions")]
 script = ExtResource("1_l4ppn")
 music = SubResource("Resource_5ubeo")
-gates = [NodePath("Gates/GateToCave"), NodePath("Gates/GateWorldmap"), NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right")]
+gates = [NodePath("Gates/GateToCave"), NodePath("Gates/GateWorldmap"), NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right"), NodePath("Gates/GateToBank")]
 battlePositions = NodePath("BattlePositions")
 
 [node name="Gates" type="Node" parent="."]
@@ -123,6 +123,23 @@ shape = SubResource("BoxShape3D_xvju0")
 script = ExtResource("20_0a84q")
 nextScene = "Midgard/Fierro/inn"
 targetGate = 1
+activation = 1
+
+[node name="GateToBank" type="Node3D" parent="Gates"]
+transform = Transform3D(0.55297, 0, 0.833201, 0, 1, 0, -0.833201, 0, 0.55297, 5.48431, -9.31322, 28.9148)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToBank" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64374, -1.24587)
+script = ExtResource("19_86h2y")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToBank/Trigger"]
+shape = SubResource("BoxShape3D_xvju0")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToBank/Trigger"]
+script = ExtResource("20_0a84q")
+nextScene = "Midgard/Fierro/bank"
+targetGate = 0
 activation = 1
 
 [node name="GameUI" parent="." instance=ExtResource("1_xhnjk")]

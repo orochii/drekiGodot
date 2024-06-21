@@ -2,6 +2,7 @@ extends Object
 class_name GameBank
 
 const MAX_GOLD = 9999999
+const INTEREST_RATE = 0.02
 
 var gold:int
 var items:Array[GameInventoryEntry]
@@ -18,21 +19,48 @@ func maxDepositGold():
 	var _availableSpace = (MAX_GOLD - gold)
 	return mini(_availableSpace, Global.State.party.gold)
 
-func addGold(amount:int):
+func addGold(amount:int,detail=""):
 	gold += amount
+	_pushTransaction(&"deposit",detail,amount)
 
-func takeOutGold(amount:int,detail="takeout"):
+func takeOutGold(amount:int):
 	amount = clampi(amount, 0, maxTakeOutGold())
 	gold -= amount
 	Global.State.party.gainGold(amount)
 	# {$"type":&"deposit","detail":"monsterHunt","amount":420,"timestamp":0}
-	_pushTransaction(&"takeout",detail,amount)
+	_pushTransaction(&"takeout","takeout",amount)
 
-func depositGold(amount:int,detail="unspecified"):
+func depositGold(amount:int):
 	amount = clampi(amount,0, maxDepositGold())
 	Global.State.party.loseGold(amount)
 	gold += amount
-	_pushTransaction(&"deposit",detail,amount)
+	_pushTransaction(&"deposit","deposit",amount)
+
+func addGoldInterest():
+	var amount = int(gold * INTEREST_RATE)
+	addGold(amount, "Interest")
+
+func flushOldEntries():
+	var _currTimestamp = _getTimestamp()
+	var _maxDiff = 30
+	var _toRemove = []
+	for i in range(transactionData.size()):
+		var curr = transactionData[i]
+		if curr[&"timestamp"] < _currTimestamp - _maxDiff:
+			_toRemove.append(i)
+	for i in range(_toRemove.size()-1, -1, -1):
+		transactionData.remove_at(_toRemove[i])
+func aggregateEntries():
+	var _entries = {}
+	for d in transactionData:
+		var _k = d[&"detail"]
+		var _a = d[&"amount"]
+		if d[&"type"] == &"takeout": _a *= -1
+		if _entries.has(_k):
+			_entries[_k] += _a
+		else:
+			_entries[_k] = _a
+	return _entries
 
 func _pushTransaction(type,detail,amount):
 	var line = {
@@ -45,9 +73,6 @@ func _pushTransaction(type,detail,amount):
 
 func _getTimestamp():
 	return Global.State.daysElapsed()
-# TODO
-# - flush old entries
-# - aggregate recent entries by detail/type
 
 #endregion
 

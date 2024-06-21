@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3n3ttkg52a4g"]
+
+[ext_resource type="Script" path="res://Core/UI/Bank/BankDetailLine.gd" id="1_pmftk"]
+[ext_resource type="Theme" uid="uid://cuu55636gfpvq" path="res://Themes/SmallText.tres" id="2_pp2ll"]
+[ext_resource type="LabelSettings" uid="uid://dwnb73gg6db8h" path="res://Themes/labelSetting_MinusColor.tres" id="3_6lx6y"]
+[ext_resource type="LabelSettings" uid="uid://c0ecb0vgrx2xt" path="res://Themes/labelSetting_PlusColor.tres" id="3_ub1bc"]
+
+[node name="BankDetailLine" type="HBoxContainer" node_paths=PackedStringArray("detail", "amount")]
+custom_minimum_size = Vector2(0, 16)
+script = ExtResource("1_pmftk")
+detail = NodePath("Title2")
+amount = NodePath("Title3")
+colors = Array[LabelSettings]([ExtResource("3_ub1bc"), ExtResource("3_6lx6y")])
+
+[node name="Title2" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_pp2ll")
+text = "Deposit"
+vertical_alignment = 1
+
+[node name="Title3" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_pp2ll")
+text = "+88888£"
+label_settings = ExtResource("3_ub1bc")
+horizontal_alignment = 2
+vertical_alignment = 1

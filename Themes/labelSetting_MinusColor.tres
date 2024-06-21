@@ -2,6 +2,6 @@
 
 [resource]
 font_size = 8
-font_color = Color(1, 0.141176, 0.152941, 1)
+font_color = Color(1, 0.364706, 0.321569, 1)
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.501961)

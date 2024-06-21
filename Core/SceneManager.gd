@@ -13,6 +13,7 @@ signal onSubsceneEnd()
 @export var transitionPlayer : AnimationPlayer
 @export var battleSceneTemplate : PackedScene
 @export var shopSceneTemplate : PackedScene
+@export var bankSceneTemplate : PackedScene
 @export var loadingOverlay : Control
 
 var transferring = false
@@ -84,6 +85,9 @@ func callShop(items:Array):
 	# Set items
 	Global.State.shopCurrentItems = items
 	await openUI(shopSceneTemplate)
+
+func callBank():
+	await openUI(bankSceneTemplate)
 
 func openUI(template:PackedScene):
 	# Fade out

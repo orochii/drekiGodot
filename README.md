@@ -1,8 +1,12 @@
 # drekiGodot
 One attempt at making RPG on Godot just how I like it :)
 
-# TODO List
+# Priority TODO
 - Fierro interiors.
+- Phamas Forest :D
+- Training cave outside redo
+
+# TODO List
 - Some missing sounds, idiot (redo step sound cuz it sucks).
 - Tutorials (equipment, scrolls, items, back attack)
 - Data menu (enemies, characters, topics, journal)
@@ -12,6 +16,7 @@ One attempt at making RPG on Godot just how I like it :)
 - Fylgja stuff
 
 # DONE List
+- Bank (moneyyy).
 - Limit.
 - Position effects (damage up/down)
 - Character info: scrolls and position. Fylgja option is visible but not done.

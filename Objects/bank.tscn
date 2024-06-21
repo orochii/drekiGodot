@@ -1,20 +1,27 @@
-[gd_scene load_steps=17 format=3 uid="uid://dslkt1x7egu84"]
+[gd_scene load_steps=25 format=3 uid="uid://dslkt1x7egu84"]
 
 [ext_resource type="Texture2D" uid="uid://bw5tflmmj6dgg" path="res://Graphics/System/partyMenu/back_layer.png" id="1_4scwf"]
+[ext_resource type="Script" path="res://Core/UI/Bank/BankMenu.gd" id="1_a4e51"]
 [ext_resource type="Script" path="res://Core/UI/MenuBackground.gd" id="2_c4qu1"]
 [ext_resource type="Texture2D" uid="uid://bw7lgk1ej13b3" path="res://Graphics/System/partyMenu/back_screenName.png" id="3_r7wvh"]
+[ext_resource type="Texture2D" uid="uid://ctbrl537yaqlc" path="res://Graphics/System/partyMenu/base_bank.png" id="4_7oet6"]
 [ext_resource type="Texture2D" uid="uid://08x0u7fn1rpk" path="res://Graphics/System/partyMenu/base_shop.png" id="4_px85q"]
 [ext_resource type="Theme" uid="uid://c265ubj8cuc1v" path="res://Themes/NormalText.tres" id="5_52wgm"]
-[ext_resource type="LabelSettings" uid="uid://di17p5y61kepe" path="res://Themes/labelsetting_SystemColor.tres" id="6_l6bai"]
+[ext_resource type="Script" path="res://Core/UI/Bank/DetailList.gd" id="6_css5g"]
 [ext_resource type="Theme" uid="uid://crgwmpkbu5axv" path="res://Themes/BigText.tres" id="7_k24ir"]
+[ext_resource type="PackedScene" uid="uid://b3n3ttkg52a4g" path="res://Objects/ui/bank_detail_line.tscn" id="7_kvhnk"]
 [ext_resource type="Texture2D" uid="uid://lyf2q6n1a442" path="res://Graphics/System/Cursor1.png" id="8_ymipk"]
+[ext_resource type="Script" path="res://Core/UI/Bank/AmountInput.gd" id="9_3b7qe"]
 [ext_resource type="Texture2D" uid="uid://uryqr0kluw3n" path="res://Graphics/System/Cursor2.png" id="9_ur4em"]
 [ext_resource type="Texture2D" uid="uid://huuimjc118f2" path="res://Graphics/System/Cursor3.png" id="10_caxij"]
+[ext_resource type="Texture2D" uid="uid://dtgrmrmsb61s8" path="res://Graphics/System/bank/numberAnalog.png" id="10_j204w"]
+[ext_resource type="Script" path="res://Core/UI/Bank/RollingNumber.gd" id="11_1cqwm"]
 [ext_resource type="Texture2D" uid="uid://cwd78s751qfbu" path="res://Graphics/System/Cursor4.png" id="11_f7md0"]
 [ext_resource type="Texture2D" uid="uid://cxjc1su1oro0u" path="res://Graphics/System/Cursor5.png" id="12_wxmch"]
 [ext_resource type="Texture2D" uid="uid://du406k8qi8bei" path="res://Graphics/System/Cursor6.png" id="13_uvunq"]
 [ext_resource type="Texture2D" uid="uid://chdig2xuenr4b" path="res://Graphics/System/Cursor7.png" id="14_vbluf"]
 [ext_resource type="Texture2D" uid="uid://ccgu526q0qni3" path="res://Graphics/System/Cursor8.png" id="15_61jsm"]
+[ext_resource type="Script" path="res://Core/UI/Bank/BankCommandWindow.gd" id="20_t35bl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nxq2a"]
 animations = [{
@@ -48,14 +55,53 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="Bank" type="Control"]
-process_mode = 2
+[sub_resource type="SpriteFrames" id="SpriteFrames_ra8gc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ymipk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ur4em")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_caxij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_f7md0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wxmch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_uvunq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_vbluf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_61jsm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Bank" type="Control" node_paths=PackedStringArray("bankCommand", "details", "operationLabel", "amountInput", "amountInAccount", "goldAmountLabel")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_a4e51")
+bankCommand = NodePath("Buttons")
+details = NodePath("BankMainScreen/Control/HBoxContainer/Left")
+operationLabel = NodePath("BankMainScreen/Control/HBoxContainer/Right/Title")
+amountInput = NodePath("BankMainScreen/Control/HBoxContainer/Right/Control")
+amountInAccount = NodePath("BankMainScreen/Control/HBoxContainer/Right/Control2")
+goldAmountLabel = NodePath("Buttons/HBoxContainer/Label/Gold")
 
 [node name="Background" type="NinePatchRect" parent="."]
 modulate = Color(1, 1, 1, 0.752941)
@@ -84,7 +130,7 @@ patch_margin_left = 80
 patch_margin_top = 28
 patch_margin_right = 80
 
-[node name="ShopMainScreen" type="NinePatchRect" parent="."]
+[node name="BankMainScreen" type="NinePatchRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.752941)
 layout_mode = 1
 anchors_preset = -1
@@ -96,13 +142,13 @@ offset_right = 160.0
 offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_px85q")
+texture = ExtResource("4_7oet6")
 region_rect = Rect2(0, 0, 320, 212)
 patch_margin_left = 8
 patch_margin_right = 4
 patch_margin_bottom = 28
 
-[node name="Control" type="VBoxContainer" parent="ShopMainScreen"]
+[node name="Control" type="VBoxContainer" parent="BankMainScreen"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -116,7 +162,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control"]
+[node name="Title" type="Label" parent="BankMainScreen/Control"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("5_52wgm")
@@ -124,18 +170,30 @@ text = "International Bank"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BankMainScreen/Control"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="Left" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer"]
-custom_minimum_size = Vector2(112, 0)
+[node name="Left" type="ScrollContainer" parent="BankMainScreen/Control/HBoxContainer" node_paths=PackedStringArray("detailContainer")]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
+script = ExtResource("6_css5g")
+detailTemplate = ExtResource("7_kvhnk")
+detailContainer = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BankMainScreen/Control/HBoxContainer/Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Right" type="VBoxContainer" parent="BankMainScreen/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left"]
+[node name="Title2" type="Label" parent="BankMainScreen/Control/HBoxContainer/Right"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("5_52wgm")
@@ -143,34 +201,243 @@ text = "In account"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Left"]
+[node name="Control2" type="HBoxContainer" parent="BankMainScreen/Control/HBoxContainer/Right" node_paths=PackedStringArray("numbers", "container", "cursor")]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-
-[node name="Title2" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left/HBoxContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_52wgm")
-text = "8888888 "
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Title3" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Left/HBoxContainer"]
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-theme = ExtResource("5_52wgm")
-text = "£"
-label_settings = ExtResource("6_l6bai")
-vertical_alignment = 1
-
-[node name="Right" type="VBoxContainer" parent="ShopMainScreen/Control/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
 alignment = 1
+script = ExtResource("9_3b7qe")
+numbers = [NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect2"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect3"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect4"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect5"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect6"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect7")]
+container = NodePath("Control2")
+cursor = NodePath("Control2/Control")
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right"]
+[node name="Control2" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control2"]
+custom_minimum_size = Vector2(78, 0)
+layout_mode = 2
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(64, 8, 38, 24)
+patch_margin_left = 9
+patch_margin_right = 9
+axis_stretch_horizontal = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect2"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect3"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect4"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect5"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect6" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect6"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect7" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/NinePatchRect4/HBoxContainer/NinePatchRect7"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="Control" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2"]
+visible = false
+custom_minimum_size = Vector2(16, 40)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 16.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 18.0
+offset_bottom = 7.0
+texture = ExtResource("10_j204w")
+region_rect = Rect2(0, 0, 16, 8)
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Control2/Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 25.0
+offset_right = 18.0
+offset_bottom = 33.0
+texture = ExtResource("10_j204w")
+region_rect = Rect2(0, 32, 16, 8)
+
+[node name="Currency" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control2"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="BankMainScreen/Control/HBoxContainer/Right/Control2/Currency"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_k24ir")
+text = "£"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="BankMainScreen/Control/HBoxContainer/Right"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("5_52wgm")
@@ -178,131 +445,186 @@ text = "Deposit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="HBoxContainer" parent="ShopMainScreen/Control/HBoxContainer/Right"]
+[node name="Control" type="HBoxContainer" parent="BankMainScreen/Control/HBoxContainer/Right" node_paths=PackedStringArray("numbers", "container", "cursor", "arrowUp", "arrowDown")]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 alignment = 1
+script = ExtResource("9_3b7qe")
+editing = true
+numbers = [NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect2"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect3"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect4"), NodePath("Control2/NinePatchRect4/HBoxContainer/NinePatchRect5")]
+container = NodePath("Control2")
+cursor = NodePath("Control2/Control")
+arrowUp = NodePath("Control2/Control/NinePatchRect")
+arrowDown = NodePath("Control2/Control/NinePatchRect3")
 
-[node name="Control" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
-custom_minimum_size = Vector2(16, 0)
+[node name="Control2" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control"]
+custom_minimum_size = Vector2(58, 0)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control"]
+[node name="NinePatchRect4" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2"]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = 12.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_k24ir")
-text = "8"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("10_j204w")
+region_rect = Rect2(64, 8, 38, 24)
+patch_margin_left = 9
+patch_margin_right = 9
+axis_stretch_horizontal = 1
 
-[node name="Control2" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
-custom_minimum_size = Vector2(16, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control2"]
-custom_minimum_size = Vector2(0, 24)
+[node name="HBoxContainer" type="HBoxContainer" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = 12.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_k24ir")
-text = "8"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 2
 
-[node name="Control3" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
-custom_minimum_size = Vector2(16, 0)
+[node name="NinePatchRect" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control3"]
-custom_minimum_size = Vector2(0, 24)
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = 12.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_k24ir")
-text = "8"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
 
-[node name="Control4" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
-custom_minimum_size = Vector2(16, 0)
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control4"]
-custom_minimum_size = Vector2(0, 24)
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer/NinePatchRect2"]
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = 12.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_k24ir")
-text = "8"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
 
-[node name="Control5" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
-custom_minimum_size = Vector2(16, 0)
+[node name="NinePatchRect3" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Control5"]
-custom_minimum_size = Vector2(0, 24)
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer/NinePatchRect3"]
+custom_minimum_size = Vector2(8, 16)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -12.0
-offset_right = 4.0
-offset_bottom = 12.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_k24ir")
-text = "8"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
 
-[node name="Currency" type="Control" parent="ShopMainScreen/Control/HBoxContainer/Right/Control"]
+[node name="NinePatchRect4" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer/NinePatchRect4"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer"]
+clip_children = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(40, 0, 8, 16)
+script = ExtResource("11_1cqwm")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/NinePatchRect4/HBoxContainer/NinePatchRect5"]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_j204w")
+region_rect = Rect2(24, 8, 8, 16)
+
+[node name="Control" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2"]
+custom_minimum_size = Vector2(16, 40)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 16.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 18.0
+offset_bottom = 7.0
+texture = ExtResource("10_j204w")
+region_rect = Rect2(0, 0, 16, 8)
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Control2/Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 8)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 25.0
+offset_right = 18.0
+offset_bottom = 33.0
+texture = ExtResource("10_j204w")
+region_rect = Rect2(0, 32, 16, 8)
+
+[node name="Currency" type="Control" parent="BankMainScreen/Control/HBoxContainer/Right/Control"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="ShopMainScreen/Control/HBoxContainer/Right/Control/Currency"]
+[node name="Title" type="Label" parent="BankMainScreen/Control/HBoxContainer/Right/Control/Currency"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 1
 anchors_preset = 8
@@ -321,8 +643,96 @@ text = "£"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cursor" type="AnimatedSprite2D" parent="ShopMainScreen"]
+[node name="Cursor" type="AnimatedSprite2D" parent="BankMainScreen"]
 visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_nxq2a")
 offset = Vector2(-16, -6)
+
+[node name="Buttons" type="NinePatchRect" parent="." node_paths=PackedStringArray("buttons", "cursor")]
+self_modulate = Color(1, 1, 1, 0.752941)
+custom_minimum_size = Vector2(184, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_px85q")
+region_rect = Rect2(136, 216, 184, 24)
+script = ExtResource("20_t35bl")
+buttons = [NodePath("HBoxContainer/Deposit"), NodePath("HBoxContainer/Withdraw")]
+cursor = NodePath("Cursor")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 24.0
+theme_override_constants/separation = 0
+
+[node name="Deposit" type="Button" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+flat = true
+
+[node name="Label" type="Label" parent="Buttons/HBoxContainer/Deposit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_52wgm")
+text = "Deposit"
+vertical_alignment = 1
+
+[node name="Withdraw" type="Button" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+flat = true
+
+[node name="Label" type="Label" parent="Buttons/HBoxContainer/Withdraw"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_52wgm")
+text = "Withdraw"
+vertical_alignment = 1
+
+[node name="Label" type="Control" parent="Buttons/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme = ExtResource("5_52wgm")
+
+[node name="Gold" type="Label" parent="Buttons/HBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "88888"
+horizontal_alignment = 2
+
+[node name="Cursor" type="AnimatedSprite2D" parent="Buttons"]
+visible = false
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ra8gc")
+offset = Vector2(-16, -6)
+
+[connection signal="pressed" from="Buttons/HBoxContainer/Deposit" to="Buttons" method="_on_deposit_pressed"]
+[connection signal="pressed" from="Buttons/HBoxContainer/Withdraw" to="Buttons" method="_on_withdraw_pressed"]

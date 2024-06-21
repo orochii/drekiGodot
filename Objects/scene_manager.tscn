@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3bt0yfvvxmdj"]
+[gd_scene load_steps=23 format=3 uid="uid://b3bt0yfvvxmdj"]
 
 [ext_resource type="Script" path="res://Core/SceneManager.gd" id="1_qvwbx"]
 [ext_resource type="Shader" path="res://Core/Shaders/TextureFader.gdshader" id="2_bs647"]
 [ext_resource type="PackedScene" uid="uid://shd0vii63ajl" path="res://Scenes/battle.tscn" id="2_yqp68"]
 [ext_resource type="Texture2D" uid="uid://fvwpxyaylqgv" path="res://Graphics/Transitions/squares.png" id="3_u07fv"]
 [ext_resource type="PackedScene" uid="uid://b3wn1xs4v8msb" path="res://Objects/shop.tscn" id="3_ygr03"]
+[ext_resource type="PackedScene" uid="uid://dslkt1x7egu84" path="res://Objects/bank.tscn" id="4_dlmsy"]
 [ext_resource type="PackedScene" uid="uid://dx40wqlccbhts" path="res://Scenes/breakscreen_transition_test.tscn" id="5_4e0cv"]
 [ext_resource type="AudioStream" uid="uid://bs3fquwc8bya5" path="res://Audio/SFX/drum.ogg" id="5_yxdoo"]
 [ext_resource type="AudioStream" uid="uid://dnv6mqsq8b3tf" path="res://Audio/SFX/glass.ogg" id="6_0qm8y"]
@@ -190,6 +191,7 @@ breakScreen = NodePath("breakscreen_transition_test")
 transitionPlayer = NodePath("TransitionPlayer")
 battleSceneTemplate = ExtResource("2_yqp68")
 shopSceneTemplate = ExtResource("3_ygr03")
+bankSceneTemplate = ExtResource("4_dlmsy")
 loadingOverlay = NodePath("Loading")
 
 [node name="Fader" type="TextureRect" parent="."]
@@ -248,6 +250,7 @@ grow_vertical = 0
 alignment = 2
 
 [node name="Leader" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
+visible = false
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 script = ExtResource("10_jlmpf")
@@ -261,7 +264,7 @@ texture_filter = 1
 texture = ExtResource("11_1ymdk")
 offset = Vector2(0, -16)
 region_enabled = true
-region_rect = Rect2(0, 32, 24, 32)
+region_rect = Rect2(72, 32, 24, 32)
 
 [node name="Second" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
 visible = false
@@ -278,7 +281,7 @@ texture_filter = 1
 texture = ExtResource("11_1ymdk")
 offset = Vector2(0, -16)
 region_enabled = true
-region_rect = Rect2(24, 32, 24, 32)
+region_rect = Rect2(72, 32, 24, 32)
 
 [node name="Third" type="Control" parent="Loading/HBoxContainer" node_paths=PackedStringArray("sprite")]
 visible = false
@@ -295,7 +298,7 @@ texture_filter = 1
 texture = ExtResource("11_1ymdk")
 offset = Vector2(0, -16)
 region_enabled = true
-region_rect = Rect2(48, 32, 24, 32)
+region_rect = Rect2(72, 32, 24, 32)
 
 [node name="Spacer" type="Control" parent="Loading/HBoxContainer"]
 custom_minimum_size = Vector2(8, 0)

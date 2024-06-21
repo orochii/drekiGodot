@@ -7,6 +7,9 @@ extends BaseEvent
 
 func _run():
     var p = get_parent()
+    #
+    await Global.Scene.callBank()
+    #
     for line in textLinesStart:
         await Global.UI.Message.showText(p, 2, speakerName, line)
     await Global.Scene.callShop(itemsToSell)

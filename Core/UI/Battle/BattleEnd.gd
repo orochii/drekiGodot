@@ -140,7 +140,7 @@ func _applyTreasure(items:Array[BaseItem]):
 		Global.State.party.gainItem(i.getId(), 1)
 
 func _applyGold(gold):
-	Global.State.bank.addGold(gold)
+	Global.State.bank.addGold(gold,"Monster extermination")
 
 func _next():
 	Global.Scene.performTransition()

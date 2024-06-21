@@ -1,6 +1,8 @@
 extends BaseEffect
 class_name ApplyBasicDamage
 
+const DAMAGE_MULT = 1.75
+
 @export_group("Damage calculation")
 @export var type : Global.EDamageType
 @export var base : int
@@ -101,7 +103,7 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# TODO: Damage change features
 	# Element correction
 	var elementCorrection = target.getElementSetRate(elements)
-	damage *= elementCorrection * 1.75 # Oh yes magical number!
+	damage *= elementCorrection * DAMAGE_MULT # Oh yes magical number!
 	var _damage = adjustDamage(damage, getStatusLevel(user))
 	# Return result
 	return {

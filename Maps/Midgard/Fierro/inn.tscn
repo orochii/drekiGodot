@@ -140,7 +140,6 @@ shape = SubResource("BoxShape3D_qj25k")
 [node name="GameUI" parent="." instance=ExtResource("1_75wr8")]
 
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_wkcnp")]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707106, 0.707106, -0.707107, -0.5, 0.5, 0, 0, 0)
 target = NodePath("../Player")
 interior = true
 

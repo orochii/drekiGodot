@@ -68,6 +68,7 @@ func selectRandomTarget():
 				0:
 					_weightedAry.append(t)
 					_weightedAry.append(t)
+					_weightedAry.append(t)
 				1:
 					_weightedAry.append(t)
 		targetIdx = randi() % _weightedAry.size()
