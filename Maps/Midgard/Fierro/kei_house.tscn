@@ -1,0 +1,180 @@
+[gd_scene load_steps=21 format=3 uid="uid://6ixvdiri4gl1"]
+
+[ext_resource type="Script" path="res://Core/Scenario/TeleportGate.gd" id="1_ghkyd"]
+[ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_wpl33"]
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="2_77jui"]
+[ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="3_4apxw"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="4_28i3x"]
+[ext_resource type="Script" path="res://Core/Scenario/FloorGate.gd" id="5_7d1sv"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="5_831n6"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="6_jwo63"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="7_ogj7i"]
+[ext_resource type="PackedScene" uid="uid://bvwi4q7k4mve3" path="res://Graphics/Scenario/fierro/insides/house_5_in.tscn" id="8_75esr"]
+[ext_resource type="Script" path="res://Events/InteractTV.gd" id="11_tcbxr"]
+[ext_resource type="PackedScene" uid="uid://b58tcv7q6d48w" path="res://Graphics/Scenario/2d/training_cave.tscn" id="12_b5crs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6hn6"]
+size = Vector3(1, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r724c"]
+size = Vector3(4, 2, 5.748)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kb688"]
+size = Vector3(2, 2, 4)
+
+[sub_resource type="Environment" id="Environment_h3li4"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xnbx"]
+size = Vector3(0.765, 0.895, 1.164)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_iv5px"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fu0e4"]
+resource_local_to_scene = true
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_texture = SubResource("ViewportTexture_iv5px")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0mshr"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_fu0e4")
+size = Vector2(0.8, 0.6)
+
+[node name="keiHouse" type="Node3D" node_paths=PackedStringArray("gates", "defaultFloorGate")]
+transform = Transform3D(0.91212, 0, -0.409923, 0, 1, 0, 0.409923, 0, 0.91212, 0, 0, 0)
+script = ExtResource("1_wpl33")
+gates = [NodePath("Gates/GateToKeiHouse"), NodePath("Gates/GateRespawn"), NodePath("Gates/GateToKeiHouseBack")]
+defaultFloorGate = NodePath("FloorGates/Floor1")
+
+[node name="Gates" type="Node3D" parent="."]
+
+[node name="GateToKeiHouse" type="Node3D" parent="Gates"]
+transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 1.49622, 0, 2.5)
+script = ExtResource("1_ghkyd")
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToKeiHouse" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("2_77jui")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToKeiHouse/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_v6hn6")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToKeiHouse/Trigger"]
+script = ExtResource("3_4apxw")
+nextScene = "Midgard/Fierro/town"
+targetGate = 5
+activation = 1
+
+[node name="GateRespawn" type="Node3D" parent="Gates" node_paths=PackedStringArray("floorGate")]
+transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 0.655108, 3.05, -1.49563)
+script = ExtResource("1_ghkyd")
+floorGate = NodePath("../../FloorGates/Floor2")
+
+[node name="GateToKeiHouseBack" type="Node3D" parent="Gates"]
+transform = Transform3D(1, 0, 1.49012e-07, 0, 1, 0, -1.49012e-07, 0, 1, -1.50103, 0, -2.50954)
+script = ExtResource("1_ghkyd")
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToKeiHouseBack" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("2_77jui")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToKeiHouseBack/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_v6hn6")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToKeiHouseBack/Trigger"]
+script = ExtResource("3_4apxw")
+nextScene = "Midgard/Fierro/town"
+targetGate = 6
+activation = 1
+
+[node name="FloorGates" type="Node3D" parent="."]
+
+[node name="Floor1" type="Area3D" parent="FloorGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99338, 0, -0.772927)
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("5_7d1sv")
+layers = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorGates/Floor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.874023)
+shape = SubResource("BoxShape3D_r724c")
+
+[node name="Floor2" type="Area3D" parent="FloorGates"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99339, 4, -0.986285)
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("5_7d1sv")
+layers = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorGates/Floor2"]
+shape = SubResource("BoxShape3D_kb688")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_28i3x")]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707106, 0.707106, -0.707107, -0.5, 0.5, -0.875122, 0, 9.36536)
+target = NodePath("../Player")
+interior = true
+
+[node name="GameUI" parent="." instance=ExtResource("5_831n6")]
+
+[node name="Player" parent="." instance=ExtResource("6_jwo63")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2403, 0, 0.225241)
+
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot" node_paths=PackedStringArray("environment")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866026, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.6
+script = ExtResource("7_ogj7i")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+environment = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_h3li4")
+
+[node name="house5_in" parent="." instance=ExtResource("8_75esr")]
+
+[node name="TVInteract" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 3, 1.5)
+script = ExtResource("2_77jui")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TVInteract"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.101405, 0.5, 0.332)
+shape = SubResource("BoxShape3D_0xnbx")
+
+[node name="Page1" type="Node3D" parent="TVInteract" node_paths=PackedStringArray("altCam")]
+script = ExtResource("11_tcbxr")
+altCam = NodePath("../Node3D")
+
+[node name="Node3D" type="Camera3D" parent="TVInteract"]
+transform = Transform3D(0.975886, -0.103138, 0.192376, -7.45058e-09, 0.881328, 0.472505, -0.21828, -0.461111, 0.860076, 0.427962, 0.860578, 1.41721)
+
+[node name="Screen" type="MeshInstance3D" parent="TVInteract"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.596, 0.076)
+mesh = SubResource("QuadMesh_0mshr")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(320, 240)
+
+[node name="trainingCave" parent="SubViewport" instance=ExtResource("12_b5crs")]
+
+[connection signal="body_entered" from="FloorGates/Floor1" to="FloorGates/Floor1" method="_on_body_entered"]
+[connection signal="body_entered" from="FloorGates/Floor2" to="FloorGates/Floor2" method="_on_body_entered"]

@@ -1,7 +1,9 @@
 extends BaseEffect
 class_name ApplyBasicDamage
 
-const DAMAGE_MULT = 1.75
+const DAMAGE_MULT = 1.0
+const STATUS_LEVEL_GAIN_PERC = 0.5
+const MULTITARGET_MULT = 0.5
 
 @export_group("Damage calculation")
 @export var type : Global.EDamageType
@@ -82,10 +84,10 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	if base < 0: attr_power *= -1
 	var power = base + attr_power
 	# TODO: Skill power change features
-	if (multipleTargets): power /= 2
+	if (multipleTargets): power *= MULTITARGET_MULT
 	var damage = power
 	# Subtract defense effect if damaging skill
-	if base > 0:
+	if base >= 0:
 		# Calculate defense
 		var defense = (target.getVit() * pDefF) / 2
 		defense += (target.getMag() * mDefF) / 2
@@ -94,7 +96,7 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 		# Apply defense change
 		damage -= ceil(defense)
 		if damage < 0: damage = 0
-		damage *= applyDamagePositionEffect(user,item,target)
+	damage *= applyDamagePositionEffect(user,item,target)
 	# Physical skill multiplier
 	if atkF > 0:
 		var atkM = user.getAtk() * 0.01
@@ -104,7 +106,7 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# Element correction
 	var elementCorrection = target.getElementSetRate(elements)
 	damage *= elementCorrection * DAMAGE_MULT # Oh yes magical number!
-	var _damage = adjustDamage(damage, getStatusLevel(user))
+	var _damage = adjustDamage(damage, getStatusLevel(target))
 	# Return result
 	return {
 		"damage" : roundi(_damage),
@@ -113,5 +115,5 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	}
 
 func adjustDamage(v, level):
-	var _plus = (level-1) * 0.5
+	var _plus = (level-1) * STATUS_LEVEL_GAIN_PERC
 	return v * (1 + _plus)

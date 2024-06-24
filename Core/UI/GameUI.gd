@@ -22,6 +22,7 @@ var colorShader:ColorRect = null
 var debugVisible:bool = false
 
 func _init():
+	visible = true
 	Global.UI = self
 	# Create perf label
 	perfLabel = Label.new()

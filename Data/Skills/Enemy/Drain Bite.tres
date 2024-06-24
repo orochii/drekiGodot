@@ -1,6 +1,60 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=2 format=3 uid="uid://dek64dbmdq0p"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=13 format=3 uid="uid://dek64dbmdq0p"]
 
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_wvfih"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_ebwkq"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_ngfed"]
+[ext_resource type="PackedScene" uid="uid://cri8g4djig4rh" path="res://Objects/vfx/vfx_bite.tscn" id="4_xc87t"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="5_olwek"]
+[ext_resource type="Script" path="res://Core/Data/Actions/DrainDamageEffect.gd" id="6_lshfj"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="7_s4h2t"]
+
+[sub_resource type="Resource" id="Resource_r2t88"]
+script = ExtResource("1_wvfih")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+setPose = true
+
+[sub_resource type="Resource" id="Resource_eu61a"]
+script = ExtResource("2_ebwkq")
+state = &"punch"
+loop = false
+waitForEnd = false
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_g4nel"]
+script = ExtResource("3_ngfed")
+visualEffectTemplate = ExtResource("4_xc87t")
+onePerEachTarget = false
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_0b2to"]
+script = ExtResource("5_olwek")
+type = 0
+base = 0
+atkF = 0.5
+strF = 1.0
+vitF = 0.0
+magF = 0.0
+agiF = 0.0
+pDefF = 1.0
+mDefF = 0.0
+elements = Array[int]([3])
+crit = 0.04
+hit = 1.0
+variance = 0.0
+ignoreHit = false
+allowKO = true
+
+[sub_resource type="Resource" id="Resource_5tryi"]
+script = ExtResource("6_lshfj")
+type = 0
+percent = 1.0
+affectedDamage = 0
+targetScope = 0
 
 [resource]
 script = ExtResource("7_s4h2t")
@@ -18,5 +72,5 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_r2t88"), SubResource("Resource_eu61a"), SubResource("Resource_g4nel"), SubResource("Resource_0b2to"), SubResource("Resource_5tryi")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])

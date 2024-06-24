@@ -258,6 +258,7 @@ func raycastFromTargetPosition():
 	var _origin = _queryPos + Vector3(0,2,0)
 	var _target = _queryPos + Vector3(0,-3,0)
 	var query = PhysicsRayQueryParameters3D.create(_origin, _target)
+	query.collision_mask = raycast.collision_mask
 	var result = space_state.intersect_ray(query)
 	if result:
 		var _diff = result.position.y - _queryPos.y

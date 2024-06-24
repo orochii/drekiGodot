@@ -23,3 +23,6 @@ func getLayers():
 
 func setLayers(l:int):
     camera.cull_mask = l
+
+func make_current():
+    camera.make_current()

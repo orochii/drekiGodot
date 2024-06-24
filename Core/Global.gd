@@ -38,10 +38,10 @@ enum EDamageType { HP,MP}
 enum ERestriction { None, NoHands, NoMove, NoMagic, AttackAnyone, AttackEnemy, AttackAlly, CantMove }
 
 enum EStatusFlags {
-	NON_RESISTANCE = 1,
-	INCAPACITATED = 2,
-	NO_EXP = 4,
-	NO_EVADE = 8
+	NON_RESISTANCE = 1, # Status can't be resisted (idk what this did in RMXP tbh)
+	INCAPACITATED = 2,  # If a whole unit (party, troop) is incapacitated, they lose
+	NO_EXP = 4,	# Will not earn experience
+	NO_EVADE = 8 # Will not 
 }
 enum EStatusActivation {
 	TURN,

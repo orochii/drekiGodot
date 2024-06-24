@@ -29,19 +29,30 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 # 3. Yes
 func applyDamagePositionEffect(user:GameBattler, item:Resource, target:GameBattler):
 	var _damageAdjusted = 1.0
-	if Global.Scene.inBattle(): return _damageAdjusted
+	if !Global.Scene.inBattle(): return _damageAdjusted
 	var _isRanged = true
 	if item is UseableSkill:
 		var uSkill = item as UseableSkill
 		_isRanged = uSkill.flags.has(UseableSkill.ESkillFlags.RANGED)
 	#
-	match user.getPosition():
-		0:
-			_damageAdjusted += 0.2
-		1:
-			if !_isRanged: _damageAdjusted -= 0.2
+	var userBattler = Global.Battle.findBattler(user)
+	var targetBattler = Global.Battle.findBattler(target)
+	if user != null && target != null:
+		var userDeg = userBattler.rotation_degrees.y
+		var targetDeg = targetBattler.rotation_degrees.y
+		var deltaDeg = abs(targetDeg - userDeg)
+		print("userDeg:%f targetDeg:%f delta:%f" % [userDeg, targetDeg, deltaDeg])
+		if deltaDeg < 90.0:
+			_damageAdjusted += 1.0
+	#
+	if !_isRanged: 
+		match user.getPosition():
+			0:
+				_damageAdjusted += 0.2
+			1:
+				_damageAdjusted -= 0.2
 	if target.getPosition() != 0:
-		_damageAdjusted -= 0.2
+		_damageAdjusted -= 0.3
 	return _damageAdjusted
 
 func checkHit(hitBase:float, user:GameBattler, target:GameBattler):

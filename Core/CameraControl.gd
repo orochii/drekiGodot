@@ -4,6 +4,7 @@ class_name CameraControl
 @export var rotationSpeed : float = 60
 
 var currRotation : Vector3
+var originalRotation : Vector3
 
 func _ready():
 	super._ready()
@@ -11,6 +12,7 @@ func _ready():
 	currRotation = global_rotation_degrees
 	currRotation.y = Global.State.cameraAngle
 	global_rotation_degrees = currRotation
+	originalRotation = global_rotation
 	var window = get_window()
 	updateScreenSize(window.content_scale_size)
 

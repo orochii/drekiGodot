@@ -45,6 +45,7 @@ var allBattlers:Array[Battler]
 var waitingBattlers:Array[Battler]
 var readyBattlers:Array[Battler]
 var actionBattlers:Array[Battler]
+var escapedAllies:Array[Battler]
 
 func battlerEscape(b:Battler):
 	b.goToStartPosition()
@@ -52,6 +53,8 @@ func battlerEscape(b:Battler):
 	waitingBattlers.erase(b)
 	readyBattlers.erase(b)
 	actionBattlers.erase(b)
+	if b.battler is GameActor:
+		escapedAllies.append(b)
 
 func endBattlerTurn(b:Battler):
 	await b.endTurn()
@@ -199,20 +202,21 @@ func _process(delta):
 	
 	# Battle process
 	# - Automatic actions for ready battlers.
-	for b in readyBattlers:
+	var _readyB = readyBattlers.duplicate()
+	for b in _readyB:
 		await _advanceActions(b)
 
 func _judge():
 	var alliesAlive:int = 0
 	var totalAllies:int = 0
-	var enemiesAlive:int = 0
+	var enemiesAlive:int = escapedAllies.size()
 	for b in allBattlers:
 		if !b.appeared: continue
 		if b.battler is GameActor:
 			totalAllies += 1
-			if !b.battler.isDead(): alliesAlive += 1
+			if !b.battler.isIncapacitated(): alliesAlive += 1
 		else:
-			if !b.battler.isDead(): enemiesAlive += 1
+			if !b.battler.isIncapacitated(): enemiesAlive += 1
 	# Debug
 	#EBattleResult.DRAW
 	if totalAllies==0:
@@ -265,8 +269,10 @@ func _advanceActions(b:Battler):
 			readyBattlers.erase(b)
 			actionBattlers.append(b)
 	else:
+		_actionRunning = true
 		b.atbValue = 0
 		await endBattlerTurn(b)
+		_actionRunning = false
 
 func _executeAction(currentAction:BattleAction):
 	if currentAction==null: return false

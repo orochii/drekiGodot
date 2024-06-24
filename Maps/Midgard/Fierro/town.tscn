@@ -50,7 +50,7 @@ agent_max_slope = 50.0
 [node name="Fierro" type="Node3D" node_paths=PackedStringArray("gates", "battlePositions")]
 script = ExtResource("1_l4ppn")
 music = SubResource("Resource_5ubeo")
-gates = [NodePath("Gates/GateToCave"), NodePath("Gates/GateWorldmap"), NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right"), NodePath("Gates/GateToBank")]
+gates = [NodePath("Gates/GateToCave"), NodePath("Gates/GateWorldmap"), NodePath("Gates/GateToINN_left"), NodePath("Gates/GateToINN_right"), NodePath("Gates/GateToBank"), NodePath("Gates/GateToKeiHouse"), NodePath("Gates/GateToKeiHouseBack")]
 battlePositions = NodePath("BattlePositions")
 
 [node name="Gates" type="Node" parent="."]
@@ -140,6 +140,40 @@ shape = SubResource("BoxShape3D_xvju0")
 script = ExtResource("20_0a84q")
 nextScene = "Midgard/Fierro/bank"
 targetGate = 0
+activation = 1
+
+[node name="GateToKeiHouse" type="Node3D" parent="Gates"]
+transform = Transform3D(0.905502, 0, -0.424342, 0, 1, 0, 0.424342, 0, 0.905502, 11.5799, -7.86287, 16.7551)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToKeiHouse" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 1.32118, -1.24587)
+script = ExtResource("19_86h2y")
+pages = [NodePath("KHPage1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToKeiHouse/Trigger"]
+shape = SubResource("BoxShape3D_xvju0")
+
+[node name="KHPage1" type="Node3D" parent="Gates/GateToKeiHouse/Trigger"]
+script = ExtResource("20_0a84q")
+nextScene = "Midgard/Fierro/kei_house"
+targetGate = 0
+activation = 1
+
+[node name="GateToKeiHouseBack" type="Node3D" parent="Gates"]
+transform = Transform3D(-0.905502, 0, 0.424342, 0, 1, 0, -0.424342, 0, -0.905502, 12.0326, -7.86287, 8.44858)
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToKeiHouseBack" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 1.32118, -1.24587)
+script = ExtResource("19_86h2y")
+pages = [NodePath("KHPage1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToKeiHouseBack/Trigger"]
+shape = SubResource("BoxShape3D_xvju0")
+
+[node name="KHPage1" type="Node3D" parent="Gates/GateToKeiHouseBack/Trigger"]
+script = ExtResource("20_0a84q")
+nextScene = "Midgard/Fierro/kei_house"
+targetGate = 2
 activation = 1
 
 [node name="GameUI" parent="." instance=ExtResource("1_xhnjk")]

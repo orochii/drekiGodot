@@ -7,6 +7,7 @@ class_name ApplyStatusEffect
 @export var hitChance:float = 1.0
 @export var ignoreHit:bool = false
 @export var considerLastHit:bool = false
+@export var maxStack:int = 3
 
 # In-battle action execution
 func execute(action:BattleAction):
@@ -41,9 +42,15 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	# any calculation here must be deterministic
 	match operation:
 		0: # Add
+			var statStack = target.getResourceStatusLevel(status)
+			if statStack >= maxStack:
+				return {}
 			return {"statusAdd":[status]}
 		1: # Remove
-			return {"statusRemove":[status]}
+			var statStack = target.getResourceStatusLevel(status)
+			if statStack > 0:
+				return {"statusRemove":[status]}
+			return {}
 
 func cachePriorHit(user:Battler, target:Battler):
 	if considerLastHit==false: return true

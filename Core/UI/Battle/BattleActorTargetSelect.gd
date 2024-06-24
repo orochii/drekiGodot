@@ -40,6 +40,8 @@ func setup(obj:Resource):
 		if _item.targetKind == Global.ETargetKind.NONE:
 			select()
 			return
+		elif _item.targetKind == Global.ETargetKind.ALLY:
+			_state = Global.ETargetState.ANY
 	elif obj is UseableSkill:
 		_skill = obj as UseableSkill
 		_action.kind = _skill.targetKind
@@ -50,6 +52,8 @@ func setup(obj:Resource):
 		if _skill.targetKind == Global.ETargetKind.NONE:
 			select()
 			return
+		elif _skill.targetKind == Global.ETargetKind.ALLY:
+			_state = Global.ETargetState.ANY
 	else:
 		return
 	_selectTarget(0)

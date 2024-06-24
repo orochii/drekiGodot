@@ -1,7 +1,64 @@
-[gd_resource type="Resource" script_class="UseableSkill" load_steps=3 format=3 uid="uid://br7wgxogwrt11"]
+[gd_resource type="Resource" script_class="UseableSkill" load_steps=15 format=3 uid="uid://br7wgxogwrt11"]
 
 [ext_resource type="Texture2D" uid="uid://bxylpw7uw8s67" path="res://Graphics/Icons/skills/Jolt.png" id="1_1adhu"]
 [ext_resource type="Script" path="res://Core/Data/Skills/UseableSkill.gd" id="1_4focv"]
+[ext_resource type="Script" path="res://Core/Data/Actions/MoveBattlerEffect.gd" id="1_6pc6m"]
+[ext_resource type="Script" path="res://Core/Data/Actions/BattlerAnimationEffect.gd" id="2_13w0q"]
+[ext_resource type="Script" path="res://Core/Data/Actions/SpawnVFXEffect.gd" id="3_6y34d"]
+[ext_resource type="PackedScene" uid="uid://bemt0x70k3ufx" path="res://Objects/vfx/vfx_test.tscn" id="4_hi7tf"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyBasicDamage.gd" id="5_ctjni"]
+[ext_resource type="Script" path="res://Core/Data/Actions/ApplyStatusEffect.gd" id="6_iyqx8"]
+[ext_resource type="Resource" uid="uid://dg1frw1qc2chs" path="res://Data/Status/Shock.tres" id="7_jpyqa"]
+
+[sub_resource type="Resource" id="Resource_h7fex"]
+script = ExtResource("1_6pc6m")
+target = 0
+reference = 1
+referencePosition = Vector3(0.8, 0, 0)
+selfOffset = Vector3(0.3, 0, 0)
+positionOffset = Vector3(0, 0, 0)
+waitUntilFinished = true
+setPose = true
+
+[sub_resource type="Resource" id="Resource_64wl0"]
+script = ExtResource("2_13w0q")
+state = &"skill"
+loop = false
+waitForEnd = true
+applyOnTarget = false
+
+[sub_resource type="Resource" id="Resource_v6pal"]
+script = ExtResource("3_6y34d")
+visualEffectTemplate = ExtResource("4_hi7tf")
+onePerEachTarget = false
+waitMode = 1
+
+[sub_resource type="Resource" id="Resource_ysni6"]
+script = ExtResource("5_ctjni")
+type = 0
+base = 30
+atkF = 0.0
+strF = 0.0
+vitF = 0.0
+magF = 1.0
+agiF = 0.0
+pDefF = 0.0
+mDefF = 1.0
+elements = Array[int]([7])
+crit = 0.04
+hit = 1.0
+variance = 0.0
+ignoreHit = false
+allowKO = true
+
+[sub_resource type="Resource" id="Resource_3nxsd"]
+script = ExtResource("6_iyqx8")
+status = ExtResource("7_jpyqa")
+operation = 0
+forceAdd = false
+hitChance = 0.5
+ignoreHit = false
+considerLastHit = true
 
 [resource]
 script = ExtResource("1_4focv")
@@ -19,6 +76,6 @@ cooldown = 0
 canUse = 0
 cpCost = 0.6
 startSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
-actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
+actionSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([SubResource("Resource_h7fex"), SubResource("Resource_64wl0"), SubResource("Resource_v6pal"), SubResource("Resource_ysni6"), SubResource("Resource_3nxsd")])
 endSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 icon = ExtResource("1_1adhu")

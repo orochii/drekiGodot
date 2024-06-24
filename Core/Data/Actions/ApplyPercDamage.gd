@@ -1,6 +1,8 @@
 extends BaseEffect
 class_name ApplyPercDamage
 
+const STATUS_LEVEL_GAIN_PERC = 0.5
+
 @export_group("Damage calculation")
 @export_enum("Current","Max") var base: int = 0
 @export var type : Global.EDamageType
@@ -76,9 +78,8 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 					value = ref.currMP
 				1:
 					value = ref.getMaxMP()
-	#if base==1: value = ref.getMaxHP()
 	# Calculate damage
-	var _adjustedPerc = adjustDamage(percent, getStatusLevel(user))
+	var _adjustedPerc = adjustDamage(percent, getStatusLevel(target))
 	var damage = value * _adjustedPerc
 	# Return result
 	return {
@@ -87,5 +88,5 @@ func calcEffect(user:GameBattler, item:Resource, target:GameBattler):
 	}
 
 func adjustDamage(v, level):
-	var _plus = (level-1) * 0.5
+	var _plus = (level-1) * STATUS_LEVEL_GAIN_PERC
 	return v * (1 + _plus)

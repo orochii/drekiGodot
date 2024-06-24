@@ -383,13 +383,19 @@ func isDead():
 	#for s in states:
 	#	var data:Status = Global.Db.getStatus(s.id)
 	#	if (data.flags & Global.EStatusFlags.INCAPACITATED) != 0: return false
-	return currHP == 0
+	return (currHP == 0) #|| (currMP == 0)
 
 func canGetExp():
 	for s in states:
 		var data:Status = Global.Db.getStatus(s.id)
 		if (data.flags & Global.EStatusFlags.NO_EXP) != 0: return false
 	return true
+func isIncapacitated():
+	for s in states:
+		var data:Status = Global.Db.getStatus(s.id)
+		if (data.flags & Global.EStatusFlags.INCAPACITATED) != 0:
+			return true
+	return false
 
 func inputable():
 	for s in states:

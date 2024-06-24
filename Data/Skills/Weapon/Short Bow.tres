@@ -40,7 +40,7 @@ allowKO = true
 
 [resource]
 script = ExtResource("2_ocnp6")
-flags = Array[int]([])
+flags = Array[int]([2])
 targetKind = 3
 targetCanChangeKind = false
 targetCanChangeScope = false

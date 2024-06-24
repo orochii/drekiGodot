@@ -5,17 +5,16 @@
 
 [resource]
 script = ExtResource("2_uwr12")
-name = "Frozen"
-description = ":shrug: 3"
 icon = ExtResource("1_c6mo7")
 displayRating = 10
+statusPose = &""
 flags = 10
 restriction = 7
 eotActivation = 0
 eotInterval = 0
 eotSequence = Array[Resource("res://Core/Data/Actions/BaseEffect.gd")]([])
 features = Array[Resource("res://Core/Data/Features/BaseFeature.gd")]([])
-statusRemove = Array[ExtResource("2_uwr12")]([])
+statusRemove = Array[StringName]([])
 releaseAtBattleEnd = false
 releaseOnDamageReceived = 0.0
 releaseOnTurnsElapsed = 0
