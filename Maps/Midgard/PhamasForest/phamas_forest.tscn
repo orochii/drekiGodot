@@ -1,0 +1,146 @@
+[gd_scene load_steps=21 format=3 uid="uid://v5yw154j0wwj"]
+
+[ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_b5yqn"]
+[ext_resource type="Script" path="res://Core/Audio/SystemAudioEntry.gd" id="2_ec5xr"]
+[ext_resource type="Script" path="res://Core/Scenario/TeleportGate.gd" id="2_p004f"]
+[ext_resource type="AudioStream" uid="uid://0ixler5goljn" path="res://Audio/BGM/[Area] Welcome to the Forest.ogg" id="3_wfftc"]
+[ext_resource type="Script" path="res://Core/Characters/Trigger.gd" id="3_y4qe7"]
+[ext_resource type="Script" path="res://Events/TeleportTrigger.gd" id="4_c7hdo"]
+[ext_resource type="Script" path="res://Core/Scenario/Daytime.gd" id="5_nlprq"]
+[ext_resource type="PackedScene" uid="uid://dh3e8psdme8d3" path="res://Objects/camera.tscn" id="6_d1mhh"]
+[ext_resource type="PackedScene" uid="uid://bh38ymrtclopo" path="res://Objects/game_ui.tscn" id="7_ijhir"]
+[ext_resource type="PackedScene" uid="uid://dpxohgu0qmlrt" path="res://Objects/player.tscn" id="8_m2e4e"]
+[ext_resource type="PackedScene" uid="uid://chm8y5iu2ox4q" path="res://Graphics/Scenario/phamas_forest/phamas_forest.tscn" id="9_ppqd1"]
+[ext_resource type="Texture2D" uid="uid://djm53uvsgqktv" path="res://Graphics/Particle/smoke.png" id="10_lf5jt"]
+
+[sub_resource type="Resource" id="Resource_4nj8r"]
+script = ExtResource("2_ec5xr")
+name = &""
+stream = ExtResource("3_wfftc")
+volume = 1.0
+pitch = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fur2i"]
+size = Vector3(1, 2, 0.5)
+
+[sub_resource type="Environment" id="Environment_euj4g"]
+ambient_light_source = 2
+ambient_light_color = Color(0.364706, 0.364706, 0.364706, 1)
+fog_density = 0.0
+fog_height_density = 0.02
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.14902, 0.815686, 1, 1)
+volumetric_fog_emission = Color(1, 1, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_detail_spread = 6.0
+
+[sub_resource type="Curve" id="Curve_8o52n"]
+_data = [Vector2(0, 0), 0.0, 39.4752, 0, 0, Vector2(0.0355263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bksqx"]
+curve = SubResource("Curve_8o52n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14oht"]
+emission_shape = 3
+emission_box_extents = Vector3(2, 0.5, 0.2)
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 1, 0)
+spread = 36.94
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+scale_min = 0.4
+scale_max = 1.25
+alpha_curve = SubResource("CurveTexture_bksqx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4bnc"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.827451, 1, 1, 1)
+albedo_texture = ExtResource("10_lf5jt")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_ffn6f"]
+material = SubResource("StandardMaterial3D_t4bnc")
+
+[node name="phamas_forest" type="Node3D" node_paths=PackedStringArray("gates")]
+script = ExtResource("1_b5yqn")
+music = SubResource("Resource_4nj8r")
+gates = [NodePath("Gates/GateToWorldmapNorth"), NodePath("Gates/GateToWorldmapSouth")]
+
+[node name="Gates" type="Node3D" parent="."]
+
+[node name="GateToWorldmapNorth" type="Node3D" parent="Gates"]
+transform = Transform3D(0.403657, 0, 0.91491, 0, 1, 0, -0.91491, 0, 0.403657, -20.7438, -7.17757, -29.2307)
+script = ExtResource("2_p004f")
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToWorldmapNorth" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("3_y4qe7")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToWorldmapNorth/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_fur2i")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToWorldmapNorth/Trigger"]
+script = ExtResource("4_c7hdo")
+nextScene = "Midgard/midgard"
+targetGate = 1
+activation = 1
+
+[node name="GateToWorldmapSouth" type="Node3D" parent="Gates"]
+transform = Transform3D(-0.795685, 0, -0.605711, 0, 1, 0, 0.605711, 0, -0.795685, 55.7501, -7.04885, 18.3897)
+script = ExtResource("2_p004f")
+
+[node name="Trigger" type="Area3D" parent="Gates/GateToWorldmapSouth" node_paths=PackedStringArray("pages")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1)
+script = ExtResource("3_y4qe7")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/GateToWorldmapSouth/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_fur2i")
+
+[node name="Page1" type="Node3D" parent="Gates/GateToWorldmapSouth/Trigger"]
+script = ExtResource("4_c7hdo")
+nextScene = "Midgard/midgard"
+targetGate = 2
+activation = 1
+
+[node name="LightPivot" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LightPivot" node_paths=PackedStringArray("rotatingObject", "environment")]
+transform = Transform3D(1, 0, 0, 0, 0.492423, 0.870356, 0, -0.870355, 0.492424, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.6
+script = ExtResource("5_nlprq")
+rotatingObject = NodePath("..")
+angleOffset = 180.0
+dayColor = Color(0.952941, 0.945098, 0.654902, 1)
+dawnColor = Color(1, 0.592157, 0.290196, 1)
+environment = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightPivot"]
+environment = SubResource("Environment_euj4g")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_d1mhh")]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707106, 0.707106, -0.707107, -0.5, 0.5, -87.5482, 0, 4.0668)
+target = NodePath("../Player")
+
+[node name="GameUI" parent="." instance=ExtResource("7_ijhir")]
+
+[node name="Player" parent="." instance=ExtResource("8_m2e4e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25065, 0, -0.32581)
+
+[node name="phamas_forest" parent="." instance=ExtResource("9_ppqd1")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-0.651289, 0.233939, 0.721869, 0.338048, 0.941129, 0, -0.679372, 0.244026, -0.69203, -19.8421, -4.98353, -22.3475)
+amount = 128
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_14oht")
+draw_pass_1 = SubResource("QuadMesh_ffn6f")

@@ -32,6 +32,7 @@ volumetric_fog_emission_energy = 0.2
 volumetric_fog_detail_spread = 6.0
 
 [node name="armory" type="Node3D" node_paths=PackedStringArray("gates", "defaultFloorGate")]
+transform = Transform3D(0.275637, 0, -0.961262, 0, 1, 0, 0.961262, 0, 0.275637, 0, 0, 0)
 script = ExtResource("1_aevy4")
 gates = [NodePath("Gates/GateToArmory")]
 defaultFloorGate = NodePath("FloorGates/Floor1")
@@ -103,6 +104,7 @@ interior = true
 [node name="GameUI" parent="." instance=ExtResource("8_752vs")]
 
 [node name="Player" parent="." instance=ExtResource("9_hrfdd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01777, 0, 0.744543)
 
 [node name="house6_in" parent="." instance=ExtResource("10_jang3")]
 

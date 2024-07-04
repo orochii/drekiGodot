@@ -41,6 +41,7 @@ forceAdd = false
 hitChance = 1.0
 ignoreHit = false
 considerLastHit = false
+maxStack = 3
 
 [sub_resource type="Resource" id="Resource_7krel"]
 script = ExtResource("5_bp4fe")
@@ -50,6 +51,7 @@ forceAdd = false
 hitChance = 1.0
 ignoreHit = false
 considerLastHit = false
+maxStack = 3
 
 [resource]
 script = ExtResource("1_m6usj")

@@ -19,6 +19,7 @@ const GRAVITY : float = 98*2
 @export var balloon:Sprite3D
 @export var balloonAnim:AnimationPlayer
 @export var canRespawn : bool = true
+@export var charLayer:int = 1
 
 var forcedMove = false
 var navigating = false
@@ -28,6 +29,12 @@ var target_velocity = Vector3.ZERO
 var grounded : bool = false
 var collision : bool = true
 var erased : bool = false
+
+func setLayer(i:int):
+	charLayer = i
+	var l = int(pow(2, i-1))
+	if graphic != null: graphic.setLayer(l)
+	if balloon != null: balloon.layers = l
 
 # TO TEST!
 func stopNavigate():
@@ -58,6 +65,7 @@ func getLastGroundedPosition():
 	return lastGroundedPosition
 
 func _ready():
+	setLayer(charLayer)
 	setCollision(true)
 	lastGroundedPosition = global_position
 	if graphic != null: 

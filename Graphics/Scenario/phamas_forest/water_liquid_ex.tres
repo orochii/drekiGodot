@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bo4llgcm1dbcv"]
+
+[ext_resource type="Shader" path="res://Core/Shaders/running_water.gdshader" id="1_l4vo2"]
+[ext_resource type="Texture2D" uid="uid://cbyt5cxh5vccr" path="res://Graphics/Scenario/phamas_forest/phamas_forest_running_water.png" id="2_wolvd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_l4vo2")
+shader_parameter/alpha = 0.2
+shader_parameter/speed = Vector2(0, 1)
+shader_parameter/waterTexture = ExtResource("2_wolvd")

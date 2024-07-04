@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://da5bq3pri04kx"]
+[gd_scene load_steps=32 format=3 uid="uid://da5bq3pri04kx"]
 
 [ext_resource type="Script" path="res://Core/Scenario/MapManager.gd" id="1_7ef4d"]
 [ext_resource type="PackedScene" uid="uid://dsu7gw0fertwm" path="res://Graphics/Scenario/midgard/midgard.tscn" id="1_41gtu"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c3k21qb2wa1br" path="res://Graphics/Character/hikari/hikari_charset.png" id="6_hs7vt"]
 [ext_resource type="PackedScene" uid="uid://doagi6qooicih" path="res://Graphics/Scenario/midgard/midgard_minimap.glb" id="7_7c2o7"]
 [ext_resource type="Script" path="res://Core/Visual/CharGraphic.gd" id="7_md2ey"]
+[ext_resource type="Texture2D" uid="uid://b1h63wwwfkd2e" path="res://Editor/trigger.svg" id="7_qkucd"]
 [ext_resource type="Resource" uid="uid://om54ei8hopuh" path="res://Data/Spritesheets/Map/hikari_map.tres" id="8_kw7wr"]
 [ext_resource type="Texture2D" uid="uid://bbhfn13t8n2af" path="res://Graphics/System/wm_marker.png" id="8_s1imt"]
 [ext_resource type="Shader" path="res://Core/Shaders/psx_camera_shader.gdshader" id="10_2tj8m"]
@@ -27,8 +28,12 @@ stream = ExtResource("3_d5ufe")
 volume = 1.0
 pitch = 1.0
 
-[sub_resource type="SphereOccluder3D" id="SphereOccluder3D_hu25x"]
-radius = 200.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_ifxxx"]
+size = Vector3(10, 10, 10)
+
+[sub_resource type="Environment" id="Environment_vco0q"]
+ambient_light_source = 2
+ambient_light_color = Color(0.447059, 0.447059, 0.447059, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vdj5u"]
 render_priority = -60
@@ -64,12 +69,8 @@ size = Vector3(1, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mjo8q"]
 size = Vector3(0.702, 1, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ifxxx"]
-size = Vector3(10, 10, 10)
-
-[sub_resource type="Environment" id="Environment_vco0q"]
-ambient_light_source = 2
-ambient_light_color = Color(0.447059, 0.447059, 0.447059, 1)
+[sub_resource type="SphereOccluder3D" id="SphereOccluder3D_hu25x"]
+radius = 200.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_34ipl"]
 size = Vector3(10, 10, 10)
@@ -78,20 +79,83 @@ size = Vector3(10, 10, 10)
 script = ExtResource("1_7ef4d")
 music = SubResource("Resource_ufju1")
 battleback = ExtResource("4_2ri8s")
-gates = [NodePath("Gates/Fierro")]
+gates = [NodePath("Gates/Fierro"), NodePath("Gates/PhamasForestNorth"), NodePath("Gates/PhamasForestSouth")]
 
 [node name="Gates" type="Node" parent="."]
 
 [node name="Fierro" type="Node3D" parent="Gates"]
 transform = Transform3D(0.85906, -0.489976, 0.148123, 0.388438, 0.435552, -0.812041, 0.333365, 0.755128, 0.56449, -117.929, 63.0829, 151.264)
 
-[node name="Midgard" type="OccluderInstance3D" parent="."]
-occluder = SubResource("SphereOccluder3D_hu25x")
+[node name="TriggerFierro" type="Area3D" parent="Gates/Fierro" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, 1.49012e-08, 2.98023e-08, 0, 2.98023e-08, 1, -1.49012e-08, -1, -2.98023e-08, 7.24792e-05, 1.56769, -8.56675)
+collision_mask = 3
+script = ExtResource("11_avkg2")
+pages = [NodePath("Page1")]
 
-[node name="midgard" parent="Midgard" instance=ExtResource("1_41gtu")]
-transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/Fierro/TriggerFierro"]
+transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ifxxx")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." node_paths=PackedStringArray("rotatingObject")]
+[node name="Page1" type="Node3D" parent="Gates/Fierro/TriggerFierro"]
+script = ExtResource("12_tv3wi")
+nextScene = "Midgard/Fierro/town"
+targetGate = 1
+activation = 1
+
+[node name="PhamasForestNorth" type="Node3D" parent="Gates"]
+transform = Transform3D(-0.461614, -0.573577, -0.6767, -0.885548, 0.253132, 0.389523, -0.0521271, 0.77906, -0.624779, -117.583, 51.892, 159.707)
+
+[node name="TriggerFierro" type="Area3D" parent="Gates/PhamasForestNorth" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, -3.35276e-08, 2.23517e-08, 6.70552e-08, 1, 1.49012e-07, -7.45058e-09, -1.19209e-07, 1, 0, 0, -9.3215)
+collision_mask = 3
+script = ExtResource("11_avkg2")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/PhamasForestNorth/TriggerFierro"]
+transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ifxxx")
+
+[node name="Page1" type="Node3D" parent="Gates/PhamasForestNorth/TriggerFierro"]
+script = ExtResource("12_tv3wi")
+nextScene = "Midgard/PhamasForest/phamas_forest"
+targetGate = 0
+activation = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="Gates/PhamasForestNorth"]
+pixel_size = 0.25
+billboard = 1
+texture = ExtResource("7_qkucd")
+
+[node name="PhamasForestSouth" type="Node3D" parent="Gates"]
+transform = Transform3D(0.399415, -0.453991, 0.796467, 0.916675, 0.185251, -0.354103, 0.0132133, 0.871536, 0.490154, -93.0681, 37.9764, 178.665)
+
+[node name="TriggerFierro" type="Area3D" parent="Gates/PhamasForestSouth" node_paths=PackedStringArray("pages")]
+transform = Transform3D(1, -3.35276e-08, 2.23517e-08, 6.70552e-08, 1, 1.49012e-07, -7.45058e-09, -1.19209e-07, 1, 0, 0, -9.3215)
+collision_mask = 3
+script = ExtResource("11_avkg2")
+pages = [NodePath("Page1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gates/PhamasForestSouth/TriggerFierro"]
+transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ifxxx")
+
+[node name="Page1" type="Node3D" parent="Gates/PhamasForestSouth/TriggerFierro"]
+script = ExtResource("12_tv3wi")
+nextScene = "Midgard/PhamasForest/phamas_forest"
+targetGate = 1
+activation = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="Gates/PhamasForestSouth"]
+pixel_size = 0.25
+billboard = 1
+texture = ExtResource("7_qkucd")
+
+[node name="Origin" type="Node3D" parent="."]
+transform = Transform3D(0.891006, -0.453991, 0, 0.0943899, 0.185251, -0.978148, 0.44407, 0.871536, 0.207912, 0, 0, 0)
+
+[node name="Light" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Light" node_paths=PackedStringArray("rotatingObject")]
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 200.0
@@ -100,6 +164,9 @@ script = ExtResource("5_87hw2")
 rotatingObject = NodePath(".")
 town = false
 angleOffset = 128.8
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Light"]
+environment = SubResource("Environment_vco0q")
 
 [node name="GameUI" parent="." instance=ExtResource("2_3ba42")]
 
@@ -243,48 +310,37 @@ collision_mask = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_mjo8q")
 
-[node name="TriggerFierro" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
-transform = Transform3D(0.85906, -0.148123, -0.489976, 0.388438, 0.812041, 0.435552, 0.333365, -0.56449, 0.755128, -119.966, 70.7223, 147.612)
-collision_mask = 3
-script = ExtResource("11_avkg2")
-pages = [NodePath("Page1")]
+[node name="Midgard" type="OccluderInstance3D" parent="."]
+occluder = SubResource("SphereOccluder3D_hu25x")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerFierro"]
-transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_ifxxx")
+[node name="midgard" parent="Midgard" instance=ExtResource("1_41gtu")]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, 0, 0, 0)
 
-[node name="Page1" type="Node3D" parent="TriggerFierro"]
-script = ExtResource("12_tv3wi")
-nextScene = "Midgard/Fierro/town"
-targetGate = 1
-activation = 1
+[node name="NPCs" type="Node" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vco0q")
-
-[node name="TriggerBattleTest" type="Area3D" parent="." node_paths=PackedStringArray("pages")]
+[node name="TriggerBattleTest" type="Area3D" parent="NPCs" node_paths=PackedStringArray("pages")]
 transform = Transform3D(0.831917, -0.0855728, -0.548263, 0.347593, 0.850536, 0.394676, 0.432544, -0.518908, 0.737319, -131.477, 63.2687, 141.045)
 collision_mask = 3
 script = ExtResource("11_avkg2")
 pages = [NodePath("Page1")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerBattleTest"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/TriggerBattleTest"]
 transform = Transform3D(1, 0, -2.88703e-07, 0, 1, 0, 2.88703e-07, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_34ipl")
 
-[node name="Page1" type="Node3D" parent="TriggerBattleTest"]
+[node name="Page1" type="Node3D" parent="NPCs/TriggerBattleTest"]
 script = ExtResource("17_n3tp6")
 troop = ExtResource("18_wvqlt")
 activation = 1
 
-[node name="Origin" type="Node3D" parent="."]
-
+[connection signal="body_entered" from="Gates/Fierro/TriggerFierro" to="Gates/Fierro/TriggerFierro" method="_on_body_entered"]
+[connection signal="body_entered" from="Gates/PhamasForestNorth/TriggerFierro" to="Gates/PhamasForestNorth/TriggerFierro" method="_on_body_entered"]
+[connection signal="body_entered" from="Gates/PhamasForestSouth/TriggerFierro" to="Gates/PhamasForestSouth/TriggerFierro" method="_on_body_entered"]
 [connection signal="body_entered" from="PlayerWorldmap" to="PlayerWorldmap" method="_on_body_entered"]
 [connection signal="area_entered" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_area_exited"]
 [connection signal="body_entered" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="PlayerWorldmap/Interact" to="PlayerWorldmap" method="_on_area_3d_body_exited"]
-[connection signal="body_entered" from="TriggerFierro" to="TriggerFierro" method="_on_body_entered"]
-[connection signal="body_entered" from="TriggerBattleTest" to="TriggerBattleTest" method="_on_body_entered"]
+[connection signal="body_entered" from="NPCs/TriggerBattleTest" to="NPCs/TriggerBattleTest" method="_on_body_entered"]
 
 [editable path="GameUI"]

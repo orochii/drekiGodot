@@ -247,6 +247,7 @@ func _serializeCharacters():
 				"roty" : n.global_rotation.y,
 				"rotz" : n.global_rotation.z,
 				"erased" : n.erased,
+				"charLayer" : n.charLayer,
 			}
 		elif n.has_meta("dynamic"):
 			dict[String(n.get_path())] = {
@@ -323,6 +324,7 @@ func _deserializeCharacters():
 				n.global_rotation = rot
 				n.target_velocity = Vector3.ZERO
 				if e.has("erased"): n.setErased(e["erased"])
+				if e.has("charLayer"): n.setLayer(e["charLayer"])
 			if n is NPC:
 				n.refreshPage()
 		elif n is Trigger:

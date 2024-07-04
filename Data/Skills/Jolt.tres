@@ -59,6 +59,7 @@ forceAdd = false
 hitChance = 0.5
 ignoreHit = false
 considerLastHit = true
+maxStack = 3
 
 [resource]
 script = ExtResource("1_4focv")

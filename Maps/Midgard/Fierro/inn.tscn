@@ -223,6 +223,13 @@ script = ExtResource("16_5lvna")
 giveActor = Array[Resource("res://Core/Data/Actors/Actor.gd")]([ExtResource("17_1mdl0")])
 graphic = ExtResource("14_mjitq")
 
+[node name="NPC7" parent="NPCs" instance=ExtResource("12_kgbvt")]
+transform = Transform3D(0.941471, 0, -0.337095, 0, 1, 0, 0.337095, 0, 0.941471, -3.261, 3, -0.569)
+charLayer = 2
+
+[node name="Page1" parent="NPCs/NPC7" index="2"]
+graphic = ExtResource("14_mjitq")
+
 [connection signal="body_entered" from="FloorGates/Floor1" to="FloorGates/Floor1" method="_on_body_entered"]
 [connection signal="body_entered" from="FloorGates/Floor2" to="FloorGates/Floor2" method="_on_body_entered"]
 
@@ -232,3 +239,4 @@ graphic = ExtResource("14_mjitq")
 [editable path="NPCs/NPC4"]
 [editable path="NPCs/NPC5"]
 [editable path="NPCs/NPC6"]
+[editable path="NPCs/NPC7"]

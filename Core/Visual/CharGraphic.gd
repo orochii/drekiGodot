@@ -20,6 +20,10 @@ var blinkState : bool = false
 var frameCounter : float = 0
 var lastFrame : int = -1
 
+func setLayer(i:int):
+	layers = i
+	if shadow != null: shadow.layers = i
+
 func _ready():
 	blinkCounter = blinkRate.x
 

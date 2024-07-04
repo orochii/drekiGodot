@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdl6tceg6bji1"]
+
+[ext_resource type="PackedScene" uid="uid://brbosb4nligtb" path="res://Graphics/Scenario/props/weaponry_props.glb" id="1_nchsc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rapq4"]
+
+[node name="weaponry_props" instance=ExtResource("1_nchsc")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_rapq4")

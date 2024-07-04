@@ -9,13 +9,13 @@ shader = ExtResource("2_qwfgo")
 shader_parameter/enable_fog = true
 shader_parameter/fog_color = Color(1, 1, 1, 1)
 shader_parameter/noise_color = Color(1, 1, 1, 1)
-shader_parameter/fog_distance = 650.0
-shader_parameter/fog_fade_range = 600.0
-shader_parameter/enable_noise = false
+shader_parameter/fog_distance = 620.0
+shader_parameter/fog_fade_range = 570.0
+shader_parameter/enable_noise = true
 shader_parameter/noise_time_fac = 4.0
-shader_parameter/enable_color_limitation = false
+shader_parameter/enable_color_limitation = true
 shader_parameter/color_levels = 32
-shader_parameter/enable_dithering = false
+shader_parameter/enable_dithering = true
 shader_parameter/dither_strength = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_w855s"]

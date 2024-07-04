@@ -48,6 +48,7 @@ forceAdd = false
 hitChance = 1.0
 ignoreHit = false
 considerLastHit = false
+maxStack = 3
 
 [resource]
 script = ExtResource("6_jctl8")
