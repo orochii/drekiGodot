@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://xs1hg4mnce0s"]
+
+[ext_resource type="Texture2D" uid="uid://bpv1xkrpav8l0" path="res://Graphics/Texture/floating_lotus.png" id="1_q1g5b"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_puv0q"]
+height = 0.2
+
+[node name="FloatingLotusSmall" type="Node3D"]
+transform = Transform3D(0.764111, 0, -0.645084, 0, 1, 0, 0.645084, 0, 0.764111, -3.95746, -4.19515, 12.961)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0625
+axis = 1
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("1_q1g5b")
+region_enabled = true
+region_rect = Rect2(0, 32, 16, 16)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, 0)
+shape = SubResource("CylinderShape3D_puv0q")

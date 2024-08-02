@@ -76,7 +76,7 @@ func onKeyPressed(key:StringName):
 func _process(delta):
 	if !visible: return
 	# Close
-	if canCancel && Input.is_action_just_pressed("action_cancel"):
+	if canCancel && Input.is_action_just_pressed("action_extra"):
 		onCancel()
 		return
 	# Capitals
@@ -84,7 +84,7 @@ func _process(delta):
 		onKeyPressed(&"CASE")
 		return
 	# Delete
-	if Input.is_action_just_pressed("action_extra"):
+	if Input.is_action_just_pressed("action_cancel"):
 		if canCancel && nameLabel.text.length()==0:
 			onCancel()
 		onKeyPressed(&"BACK")
