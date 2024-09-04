@@ -47,3 +47,71 @@ ep4
 	should a second profecy talk about the role of the races, or something/someone mention it, how they're kind of the same, each fighting for their own cause, all beings possessing their own will
 		tho I guess also mention the way lilim act is usually not able to create understanding, except when it does, like with the wyvern and even Nybras (he's evil on his own accord, not because he's a lilim)
 	
+	you know... I kinda wish I could do... At meet with Mana, Hikari gets the option to join them. And then you get the option to either continue with Hikari or continue with whatever main team.
+	this would probably mean some characters going with Hikari (should this also have its own ramifications? would Minuet join Hikari?) AND also the pain of making sprites for Taro, Mana (this I need anyway), 
+	and party versions of Brenda and Nybras.
+	
+===
+TODO (RMXP)
+	"Retry" near Armored Insect, check stability (sometimes event does not work well after retry?).
+		- OK so what's going on, it's that when events have the "If Lose" branch, they shouldn't run the gameover event. Instead, let the "on lose" do its thing. Don't call gameover when "on lose" is present.
+	Maybe implement some sort of pseudo-RNG to help with consecutive misses.
+===
+
+Fehu		cattle
+Uruz		wild ox
+Thurisaz	a god (Thunraz)
+Ansuz		god
+Raido		ride
+kaunan		ulcer
+gebo		gift
+wunjo		joy
+hagalaz		hail
+naudiz		need
+isaz		ice
+jera		harvest
+ihwaz		yew-tree
+perth		pear-tree
+algiz		elk
+sowilo		sun
+tiwaz		god tiwaz
+berkanan	birch
+ehwaz		horse
+mannaz		man
+laguz		water
+ingwaz		god ingwaz
+dagaz		day
+othala		heritage
+
+===
+DAYS OF THE WEEK
+	Raido		ride
+	Fehu		cattle
+	ehwaz		horse
+	Uruz		wild ox
+	algiz		elk
+	mannaz		man
+	sowilo		sun
+
+SPRING
+	tiwaz		god tiwaz (Tyr)
+	gebo		gift
+	ihwaz		yew-tree
+SUMMER
+	ingwaz		god ingwaz (Freyr)
+	jera		harvest
+	perth		pear-tree
+FALL
+	Thurisaz	a god (Thunraz/Thor)
+	kenaz		torch
+	wunjo		joy
+WINTER
+	othala		heritage
+	naudiz		need
+	isaz		ice
+	hagalaz		hail
+
+berkanan	birch
+Ansuz		god
+dagaz		day
+laguz		water
