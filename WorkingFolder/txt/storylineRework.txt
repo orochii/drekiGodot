@@ -1,7 +1,15 @@
+TODO:
+	Intro: When Hikari tells the story, maybe change a bit that, make her tell the story to someone else, to avoid "disembodied narrator" as I don't like it.
+	RedWyvern: Fix gameover, currently not triggering.
+	RedWyvern: Check balance, it's a bit too hard in active mode.
+		- Nerf fliers. 20% evasion is way too much!
+		- Slow down enemy more while player is selecting actions.
+==
+
 intro
 	training cave
 	phamas forest
-	haleko mountain pass
+	haleko mountain (p)ass
 	end: graduation
 	n.parnassus letter to syrus
 	monsters' hideout
@@ -57,6 +65,25 @@ TODO (RMXP)
 		- OK so what's going on, it's that when events have the "If Lose" branch, they shouldn't run the gameover event. Instead, let the "on lose" do its thing. Don't call gameover when "on lose" is present.
 	Maybe implement some sort of pseudo-RNG to help with consecutive misses.
 ===
+Harvik is definitely another faction, so what if Aleko and Harvik's country have been fighting for control somewhere, or more like... Aleko wants to occupy their country.
+Yes, this is a Palestine reference, sorry. I do want to emphasize that neither is good, kinda? So not vilifying Aleko either. But! Harvik and the rest's motive rests there, 
+they will acquire the Eye of the Beast to use its power. The eye was collected by Jorgen after killing Manju and Ludwig. It was then believed to be lost, despite being an
+important Utgarian relic.
+
+PENDING: Give country and Harvik's team a name. Maybe something like the Dark Shell. Or the Dark Frame. It's English for Armazón Oscuro. XDDSDJASKDJASKDJSAKD
+
+After participating at the Parnassus Ruins mission, and Harvik attacking and destroying the Academy, you're sent to search for the key to Yggdrasil, the dimensional door.
+First mission is about searching the key, which appears to be the prize of the tournament at Syrinx colisseum. So beat some ass, get the key, but hey! There's one guy here,
+gasp it's Harvik, he then steals the key from you and runs away.
+Second mission, go to Cyr and check on the library. They get attacked by some assailants (?) that seem suspiciously similar to-- yeah it's Harvik's people again. This time
+you don't see traces of their boss (Harvik) but you do get to fight against uhh some boss or something. Could put the Chimera here, somehow.
+
+As for the end of the chapter...
+
+Aleko does decide to murder everyone in XCountry/town (? Harvik's). Aleko's motif is currently about the attack of Harvik's group to the Academy, they decide they will 
+clean the area, in case the rebels are still alive. You try to intervene and oppose to it, you prove to be at least enough of a hindrance. You're then sent to Niflheimr in 
+what Jorgen describes (to himself or something) as a suicide mission.
+-------------------------------------------------------------------------------------------------------------
 
 Fehu		cattle
 Uruz		wild ox
